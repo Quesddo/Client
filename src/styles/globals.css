@@ -2,13 +2,39 @@
 @import "./fonts.css";
 
 @theme {
-  /* Colors */
+  /* Font */
+  --font-light: "Pretendard-Light", sans-serif;
+  --font-normal: "Pretendard-Regular", sans-serif;
+  --font-medium: "Pretendard-Medium", sans-serif;
+  --font-semibold: "Pretendard-Semibold", sans-serif;
+  --font-bold: "Pretendard-Bold", sans-serif;
 
-  /* Mono */
+  /* Text */
+  --text-xs: 12px;
+  --text-xs--line-height: 16px;
+
+  --text-sm: 14px;
+  --text-sm--line-height: 20px;
+
+  --text-base: 16px;
+  --text-base--line-height: 24px;
+
+  --text-lg: 18px;
+  --text-lg--line-height: 18px;
+
+  --text-xl: 20px;
+  --text-xl--line-height: 28px;
+
+  --text-2xl: 24px;
+  --text-2xl--line-height: 32px;
+
+  --text-3xl: 30px;
+  --text-3xl--line-height: 36px;
+
+  /* Color */
   --color-white: #ffffff;
   --color-black: #000000;
 
-  /* Blue */
   --color-blue-50: #eff6ff;
   --color-blue-100: #dbeafe;
   --color-blue-200: #bfdbfe;
@@ -21,7 +47,6 @@
   --color-blue-900: #1e3a8a;
   --color-blue-950: #172554;
 
-  /* Slate */
   --color-slate-50: #f8fafc;
   --color-slate-100: #f1f5f9;
   --color-slate-200: #e2e8f0;
