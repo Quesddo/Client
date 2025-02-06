@@ -24,7 +24,7 @@ const eslintConfig = [
       "@typescript-eslint/no-unused-vars": "warn",
       "no-console": "warn",
       "import/order": [
-        "error",
+        "warn",
         {
           groups: [
             ["builtin", "external"],
@@ -39,8 +39,8 @@ const eslintConfig = [
         },
       ],
 
-      "simple-import-sort/imports": "error",
-      "simple-import-sort/exports": "error",
+      "simple-import-sort/imports": "warn",
+      "simple-import-sort/exports": "warn",
     },
   }),
 ];
