@@ -1,0 +1,44 @@
+name: "Random reviewer"
+
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - develop
+      - main
+
+jobs:
+  random-reviewer:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - id: random_reviewer
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const me = '${{ github.event.pull_request.user.login }}';
+            const candidates = ['thgee', 'hdayeon', 'Ralto13', 'euNung24'];
+            const candidatesWithoutMe = candidates.filter(id => id !== me);
+
+            const shuffled = candidatesWithoutMe.sort(() => 0.5 - Math.random());
+            const selectedReviewers = shuffled.slice(0, 2);
+
+            const comment = `@${selectedReviewers.join(', @')} 님 랜덤 리뷰어로 당첨되셨습니다! 리뷰를 부탁드립니다. 🙏`
+            core.setOutput('comment', comment);
+            core.setOutput('reviewers', selectedReviewers.join(','));
+
+      - name: Comment PR
+        uses: mshick/add-pr-comment@v1
+        with:
+          message: |
+            ${{ steps.random_reviewer.outputs.comment }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add Pull Request Reviewers
+        uses: madrapps/add-reviewers@v1
+        with:
+          reviewers: ${{ steps.random_reviewer.outputs.reviewers }}
+          token: ${{ secrets.GITHUB_TOKEN }}
