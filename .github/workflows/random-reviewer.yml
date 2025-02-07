@@ -11,6 +11,8 @@ on:
 jobs:
   random-reviewer:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - id: random_reviewer
         uses: actions/github-script@v3
@@ -34,7 +36,6 @@ jobs:
           message: |
             ${{ steps.random_reviewer.outputs.comment }}
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          repo-token-user-login: "github-actions[bot]"
 
       - name: Add Pull Request Reviewers
         uses: madrapps/add-reviewers@v1
