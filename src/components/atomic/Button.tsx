@@ -13,6 +13,7 @@ const buttonVariants = cva(
           "bg-white text-blue-500 hover:text-blue-600 focus:text-blue-800 disabled:bg-slate-400 border border-[curretColor]",
       },
       size: {
+        default: "w-full h-[48px] text-base",
         lg: "w-[291px] h-[48px] text-base",
         sm: "w-[150px] h-[44px] text-sm",
         xs: "w-[84px] h-[36px]  text-sm",
@@ -24,7 +25,7 @@ const buttonVariants = cva(
     },
     defaultVariants: {
       variant: "default",
-      size: "sm",
+      size: "default",
     },
   },
 );
