@@ -42,15 +42,7 @@ export const Default: Story = {
     variant: "default",
     size: "default",
     children: "Button",
-  },
-};
-
-export const Width: Story = {
-  args: {
-    variant: "default",
-    size: "default",
-    children: "Button",
-    className: "w-[200px]",
+    disabled: false,
   },
 };
 
