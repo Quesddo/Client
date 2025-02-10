@@ -1,53 +1,64 @@
-import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 
-import { Button } from "./Button";
+import Button from "@/components/atoms/Button";
+import type { Meta, StoryObj } from "@storybook/react";
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: "Example/Button",
+  title: "Common/Atomic/Button",
   component: Button,
-  parameters: {
-    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
-    layout: "centered",
-  },
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ["autodocs"],
-  // More on argTypes: https://storybook.js.org/docs/api/argtypes
   argTypes: {
-    backgroundColor: { control: "color" },
+    variant: {
+      control: "radio",
+      options: ["default", "outline"],
+      defaultValue: "default",
+    },
+    size: {
+      control: {
+        type: "radio",
+        labels: {
+          default: "default (height: 48px, text-base)",
+          lg: "lg (height: 48px, text-base)",
+          sm: "sm (height: 44px, text-sm)",
+          xs: "xs (height: 44px, text-sm)",
+        },
+      },
+      options: ["default", "lg", "sm", "xs"],
+      description: "default: w-full, 나머지: 특정 width 고정",
+    },
+    disabled: {
+      control: "boolean",
+    },
   },
-  // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
   args: { onClick: fn() },
 } satisfies Meta<typeof Button>;
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const Primary: Story = {
+export const Default: Story = {
   args: {
-    primary: true,
-    label: "Button",
+    variant: "default",
+    size: "default",
+    children: "Button",
   },
 };
 
-export const Secondary: Story = {
+export const Width: Story = {
   args: {
-    label: "Button",
+    variant: "default",
+    size: "default",
+    children: "Button",
+    className: "w-[200px]",
   },
 };
 
-export const Large: Story = {
+export const Disabled: Story = {
   args: {
-    size: "large",
-    label: "Button",
-  },
-};
-
-export const Small: Story = {
-  args: {
-    size: "small",
-    label: "Button",
+    variant: "default",
+    size: "default",
+    children: "Button",
+    disabled: true,
   },
 };
