@@ -6,16 +6,6 @@ import type { Path } from "react-hook-form";
 
 
 
-
-
-
-
-
-
-
-
-
-
 type Field<T> = {
   name: Path<T>;
   label: string;
