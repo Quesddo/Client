@@ -11,7 +11,7 @@ on:
       - feature/**/base
 
 jobs:
-  build:
+  CI:
     runs-on: ubuntu-latest
 
     steps:
