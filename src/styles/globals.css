@@ -62,4 +62,7 @@
   /* breakpoint */
   --breakpoint-sm: 375px;
   --breakpoint-md: 744px;
+
+* {
+  box-sizing: content-box;
 }
