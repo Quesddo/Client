@@ -38,13 +38,13 @@ export default function SidebarHeader({
           className={cn("hidden", !isOpen && "block h-[32px] w-[32px]")}
         />
       </Link>
-      <button onClick={onToggleSidebar} className="hidden sm:block">
+      <button onClick={onToggleSidebar}>
         <Image
           src={iconFold}
           width={24}
           height={24}
           alt={isOpen ? "사이드바 닫기" : "사이드바 열기"}
-          className={cn("cursor-pointer", !isOpen && "sm:scale-[-1]")}
+          className={cn("cursor-pointer", !isOpen && "scale-[-1]")}
         />
       </button>
     </div>
