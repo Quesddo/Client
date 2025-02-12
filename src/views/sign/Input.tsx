@@ -8,7 +8,7 @@ export interface InputContextProps {
   name: string;
   type: string;
   label?: string;
-  placehoder?: string;
+  placeholder?: string;
 }
 
 const InputContext = createContext<InputContextProps | null>(null);
@@ -22,10 +22,10 @@ export const InputComponent = ({
   type = "text",
   label,
   children,
-  placehoder,
+  placeholder,
 }: InputComponentProps) => {
   return (
-    <InputContext.Provider value={{ name, type, label, placehoder }}>
+    <InputContext.Provider value={{ name, type, label, placeholder }}>
       <div className="mt-6 flex flex-col first:mt-0">{children}</div>
     </InputContext.Provider>
   );
@@ -39,7 +39,7 @@ const Input = () => {
     throw new Error("Input must be used within an InputComponent");
   }
 
-  const { name, type, placehoder } = context;
+  const { name, type, placeholder } = context;
   const [inputType, setInputType] = useState(type);
 
   return (
@@ -47,8 +47,8 @@ const Input = () => {
       <input
         {...register(name)}
         type={inputType}
-        className="box-border h-11 w-full rounded-xl bg-slate-50 px-6 py-3 text-sm font-normal text-slate-400"
-        placeholder={placehoder && ""}
+        className="box-border h-11 w-full rounded-xl bg-slate-50 px-6 py-3 text-sm font-normal"
+        placeholder={placeholder}
       />
       {type === "password" && (
         <InputComponent.TogglePasswordButton setInputType={setInputType} />
