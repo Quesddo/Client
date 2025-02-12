@@ -21,7 +21,7 @@ const Form = ({ path }: { path: Path }) => {
             label={item.label}
             name={item.name}
             type={item.type}
-            placehoder={item.placehoder}
+            placeholder={item.placeholder}
           >
             <Input.Label />
             <Input.Input />
