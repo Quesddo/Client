@@ -1,0 +1,42 @@
+export const fieldSet = {
+  signup: [
+    {
+      label: "이름",
+      name: "name",
+      type: "text",
+      placehoder: "이름을 입력해주세요",
+    },
+    {
+      label: "이메일",
+      name: "email",
+      type: "text",
+      placehoder: "이메일을 입력해주세요",
+    },
+    {
+      label: "비밀번호",
+      name: "password",
+      type: "password",
+      placehoder: "비밀번호를 입력해주세요",
+    },
+    {
+      label: "비밀번호 확인",
+      name: "confirmPassword",
+      type: "password",
+      placehoder: "비밀번호 확인을 입력해주세요",
+    },
+  ],
+  login: [
+    {
+      label: "이메일",
+      name: "email",
+      type: "text",
+      placehoder: "이메일을 입력해주세요",
+    },
+    {
+      label: "비밀번호",
+      name: "password",
+      type: "password",
+      placehoder: "비밀번호를 입력해주세요",
+    },
+  ],
+};
