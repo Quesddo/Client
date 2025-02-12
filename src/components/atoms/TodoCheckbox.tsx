@@ -5,7 +5,10 @@ interface TodoCheckboxProps {
 
 export function TodoCheckbox({ done, onToggle }: TodoCheckboxProps) {
   return (
-    <button onClick={onToggle} className="flex items-center p-[3px]">
+    <button
+      onClick={onToggle}
+      className="flex cursor-pointer items-center p-[3px]"
+    >
       <img
         src={done ? "/active-check.png" : "/inactive-check.png"}
         alt={done ? "완료됨" : "미완료"}

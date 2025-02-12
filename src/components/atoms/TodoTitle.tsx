@@ -9,7 +9,7 @@ export function TodoTitle({ title, done }: TodoTitleProps) {
   return (
     <span
       className={cn(
-        "transition-all duration-150 group-hover:text-blue-500",
+        "cursor-default transition-all duration-150 group-hover:text-blue-500",
         done ? "line-through" : "",
       )}
     >
