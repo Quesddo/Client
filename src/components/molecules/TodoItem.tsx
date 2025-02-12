@@ -18,17 +18,19 @@ export function TodoItem({
   onOpenNoteModal,
 }: TodoItemProps) {
   return (
-    <li className="group flex">
+    <li className="group mb-2 flex h-6 w-full last:mb-0">
       <TodoCheckbox
         done={todo.done}
         onToggle={() => handleToggleTodo(todo.id, todo.done)}
       />
-      <TodoTitle title={todo.title} done={todo.done} />
-      <ActionIcon
-        todo={todo}
-        onOpenNoteDetail={onOpenNoteDetail}
-        onOpenNoteModal={onOpenNoteModal}
-      />
+      <div className="flex w-full items-center justify-between">
+        <TodoTitle title={todo.title} done={todo.done} />
+        <ActionIcon
+          todo={todo}
+          onOpenNoteDetail={onOpenNoteDetail}
+          onOpenNoteModal={onOpenNoteModal}
+        />
+      </div>
     </li>
   );
 }
