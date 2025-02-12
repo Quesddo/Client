@@ -1,4 +1,4 @@
-name: Merge Main to Develop
+name: Merge main to develop
 
 on:
   push:
@@ -6,23 +6,29 @@ on:
       - main
 
 jobs:
-  merge:
+  merge-to-develop:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      - name: Checkout main branch
+        uses: actions/checkout@v3
         with:
-          fetch-depth: 0
-      - name: Configure Git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Merge main into develop
+      - name: Configure Git user
         run: |
-          git checkout develop
-          git merge --no-ff main -m "Auto-merge main into develop"
-          git push origin develop
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      - name: Fetch develop branch
+        run: git fetch origin develop
+
+      - name: Checkout develop branch
+        run: git checkout develop
+
+      - name: Rebase develop onto main
+        run: |
+          git rebase origin/main || (git rebase --abort && exit 1)
+
+      - name: Push updated develop branch
+        run: git push origin develop --force-with-lease
