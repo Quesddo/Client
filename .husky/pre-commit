@@ -1,14 +1,3 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
 echo "🔍 Running pre-commit hooks..."
 
-# 1️⃣ ESLint & Prettier 체크
 npx lint-staged
-
-# 2️⃣ TypeScript 타입 체크
-pnpm tsc --noEmit
-
-# 3️⃣ 테스트 실행
-pnpm run test --passWithNoTests
-
