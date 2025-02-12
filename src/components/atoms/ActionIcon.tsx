@@ -1,5 +1,4 @@
 import { TodoResponse } from "@/types/todo";
-import { cn } from "@/utils/cn";
 
 interface ActionIconProps {
   todo: TodoResponse["todos"][number];
