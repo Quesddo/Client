@@ -37,8 +37,13 @@ export default function Sidebar({ title }: { title: string }) {
       </header>
       <aside
         className={cn(
-          "flex h-screen w-full flex-[0_0_100%] flex-col overflow-hidden border-r border-slate-200 pt-3 pb-8 transition-[flex] ease-[cubic-bezier(0,0.36,0,0.84)] sm:w-[280px] sm:flex-[0_0_280px] sm:pb-9",
-          !isOpen && "sm:w-[60px] sm:flex-[0_0_60px]",
+          // mobile 스타일
+          "z-20 flex h-screen w-full flex-[0_0_100%] flex-col overflow-hidden border-slate-200 bg-white pt-3 pb-8 transition-[flex] ease-[cubic-bezier(0,0.36,0,0.84)]",
+          // tablet + pc 스타일
+          "sm:w-[280px] sm:flex-[0_0_280px] sm:border-r sm:pb-9",
+          // tablet:fixed 관련
+          "sm:fixed sm:inset-y-0 sm:left-0 sm:transition-[width] md:relative",
+          !isOpen && "hidden sm:flex sm:w-[60px] sm:flex-[0_0_60px]",
         )}
       >
         <SidebarHeader isOpen={isOpen} onToggleSidebar={handleToggleSidebar} />
@@ -53,6 +58,15 @@ export default function Sidebar({ title }: { title: string }) {
           <MenuGoal />
         </div>
       </aside>
+      {/* backdrop & tablet:fixed */}
+      <div
+        className={cn(
+          "h-screen w-[60px]",
+          "hidden sm:block md:hidden",
+          "after:fixed after:inset-0 after:z-10 after:bg-black/50",
+          "after:hidden sm:after:block md:after:hidden",
+        )}
+      ></div>
     </>
   );
 }
