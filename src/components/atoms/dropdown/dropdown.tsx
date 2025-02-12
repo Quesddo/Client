@@ -22,7 +22,7 @@ interface DropdownProps extends VariantProps<typeof dropdownVariants> {
   className?: string;
 }
 
-function Dropdown({ size, items, className }: DropdownProps) {
+export default function Dropdown({ size, items, className }: DropdownProps) {
   return (
     <div
       className={cn(
@@ -42,5 +42,3 @@ function Dropdown({ size, items, className }: DropdownProps) {
     </div>
   );
 }
-
-export default Dropdown;
