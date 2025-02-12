@@ -1,7 +1,12 @@
 import Image from "next/image";
 import { ReactNode, useState } from "react";
 
-import Dropdown from "./dropdown";
+import Dropdown from "@/components/atoms/dropdown/dropdown";
+
+const dropdownItems = [
+  { label: "수정하기", onClick: () => alert("수정하기") },
+  { label: "삭제하기", onClick: () => alert("삭제하기") },
+];
 
 interface CardProps {
   children: ReactNode;
@@ -46,7 +51,12 @@ function CardHeader() {
         className="cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       />
-      {isOpen && <Dropdown size="sm" className="absolute top-[58px] right-6" />}
+      {isOpen && (
+        <Dropdown
+          items={dropdownItems}
+          className="absolute top-[58px] right-6"
+        />
+      )}
     </div>
   );
 }
