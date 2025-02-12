@@ -1,4 +1,5 @@
-import path from "path";
+/* eslint-disable @typescript-eslint/no-require-imports */
+const path = require("path");
 
 const buildEslintCommand = (filenames) =>
   `next lint --fix --file ${filenames
