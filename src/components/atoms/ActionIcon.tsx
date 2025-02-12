@@ -31,7 +31,7 @@ export function ActionIcon({
     {
       src: todo.noteId ? "/note-view.png" : "/note-write.png",
       alt: todo.noteId ? "노트보기" : "노트작성",
-      className: todo.noteId ? "" : "hidden group-hover:block",
+      className: todo.noteId ? "" : "hidden group-hover:block cursor-pointer",
       onClick: todo.noteId
         ? () => onOpenNoteDetail(todo.noteId)
         : onOpenNoteModal,
@@ -39,7 +39,7 @@ export function ActionIcon({
     {
       src: "/round-kebab.png",
       alt: "수정,삭제",
-      className: "hidden group-hover:block",
+      className: "hidden group-hover:block cursor-pointer",
       onClick: () => alert("수정/삭제 메뉴 열기"),
     },
   ].filter(Boolean) as ActionOptions[];
@@ -47,12 +47,7 @@ export function ActionIcon({
   return (
     <ul className="flex gap-2">
       {actions.map(({ src, alt, className, onClick }, index) => (
-        <li
-          key={index}
-          className={cn("cursor-pointer", className)}
-          onClick={onClick}
-          role="button"
-        >
+        <li key={index} className={className} onClick={onClick} role="button">
           <img src={src} alt={alt} width={24} height={24} />
         </li>
       ))}
