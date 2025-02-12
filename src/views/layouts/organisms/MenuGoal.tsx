@@ -1,3 +1,4 @@
+import { memo } from "react";
 import flag from "@public/icons/flag.png";
 
 import MenuItem from "../atoms/MenuItem";
@@ -5,7 +6,7 @@ import TabSideMenuList from "../molecules/TabSideMenuList";
 
 const items = ["hihihihi"];
 
-export default function MenuGoal() {
+export default memo(function MenuGoal() {
   return (
     <section className="flex min-h-0 flex-1 flex-col gap-3 pt-3">
       <div className="flex justify-between">
@@ -18,4 +19,4 @@ export default function MenuGoal() {
       </div>
     </section>
   );
-}
+});
