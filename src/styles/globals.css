@@ -63,3 +63,9 @@
   --breakpoint-sm: 375px;
   --breakpoint-md: 744px;
 }
+
+@layer base {
+  * {
+    box-sizing: content-box;
+  }
+}
