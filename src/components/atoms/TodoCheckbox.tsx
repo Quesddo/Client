@@ -7,7 +7,7 @@ export function TodoCheckbox({ done, onToggle }: TodoCheckboxProps) {
   return (
     <button
       onClick={onToggle}
-      className="flex cursor-pointer items-center p-[3px]"
+      className="mr-2 flex cursor-pointer items-center p-[3px]"
     >
       <img
         src={done ? "/active-check.png" : "/inactive-check.png"}
