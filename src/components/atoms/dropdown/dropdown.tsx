@@ -3,42 +3,37 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/utils/cn";
 
 const dropdownVariants = cva(
-  "flex w-fit flex-col gap-3 rounded-xl text-slate-700 shadow-lg z-10 bg-white",
+  "font-normal cursor-pointer m-auto rounded-lg hover:bg-gray-200",
   {
     variants: {
       size: {
-        md: "py-2 px-[21.5px]",
-        sm: "py-2 px-4",
+        sm: "text-sm py-2 px-4",
+        md: "text-lg py-2 px-[21.5px]",
       },
+    },
+    defaultVariants: {
+      size: "sm",
     },
   },
 );
 
-const textVariants = cva(
-  "font-normal cursor-pointer rounded-md p-2 hover:bg-gray-100",
-  {
-    variants: {
-      size: {
-        md: "text-lg",
-        sm: "text-sm",
-      },
-    },
-  },
-);
-
-interface DropdownProps
-  extends Required<VariantProps<typeof dropdownVariants>> {
-  className?: string;
+interface DropdownProps extends VariantProps<typeof dropdownVariants> {
   items: { label: string; onClick: () => void }[];
+  className?: string;
 }
 
-function Dropdown({ size, className, items }: DropdownProps) {
+function Dropdown({ size, items, className }: DropdownProps) {
   return (
-    <div className={cn(dropdownVariants({ size }), className)}>
+    <div
+      className={cn(
+        "flex w-fit flex-col rounded-xl bg-white text-slate-700 shadow-lg",
+        className,
+      )}
+    >
       {items.map((item, idx) => (
         <div
           key={idx}
-          className={cn(textVariants({ size }))}
+          className={cn(dropdownVariants({ size }))}
           onClick={item.onClick}
         >
           {item.label}
