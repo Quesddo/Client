@@ -1,7 +1,12 @@
 import Image from "next/image";
 import { ReactNode, useState } from "react";
 
-import Dropdown from "./dropdown";
+import Dropdown from "@/components/atoms/dropdown/dropdown";
+
+const dropdownItems = [
+  { label: "수정하기", onClick: () => alert("수정하기") },
+  { label: "삭제하기", onClick: () => alert("삭제하기") },
+];
 
 interface CardProps {
   children: ReactNode;
@@ -16,7 +21,7 @@ interface CardTitleProps {
 }
 
 interface CardContentProps {
-  todo: string;
+  children: ReactNode;
 }
 
 export default function Card({ children }: CardProps) {
@@ -46,7 +51,12 @@ function CardHeader() {
         className="cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       />
-      {isOpen && <Dropdown size="sm" className="absolute top-[58px] right-6" />}
+      {isOpen && (
+        <Dropdown
+          items={dropdownItems}
+          className="absolute top-[58px] right-6"
+        />
+      )}
     </div>
   );
 }
@@ -63,13 +73,13 @@ function CardDivider() {
   return <div className="h-[1px] bg-slate-200" />;
 }
 
-function CardContent({ todo }: CardContentProps) {
+function CardContent({ children }: CardContentProps) {
   return (
     <div className="flex items-center gap-2">
       <div className="rounded-sm bg-slate-100 px-[3px] py-[2px] text-xs font-medium text-slate-700">
         To do
       </div>
-      <h2 className="text-xs font-normal text-slate-700">{todo}</h2>
+      <h2 className="text-xs font-normal text-slate-700">{children}</h2>
     </div>
   );
 }
