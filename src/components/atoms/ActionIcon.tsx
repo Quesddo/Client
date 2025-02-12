@@ -11,6 +11,7 @@ interface ActionOptions {
   alt: string;
   className?: string;
   onClick?: () => void;
+  role?: string;
 }
 
 export function ActionIcon({
@@ -34,19 +35,21 @@ export function ActionIcon({
       onClick: todo.noteId
         ? () => onOpenNoteDetail(todo.noteId)
         : onOpenNoteModal,
+      role: "button",
     },
     {
       src: "/round-kebab.png",
       alt: "수정,삭제",
       className: "hidden group-hover:block cursor-pointer",
       onClick: () => alert("수정/삭제 메뉴 열기"),
+      role: "button",
     },
   ].filter(Boolean) as ActionOptions[];
 
   return (
     <ul className="flex gap-2">
-      {actions.map(({ src, alt, className, onClick }, index) => (
-        <li key={index} className={className} onClick={onClick} role="button">
+      {actions.map(({ src, alt, className, onClick, role }, index) => (
+        <li key={index} className={className} onClick={onClick} role={role}>
           <img src={src} alt={alt} width={24} height={24} />
         </li>
       ))}
