@@ -1,6 +1,6 @@
 import Card from "../../../views/notes/card";
+import { notes } from "../../../views/notes/dummy";
 import Goal from "../../../views/notes/goal";
-import { notes } from "./dummy";
 
 export default function NotesPage() {
   return (
