@@ -17,7 +17,7 @@ export default function NotesPage() {
               <Card.Body>
                 <Card.Title>{title}</Card.Title>
                 <Card.Divider />
-                <Card.Content todo={todo} />
+                <Card.Content>{todo}</Card.Content>
               </Card.Body>
             </Card>
           ))}
