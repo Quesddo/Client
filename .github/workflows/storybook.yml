@@ -23,16 +23,21 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install pnpm
+        run: |
+          npm install -g pnpm
+          pnpm --version
+
       - name: cache dependencies
         id: cache
         uses: actions/cache@v3
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}-storybook
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}-storybook
 
-      - name: depedency install
+      - name: dependency install
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm i
+        run: pnpm install
 
       - name: publish to chromatic
         id: chromatic
