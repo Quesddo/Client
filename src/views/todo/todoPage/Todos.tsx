@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 
-import TodoList from "@/components/organisms/TodoList";
+import TodoList from "@/components/organisms/todo-list/TodoList";
 import { TodoItem } from "@/types/todo";
 import { cn } from "@/utils/cn";
 
