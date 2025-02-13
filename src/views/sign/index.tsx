@@ -2,10 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
+import type { Path } from "@/types/auth";
 import Form from "@/views/sign/Form";
 import logo from "@public/img_logo.png";
-
-export type Path = "signup" | "login";
 
 export default function Body() {
   const router = useRouter();

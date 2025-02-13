@@ -24,3 +24,5 @@ export interface UserCreateRequst {
   password: string;
   confirmPassword?: string;
 }
+
+export type Path = "signup" | "login";
