@@ -68,5 +68,5 @@ jobs:
         with:
           comment_tag: ${{github.event.number}}-storybook
           message: |
-            🎨 Storybook: ${{ needs.storybook-preview.outputs.storybook_url }}
+            🎨 Storybook: [스토리북 바로가기](${{ needs.storybook-preview.outputs.storybook_url }})
             ⏰ Update: ${{ needs.storybook-preview.outputs.currnent_time }}
