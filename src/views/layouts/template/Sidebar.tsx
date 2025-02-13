@@ -1,5 +1,4 @@
 import hamburger from "@public/icons/hamburger.png";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import { cn } from "@/utils/cn";
@@ -31,7 +30,7 @@ export default function Sidebar({ title }: { title: string }) {
         className={cn("flex gap-4 px-4 py-3 sm:hidden", isOpen && "hidden")}
       >
         <button onClick={handleToggleSidebar}>
-          <Image src={hamburger} width={24} height={24} alt="메뉴" />
+          <img src="/icons/hamburger.png" width={24} height={24} alt="메뉴" />
         </button>
         <h1 className="text-base font-semibold">{title}</h1>
       </header>
