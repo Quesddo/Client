@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/utils/cn";
 
 const inputVariants = cva(
-  "inline-block px-[24px] py-[12px] rounded-[12px] bg-slate-50 text-slate-800 font-normal placeholder:text-slate-400 focus:outline-none focus:border focus:border-blue-500 hover:border-blue-300",
+  "box-border inline-block px-[24px] py-[12px] rounded-[12px] bg-slate-50 text-slate-800 font-normal placeholder:text-slate-400 focus:outline-none focus:border focus:border-blue-500 hover:border-blue-300",
   {
     variants: {
       size: {
