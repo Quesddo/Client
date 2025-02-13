@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import TodoList from "@/components/organisms/todo-list/TodoList";
 import { useTodos } from "@/hooks/todo/useTodos";
@@ -12,21 +12,26 @@ export default function TodoPage() {
   const FILTER_TYPES = ["All", "Done", "To do"] as const;
   const [filter, setFilter] = useState<(typeof FILTER_TYPES)[number]>("All");
 
-  const filteredTodos = data?.todos.filter((todo) => {
-    if (filter === "Done") return todo.done;
-    if (filter === "To do") return !todo.done;
-    return true;
-  });
-  const handleToggleTodo = (todoId: number, isDone: boolean) => {
-    toggleTodoMutation.mutate({ todoId, done: !isDone });
-  };
+  const filteredTodos = useMemo(() => {
+    if (!data) return [];
+    return data.todos.filter((todo) =>
+      filter === "Done" ? todo.done : filter === "To do" ? !todo.done : true,
+    );
+  }, [data, filter]);
+
+  const handleToggleTodo = useCallback(
+    (todoId: number, isDone: boolean) => {
+      toggleTodoMutation.mutate({ todoId, done: !isDone });
+    },
+    [toggleTodoMutation],
+  );
 
   if (isLoading) return <p>로딩중...</p>;
   if (error) return <p>에러 발생: {(error as Error).message}</p>;
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-100 px-6 pb-6 text-slate-800">
-      <div className="flex items-center justify-between">
+    <div className="flex min-h-[calc(100vh-48px-24px)] flex-col bg-slate-100 px-4 pb-6 text-slate-800 sm:min-h-[calc(100vh-24px)] sm:px-6 md:px-20">
+      <div className="flex items-center justify-between md:max-w-[792px]">
         <h1 className="py-[18px] text-base font-semibold sm:text-lg">
           모든 할일 ({data?.totalCount})
         </h1>
@@ -42,7 +47,7 @@ export default function TodoPage() {
         </button>
       </div>
 
-      <div className="flex flex-grow flex-col rounded-xl bg-white p-4 sm:p-6 md:max-w-[792px]">
+      <div className="flex h-full flex-grow flex-col rounded-xl bg-white p-4 sm:p-6 md:max-w-[744px]">
         <div>
           {FILTER_TYPES.map((type) => (
             <button
@@ -50,7 +55,7 @@ export default function TodoPage() {
               onClick={() => setFilter(type)}
               className={cn(
                 "mr-2 mb-4 rounded-full border border-slate-200 px-3 py-1 text-sm font-medium hover:shadow-sm",
-                filter === type ? "border-blue-500 bg-blue-500 text-white" : "",
+                filter === type && "border-blue-500 bg-blue-500 text-white",
               )}
             >
               {type}
@@ -63,8 +68,8 @@ export default function TodoPage() {
         ) : (
           <div className="flex flex-1 items-center justify-center text-sm font-normal text-slate-600">
             {filter === "All" && "등록한 일이 없어요"}
-            {filter === "Done" && "해야할 일이 아직 없어요"}
-            {filter === "To do" && "다 한 일이 아직 없어요"}
+            {filter === "Done" && "다 한 일이 아직 없어요"}
+            {filter === "To do" && "해야할 일이 아직 없어요"}
           </div>
         )}
       </div>
