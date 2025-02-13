@@ -1,6 +1,6 @@
 import { TodoResponse } from "@/types/todo";
 
-import { ActionIcon } from "../atoms/ActionIcon";
+import { ActionIcon } from "../atoms/action-icon/ActionIcon";
 import { TodoCheckbox } from "../atoms/TodoCheckbox";
 import { TodoTitle } from "../atoms/TodoTitle";
 
