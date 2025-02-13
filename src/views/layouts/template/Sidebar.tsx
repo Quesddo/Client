@@ -40,7 +40,7 @@ export default function Sidebar({ title }: { title: string }) {
           // tablet + pc 스타일
           "sm:w-[280px] sm:flex-[0_0_280px] sm:border-r sm:pb-9",
           // tablet:fixed 관련
-          "sm-sidebar:relative sm:fixed sm:inset-y-0 sm:left-0",
+          "smd:relative sm:fixed sm:inset-y-0 sm:left-0",
           !isOpen && "hidden sm:flex sm:w-[60px] sm:flex-[0_0_60px]",
         )}
       >
@@ -58,12 +58,12 @@ export default function Sidebar({ title }: { title: string }) {
       </aside>
       <div
         className={cn(
-          // sm ~ sm-sidebar 까지 fixed 된 공간 설정
+          // sm ~ smd 까지 fixed 된 공간 설정
           "h-screen w-[60px]",
-          "sm-sidebar:hidden hidden sm:block",
+          "smd:hidden hidden sm:block",
           // backdrop
           "after:fixed after:inset-0 after:z-10 after:bg-black/50 after:opacity-100 after:transition-[opacity] after:delay-[10ms]",
-          "sm-sidebar:after:hidden after:hidden sm:after:block",
+          "smd:after:hidden after:hidden sm:after:block",
           !isOpen && "after:opacity-0 sm:after:hidden",
         )}
       ></div>
