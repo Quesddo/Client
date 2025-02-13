@@ -23,7 +23,7 @@ export const useCreateGoal = () => {
           ...old,
           goals: [
             ...old.goals,
-            { id: getLastGoalId(old.goals) + 1, title: newGoal },
+            { id: `temp_${getLastGoalId(old.goals) + 1}`, title: newGoal },
           ],
         });
 
