@@ -5,11 +5,13 @@ import { useTodos } from "@/hooks/todo/useTodos";
 import { useUpdateTodo } from "@/hooks/todo/useUpdateTodo";
 import { cn } from "@/utils/cn";
 
+const HEADER_HEIGHT = 48;
+const FILTER_TYPES = ["All", "Done", "To do"] as const;
+
 export default function TodoPage() {
   const { data, isLoading, error } = useTodos();
   const toggleTodoMutation = useUpdateTodo();
 
-  const FILTER_TYPES = ["All", "Done", "To do"] as const;
   const [filter, setFilter] = useState<(typeof FILTER_TYPES)[number]>("All");
 
   const filteredTodos = useMemo(() => {
@@ -30,7 +32,13 @@ export default function TodoPage() {
   if (error) return <p>에러 발생: {(error as Error).message}</p>;
 
   return (
-    <div className="flex min-h-[calc(100vh-48px-24px)] flex-col bg-slate-100 px-4 pb-6 text-slate-800 sm:min-h-[calc(100vh-24px)] sm:px-6 md:px-20">
+    <div
+      className={cn(
+        "flex flex-col bg-slate-100 px-4 text-slate-800",
+        `min-h-[calc(100vh-${HEADER_HEIGHT}px)]`,
+        "sm:min-h-screen sm:px-6 md:px-20",
+      )}
+    >
       <div className="flex items-center justify-between md:max-w-[792px]">
         <h1 className="py-[18px] text-base font-semibold sm:text-lg">
           모든 할일 ({data?.totalCount})
@@ -47,7 +55,7 @@ export default function TodoPage() {
         </button>
       </div>
 
-      <div className="flex h-full flex-grow flex-col rounded-xl bg-white p-4 sm:p-6 md:max-w-[744px]">
+      <div className="mb-4 flex h-full flex-grow flex-col rounded-xl bg-white p-4 sm:mb-6 sm:p-6 md:max-w-[744px]">
         <div>
           {FILTER_TYPES.map((type) => (
             <button
