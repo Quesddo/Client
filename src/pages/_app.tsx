@@ -28,6 +28,7 @@ export default function App({ Component, pageProps }: PageProps) {
           <Component {...pageProps} />
         </main>
       </div>
+      <div id="global-modal"></div>
     </QueryClientProvider>
   );
 }

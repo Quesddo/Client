@@ -6,7 +6,7 @@ interface NewTodo {
   title: string;
 }
 
-export const useAddTodo = () => {
+export const useFetchTodo = () => {
   const queryClient = useQueryClient();
 
   return useMutation({

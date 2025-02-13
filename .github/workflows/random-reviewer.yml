@@ -5,8 +5,8 @@ on:
     types:
       - opened
     branches:
-      - develop
       - main
+      - feature/**
 
 jobs:
   random-reviewer:
