@@ -9,7 +9,7 @@ export default memo(function MenuDashboard() {
       <div className="hidden pb-[24px] sm:block">
         <button>새 할일</button>
       </div>
-      <section className="flex h-[60px] items-center justify-between border-t border-b border-slate-200 py-3">
+      <section className="flex h-[36px] items-center justify-between border-t border-b border-slate-200 py-3">
         <MenuItem title="대시보드" icon={home} />
         <button className="sm:hidden">새 할일</button>
       </section>
