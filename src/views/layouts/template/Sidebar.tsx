@@ -1,4 +1,3 @@
-import hamburger from "@public/icons/hamburger.png";
 import { useEffect, useState } from "react";
 
 import { cn } from "@/utils/cn";
@@ -37,11 +36,11 @@ export default function Sidebar({ title }: { title: string }) {
       <aside
         className={cn(
           // mobile 스타일
-          "z-20 box-border flex h-screen w-full flex-[0_0_100%] flex-col overflow-hidden border-slate-200 bg-white pt-3 pb-8 transition-[flex] ease-[cubic-bezier(0,0.36,0,0.84)]",
+          "z-20 box-border flex h-screen w-full flex-[0_0_100%] flex-col overflow-hidden border-slate-200 bg-white pt-3 pb-8 transition-[flex,width] ease-[cubic-bezier(0,0.36,0,0.84)]",
           // tablet + pc 스타일
           "sm:w-[280px] sm:flex-[0_0_280px] sm:border-r sm:pb-9",
           // tablet:fixed 관련
-          "sm:fixed sm:inset-y-0 sm:left-0 sm:transition-[width] md:relative",
+          "sm-sidebar:relative sm:fixed sm:inset-y-0 sm:left-0",
           !isOpen && "hidden sm:flex sm:w-[60px] sm:flex-[0_0_60px]",
         )}
       >
@@ -61,9 +60,9 @@ export default function Sidebar({ title }: { title: string }) {
       <div
         className={cn(
           "h-screen w-[60px]",
-          "hidden sm:block md:hidden",
+          "sm-sidebar:hidden hidden sm:block",
           "after:fixed after:inset-0 after:z-10 after:bg-black/50",
-          "after:hidden sm:after:block md:after:hidden",
+          "sm-sidebar::after:hidden after:hidden sm:after:block",
           !isOpen && "sm:after:hidden",
         )}
       ></div>
