@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - feature/**/base
+      - develop
 
 permissions:
   contents: write
