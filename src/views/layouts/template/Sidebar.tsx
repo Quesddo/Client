@@ -64,6 +64,7 @@ export default function Sidebar({ title }: { title: string }) {
           "hidden sm:block md:hidden",
           "after:fixed after:inset-0 after:z-10 after:bg-black/50",
           "after:hidden sm:after:block md:after:hidden",
+          !isOpen && "sm:after:hidden",
         )}
       ></div>
     </>
