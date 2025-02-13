@@ -1,6 +1,6 @@
 import { fn } from "@storybook/test";
 
-import Button from "@/components/atoms/Button";
+import Button from "@/components/atoms/button/Button";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
