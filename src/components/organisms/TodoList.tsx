@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { TodoResponse } from "@/types/todo";
 
-import { TodoItem } from "../molecules/TodoItem";
+import { TodoItem } from "../molecules/todo-item/TodoItem";
 import Modal from "./Modal";
 
 interface TodoListProps {
