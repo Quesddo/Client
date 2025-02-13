@@ -1,7 +1,4 @@
 import Image from "next/image";
-import iconFold from "@public/icons/fold.png";
-import logo from "@public/icons/logo.png";
-import logoHorizontal from "@public/icons/logo_horizontal.png";
 import Link from "next/link";
 
 import { cn } from "@/utils/cn";
@@ -23,15 +20,15 @@ export default function SidebarHeader({
       )}
     >
       <Link href="/">
-        <Image
-          src={logoHorizontal}
-          alt="로고"
+        <img
+          src="/icons/logo_horizontal.png"
+          alt="로고_horizontal"
           width={106}
           height={35}
           className={cn(!isOpen && "hidden")}
         />
-        <Image
-          src={logo}
+        <img
+          src="/icons/logo.png"
           alt="로고"
           width={32}
           height={32}
@@ -39,8 +36,8 @@ export default function SidebarHeader({
         />
       </Link>
       <button onClick={onToggleSidebar}>
-        <Image
-          src={iconFold}
+        <img
+          src="/icons/fold.png"
           width={24}
           height={24}
           alt={isOpen ? "사이드바 닫기" : "사이드바 열기"}
