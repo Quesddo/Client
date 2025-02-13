@@ -59,11 +59,11 @@ export default function Sidebar({ title }: { title: string }) {
       {/* backdrop & tablet:fixed */}
       <div
         className={cn(
-          "h-screen w-[60px]",
+          "h-screen w-[60px] opacity-100 transition-[opacity] delay-[10ms]",
           "sm-sidebar:hidden hidden sm:block",
           "after:fixed after:inset-0 after:z-10 after:bg-black/50",
           "sm-sidebar::after:hidden after:hidden sm:after:block",
-          !isOpen && "sm:after:hidden",
+          !isOpen && "opacity-0 sm:after:hidden",
         )}
       ></div>
     </>
