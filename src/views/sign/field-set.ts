@@ -1,4 +1,4 @@
-export const fieldSet = {
+const FIELD_SET = {
   signup: [
     {
       label: "이름",
@@ -40,3 +40,4 @@ export const fieldSet = {
     },
   ],
 };
+export default FIELD_SET;

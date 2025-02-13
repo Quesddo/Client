@@ -49,6 +49,7 @@ const Input = () => {
         type={inputType}
         className="box-border h-11 w-full rounded-xl bg-slate-50 px-6 py-3 text-sm font-normal"
         placeholder={placeholder}
+        id={name}
       />
       {type === "password" && (
         <InputComponent.TogglePasswordButton setInputType={setInputType} />
