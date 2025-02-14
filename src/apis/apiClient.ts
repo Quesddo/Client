@@ -1,5 +1,7 @@
-import axios from "axios";
 import type { AxiosError, AxiosInstance } from "axios";
+import axios from "axios";
+
+import { ErrorResponsePayload } from "@/types/types";
 
 const instance: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BACKEND_URL,
@@ -31,19 +33,17 @@ const handleError = (error: AxiosError): Promise<never> => {
     return Promise.reject(new Error("서버로부터 응답이 없습니다."));
   }
 
-  // error.response 존재할 때
-  const errorMessages: Record<number, string> = {
-    400: "잘못된 요청입니다.",
-    401: "인증에 실패했습니다.",
-    403: "접근 권한이 없습니다.",
-    404: "요청한 페이지를 찾을 수 없습니다.",
-    500: "서버에 오류가 발생했습니다.",
-  };
+  const { status, data } = error.response;
+  const serverMessage = (data as ErrorResponsePayload).message;
+
+  // 401 고정 메시지
+  if (status === 401) {
+    return Promise.reject(new Error("인증에 실패했습니다."));
+  }
+
+  // 나머지는 서버 메시지 우선
   return Promise.reject(
-    new Error(
-      errorMessages[error.response.status] ||
-        `오류가 발생했습니다: ${error.response.status}`,
-    ),
+    new Error(serverMessage || `오류가 발생했습니다: ${status}`),
   );
 };
 
