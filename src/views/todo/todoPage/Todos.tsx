@@ -6,6 +6,12 @@ import { cn } from "@/utils/cn";
 
 const FILTER_TYPES = ["All", "Done", "To do"] as const;
 
+const EMPTY_MESSAGE: Record<(typeof FILTER_TYPES)[number], string> = {
+  All: "등록한 일이 없어요",
+  Done: "다 한 일이 아직 없어요",
+  "To do": "해야할 일이 아직 없어요",
+};
+
 interface TodosProps {
   todos: TodoItem[] | [];
   onToggleTodo: (todoId: number, isDone: boolean) => void;
@@ -19,12 +25,6 @@ export default function Todos({ todos, onToggleTodo }: TodosProps) {
       filter === "Done" ? todo.done : filter === "To do" ? !todo.done : true,
     );
   }, [todos, filter]);
-
-  const emptyMessage: Record<(typeof FILTER_TYPES)[number], string> = {
-    All: "등록한 일이 없어요",
-    Done: "다 한 일이 아직 없어요",
-    "To do": "해야할 일이 아직 없어요",
-  };
 
   return (
     <div className="mb-4 flex h-full flex-grow flex-col rounded-xl bg-white p-4 sm:mb-6 sm:p-6 md:max-w-[744px]">
@@ -47,7 +47,7 @@ export default function Todos({ todos, onToggleTodo }: TodosProps) {
         <TodoList data={filteredTodos} handleToggleTodo={onToggleTodo} />
       ) : (
         <div className="flex flex-1 items-center justify-center text-sm font-normal text-slate-600">
-          {emptyMessage[filter]}
+          {EMPTY_MESSAGE[filter]}
         </div>
       )}
     </div>
