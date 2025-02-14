@@ -1,43 +1,53 @@
-import { useState } from "react";
+import { useCallback } from "react";
 
-import TodoList from "@/components/organisms/todo-list/TodoList";
 import { useTodos } from "@/hooks/todo/useTodos";
 import { useUpdateTodo } from "@/hooks/todo/useUpdateTodo";
+import { cn } from "@/utils/cn";
+import Todos from "@/views/todo/todoPage/Todos";
 
-export default function Home() {
+const HEADER_HEIGHT = 48;
+
+export default function TodoPage() {
   const { data, isLoading, error } = useTodos();
   const toggleTodoMutation = useUpdateTodo();
 
-  const filterType = ["All", "Done", "To do"] as const;
-  const [filter, setFilter] = useState<(typeof filterType)[number]>("All");
-
-  const filteredTodos = data?.todos.filter((todo) => {
-    if (filter === "Done") return todo.done;
-    if (filter === "To do") return !todo.done;
-    return true;
-  });
-  const handleToggleTodo = (todoId: number, isDone: boolean) => {
-    toggleTodoMutation.mutate({ todoId, done: !isDone });
-  };
+  const handleToggleTodo = useCallback(
+    (todoId: number, isDone: boolean) => {
+      toggleTodoMutation.mutate({ todoId, done: !isDone });
+    },
+    [toggleTodoMutation],
+  );
 
   if (isLoading) return <p>로딩중...</p>;
   if (error) return <p>에러 발생: {(error as Error).message}</p>;
 
+  const mobileHeight = `min-h-[calc(100vh-${HEADER_HEIGHT}px)]`;
+
   return (
-    <div>
-      <h1>모든 할일({data?.totalCount})</h1>
-      <div>
-        {filterType.map((type) => (
-          <button
-            key={type}
-            onClick={() => setFilter(type)}
-            className={filter === type ? "font-bold" : ""}
-          >
-            {type}
-          </button>
-        ))}
+    <div
+      className={cn(
+        "flex flex-col bg-slate-100 px-4 text-slate-800",
+        mobileHeight,
+        "sm:min-h-screen sm:px-6 md:px-20",
+      )}
+    >
+      <div className="flex items-center justify-between md:max-w-[792px]">
+        <h1 className="py-[18px] text-base font-semibold sm:text-lg">
+          모든 할일 ({data?.totalCount})
+        </h1>
+
+        <button className="flex items-center gap-1 text-sm font-semibold text-blue-500">
+          <img
+            src="/small-blue-plus.png"
+            alt="할일 추가"
+            width={16}
+            height={16}
+          />
+          할일 추가
+        </button>
       </div>
-      <TodoList data={filteredTodos} handleToggleTodo={handleToggleTodo} />
+
+      {data && <Todos todos={data.todos} onToggleTodo={handleToggleTodo} />}
     </div>
   );
 }

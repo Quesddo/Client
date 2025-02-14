@@ -14,7 +14,7 @@ export const useUpdateTodo = () => {
     onMutate: async ({ todoId, done }) => {
       await queryClient.cancelQueries({ queryKey: ["todos"] });
       const previousTodos = queryClient.getQueryData<TodoResponse>(["todos"]);
-      // 낙관적 업데이트
+
       if (previousTodos) {
         queryClient.setQueryData<TodoResponse>(["todos"], {
           ...previousTodos,
@@ -29,12 +29,11 @@ export const useUpdateTodo = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
-    onError: (error, variables, context) => {
-      // 낙관적 업데이트를 롤백
+    onError: (error, _, context) => {
       if (context?.previousTodos) {
         queryClient.setQueryData(["todos"], context.previousTodos);
       }
-      alert(`${error}`);
+      alert(`${error.message}`);
     },
   });
 };
