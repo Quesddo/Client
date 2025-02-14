@@ -33,18 +33,19 @@ const handleError = (error: AxiosError): Promise<never> => {
     return Promise.reject(new Error("서버로부터 응답이 없습니다."));
   }
 
-  const { status, data } = error.response;
-  const serverMessage = (data as ErrorResponsePayload).message;
+  const errorMessages: Record<number, string> = {
+    401: "인증에 실패했습니다.",
+  };
 
-  // 401 고정 메시지
-  if (status === 401) {
-    return Promise.reject(new Error("인증에 실패했습니다."));
+  if (error.response) {
+    const data = error.response.data as ErrorResponsePayload;
+    error.message =
+      errorMessages[error.response.status] ||
+      data.message ||
+      `오류가 발생했습니다. (코드: ${error.response.status})`;
   }
 
-  // 나머지는 서버 메시지 우선
-  return Promise.reject(
-    new Error(serverMessage || `오류가 발생했습니다: ${status}`),
-  );
+  return Promise.reject(error);
 };
 
 export default instance;
