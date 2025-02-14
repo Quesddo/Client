@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { memo, useMemo, useState } from "react";
 
 import TodoList from "@/components/organisms/todo-list/TodoList";
 import { TodoItem } from "@/types/todo";
@@ -17,7 +17,7 @@ interface TodosProps {
   onToggleTodo: (todoId: number, isDone: boolean) => void;
 }
 
-export default function Todos({ todos, onToggleTodo }: TodosProps) {
+export default memo(function Todos({ todos, onToggleTodo }: TodosProps) {
   const [filter, setFilter] = useState<(typeof FILTER_TYPES)[number]>("All");
 
   const filteredTodos = useMemo(() => {
@@ -52,4 +52,4 @@ export default function Todos({ todos, onToggleTodo }: TodosProps) {
       )}
     </div>
   );
-}
+});
