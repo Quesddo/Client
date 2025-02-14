@@ -5,6 +5,7 @@ import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
 import signAxios from "@/apis/sign/";
+import Button from "@/components/atoms/button/Button";
 import type { LoginRequest, Path, UserCreateRequst } from "@/types/auth";
 
 import FIELD_SET from "./field-set";
@@ -13,13 +14,13 @@ import Modal from "./Modal";
 import type { FieldValues } from "react-hook-form";
 
 const Form = ({ path }: { path: Path }) => {
-  const hookForm = useForm();
-  const field = FIELD_SET[path];
-  const router = useRouter();
-  const apiUrl = path === "signup" ? "/user" : "/auth/login";
-
   const [message, setMessage] = useState<string | null>(null);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const hookForm = useForm();
+  const router = useRouter();
+
+  const field = FIELD_SET[path];
+  const apiUrl = path === "signup" ? "/user" : "/auth/login";
 
   const handleRequest = async (
     formData: FieldValues | UserCreateRequst | LoginRequest,
@@ -32,6 +33,11 @@ const Form = ({ path }: { path: Path }) => {
         setIsOpenModal((prev) => !prev);
       }
     } catch (error) {
+      //에러 발생시 버튼 포커스 해제
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur();
+      }
+
       if (axios.isAxiosError(error)) {
         setMessage(error.response?.data.message);
       }
@@ -57,11 +63,9 @@ const Form = ({ path }: { path: Path }) => {
               <Input.Input />
             </Input>
           ))}
-          <input
-            type="submit"
-            className="mt-10 block h-12 w-full rounded-xl bg-slate-400 text-center text-base font-semibold text-white"
-            value={path === "signup" ? "회원가입하기" : "로그인하기"}
-          />
+          <Button type="submit" className="mt-10">
+            {path === "signup" ? "회원가입하기" : "로그인하기"}
+          </Button>
           <div className="mt-5 text-center">{message}</div>
         </form>
       </FormProvider>
