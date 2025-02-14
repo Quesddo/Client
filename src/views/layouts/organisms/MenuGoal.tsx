@@ -8,7 +8,7 @@ import MenuItem from "../atoms/MenuItem";
 import TabSideMenuList from "../molecules/TabSideMenuList";
 
 export default memo(function MenuGoal() {
-  const { data } = useFetchGoals();
+  const { data, isError, error } = useFetchGoals();
   const mutation = useCreateGoal();
   const [goalInput, setGoalInput] = useState("");
 
@@ -28,19 +28,25 @@ export default memo(function MenuGoal() {
         <button className="sm:hidden">새 목표</button>
       </div>
       <div className="flex min-h-0 flex-1 flex-col gap-6">
-        <TabSideMenuList items={data?.goals || []} />
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={goalInput}
-            onChange={handleInput}
-            className="border border-slate-300"
-          />
-          <button>제출</button>
-        </form>
-        <button type="button" className="h-[44px]">
-          새 목표
-        </button>
+        {!isError ? (
+          <>
+            <TabSideMenuList items={data?.goals || []} />
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                value={goalInput}
+                onChange={handleInput}
+                className="border border-slate-300"
+              />
+              <button>제출</button>
+            </form>
+            <button type="button" className="h-[44px]">
+              새 목표
+            </button>
+          </>
+        ) : (
+          <p>에러 발생: {(error as Error).message}</p>
+        )}
       </div>
     </section>
   );
