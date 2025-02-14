@@ -843,94 +843,71 @@ export type TeamIdGoalsGetSortOrderEnum =
 
 // ========== Params type ============
 export interface teamIdAuthLoginPostParams {
-  teamId: string;
   loginBodyDto: LoginBodyDto;
 }
-export interface teamIdAuthTokensPostParams {
-  teamId: string;
-}
+
 export interface teamIdFilesPostParams {
-  teamId: string;
   file: File;
 }
 export interface teamIdGoalsGetParams {
-  teamId: string;
   cursor?: number;
   size?: number;
   sortOrder?: TeamIdGoalsGetSortOrderEnum;
 }
 export interface teamIdGoalsGoalIdDeleteParams {
-  teamId: string;
   goalId: number;
 }
 export interface teamIdGoalsGoalIdGetParams {
-  teamId: string;
   goalId: number;
 }
 export interface teamIdGoalsGoalIdPatchParams {
-  teamId: string;
   goalId: number;
   updateGoalBodyDto: UpdateGoalBodyDto;
 }
 export interface teamIdGoalsPostParams {
-  teamId: string;
   createGoalBodyDto: CreateGoalBodyDto;
 }
 export interface teamIdNotesGetParams {
-  teamId: string;
   goalId?: number;
   cursor?: number;
   size?: number;
 }
 export interface teamIdNotesNoteIdDeleteParams {
-  teamId: string;
   noteId: number;
 }
 export interface teamIdNotesNoteIdGetParams {
-  teamId: string;
   noteId: number;
 }
 export interface teamIdNotesNoteIdPatchParams {
-  teamId: string;
   noteId: number;
   updateNoteBodyDto: UpdateNoteBodyDto;
 }
 export interface teamIdNotesPostParams {
-  teamId: string;
   createNoteBodyDto: CreateNoteBodyDto;
 }
 export interface teamIdTodosGetParams {
-  teamId: string;
   goalId?: number;
   done?: boolean;
   cursor?: number;
   size?: number;
 }
 export interface teamIdTodosPostParams {
-  teamId: string;
   createTodoBodyDto: CreateTodoBodyDto;
 }
 export interface teamIdTodosProgressGetParams {
-  teamId: string;
   goalId?: number;
 }
 export interface teamIdTodosTodoIdDeleteParams {
-  teamId: string;
   todoId: number;
 }
 export interface teamIdTodosTodoIdGetParams {
-  teamId: string;
   todoId: number;
 }
 export interface teamIdTodosTodoIdPatchParams {
-  teamId: string;
   todoId: number;
   updateTodoBodyDto: UpdateTodoBodyDto;
 }
-export interface teamIdUserGetParams {
-  teamId: string;
-}
+
 export interface teamIdUserPostParams {
-  teamId: string;
   userCreateRequstDto: UserCreateRequstDto;
 }

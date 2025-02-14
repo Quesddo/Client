@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import TodoList from "@/components/organisms/TodoList";
+import TodoList from "@/components/organisms/todo-list/TodoList";
 import { useTodos } from "@/hooks/todo/useTodos";
 import { useUpdateTodo } from "@/hooks/todo/useUpdateTodo";
 

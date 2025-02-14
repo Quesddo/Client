@@ -1,4 +1,4 @@
-import Input from "@/components/atoms/Input";
+import Input from "@/components/atoms/input/Input";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
