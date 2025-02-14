@@ -7,7 +7,7 @@ import Profile from "@/views/layouts/organisms/Profile";
 
 import SidebarHeader from "../organisms/SidebarHeader";
 
-const MOBILE_BREAKPOINT = 744;
+const TABLET_BREAKPOINT = 964;
 
 export default function Sidebar({ title }: { title: string }) {
   const [isOpen, setIsOpen] = useState(true);
@@ -18,7 +18,7 @@ export default function Sidebar({ title }: { title: string }) {
 
   useEffect(() => {
     // 모바일이면 Sidebar를 닫음
-    if (window.innerWidth < MOBILE_BREAKPOINT) {
+    if (window.innerWidth < TABLET_BREAKPOINT) {
       setIsOpen(false);
     }
   }, []);
