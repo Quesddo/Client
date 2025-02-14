@@ -50,7 +50,7 @@ export function ActionIcon({
   ].filter(Boolean) as ActionOptions[];
 
   return (
-    <ul className="flex transition">
+    <ul className="flex flex-shrink-0 transition">
       {actions.map(({ src, alt, className, onClick, role }, index) => (
         <li
           key={index}
