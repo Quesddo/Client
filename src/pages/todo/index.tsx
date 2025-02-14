@@ -21,11 +21,13 @@ export default function TodoPage() {
   if (isLoading) return <p>로딩중...</p>;
   if (error) return <p>에러 발생: {(error as Error).message}</p>;
 
+  const mobileHeight = `min-h-[calc(100vh-${HEADER_HEIGHT}px)]`;
+
   return (
     <div
       className={cn(
         "flex flex-col bg-slate-100 px-4 text-slate-800",
-        `min-h-[calc(100vh-${HEADER_HEIGHT}px)]`,
+        mobileHeight,
         "sm:min-h-screen sm:px-6 md:px-20",
       )}
     >
