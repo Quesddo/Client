@@ -7,6 +7,7 @@ import { useTodos } from "@/hooks/todo/useTodos";
 import { useUpdateTodo } from "@/hooks/todo/useUpdateTodo";
 import DeletePopup from "@/views/todo/popup/DeletePopup";
 import TodoUpdateForm from "@/views/todo/todo-update-form/TodoUpdateForm";
+import { cn } from "@/utils/cn";
 
 export default function TodoPage() {
   const { data } = useTodos();
@@ -30,18 +31,26 @@ export default function TodoPage() {
   };
 
   return (
-    <div>
-      <h1>모든 할일({data?.totalCount})</h1>
-      <div>
-        {filterType.map((type) => (
-          <button
-            key={type}
-            onClick={() => setFilter(type)}
-            className={filter === type ? "font-bold" : ""}
-          >
-            {type}
-          </button>
-        ))}
+    <div
+      className={cn(
+        "flex flex-col bg-slate-100 px-4 text-slate-800",
+        "sm:min-h-screen sm:px-6 md:px-20",
+      )}
+    >
+      <div className="flex items-center justify-between md:max-w-[792px]">
+        <h1 className="py-[18px] text-base font-semibold sm:text-lg">
+          모든 할일 ({data?.totalCount})
+        </h1>
+
+        <button className="flex items-center gap-1 text-sm font-semibold text-blue-500">
+          <img
+            src="/small-blue-plus.png"
+            alt="할일 추가"
+            width={16}
+            height={16}
+          />
+          할일 추가
+        </button>
       </div>
 
       <TodoList
