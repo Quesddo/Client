@@ -16,7 +16,7 @@ const buttonVariants = cva(
         default: "w-full h-[48px] text-base",
         lg: "w-[291px] h-[48px] text-base",
         sm: "w-[150px] h-[44px] text-sm",
-        xs: "w-[84px] h-[36px]  text-sm",
+        xs: "w-[84px] h-[36px] text-sm",
       },
       rounded: {
         true: "rounded-[24px]",
@@ -38,12 +38,14 @@ type ButtonProps = ButtonElementProps;
 export default function Button({
   variant = "default",
   size = "default",
+  type = "button",
   className,
   ...props
 }: ButtonProps) {
   return (
     <button
       className={cn(buttonVariants({ variant, size, className }))}
+      type={type}
       {...props}
     />
   );
