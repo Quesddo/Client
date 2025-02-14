@@ -1,14 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 
 import type { Path } from "@/types/auth";
 import Form from "@/views/sign/Form";
 import logo from "@public/img_logo.png";
 
 export default function Body() {
-  const router = useRouter();
-  const path = router.asPath.slice(1) as Path;
+  const pathname = usePathname();
+  const path = pathname.slice(1) as Path;
 
   return (
     <div className="mt-12 sm:mt-16 md:mt-30">
