@@ -14,9 +14,12 @@ export const card: Story = {
     <Card>
       <Card.Header />
       <Card.Body>
-        <Card.Title>할 일 목록</Card.Title>
+        <Card.Title>자바스크립트를 시작하기 전 준비물</Card.Title>
         <Card.Divider />
-        <Card.Content>UI 컴포넌트 작업</Card.Content>
+        <Card.Content>
+          <Card.TodoStatus>To do</Card.TodoStatus>
+          <Card.TodoTitle>자바스크립트 기초 챕터2 듣기</Card.TodoTitle>
+        </Card.Content>
       </Card.Body>
     </Card>
   ),
