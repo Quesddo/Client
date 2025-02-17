@@ -13,22 +13,20 @@ const LOGIN = [
   },
 ];
 
-const FIELD_SET = {
-  signup: [
-    {
-      label: "이름",
-      name: "name",
-      type: "text",
-      placeholder: "이름을 입력해주세요",
-    },
-    ...LOGIN,
-    {
-      label: "비밀번호 확인",
-      name: "confirmPassword",
-      type: "password",
-      placeholder: "비밀번호 확인을 입력해주세요",
-    },
-  ],
-  login: LOGIN,
-};
-export default FIELD_SET;
+const SIGNUP = [
+  {
+    label: "이름",
+    name: "name",
+    type: "text",
+    placeholder: "이름을 입력해주세요",
+  },
+  ...LOGIN,
+  {
+    label: "비밀번호 확인",
+    name: "confirmPassword",
+    type: "password",
+    placeholder: "비밀번호 확인을 입력해주세요",
+  },
+];
+
+export { LOGIN, SIGNUP };
