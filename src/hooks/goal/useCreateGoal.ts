@@ -3,11 +3,16 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import instance from "@/apis/apiClient";
 import { CreateGoalBodyDto, TeamIdGoalsGet200Response } from "@/types/types";
 
+interface UseCreateGoalProps {
+  onSuccess?: () => void;
+  onError?: () => void;
+}
+
 const getLastGoalId = (goalList: TeamIdGoalsGet200Response["goals"]) => {
   return goalList.length ? goalList[goalList.length - 1].id : -1;
 };
 
-export const useCreateGoal = () => {
+export const useCreateGoal = (options?: UseCreateGoalProps) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -34,12 +39,16 @@ export const useCreateGoal = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["goals"] });
+
+      options?.onSuccess?.();
     },
     onError: (error, _, context) => {
       if (context?.previousTodos) {
         queryClient.setQueryData(["goals"], context?.previousTodos);
       }
       alert(error);
+
+      options?.onError?.();
     },
   });
 };
