@@ -1,8 +1,12 @@
+import { memo } from "react";
+
 type GoalCreationFormProps = {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 };
 
-export default function GoalCreationForm({ onSubmit }: GoalCreationFormProps) {
+export default memo(function GoalCreationForm({
+  onSubmit,
+}: GoalCreationFormProps) {
   return (
     <form
       className="box-border flex w-full flex-col gap-2 rounded-lg bg-white px-2 text-sm font-medium"
@@ -19,4 +23,4 @@ export default function GoalCreationForm({ onSubmit }: GoalCreationFormProps) {
       </div>
     </form>
   );
-}
+});

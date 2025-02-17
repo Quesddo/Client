@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, memo } from "react";
 
 import Button from "@/components/atoms/button/Button";
 import PlusIcon from "@/components/atoms/plus-icon/PlusIcon";
@@ -9,7 +9,7 @@ interface ButtonPlusIconProps extends HTMLAttributes<HTMLButtonElement> {
   outline?: boolean;
 }
 
-export default function AddButton({
+export default memo(function AddButton({
   size = "default",
   outline = false,
   className,
@@ -33,4 +33,4 @@ export default function AddButton({
       <span className={cn(isSmallSize ? "px-0.5" : "px-1")}>{children}</span>
     </Button>
   );
-}
+});
