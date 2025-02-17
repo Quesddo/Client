@@ -8,14 +8,14 @@ interface TodoItemProps {
   todo: TodoResponse["todos"][number];
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
   onOpenNoteDetail: (noteId: TodoResponse["todos"][number]["noteId"]) => void;
-  onOpenNoteModal: () => void;
+  onOpenTodoModal: () => void;
 }
 
 export function TodoItem({
   todo,
   handleToggleTodo,
   onOpenNoteDetail,
-  onOpenNoteModal,
+  onOpenTodoModal,
 }: TodoItemProps) {
   return (
     <li className="group mb-2 flex h-6 w-full last:mb-0">
@@ -28,7 +28,7 @@ export function TodoItem({
         <ActionIcon
           todo={todo}
           onOpenNoteDetail={onOpenNoteDetail}
-          onOpenNoteModal={onOpenNoteModal}
+          onOpenTodoModal={onOpenTodoModal}
         />
       </div>
     </li>
