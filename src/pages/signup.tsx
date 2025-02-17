@@ -5,10 +5,11 @@ import Button from "@/components/atoms/button/Button";
 import { useSignUp } from "@/hooks/auth/useSign";
 import { SIGNUP } from "@/views/sign/field-set";
 import Form from "@/views/sign/Form";
+import Modal from "@/views/sign/Modal";
 import logo from "@public/img_logo.png";
 
 export default function Signup() {
-  const { mutate, isError, error } = useSignUp();
+  const { mutate, isError, error, isSuccess } = useSignUp();
 
   return (
     <div className="mt-12 sm:mt-16 md:mt-30">
@@ -36,6 +37,7 @@ export default function Signup() {
           로그인
         </Link>
       </p>
+      {isSuccess && <Modal />}
     </div>
   );
 }
