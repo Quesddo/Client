@@ -1,49 +1,35 @@
-import axios from "axios";
-import { useRouter } from "next/router";
-import { useState } from "react";
-
+import { ReactNode } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
-import signAxios from "@/apis/sign/";
-import Button from "@/components/atoms/button/Button";
-import type { LoginRequest, Path, UserCreateRequst } from "@/types/auth";
+import { UserCreateRequstDto } from "@/types/types";
 
-import { LOGIN, SIGNUP } from "./field-set";
 import Input from "./Input";
-import Modal from "./Modal";
-import type { FieldValues } from "react-hook-form";
 
-const Form = ({ path }: { path: Path }) => {
-  const [message, setMessage] = useState<string | null>(null);
-  const [disabled, setDisabled] = useState(false);
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  const hookForm = useForm();
-  const router = useRouter();
+interface InputAttribute {
+  name: string;
+  type: string;
+  label: string;
+  placeholder: string;
+}
 
-  const isLoginPage = path === "login" ? true : false;
-  const apiUrl = isLoginPage ? "/auth/login" : "/user";
-  const field = isLoginPage ? LOGIN : SIGNUP;
+interface FormData extends UserCreateRequstDto {
+  confirmPassword: string;
+}
 
-  const handleRequest = async (
-    formData: FieldValues | UserCreateRequst | LoginRequest,
-  ) => {
-    try {
-      setMessage(null);
-      setDisabled((prev) => !prev);
-      await signAxios.post(apiUrl, formData);
-      setDisabled((prev) => !prev);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setMessage(error.response?.data.message);
-      }
-      setDisabled((prev) => !prev);
-    } finally {
-      // if (isLoginPage) {
-      //   router.push("/dashboard");
-      // } else {
-      //   setIsOpenModal((prev) => !prev);
-      // }
-    }
+interface FormProps<T extends FormData> {
+  children: ReactNode;
+  field: InputAttribute[];
+  onSubmit: (data: T) => void;
+}
+
+const Form = <T extends FormData>({
+  children,
+  field,
+  onSubmit,
+}: FormProps<T>) => {
+  const hookForm = useForm<T>();
+  const handleRequest = async (formData: T) => {
+    onSubmit(formData);
   };
 
   return (
@@ -65,13 +51,9 @@ const Form = ({ path }: { path: Path }) => {
               <Input.Input />
             </Input>
           ))}
-          <Button type="submit" className="mt-10" disabled={disabled}>
-            {isLoginPage ? "로그인하기" : "회원가입하기"}
-          </Button>
-          <div className="mt-5 text-center">{message}</div>
+          {children}
         </form>
       </FormProvider>
-      {isOpenModal && <Modal />}
     </>
   );
 };

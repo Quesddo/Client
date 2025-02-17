@@ -2,6 +2,8 @@ import On from "@public/visibility_on.png";
 import Image from "next/image";
 import React, { createContext, useContext, useState } from "react";
 import { useFormContext } from "react-hook-form";
+
+import Input from "@/components/atoms/input/Input";
 import Off from "@public/visibility_off.png";
 
 export interface InputContextProps {
@@ -31,7 +33,7 @@ export const InputComponent = ({
   );
 };
 
-const Input = () => {
+const InputContainer = () => {
   const { register } = useFormContext();
   const context = useContext(InputContext);
 
@@ -44,10 +46,9 @@ const Input = () => {
 
   return (
     <div className="relative">
-      <input
+      <Input
         {...register(name)}
         type={inputType}
-        className="box-border h-11 w-full rounded-xl bg-slate-50 px-6 py-3 text-sm font-normal"
         placeholder={placeholder}
         id={name}
       />
@@ -93,7 +94,7 @@ const TogglePasswordButton = ({
   );
 };
 
-InputComponent.Input = Input;
+InputComponent.Input = InputContainer;
 InputComponent.Label = Label;
 InputComponent.TogglePasswordButton = TogglePasswordButton;
 
