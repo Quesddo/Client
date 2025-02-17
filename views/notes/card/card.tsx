@@ -12,18 +12,6 @@ interface CardProps {
   children: ReactNode;
 }
 
-interface CardBodyProps {
-  children: ReactNode;
-}
-
-interface CardTitleProps {
-  children: ReactNode;
-}
-
-interface CardContentProps {
-  children: ReactNode;
-}
-
 export default function Card({ children }: CardProps) {
   return (
     <div className="relative flex flex-col gap-4 rounded-xl bg-white p-6">
@@ -61,11 +49,11 @@ function CardHeader() {
   );
 }
 
-function CardBody({ children }: CardBodyProps) {
+function CardBody({ children }: CardProps) {
   return <div className="flex flex-col justify-start gap-3">{children}</div>;
 }
 
-function CardTitle({ children }: CardTitleProps) {
+function CardTitle({ children }: CardProps) {
   return <h1 className="text-lg font-medium text-slate-800">{children}</h1>;
 }
 
@@ -73,15 +61,19 @@ function CardDivider() {
   return <div className="h-[1px] bg-slate-200" />;
 }
 
-function CardContent({ children }: CardContentProps) {
+function CardContent({ children }: CardProps) {
+  return <div className="flex items-center gap-2">{children}</div>;
+}
+
+function CardTodoStatus({ children }: CardProps) {
   return (
-    <div className="flex items-center gap-2">
-      <div className="rounded-sm bg-slate-100 px-[3px] py-[2px] text-xs font-medium text-slate-700">
-        To do
-      </div>
-      <h2 className="text-xs font-normal text-slate-700">{children}</h2>
+    <div className="rounded-sm bg-slate-100 px-[3px] py-[2px] text-xs font-medium text-slate-700">
+      {children}
     </div>
   );
+}
+function CardTodoTitle({ children }: CardProps) {
+  return <h2 className="text-xs font-normal text-slate-700">{children}</h2>;
 }
 
 Card.Header = CardHeader;
@@ -89,3 +81,5 @@ Card.Body = CardBody;
 Card.Title = CardTitle;
 Card.Divider = CardDivider;
 Card.Content = CardContent;
+Card.TodoStatus = CardTodoStatus;
+Card.TodoTitle = CardTodoTitle;
