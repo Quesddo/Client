@@ -22,14 +22,14 @@ export default function PlusIcon({
       <path
         d="M5 12H18.5"
         stroke="currentColor"
-        stroke-width="1.8"
-        stroke-linecap="round"
+        strokeWidth="1.8"
+        strokeLinecap="round"
       />
       <path
         d="M11.75 18.75V5.25"
         stroke="currentColor"
-        stroke-width="1.8"
-        stroke-linecap="round"
+        strokeWidth="1.8"
+        strokeLinecap="round"
       />
     </svg>
   );
