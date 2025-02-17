@@ -1,4 +1,3 @@
-import flag from "@public/icons/flag.png";
 import { FormEventHandler, memo, useRef, useState } from "react";
 
 import { useCreateGoal } from "@/hooks/goal/useCreateGoal";
@@ -39,7 +38,7 @@ export default memo(function MenuGoal() {
     <>
       <section className="flex min-h-0 flex-1 flex-col gap-3 pt-3">
         <div className="flex justify-between">
-          <MenuItem title="목표" icon={flag} />
+          <MenuItem title="목표" iconSrc="/icons/flag.png" />
           <AddButton
             size="xs"
             outline
