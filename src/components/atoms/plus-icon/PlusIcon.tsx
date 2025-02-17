@@ -1,9 +1,14 @@
 type PlusIconProps = Pick<
   React.SVGProps<SVGSVGElement>,
-  "width" | "height" | "color"
+  "width" | "height" | "color" | "className"
 >;
 
-export default function PlusIcon({ width, height, color }: PlusIconProps) {
+export default function PlusIcon({
+  width,
+  height,
+  color,
+  className,
+}: PlusIconProps) {
   return (
     <svg
       width={width || 24}
@@ -12,6 +17,7 @@ export default function PlusIcon({ width, height, color }: PlusIconProps) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       color={color}
+      className={className}
     >
       <path
         d="M5 12H18.5"
