@@ -1,24 +1,17 @@
 import { ReactNode } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
+import { SignField } from "@/types/Sign";
 import { UserCreateRequstDto } from "@/types/types";
 
 import Input from "./Input";
-
-interface InputAttribute {
-  name: string;
-  type: string;
-  label: string;
-  placeholder: string;
-}
-
 interface FormData extends UserCreateRequstDto {
   confirmPassword: string;
 }
 
 interface FormProps<T extends FormData> {
   children: ReactNode;
-  field: InputAttribute[];
+  field: SignField[];
   onSubmit: (data: T) => void;
 }
 

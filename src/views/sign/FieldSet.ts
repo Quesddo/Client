@@ -1,4 +1,6 @@
-const LOGIN = [
+import { SignField } from "@/types/Sign";
+
+const LOGIN: SignField[] = [
   {
     label: "이메일",
     name: "email",
@@ -13,7 +15,7 @@ const LOGIN = [
   },
 ];
 
-const SIGNUP = [
+const SIGNUP: SignField[] = [
   {
     label: "이름",
     name: "name",

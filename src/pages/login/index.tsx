@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import Button from "@/components/atoms/button/Button";
 import { useLogin } from "@/hooks/auth/useSign";
-import { LOGIN } from "@/views/sign/field-set";
+import { LOGIN } from "@/views/sign/FieldSet";
 import Form from "@/views/sign/Form";
 import logo from "@public/img_logo.png";
 
