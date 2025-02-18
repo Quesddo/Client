@@ -1,4 +1,4 @@
-import Goal from "./goal";
+import Goal from "./Goal";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof Goal> = {

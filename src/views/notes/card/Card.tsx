@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ReactNode, useState } from "react";
 
-import Dropdown from "@/components/atoms/dropdown/dropdown";
+import Dropdown from "@/components/atoms/dropdown/Dropdown";
 
 const dropdownItems = [
   { label: "수정하기", onClick: () => alert("수정하기") },
