@@ -15,7 +15,6 @@ export default memo(function MenuDashboard() {
           <MenuItem title="대시보드" iconSrc="/icons/home.png" />
         </Link>
         <AddButton size="xs">새 할일</AddButton>
-        <button className="sm:hidden">새 할일</button>
       </section>
     </>
   );
