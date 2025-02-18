@@ -3,6 +3,7 @@ import { ForwardedRef, forwardRef, memo, useRef } from "react";
 import useInfiniteGoals from "@/hooks/goal/useIniniteGoals";
 import { cn } from "@/utils/cn";
 import TabSideMenuItem from "./TabSideMenuItem";
+
 import { TeamIdGoalsGet200Response } from "@/types/types";
 
 export default memo(
