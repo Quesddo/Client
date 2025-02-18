@@ -3,7 +3,7 @@ import { useState } from "react";
 import { TodoResponse } from "@/types/todo";
 
 import { TodoItem } from "../../molecules/todo-item/TodoItem";
-import Modal from "../modal/Modal";
+import CreateModal from "../modal/CreateModal";
 
 interface TodoListProps {
   data?: TodoResponse["todos"];
@@ -23,16 +23,16 @@ export default function TodoList({ data, handleToggleTodo }: TodoListProps) {
           onOpenNoteDetail={(noteId) => {
             console.log(`노트 상세 페이지 열기: ${noteId}`);
           }}
-          onOpenNoteModal={() => {
-            console.log("노트 작성 모달 열기");
+          onOpenTodoModal={() => {
+            console.log("할 일 수정 모달 열기");
             setIsModalOpen(true);
           }}
         />
       ))}
       {isModalOpen && (
-        <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <CreateModal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
           모달내용
-        </Modal>
+        </CreateModal>
       )}
     </ul>
   );
