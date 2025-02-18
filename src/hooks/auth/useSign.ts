@@ -12,7 +12,7 @@ export function useLogin() {
   const router = useRouter();
   return useMutation({
     mutationFn: async (params: LoginBodyDto) => {
-      const response = await instance.post("/user", params);
+      const response = await instance.post("/auth/login", params);
       return response.data;
     },
     onSuccess: () => {
