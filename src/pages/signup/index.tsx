@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import Button from "@/components/atoms/button/Button";
 import { useSignUp } from "@/hooks/auth/useSign";
-import { SIGNUP } from "@/views/sign/FieldSet";
+import { SIGNUP } from "@/views/sign/fieldSet";
 import Form from "@/views/sign/Form";
 import Modal from "@/views/sign/Modal";
 import logo from "@public/img_logo.png";
