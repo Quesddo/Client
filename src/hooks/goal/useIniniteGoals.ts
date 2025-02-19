@@ -8,7 +8,7 @@ import { TeamIdGoalsGet200Response, teamIdGoalsGetParams } from "@/types/types";
 export default function useInfiniteGoals<
   T extends HTMLElement | null,
   U extends HTMLElement | null,
->(parentRef: Ref<T>, childRef: RefObject<U>) {
+>(parentRef: Ref<T>, childRef: Ref<U>) {
   const query = useInfiniteQuery<
     TeamIdGoalsGet200Response,
     Error,
@@ -41,7 +41,7 @@ export default function useInfiniteGoals<
   // 스크롤 감지 블럭이 항상 true인 경우(자식 요소의 높이 <= 부모 요소의 높이), 추가 데이터 가져오기
   useEffect(() => {
     const parentEl = (parentRef as RefObject<T>)?.current;
-    const childEl = childRef?.current;
+    const childEl = (childRef as RefObject<T>)?.current;
 
     if (!parentEl || !childEl) {
       return;
@@ -60,7 +60,7 @@ export default function useInfiniteGoals<
   // 스크롤 감지 블럭이 동작하는 경우(자식 요소의 높이 > 부모 요소의 높이), 무한 스크롤 처리
   useEffect(() => {
     const parentEl = (parentRef as RefObject<T>)?.current;
-    const childEl = childRef?.current;
+    const childEl = (childRef as RefObject<T>)?.current;
 
     if (!parentEl || !childEl) {
       return;

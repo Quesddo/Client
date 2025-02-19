@@ -9,11 +9,12 @@ import GoalCreationForm from "../molecules/GoalCreationForm";
 import TabSideMenuList from "../molecules/TabSideMenuList";
 
 export default memo(function MenuGoal() {
-  const ref = useRef<HTMLDivElement>(null);
+  const ulRef = useRef<HTMLUListElement>(null);
   const mutation = useCreateGoal({
     onSuccess: () => {
-      ref?.current?.scrollTo({
+      ulRef?.current?.scrollTo({
         top: 0,
+        behavior: "smooth",
       });
     },
   });
@@ -51,7 +52,7 @@ export default memo(function MenuGoal() {
           </AddButton>
         </div>
         <div className="flex min-h-0 flex-1 flex-col gap-6">
-          <TabSideMenuList ref={ref} />
+          <TabSideMenuList ref={ulRef} />
           {showForm && <GoalCreationForm onSubmit={handleSubmit} />}
           <AddButton
             outline
