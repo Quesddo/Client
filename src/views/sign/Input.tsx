@@ -4,58 +4,63 @@ import React, { createContext, useContext, useState } from "react";
 import { useFormContext } from "react-hook-form";
 
 import Input from "@/components/atoms/input/Input";
+import { SignField } from "@/types/Sign";
 import Off from "@public/visibility_off.png";
 
-export interface InputContextProps {
-  name: string;
-  type: string;
-  label?: string;
-  placeholder?: string;
-}
-
-const InputContext = createContext<InputContextProps | null>(null);
-
-interface InputComponentProps extends InputContextProps {
+interface InputComponentProps extends SignField {
   children: React.ReactNode;
 }
 
+const InputContext = createContext<SignField | null>(null);
+
 export const InputComponent = ({
   name,
-  type = "text",
+  type,
   label,
   children,
   placeholder,
+  rules,
 }: InputComponentProps) => {
   return (
-    <InputContext.Provider value={{ name, type, label, placeholder }}>
+    <InputContext.Provider value={{ name, type, label, placeholder, rules }}>
       <div className="mt-6 flex flex-col first:mt-0">{children}</div>
     </InputContext.Provider>
   );
 };
 
 const InputContainer = () => {
-  const { register } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
   const context = useContext(InputContext);
 
   if (!context) {
     throw new Error("Input must be used within an InputComponent");
   }
 
-  const { name, type, placeholder } = context;
+  const { name, type, placeholder, rules } = context;
   const [inputType, setInputType] = useState(type);
-
   return (
-    <div className="relative">
-      <Input
-        {...register(name)}
-        type={inputType}
-        placeholder={placeholder}
-        id={name}
-      />
-      {type === "password" && (
-        <InputComponent.TogglePasswordButton setInputType={setInputType} />
+    <>
+      <div className="relative">
+        <Input
+          {...register(name, rules)}
+          type={inputType}
+          placeholder={placeholder}
+          id={name}
+          className={!!errors[name] ? "focus:border-red-700" : ""}
+        />
+        {type === "password" && (
+          <InputComponent.TogglePasswordButton setInputType={setInputType} />
+        )}
+      </div>
+      {errors[name] && (
+        <p className="mt-[8px] ml-[16px] text-sm font-normal text-red-700">
+          {errors[name]?.message as string}
+        </p>
       )}
-    </div>
+    </>
   );
 };
 
@@ -74,7 +79,7 @@ const Label = () => {
 const TogglePasswordButton = ({
   setInputType,
 }: {
-  setInputType: React.Dispatch<React.SetStateAction<string>>;
+  setInputType: React.Dispatch<React.SetStateAction<HTMLInputElement["type"]>>;
 }) => {
   const [visible, setVisible] = useState(false);
 
