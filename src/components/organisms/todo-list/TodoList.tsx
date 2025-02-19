@@ -1,17 +1,22 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 import { TodoResponse } from "@/types/todo";
 
 import { TodoItem } from "../../molecules/todo-item/TodoItem";
-import CreateModal from "../modal/CreateModal";
+import { useModalContext } from "../modal/InputModal";
 
 interface TodoListProps {
   data?: TodoResponse["todos"];
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
+  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function TodoList({ data, handleToggleTodo }: TodoListProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+export default function TodoList({
+  data,
+  handleToggleTodo,
+  setIsModalOpen,
+}: TodoListProps) {
+  const { openModal } = useModalContext();
 
   return (
     <ul className="text-sm font-normal text-slate-800">
@@ -24,16 +29,11 @@ export default function TodoList({ data, handleToggleTodo }: TodoListProps) {
             console.log(`노트 상세 페이지 열기: ${noteId}`);
           }}
           onOpenTodoModal={() => {
-            console.log("할 일 수정 모달 열기");
             setIsModalOpen(true);
+            openModal();
           }}
         />
       ))}
-      {isModalOpen && (
-        <CreateModal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-          모달내용
-        </CreateModal>
-      )}
     </ul>
   );
 }
