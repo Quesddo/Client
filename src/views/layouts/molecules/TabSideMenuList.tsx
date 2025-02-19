@@ -1,81 +1,17 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { forwardRef, memo, Ref, useEffect, useRef } from "react";
-import { useInView } from "react-intersection-observer";
+import { ForwardedRef, forwardRef, memo, useRef } from "react";
 
-import instance from "@/apis/apiClient";
-import { TeamIdGoalsGet200Response, teamIdGoalsGetParams } from "@/types/types";
+import useInfiniteGoals from "@/hooks/goal/useIniniteGoals";
 import { cn } from "@/utils/cn";
 
 import TabSideMenuItem from "../atoms/TabSideMenuItem";
 
 export default memo(
-  forwardRef(function TabSideMenuList(_, ref: Ref<HTMLDivElement | null>) {
-    const {
-      data,
-      fetchNextPage,
-      hasNextPage,
-      isFetchingNextPage,
-      isError,
-      error,
-    } = useInfiniteQuery<
-      TeamIdGoalsGet200Response,
-      Error,
-      TeamIdGoalsGet200Response["goals"]
-    >({
-      queryKey: ["goals"],
-      queryFn: async ({ pageParam }) => {
-        const params: teamIdGoalsGetParams = {
-          sortOrder: "newest",
-          size: 10,
-          cursor: pageParam as number,
-        };
-
-        const { data } = await instance.get("/goals", { params });
-
-        return data;
-      },
-      initialPageParam: null,
-      getNextPageParam: (lastPage) => lastPage.nextCursor,
-      select: (data) => data.pages.map((page) => [...page.goals]).flat(),
-    });
-
+  forwardRef(function TabSideMenuList(_, ref: ForwardedRef<HTMLDivElement>) {
     const ulRef = useRef<HTMLUListElement>(null);
-
-    const { ref: inViewRef, inView } = useInView({
-      root: (ref as React.RefObject<HTMLDivElement>)?.current,
-      threshold: 1,
-    });
-
-    useEffect(() => {
-      const divEl = (ref as React.RefObject<HTMLDivElement>)?.current;
-      const ulEl = ulRef?.current;
-
-      if (!divEl || !ulEl) {
-        return;
-      }
-
-      if (
-        inView &&
-        hasNextPage &&
-        !isFetchingNextPage &&
-        ulEl.scrollHeight <= divEl.clientHeight
-      ) {
-        fetchNextPage();
-      }
-    }, [inView, hasNextPage, isFetchingNextPage]);
-
-    useEffect(() => {
-      const divEl = (ref as React.RefObject<HTMLDivElement>)?.current;
-      const ulEl = ulRef?.current;
-
-      if (!divEl || !ulEl) {
-        return;
-      }
-
-      if (inView && hasNextPage && ulEl.scrollHeight > divEl.clientHeight) {
-        fetchNextPage();
-      }
-    }, [inView, hasNextPage]);
+    const {
+      query: { data, isError, error, hasNextPage },
+      inViewRef,
+    } = useInfiniteGoals(ref, ulRef);
 
     if (isError) {
       return <p>에러 발생: {(error as Error).message}</p>;
