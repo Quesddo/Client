@@ -59,9 +59,13 @@ const Form = ({ children, field, hooks }: FormProps) => {
     }
   };
 
-  const handleFocus = () => {
+  const handleFocus: React.FocusEventHandler = (event) => {
+    const { name } = event.target as HTMLInputElement;
+
     setTimeout(() => {
-      methods.handleSubmit(handleRequest);
+      if (!!methods.getValues(name as keyof FormData) === false) {
+        methods.handleSubmit(handleRequest)();
+      }
     }, 1000);
   };
 
