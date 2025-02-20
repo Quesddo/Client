@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { SIGNUP } from "@/views/sign/fieldSet";
 import Form from "@/views/sign/Form";
 import logo from "@public/img_logo.png";
 
@@ -16,7 +15,7 @@ export default function Signup() {
         height={89}
       />
       <Form>
-        <Form.InnerForm field={SIGNUP} path="login" />
+        <Form.InnerForm />
       </Form>
       <p className="mt-10 text-center font-normal">
         이미 회원이신가요?

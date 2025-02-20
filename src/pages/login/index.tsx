@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { LOGIN } from "@/views/sign/fieldSet";
 import Form from "@/views/sign/Form";
 import logo from "@public/img_logo.png";
 
@@ -16,7 +15,7 @@ export default function Login() {
         height={89}
       />
       <Form>
-        <Form.InnerForm field={LOGIN} path="login" />
+        <Form.InnerForm />
       </Form>
       <p className="mt-10 text-center font-normal">
         슬리드 투두가 처음이신가요?

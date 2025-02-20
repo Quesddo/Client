@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
 import {
   FormProvider,
@@ -10,9 +11,9 @@ import {
 
 import Button from "@/components/atoms/button/Button";
 import useSign from "@/hooks/auth/useSign";
-import { SignField } from "@/types/Sign";
 import { UserCreateRequstDto } from "@/types/types";
 
+import { LOGIN, SIGNUP } from "./fieldSet";
 import Input from "./Input";
 import Modal from "./Modal";
 
@@ -24,11 +25,6 @@ interface FormProps {
   children: ReactNode;
 }
 
-interface InnerFormProps {
-  field: SignField[];
-  path: string;
-}
-
 const Form = ({ children }: FormProps) => {
   const methods = useForm<FormData>({
     shouldFocusError: false,
@@ -37,10 +33,12 @@ const Form = ({ children }: FormProps) => {
   return <FormProvider {...methods}>{children}</FormProvider>;
 };
 
-const InnerForm = ({ field, path }: InnerFormProps) => {
-  const isLoginPage = path === "login" ? true : false;
+const InnerForm = () => {
+  const pathname = usePathname();
+  const isLoginPage = pathname === "/login" ? true : false;
+  const hooks = isLoginPage ? useSign.login({}) : useSign.signup();
   const methods = useFormContext<FormData>();
-  const hooks = path === "login" ? useSign.login({}) : useSign.signup();
+  const field = isLoginPage ? LOGIN : SIGNUP;
   let timeoutId: number;
 
   const handleRequest: SubmitHandler<FormData> = async (
@@ -50,8 +48,6 @@ const InnerForm = ({ field, path }: InnerFormProps) => {
     clearTimeout(timeoutId);
     if (event?.type === "submit") {
       hooks.mutate(formData);
-    } else {
-      return;
     }
   };
 
