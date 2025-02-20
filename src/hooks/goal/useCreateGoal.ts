@@ -7,7 +7,12 @@ const getLastGoalId = (goalList: TeamIdGoalsGet200Response["goals"]) => {
   return goalList.length ? goalList[goalList.length - 1].id : -1;
 };
 
-export const useCreateGoal = () => {
+interface useCreatieGoalProps {
+  onSuccess?: () => void;
+  onError?: (error: Error) => void;
+}
+
+export const useCreateGoal = (config: useCreatieGoalProps) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -16,30 +21,48 @@ export const useCreateGoal = () => {
       await instance.post("/goals", { title: content }),
     onMutate: async (newGoal: string) => {
       await queryClient.cancelQueries({ queryKey: ["goals"] });
-      const previousTodos = queryClient.getQueryData(["goals"]);
 
-      if (previousTodos) {
-        const setNewGoalData = (old: TeamIdGoalsGet200Response) => ({
-          ...old,
-          goals: [
-            ...old.goals,
-            { id: `temp_${getLastGoalId(old.goals) + 1}`, title: newGoal },
-          ],
-        });
+      const previousGoals = queryClient.setQueryData(
+        ["goals"],
+        (oldData: {
+          pages: TeamIdGoalsGet200Response[];
+          pageParams: number;
+        }) => {
+          if (!oldData) return oldData;
 
-        queryClient.setQueryData(["goals"], setNewGoalData);
-      }
+          const newGoalItem = {
+            id: `temp_${getLastGoalId(oldData.pages[0].goals) + 1}`,
+            title: newGoal,
+          };
 
-      return { previousTodos };
+          return {
+            pages: [
+              {
+                ...oldData.pages[0],
+                goals: [newGoalItem, ...oldData.pages[0].goals],
+              },
+              ...oldData.pages.slice(1),
+            ],
+            pageParams: oldData.pageParams,
+          };
+        },
+      );
+
+      return { previousGoals };
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["goals"] });
+      if (confirm("목표가 추가되었습니다.")) {
+        config?.onSuccess?.();
+      }
     },
     onError: (error, _, context) => {
-      if (context?.previousTodos) {
-        queryClient.setQueryData(["goals"], context?.previousTodos);
+      if (context?.previousGoals) {
+        queryClient.setQueryData(["goals"], context?.previousGoals);
       }
-      alert(error);
+
+      if (config?.onError) {
+        config.onError(error);
+      }
     },
   });
 };
