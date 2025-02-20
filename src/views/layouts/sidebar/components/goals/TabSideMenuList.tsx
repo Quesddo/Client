@@ -4,8 +4,6 @@ import useInfiniteGoals from "@/hooks/goal/useIniniteGoals";
 import { cn } from "@/utils/cn";
 import TabSideMenuItem from "./TabSideMenuItem";
 
-import { TeamIdGoalsGet200Response } from "@/types/types";
-
 export default memo(
   forwardRef(function TabSideMenuList(_, ref: ForwardedRef<HTMLUListElement>) {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -23,7 +21,7 @@ export default memo(
         className={cn(
           "relative flex min-h-0 flex-1 flex-col overflow-hidden",
           hasNextPage &&
-            "after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-1/3 after:max-h-[80px] after:bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.6)_57%,rgba(255,255,255,0.8)_100%)]",
+            "after:absolute after:inset-x-0 after:bottom-0 after:h-1/3 after:max-h-[80px] after:bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.6)_57%,rgba(255,255,255,0.8)_100%)]",
         )}
         ref={containerRef}
       >
