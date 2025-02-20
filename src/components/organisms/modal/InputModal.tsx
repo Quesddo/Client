@@ -48,10 +48,7 @@ export default function InputModal({ children }: { children: ReactNode }) {
   const { isOpen } = useModalContext();
   if (!isOpen) return null;
 
-  return ReactDOM.createPortal(
-    <div>{children}</div>,
-    document.getElementById("global-modal") as HTMLElement,
-  );
+  return ReactDOM.createPortal(<div>{children}</div>, document.body);
 }
 
 const MODAL_ANIMATION = {
