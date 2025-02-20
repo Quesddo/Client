@@ -17,7 +17,7 @@ interface PageProps extends AppProps {
 
 export default function App({ Component, pageProps }: PageProps) {
   const router = useRouter();
-  const isIndex = router.pathname === "";
+  const isIndex = ["", "/login", "/signup"].includes(router.pathname);
   const headerContent = Component.headerContent || "";
 
   return (
