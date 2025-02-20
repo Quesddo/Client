@@ -14,6 +14,7 @@ import { useFormContext } from "react-hook-form";
 import Button from "@/components/atoms/button/Button";
 import DeleteIcon from "@/components/atoms/delete-icon/DeleteIcon";
 import RefInput from "@/components/atoms/input/RefInput";
+import PlusIcon from "@/components/atoms/plus-icon/PlusIcon";
 import useDragAndDrop from "@/hooks/useDragAndDrop";
 import { cn } from "@/utils/cn";
 
@@ -55,7 +56,7 @@ const MODAL_ANIMATION = {
   fadeIn: "animate-fadeIn",
 };
 
-function Overlay() {
+function Overlay({ className }: { className?: string }) {
   const { isOpen, closeModal } = useModalContext();
   const { watch, reset } = useFormContext();
   const [title, linkUrl, fileUrl] = watch(["title", "linkUrl", "fileUrl"]);
@@ -63,8 +64,9 @@ function Overlay() {
   return (
     <div
       className={cn(
-        "fixed inset-0 z-20 flex items-center justify-center bg-black/50",
+        "fixed inset-0 z-20 flex items-center justify-center sm:bg-black/50",
         isOpen && MODAL_ANIMATION.fadeIn,
+        className,
       )}
       onClick={() => {
         if (title || linkUrl || fileUrl) {
@@ -89,7 +91,7 @@ function Content({
   return (
     <div
       className={cn(
-        "fixed top-[50%] left-[50%] z-30 w-[472px] -translate-x-1/2 -translate-y-1/2 transform rounded-xl bg-white p-6 font-semibold text-slate-800",
+        "fixed top-[50%] left-[50%] z-30 h-[calc(100vh-48px)] w-[calc(100vw-48px)] -translate-x-1/2 -translate-y-1/2 transform bg-white p-6 font-semibold text-slate-800",
         isOpen && MODAL_ANIMATION.fadeIn,
         className,
       )}
@@ -166,15 +168,19 @@ function FileInput({
 
   return (
     <div
-      className={`transition-all ${isDragging ? "border-blue-500 bg-blue-100" : "border-gray-300"}`}
+      className="h-[184px] transition-all"
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
     >
       <label
         htmlFor="file-upload"
-        className="flex h-10 cursor-pointer flex-col items-center justify-center rounded-xl bg-slate-50"
+        className={cn(
+          "flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-xl bg-slate-50",
+          isDragging && "bg-blue-100",
+        )}
       >
+        <PlusIcon color="gray" />
         <p className="font-normal text-slate-400">파일을 업로드해주세요</p>
         <input
           ref={fileInputRef}
@@ -224,34 +230,35 @@ function SubmitButton({
 }
 
 function CheckButton({
-  done,
+  checked,
   onToggle,
   children,
 }: {
-  done: boolean;
+  checked: boolean;
   onToggle: () => void;
   children: string;
 }) {
   return (
-    <div className="flex items-center bg-amber-100 p-1">
-      <button
-        type="button"
-        onClick={(event) => {
-          event.preventDefault();
-          onToggle();
-        }}
-        className="mr-2 flex shrink-0 cursor-pointer items-center p-[3px]"
-      >
-        <img
-          src={done ? "/active-check-white.png" : "/inactive-check.png"}
-          alt={done ? "체크됨" : "미체크"}
-          width={18}
-          height={18}
-          className="rounded-md transition-all duration-150 hover:shadow-sm"
-        />
-      </button>
-      <p className="text-xs font-medium text-slate-400">{children}</p>
-    </div>
+    <button
+      type="button"
+      onClick={(event) => {
+        event.preventDefault();
+        onToggle();
+      }}
+      className={cn(
+        "group flex shrink-0 cursor-pointer items-center gap-[10px] rounded-lg bg-slate-100 p-2 pr-3 pl-3 text-base font-medium text-slate-800 transition duration-200",
+        checked && "bg-slate-800 text-white",
+      )}
+    >
+      <img
+        src={checked ? "/active-check-white.png" : "/inactive-check.png"}
+        alt={checked ? "체크됨" : "미체크"}
+        width={18}
+        height={18}
+        className="rounded-md group-hover:shadow-sm"
+      />
+      <p>{children}</p>
+    </button>
   );
 }
 
