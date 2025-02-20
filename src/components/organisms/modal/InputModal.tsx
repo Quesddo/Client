@@ -10,12 +10,13 @@ import {
   useState,
 } from "react";
 import ReactDOM from "react-dom";
+import { useFormContext } from "react-hook-form";
 
 import Button from "@/components/atoms/button/Button";
 import DeleteIcon from "@/components/atoms/delete-icon/DeleteIcon";
 import RefInput from "@/components/atoms/input/RefInput";
+import useDragAndDrop from "@/hooks/useDragAndDrop";
 import { cn } from "@/utils/cn";
-import { useFormContext } from "react-hook-form";
 
 interface ModalContextType {
   isOpen: boolean;
@@ -149,34 +150,21 @@ function FileInput({
 }: {
   onFileChange: (files: FileList) => void;
 }) {
-  const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
+  const { isDragging, handleDragOver, handleDragLeave, handleDrop } =
+    useDragAndDrop({
+      onDrop: (files) => {
+        onFileChange(files);
 
-  const handleDragLeave = () => {
-    setIsDragging(false);
-  };
-
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setIsDragging(false);
-
-    if (e.dataTransfer.files.length > 0) {
-      const files = e.dataTransfer.files;
-      onFileChange(files);
-
-      // input 값도 업데이트
-      if (fileInputRef.current) {
-        const dataTransfer = new DataTransfer();
-        Array.from(files).forEach((file) => dataTransfer.items.add(file));
-        fileInputRef.current.files = dataTransfer.files;
-      }
-    }
-  };
+        // input 값도 업데이트
+        if (fileInputRef.current) {
+          const dataTransfer = new DataTransfer();
+          Array.from(files).forEach((file) => dataTransfer.items.add(file));
+          fileInputRef.current.files = dataTransfer.files;
+        }
+      },
+    });
 
   return (
     <div
