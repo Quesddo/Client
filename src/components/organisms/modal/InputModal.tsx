@@ -5,7 +5,6 @@ import {
   LabelHTMLAttributes,
   ReactNode,
   useContext,
-  useEffect,
   useRef,
   useState,
 } from "react";
@@ -46,14 +45,7 @@ export function useModalContext() {
 }
 
 export default function InputModal({ children }: { children: ReactNode }) {
-  const { isOpen, closeModal } = useModalContext();
-  useEffect(() => {
-    if (!isOpen) {
-      // fade-out 애니메이션 끝나고 제거
-      setTimeout(closeModal, 200);
-    }
-  }, [isOpen, closeModal]);
-
+  const { isOpen } = useModalContext();
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
@@ -62,21 +54,27 @@ export default function InputModal({ children }: { children: ReactNode }) {
   );
 }
 
+const MODAL_ANIMATION = {
+  fadeIn: "animate-fadeIn",
+};
+
 function Overlay() {
   const { isOpen, closeModal } = useModalContext();
-  const { watch } = useFormContext();
+  const { watch, reset } = useFormContext();
   const [title, linkUrl, fileUrl] = watch(["title", "linkUrl", "fileUrl"]);
+
   return (
     <div
       className={cn(
         "fixed inset-0 z-20 flex items-center justify-center bg-black/50",
-        isOpen ? "animate-fadeIn" : "animate-fadeOut",
+        isOpen && MODAL_ANIMATION.fadeIn,
       )}
       onClick={() => {
         if (title || linkUrl || fileUrl) {
           if (!confirm("(팝업창)모달 닫기 확인")) return;
         }
         closeModal();
+        reset();
       }}
     />
   );
@@ -90,11 +88,12 @@ function Content({
   className?: string;
 }) {
   const { isOpen } = useModalContext();
+
   return (
     <div
       className={cn(
         "fixed top-[50%] left-[50%] z-30 w-[472px] -translate-x-1/2 -translate-y-1/2 transform rounded-xl bg-white p-6 font-semibold text-slate-800",
-        isOpen ? "animate-fadeIn" : "animate-fadeOut",
+        isOpen && MODAL_ANIMATION.fadeIn,
         className,
       )}
     >
@@ -109,14 +108,16 @@ function Title({ children }: { children: string }) {
 
 function CloseButton() {
   const { closeModal } = useModalContext();
-  const { watch } = useFormContext();
+  const { watch, reset } = useFormContext();
   const [title, linkUrl, fileUrl] = watch(["title", "linkUrl", "fileUrl"]);
   const closeConfirm = () => {
     if (title || linkUrl || fileUrl) {
       if (!confirm("(팝업창)모달 닫기 확인")) return;
     }
     closeModal();
+    reset();
   };
+
   return (
     <button onClick={closeConfirm}>
       <DeleteIcon />
