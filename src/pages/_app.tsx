@@ -15,15 +15,17 @@ interface PageProps extends AppProps {
   };
 }
 
+const TO_HIDE_PATH = ["", "/", "/login", "/signup"];
+
 export default function App({ Component, pageProps }: PageProps) {
   const router = useRouter();
-  const isIndex = ["", "/login", "/signup"].includes(router.pathname);
+  const isHidden = TO_HIDE_PATH.includes(router.pathname);
   const headerContent = Component.headerContent || "";
 
   return (
     <QueryClientProvider client={queryClient}>
       <div className="flex h-screen flex-col overflow-y-hidden sm:flex-row">
-        {!isIndex && <Sidebar title={headerContent} />}
+        {!isHidden && <Sidebar title={headerContent} />}
         <main className="flex-1 overflow-y-auto">
           <Component {...pageProps} />
         </main>
