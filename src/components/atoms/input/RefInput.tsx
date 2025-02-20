@@ -50,4 +50,6 @@ const RefInput = forwardRef<HTMLInputElement, InputElementProps>(
   },
 );
 
+RefInput.displayName = "RefInput";
+
 export default RefInput;
