@@ -60,6 +60,8 @@ const SIGNUP: SignField[] = [
     placeholder: "비밀번호 확인을 입력해주세요",
     rules: {
       required: "비밀번호 확인을 입력해주세요",
+      validate: (value, formValues) =>
+        value === formValues.password || "비밀번호가 일치하지 않습니다.",
     },
   },
 ];

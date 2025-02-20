@@ -1,12 +1,20 @@
-import { UseMutationResult } from "@tanstack/react-query";
-import { isAxiosError } from "axios";
-import { ReactNode } from "react";
-import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
+"use client";
 
+import { ReactNode } from "react";
+import {
+  FormProvider,
+  type SubmitHandler,
+  useForm,
+  useFormContext,
+} from "react-hook-form";
+
+import Button from "@/components/atoms/button/Button";
+import useSign from "@/hooks/auth/useSign";
 import { SignField } from "@/types/Sign";
 import { UserCreateRequstDto } from "@/types/types";
 
 import Input from "./Input";
+import Modal from "./Modal";
 
 interface FormData extends UserCreateRequstDto {
   confirmPassword: string;
@@ -14,88 +22,91 @@ interface FormData extends UserCreateRequstDto {
 
 interface FormProps {
   children: ReactNode;
-  field: SignField[];
-  hooks: UseMutationResult<unknown, Error, FormData>;
 }
 
-const Form = ({ children, field, hooks }: FormProps) => {
+interface InnerFormProps {
+  field: SignField[];
+  path: string;
+}
+
+const Form = ({ children }: FormProps) => {
   const methods = useForm<FormData>({
     shouldFocusError: false,
   });
+
+  return <FormProvider {...methods}>{children}</FormProvider>;
+};
+
+const InnerForm = ({ field, path }: InnerFormProps) => {
+  const isLoginPage = path === "login" ? true : false;
+  const methods = useFormContext<FormData>();
+  const hooks = path === "login" ? useSign.login({}) : useSign.signup();
+  let timeoutId: number;
 
   const handleRequest: SubmitHandler<FormData> = async (
     formData: FormData,
     event,
   ) => {
-    try {
-      if ("confirmPassword" in formData) {
-        if (formData.confirmPassword !== formData.password) {
-          methods.setError("confirmPassword", {
-            type: "manual",
-            message: "비밀번호가 일치하지 않습니다.",
-          });
-          return;
-        }
-      }
-      //버튼이 클릭된 경우 서버요청 및 에러처리
-      if (event?.type === "submit") {
-        await hooks.mutateAsync(formData);
-      }
-    } catch (e) {
-      //axios error
-      if (isAxiosError(e)) {
-        if (e.message.includes("이메일"))
-          methods.setError("email", { type: "server", message: e.message });
-        else if (e.message.includes("비밀번호")) {
-          methods.setError("password", {
-            type: "server",
-            message: e.message,
-          });
-        }
-        //unknown error
-      } else {
-        alert("알 수 없는 에러가 발생했습니다.");
-      }
+    clearTimeout(timeoutId);
+    if (event?.type === "submit") {
+      hooks.mutate(formData);
+    } else {
+      return;
     }
   };
 
-  const handleFocus: React.FocusEventHandler = (event) => {
-    const { name } = event.target as HTMLInputElement;
-
-    setTimeout(() => {
+  const startTimeout = (name: string) => {
+    timeoutId = window.setTimeout(() => {
       if (!!methods.getValues(name as keyof FormData) === false) {
         methods.handleSubmit(handleRequest)();
       }
     }, 1000);
   };
 
+  const handleFocus: React.FocusEventHandler = (event) => {
+    clearTimeout(timeoutId);
+    const { name } = event.target as HTMLInputElement;
+    startTimeout(name);
+  };
+
   return (
     <>
-      <FormProvider {...methods}>
-        <form
-          onSubmit={methods.handleSubmit(handleRequest)}
-          className="mx-4 mt-10 sm:mx-13 md:mx-160"
-          onBlur={methods.handleSubmit(handleRequest)}
-          onFocus={handleFocus}
+      <form
+        onSubmit={methods.handleSubmit(handleRequest)}
+        className="mx-4 mt-10 sm:mx-13 md:mx-160"
+        onBlur={methods.handleSubmit(handleRequest)}
+        onFocus={handleFocus}
+      >
+        {field.map((item) => (
+          <Input
+            key={item.name}
+            label={item.label}
+            name={item.name}
+            type={item.type}
+            placeholder={item.placeholder}
+            rules={item.rules}
+            disabled={methods.formState.isSubmitting}
+          >
+            <Input.Label />
+            <Input.Input />
+          </Input>
+        ))}
+        <Button
+          onClick={(e) => e.currentTarget.blur()}
+          type="submit"
+          className="mt-10"
+          disabled={
+            methods.formState.isSubmitting || !methods.formState.isValid
+          }
         >
-          {field.map((item) => (
-            <Input
-              key={item.name}
-              label={item.label}
-              name={item.name}
-              type={item.type}
-              placeholder={item.placeholder}
-              rules={item.rules}
-            >
-              <Input.Label />
-              <Input.Input />
-            </Input>
-          ))}
-          {children}
-        </form>
-      </FormProvider>
+          {isLoginPage ? "로그인하기" : "회원가입하기"}
+        </Button>
+      </form>
+      {!isLoginPage && hooks.isSuccess && <Modal />}
     </>
   );
 };
+
+Form.InnerForm = InnerForm;
 
 export default Form;

@@ -7,11 +7,16 @@ import Input from "@/components/atoms/input/Input";
 import { SignField } from "@/types/Sign";
 import Off from "@public/visibility_off.png";
 
-interface InputComponentProps extends SignField {
-  children: React.ReactNode;
+interface InputField extends SignField {
+  disabled?: boolean;
 }
 
-const InputContext = createContext<SignField | null>(null);
+interface InputComponentProps extends SignField {
+  children: React.ReactNode;
+  disabled?: boolean;
+}
+
+const InputContext = createContext<InputField | null>(null);
 
 export const InputComponent = ({
   name,
@@ -20,9 +25,12 @@ export const InputComponent = ({
   children,
   placeholder,
   rules,
+  disabled,
 }: InputComponentProps) => {
   return (
-    <InputContext.Provider value={{ name, type, label, placeholder, rules }}>
+    <InputContext.Provider
+      value={{ name, type, label, placeholder, rules, disabled }}
+    >
       <div className="mt-6 flex flex-col first:mt-0">{children}</div>
     </InputContext.Provider>
   );
