@@ -1,7 +1,6 @@
 import { FormEventHandler, memo, useRef, useState } from "react";
 
 import { useCreateGoal } from "@/hooks/goal/useCreateGoal";
-import { useFetchGoals } from "@/hooks/goal/useFetchGoals";
 import { cn } from "@/utils/cn";
 
 import MenuItem from "../MenuItem";
@@ -10,16 +9,20 @@ import AddButton from "../AddButton";
 import GoalCreationForm from "./GoalCreationForm";
 
 export default memo(function MenuGoal() {
-  const { data, isError, error } = useFetchGoals();
-  const mutation = useCreateGoal();
-
-  const ref = useRef<HTMLDivElement>(null);
+  const ulRef = useRef<HTMLUListElement>(null);
+  const mutation = useCreateGoal({
+    onSuccess: () => {
+      ulRef?.current?.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    },
+  });
 
   const [showForm, setShowForm] = useState(false);
 
   const handleShowForm = () => {
     setShowForm(true);
-    ref.current?.scrollTo(0, ref.current?.scrollHeight);
   };
 
   const handleSubmit: FormEventHandler = (e) => {
@@ -49,14 +52,8 @@ export default memo(function MenuGoal() {
           </AddButton>
         </div>
         <div className="flex min-h-0 flex-1 flex-col gap-6">
-          {!isError ? (
-            <div className="flex-1 overflow-auto" ref={ref}>
-              <TabSideMenuList items={data?.goals || []} />
-              <GoalCreationForm onSubmit={handleSubmit} />
-            </div>
-          ) : (
-            <p>에러 발생: {(error as Error).message}</p>
-          )}
+          <TabSideMenuList ref={ulRef} />
+          {showForm && <GoalCreationForm onSubmit={handleSubmit} />}
           <AddButton
             outline
             onClick={handleShowForm}
