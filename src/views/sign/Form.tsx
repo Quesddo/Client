@@ -55,18 +55,14 @@ const InnerForm = ({ field, path }: InnerFormProps) => {
     }
   };
 
-  const startTimeout = (name: string) => {
+  const handleFocus: React.FocusEventHandler = (event) => {
+    clearTimeout(timeoutId);
+    const { name } = event.target as HTMLInputElement;
     timeoutId = window.setTimeout(() => {
       if (!!methods.getValues(name as keyof FormData) === false) {
         methods.handleSubmit(handleRequest)();
       }
     }, 1000);
-  };
-
-  const handleFocus: React.FocusEventHandler = (event) => {
-    clearTimeout(timeoutId);
-    const { name } = event.target as HTMLInputElement;
-    startTimeout(name);
   };
 
   return (
