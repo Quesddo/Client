@@ -14,7 +14,7 @@ interface UseLoginProps {
   redirect?: string;
 }
 
-export function useLogin({ redirect = "/dashboard" }: UseLoginProps) {
+function useLogin({ redirect = "/dashboard" }: UseLoginProps) {
   const router = useRouter();
   const methods = useFormContext();
   return useMutation({
@@ -40,7 +40,7 @@ export function useLogin({ redirect = "/dashboard" }: UseLoginProps) {
   });
 }
 
-export function useSignUp() {
+function useSignUp() {
   const methods = useFormContext();
   return useMutation({
     mutationFn: async (params: FormData) => {
