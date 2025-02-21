@@ -1,6 +1,6 @@
 import On from "@public/visibility_on.png";
 import Image from "next/image";
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
 
 import Input from "@/components/atoms/input/Input";
@@ -40,8 +40,12 @@ const InputContainer = () => {
   const {
     register,
     formState: { errors },
+    trigger,
+    clearErrors,
+    setValue,
   } = useFormContext();
   const context = useContext(InputContext);
+  const timeoutRef = useRef<number | null>(null);
 
   if (!context) {
     throw new Error("Input must be used within an InputComponent");
@@ -49,6 +53,33 @@ const InputContainer = () => {
 
   const { name, type, placeholder, rules } = context;
   const [inputType, setInputType] = useState(type);
+
+  const handleFocus = async () => {
+    if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
+    clearErrors(name);
+    timeoutRef.current = window.setTimeout(async () => {
+      if (await trigger(name)) {
+        clearErrors(name);
+      }
+    }, 1000);
+  };
+
+  const handleChange = async (
+    e: React.ChangeEvent<HTMLInputElement> | undefined,
+  ) => {
+    setValue(name, e?.target.value);
+    if (await trigger(name)) {
+      clearErrors(name);
+    }
+  };
+
+  const handleBlur = async () => {
+    if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
+    if (await trigger(name)) {
+      clearErrors(name);
+    }
+  };
+
   return (
     <>
       <div className="relative">
@@ -58,6 +89,9 @@ const InputContainer = () => {
           placeholder={placeholder}
           id={name}
           className={!!errors[name] ? "focus:border-red-700" : ""}
+          onBlur={handleBlur}
+          onFocus={handleFocus}
+          onChange={handleChange}
         />
         {type === "password" && (
           <InputComponent.TogglePasswordButton setInputType={setInputType} />

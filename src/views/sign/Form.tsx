@@ -1,5 +1,5 @@
 import { usePathname } from "next/navigation";
-import { ReactNode, useRef } from "react";
+import { ReactNode } from "react";
 import {
   FormProvider,
   type SubmitHandler,
@@ -33,34 +33,13 @@ const Form = ({ children }: FormProps) => {
 
 const InnerForm = () => {
   const methods = useFormContext<FormData>();
-  const timeoutIdRef = useRef<number | null>(null);
   const pathname = usePathname();
   const isLoginPage = pathname === "/login" ? true : false;
   const hooks = isLoginPage ? useSign.login({}) : useSign.signup();
   const field = isLoginPage ? LOGIN : SIGNUP;
 
-  const handleRequest: SubmitHandler<FormData> = async (
-    formData: FormData,
-    event,
-  ) => {
-    if (event?.type === "submit") {
-      if (timeoutIdRef.current) {
-        clearTimeout(timeoutIdRef.current);
-      }
-      hooks.mutate(formData);
-    }
-  };
-
-  const handleFocus: React.FocusEventHandler = (event) => {
-    if (timeoutIdRef.current) {
-      clearTimeout(timeoutIdRef.current);
-    }
-    const { name } = event.target as HTMLInputElement;
-    timeoutIdRef.current = window.setTimeout(() => {
-      if (!!methods.getValues(name as keyof FormData) === false) {
-        methods.handleSubmit(handleRequest)();
-      }
-    }, 1000);
+  const handleRequest: SubmitHandler<FormData> = async (formData: FormData) => {
+    hooks.mutate(formData);
   };
 
   return (
@@ -68,8 +47,6 @@ const InnerForm = () => {
       <form
         onSubmit={methods.handleSubmit(handleRequest)}
         className="mx-4 mt-10 sm:mx-13 md:mx-160"
-        onBlur={methods.handleSubmit(handleRequest)}
-        onFocus={handleFocus}
       >
         {field.map((item) => (
           <Input
