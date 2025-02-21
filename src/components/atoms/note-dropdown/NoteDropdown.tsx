@@ -34,7 +34,7 @@ const dropdownStyleVariants = cva(
   },
 );
 
-export interface DropdownProps
+export interface NoteDropdownProps
   extends VariantProps<typeof dropdownStyleVariants> {
   items: { label: string; onClick: () => void }[];
   className?: string;
@@ -42,13 +42,13 @@ export interface DropdownProps
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function Dropdown({
+export default function NoteDropdown({
   size,
   items,
   className,
   isOpen,
   setIsOpen,
-}: DropdownProps) {
+}: NoteDropdownProps) {
   const closeDropdown = () => setIsOpen(false);
   const handleClickDropdown = (onClickItem: () => void) => {
     return () => {
