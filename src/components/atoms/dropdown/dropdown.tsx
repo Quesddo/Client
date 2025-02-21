@@ -1,11 +1,12 @@
 import { cva, type VariantProps } from "class-variance-authority";
 
-import { animate, AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Dispatch, SetStateAction } from "react";
 
 import { cn } from "@/utils/cn";
 import type { Variants } from "framer-motion";
 
+// 애니메이션 설정
 const dropdownMotionVariants: Variants = {
   hidden: {
     opacity: 0,
@@ -17,6 +18,7 @@ const dropdownMotionVariants: Variants = {
   },
 };
 
+// 스타일 설정
 const dropdownStyleVariants = cva(
   "font-normal cursor-pointer m-auto rounded-lg hover:bg-gray-200",
   {
@@ -32,7 +34,8 @@ const dropdownStyleVariants = cva(
   },
 );
 
-interface DropdownProps extends VariantProps<typeof dropdownStyleVariants> {
+export interface DropdownProps
+  extends VariantProps<typeof dropdownStyleVariants> {
   items: { label: string; onClick: () => void }[];
   className?: string;
   isOpen: boolean;
@@ -46,6 +49,15 @@ export default function Dropdown({
   isOpen,
   setIsOpen,
 }: DropdownProps) {
+  const closeDropdown = () => setIsOpen(false);
+  const handleClickDropdown = (onClickItem: () => void) => {
+    return () => {
+      // 드롭다운 메뉴 클릭 시 지정된 onClick이 작동하고 드롭다운 닫힘
+      closeDropdown();
+      onClickItem();
+    };
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -56,30 +68,25 @@ export default function Dropdown({
             animate="visible"
             exit="hidden"
             className={cn(
-              "z-2 flex w-fit flex-col rounded-xl bg-white text-slate-700 shadow-lg",
+              "relative z-2 flex w-fit flex-col rounded-xl bg-white text-slate-700 shadow-lg",
               className,
             )}
-            onClick={() => {
-              setIsOpen(false);
-            }}
           >
             {items.map((item, idx) => (
               <li
                 key={idx}
                 className={cn(dropdownStyleVariants({ size }))}
-                onClick={item.onClick}
+                onClick={handleClickDropdown(item.onClick)}
               >
                 {item.label}
               </li>
             ))}
           </motion.ul>
 
+          {/* dropdown 외부를 덮고있는 레이어 (드롭다운 외부 클릭 시 닫혀야 함) */}
           <div
             className="fixed inset-0 z-1 bg-transparent"
-            onClick={() => {
-              // 배경 클릭 시 닫힘
-              setIsOpen(false);
-            }}
+            onClick={closeDropdown}
           />
         </>
       )}
