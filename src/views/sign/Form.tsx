@@ -1,54 +1,83 @@
+import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import {
+  FormProvider,
+  type SubmitHandler,
+  useForm,
+  useFormContext,
+} from "react-hook-form";
 
-import { SignField } from "@/types/Sign";
+import Button from "@/components/atoms/button/Button";
+import useSign from "@/hooks/auth/useSign";
 import { UserCreateRequstDto } from "@/types/types";
 
+import { LOGIN, SIGNUP } from "./fieldSet";
 import Input from "./Input";
+import Modal from "./Modal";
+
 interface FormData extends UserCreateRequstDto {
   confirmPassword: string;
 }
 
-interface FormProps<T extends FormData> {
+interface FormProps {
   children: ReactNode;
-  field: SignField[];
-  onSubmit: (data: T) => void;
 }
 
-const Form = <T extends FormData>({
-  children,
-  field,
-  onSubmit,
-}: FormProps<T>) => {
-  const hookForm = useForm<T>();
-  const handleRequest = async (formData: T) => {
-    onSubmit(formData);
+const Form = ({ children }: FormProps) => {
+  const methods = useForm<FormData>({
+    shouldFocusError: false,
+  });
+
+  return <FormProvider {...methods}>{children}</FormProvider>;
+};
+
+const InnerForm = () => {
+  const methods = useFormContext<FormData>();
+  const pathname = usePathname();
+  const isLoginPage = pathname === "/login" ? true : false;
+  const hooks = isLoginPage ? useSign.login() : useSign.signup();
+  const field = isLoginPage ? LOGIN : SIGNUP;
+
+  const handleRequest: SubmitHandler<FormData> = async (formData: FormData) => {
+    hooks.mutate(formData);
   };
 
   return (
     <>
-      <FormProvider {...hookForm}>
-        <form
-          onSubmit={hookForm.handleSubmit(handleRequest)}
-          className="mx-4 mt-10 sm:mx-13 md:mx-160"
+      <form
+        onSubmit={methods.handleSubmit(handleRequest)}
+        className="mx-4 mt-10 sm:mx-13 md:mx-160"
+      >
+        {field.map((item) => (
+          <Input
+            key={item.name}
+            label={item.label}
+            name={item.name}
+            type={item.type}
+            placeholder={item.placeholder}
+            rules={item.rules}
+            disabled={methods.formState.isSubmitting}
+          >
+            <Input.Label />
+            <Input.Input />
+          </Input>
+        ))}
+        <Button
+          onClick={(e) => e.currentTarget.blur()}
+          type="submit"
+          className="mt-10"
+          disabled={
+            methods.formState.isSubmitting || !methods.formState.isValid
+          }
         >
-          {field.map((item) => (
-            <Input
-              key={item.name}
-              label={item.label}
-              name={item.name}
-              type={item.type}
-              placeholder={item.placeholder}
-            >
-              <Input.Label />
-              <Input.Input />
-            </Input>
-          ))}
-          {children}
-        </form>
-      </FormProvider>
+          {isLoginPage ? "로그인하기" : "회원가입하기"}
+        </Button>
+      </form>
+      {!isLoginPage && hooks.isSuccess && <Modal />}
     </>
   );
 };
+
+Form.InnerForm = InnerForm;
 
 export default Form;
