@@ -1,8 +1,19 @@
-import { createContext, PropsWithChildren, useContext, useState } from "react";
+import {
+  createContext,
+  PropsWithChildren,
+  ReactElement,
+  useContext,
+  useState,
+} from "react";
+
+interface ToastProps {
+  id: number;
+  content: string | ReactElement;
+}
 
 interface ToastContextProps {
-  toasts: number[];
-  addToast: () => void;
+  toasts: ToastProps[];
+  addToast: ({ content }: Omit<ToastProps, "id">) => void;
 }
 
 export const ToastContext = createContext<ToastContextProps>({
@@ -11,11 +22,11 @@ export const ToastContext = createContext<ToastContextProps>({
 });
 
 export const ToastProvider = ({ children }: PropsWithChildren) => {
-  const [toasts, setToasts] = useState<number[]>([]);
+  const [toasts, setToasts] = useState<ToastProps[]>([]);
 
-  const addToast = () => {
+  const addToast = ({ content }: Omit<ToastProps, "id">) => {
     const newId = Math.random() * Number.MAX_SAFE_INTEGER;
-    setToasts((prev) => [...prev, newId]);
+    setToasts((prev) => [...prev, { id: newId, content }]);
 
     const timeoutId = setTimeout(() => {
       setToasts((prev) => prev.slice(1));
@@ -35,16 +46,13 @@ export default function Toast() {
 
   return (
     <div className="flex h-[500px] flex-col-reverse gap-4">
-      {toasts.map((v) => (
+      {toasts.map((toast) => (
         <div
-          key={v}
+          key={toast.id}
           className="flex items-center gap-2 rounded-[28px] bg-blue-200 px-6 py-3 text-sm font-semibold text-blue-500"
         >
           <img src="/icons/check.png" alt="확인" width={24} height={24} />
-          <p>
-            임시 저장이 완료되었습니다{" "}
-            <span className="text-xs font-medium">ㆍ {v.toFixed(0)}초전</span>
-          </p>
+          <p>{toast.content}</p>
         </div>
       ))}
     </div>
