@@ -14,7 +14,10 @@ export default function PageTitle({
 }: PageTitleProps) {
   return (
     <h1
-      className={cn("text-lg font-semibold text-slate-900", className)}
+      className={cn(
+        "text-base font-semibold text-slate-900 sm:text-lg",
+        className,
+      )}
       {...props}
     >
       {title}
