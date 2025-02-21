@@ -13,7 +13,7 @@ import { useFormContext } from "react-hook-form";
 
 import Button from "@/components/atoms/button/Button";
 import DeleteIcon from "@/components/atoms/delete-icon/DeleteIcon";
-import RefInput from "@/components/atoms/input/RefInput";
+import Input from "@/components/atoms/input/Input";
 import PlusIcon from "@/components/atoms/plus-icon/PlusIcon";
 import useDragAndDrop from "@/hooks/useDragAndDrop";
 import { cn } from "@/utils/cn";
@@ -142,7 +142,7 @@ const TextInput = ({
   size?: (typeof ALLOWED_SIZES)[number];
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  return <RefInput size={size} ref={inputRef} {...props} />;
+  return <Input size={size} ref={inputRef} {...props} />;
 };
 
 function FileInput({
