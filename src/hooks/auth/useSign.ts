@@ -10,11 +10,7 @@ interface FormData extends UserCreateRequstDto {
   confirmPassword: string;
 }
 
-interface UseLoginProps {
-  redirect?: string;
-}
-
-function useLogin({ redirect = "/dashboard" }: UseLoginProps) {
+function useLogin() {
   const router = useRouter();
   const methods = useFormContext();
   return useMutation({
@@ -23,7 +19,7 @@ function useLogin({ redirect = "/dashboard" }: UseLoginProps) {
       return response.data;
     },
     onSuccess: () => {
-      router.push(redirect);
+      router.push("/dashboard");
     },
     onError: (error) => {
       if (isAxiosError(error)) {

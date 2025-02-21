@@ -35,7 +35,7 @@ const InnerForm = () => {
   const methods = useFormContext<FormData>();
   const pathname = usePathname();
   const isLoginPage = pathname === "/login" ? true : false;
-  const hooks = isLoginPage ? useSign.login({}) : useSign.signup();
+  const hooks = isLoginPage ? useSign.login() : useSign.signup();
   const field = isLoginPage ? LOGIN : SIGNUP;
 
   const handleRequest: SubmitHandler<FormData> = async (formData: FormData) => {
