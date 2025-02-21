@@ -1,4 +1,3 @@
-import { FormEventHandler } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
 import Button from "@/components/atoms/button/Button";
@@ -22,7 +21,7 @@ export default function NoteCreationForm() {
         onSubmit={methods.handleSubmit(onSubmit)}
       >
         <div className="flex items-center justify-between py-[11px]">
-          <PageTitle>노트 작성</PageTitle>
+          <PageTitle title="노트 작성" />
           <div className="flex gap-2">
             <Button
               size="xs"
