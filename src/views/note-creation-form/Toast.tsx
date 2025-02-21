@@ -2,6 +2,7 @@ import {
   createContext,
   PropsWithChildren,
   ReactElement,
+  useCallback,
   useContext,
   useState,
 } from "react";
@@ -11,20 +12,19 @@ interface ToastProps {
   content: string | ReactElement;
 }
 
-interface ToastContextProps {
-  toasts: ToastProps[];
-  addToast: ({ content }: Omit<ToastProps, "id">) => void;
-}
+type ToastStateContextProps = ToastProps[];
+type ToastActionContextProps = ({ content }: Omit<ToastProps, "id">) => void;
 
-export const ToastContext = createContext<ToastContextProps>({
-  toasts: [],
-  addToast: () => {},
-});
+export const ToastStateContext = createContext<ToastStateContextProps>([]);
+
+export const ToastActionContext = createContext<ToastActionContextProps>(
+  () => {},
+);
 
 export const ToastProvider = ({ children }: PropsWithChildren) => {
   const [toasts, setToasts] = useState<ToastProps[]>([]);
 
-  const addToast = ({ content }: Omit<ToastProps, "id">) => {
+  const addToast = useCallback(({ content }: Omit<ToastProps, "id">) => {
     const newId = Math.random() * Number.MAX_SAFE_INTEGER;
     setToasts((prev) => [...prev, { id: newId, content }]);
 
@@ -32,17 +32,19 @@ export const ToastProvider = ({ children }: PropsWithChildren) => {
       setToasts((prev) => prev.slice(1));
       clearTimeout(timeoutId);
     }, 2000);
-  };
+  }, []);
 
   return (
-    <ToastContext.Provider value={{ toasts, addToast }}>
-      {children}
-    </ToastContext.Provider>
+    <ToastStateContext.Provider value={toasts}>
+      <ToastActionContext.Provider value={addToast}>
+        {children}
+      </ToastActionContext.Provider>
+    </ToastStateContext.Provider>
   );
 };
 
 export default function Toast() {
-  const { toasts } = useContext<ToastContextProps>(ToastContext);
+  const toasts = useContext<ToastStateContextProps>(ToastStateContext);
 
   return (
     <div className="flex h-[500px] flex-col-reverse gap-4">
