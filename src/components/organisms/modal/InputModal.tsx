@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import {
   ButtonHTMLAttributes,
@@ -13,7 +14,6 @@ import ReactDOM from "react-dom";
 import { useFormContext } from "react-hook-form";
 
 import Button from "@/components/atoms/button/Button";
-import DeleteIcon from "@/components/atoms/delete-icon/DeleteIcon";
 import Input from "@/components/atoms/input/Input";
 import PlusIcon from "@/components/atoms/plus-icon/PlusIcon";
 import useDragAndDrop from "@/hooks/useDragAndDrop";
@@ -107,6 +107,10 @@ function Title({ children }: { children: string }) {
   return <h1 className="z-30 text-lg font-bold">{children}</h1>;
 }
 
+const CloseIcon = dynamic(
+  () => import("@/components/atoms/close-icon/CloseIcon"),
+  { ssr: false },
+);
 function CloseButton() {
   const { closeModal } = useModalContext();
   const { watch, reset } = useFormContext();
@@ -121,7 +125,7 @@ function CloseButton() {
 
   return (
     <button onClick={closeConfirm}>
-      <DeleteIcon />
+      <CloseIcon />
     </button>
   );
 }

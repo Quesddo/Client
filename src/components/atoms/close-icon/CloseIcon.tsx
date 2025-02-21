@@ -1,4 +1,6 @@
-export default function DeleteIcon() {
+import { memo } from "react";
+
+export default memo(function CloseIcon() {
   return (
     <svg
       width="24"
@@ -24,4 +26,4 @@ export default function DeleteIcon() {
       />
     </svg>
   );
-}
+});
