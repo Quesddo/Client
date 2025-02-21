@@ -1,8 +1,16 @@
 import { cva, type VariantProps } from "class-variance-authority";
+import type { Variants } from "framer-motion";
+import { motion } from "framer-motion";
+import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 
 import { cn } from "@/utils/cn";
 
-const dropdownVariants = cva(
+const dropdownMotionVariants: Variants = {
+  hidden: { opacity: 0, y: -10 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const dropdownStyleVariants = cva(
   "font-normal cursor-pointer m-auto rounded-lg hover:bg-gray-200",
   {
     variants: {
@@ -17,28 +25,33 @@ const dropdownVariants = cva(
   },
 );
 
-interface DropdownProps extends VariantProps<typeof dropdownVariants> {
+interface DropdownProps extends VariantProps<typeof dropdownStyleVariants> {
   items: { label: string; onClick: () => void }[];
   className?: string;
 }
 
 export default function Dropdown({ size, items, className }: DropdownProps) {
   return (
-    <div
+    <motion.ul
+      ref={dropdownRef}
+      variants={dropdownMotionVariants}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
       className={cn(
-        "flex w-fit flex-col rounded-xl bg-white text-slate-700 shadow-lg",
+        "z-10 flex w-fit flex-col rounded-xl bg-white text-slate-700 shadow-lg",
         className,
       )}
     >
       {items.map((item, idx) => (
-        <div
+        <li
           key={idx}
-          className={cn(dropdownVariants({ size }))}
+          className={cn(dropdownStyleVariants({ size }))}
           onClick={item.onClick}
         >
           {item.label}
-        </div>
+        </li>
       ))}
-    </div>
+    </motion.ul>
   );
 }
