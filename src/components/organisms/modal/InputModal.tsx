@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   ButtonHTMLAttributes,
   createContext,
@@ -16,6 +17,7 @@ import DeleteIcon from "@/components/atoms/delete-icon/DeleteIcon";
 import Input from "@/components/atoms/input/Input";
 import PlusIcon from "@/components/atoms/plus-icon/PlusIcon";
 import useDragAndDrop from "@/hooks/useDragAndDrop";
+import useFilePreview from "@/hooks/useFilePreview";
 import { cn } from "@/utils/cn";
 
 interface ModalContextType {
@@ -152,10 +154,13 @@ function FileInput({
 }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+  const { previewFile, updateFilePreview } = useFilePreview();
+
   const { isDragging, handleDragOver, handleDragLeave, handleDrop } =
     useDragAndDrop({
       onDrop: (files) => {
         onFileChange(files);
+        updateFilePreview(files);
 
         // input 값도 업데이트
         if (fileInputRef.current) {
@@ -176,18 +181,51 @@ function FileInput({
       <label
         htmlFor="file-upload"
         className={cn(
-          "flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-xl bg-slate-50",
+          "relative flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-xl bg-slate-50",
           isDragging && "bg-blue-100",
         )}
       >
-        <PlusIcon color="gray" />
-        <p className="font-normal text-slate-400">파일을 업로드해주세요</p>
+        {previewFile ? (
+          previewFile.url ? (
+            <Image
+              fill
+              src={previewFile.url}
+              alt={previewFile.name}
+              className="h-16 w-16 rounded-md object-contain"
+            />
+          ) : (
+            <>
+              <img
+                src="/icons/uploaded.png"
+                alt="업로드파일"
+                width={24}
+                height={24}
+              />
+              <span
+                className="max-w-[90%] text-center text-sm font-normal break-words text-gray-400"
+                title={previewFile.name}
+              >
+                {previewFile.name}
+              </span>
+            </>
+          )
+        ) : (
+          <>
+            <PlusIcon color="gray" />
+            <p className="font-normal text-slate-400">파일을 업로드해주세요</p>
+          </>
+        )}
         <input
           ref={fileInputRef}
           id="file-upload"
           type="file"
           className="hidden"
-          onChange={(e) => e.target.files && onFileChange(e.target.files)}
+          onChange={(e) => {
+            if (e.target.files) {
+              onFileChange(e.target.files);
+              updateFilePreview(e.target.files);
+            }
+          }}
         />
       </label>
     </div>
@@ -251,7 +289,11 @@ function CheckButton({
       )}
     >
       <img
-        src={checked ? "/active-check-white.png" : "/inactive-check.png"}
+        src={
+          checked
+            ? "/icons/active-check-white.png"
+            : "/icons/inactive-check.png"
+        }
         alt={checked ? "체크됨" : "미체크"}
         width={18}
         height={18}
