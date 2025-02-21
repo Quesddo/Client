@@ -18,7 +18,11 @@ export default function Toast() {
           className="flex items-center gap-2 rounded-[28px] bg-blue-200 px-6 py-3 text-sm font-semibold text-blue-500"
         >
           <img src="/icons/check.png" alt="확인" width={24} height={24} />
-          <p>{toast.content}</p>
+          {typeof toast.content === "string" ? (
+            <p>{toast.content}</p>
+          ) : (
+            toast.content
+          )}
         </div>
       ))}
     </div>
