@@ -1,9 +1,9 @@
 import { Dispatch, SetStateAction } from "react";
 
+import { useModalContext } from "@/contexts/InputModalContext";
 import { TodoResponse } from "@/types/todo";
 
 import { TodoItem } from "../../molecules/todo-item/TodoItem";
-import { useModalContext } from "../modal/InputModal";
 
 interface TodoListProps {
   data?: TodoResponse["todos"];

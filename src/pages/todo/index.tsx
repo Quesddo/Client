@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import { InputModalProvider } from "@/components/organisms/modal/InputModal";
 import TodoList from "@/components/organisms/todo-list/TodoList";
+import { InputModalProvider } from "@/contexts/InputModalContext";
 import { useTodos } from "@/hooks/todo/useTodos";
 import { useUpdateTodo } from "@/hooks/todo/useUpdateTodo";
 
