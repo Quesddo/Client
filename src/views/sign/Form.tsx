@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { ReactNode } from "react";
+import { ReactNode, useRef } from "react";
 import {
   FormProvider,
   type SubmitHandler,
@@ -34,27 +34,31 @@ const Form = ({ children }: FormProps) => {
 };
 
 const InnerForm = () => {
+  const methods = useFormContext<FormData>();
+  const timeoutIdRef = useRef<number | null>(null);
   const pathname = usePathname();
   const isLoginPage = pathname === "/login" ? true : false;
   const hooks = isLoginPage ? useSign.login({}) : useSign.signup();
-  const methods = useFormContext<FormData>();
   const field = isLoginPage ? LOGIN : SIGNUP;
-  let timeoutId: number;
 
   const handleRequest: SubmitHandler<FormData> = async (
     formData: FormData,
     event,
   ) => {
-    clearTimeout(timeoutId);
     if (event?.type === "submit") {
+      if (timeoutIdRef.current) {
+        clearTimeout(timeoutIdRef.current);
+      }
       hooks.mutate(formData);
     }
   };
 
   const handleFocus: React.FocusEventHandler = (event) => {
-    clearTimeout(timeoutId);
+    if (timeoutIdRef.current) {
+      clearTimeout(timeoutIdRef.current);
+    }
     const { name } = event.target as HTMLInputElement;
-    timeoutId = window.setTimeout(() => {
+    timeoutIdRef.current = window.setTimeout(() => {
       if (!!methods.getValues(name as keyof FormData) === false) {
         methods.handleSubmit(handleRequest)();
       }
