@@ -54,13 +54,19 @@ const InputContainer = () => {
   const { name, type, placeholder, rules } = context;
   const [inputType, setInputType] = useState(type);
 
+  const validateField = async () => {
+    const isValid = await trigger(name);
+
+    if (isValid) {
+      clearErrors(name);
+    }
+  };
+
   const handleFocus = async () => {
     if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
     clearErrors(name);
     timeoutRef.current = window.setTimeout(async () => {
-      if (await trigger(name)) {
-        clearErrors(name);
-      }
+      await validateField();
     }, 1000);
   };
 
@@ -68,16 +74,11 @@ const InputContainer = () => {
     e: React.ChangeEvent<HTMLInputElement> | undefined,
   ) => {
     setValue(name, e?.target.value);
-    if (await trigger(name)) {
-      clearErrors(name);
-    }
+    await validateField();
   };
 
   const handleBlur = async () => {
-    if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
-    if (await trigger(name)) {
-      clearErrors(name);
-    }
+    await validateField();
   };
 
   return (
