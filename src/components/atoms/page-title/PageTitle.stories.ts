@@ -8,6 +8,9 @@ const meta = {
     title: {
       control: "text",
     },
+    isMobileFixed: {
+      control: "boolean",
+    },
   },
 } satisfies Meta<typeof PageTitle>;
 
@@ -18,5 +21,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     title: "대시보드",
+    isMobileFixed: false,
   },
 };
