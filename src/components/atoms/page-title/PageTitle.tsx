@@ -19,7 +19,7 @@ export default function PageTitle({
       className={cn(
         "text-base font-semibold text-slate-900 sm:text-lg",
         isMobileFixed &&
-          "fixed top-0 left-10 px-4 py-3 sm:static sm:px-0 sm:py-3",
+          "fixed top-0 right-0 left-10 px-4 py-3 sm:static sm:px-0 sm:py-3",
         className,
       )}
       {...props}
