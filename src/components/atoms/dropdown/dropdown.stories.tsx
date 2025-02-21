@@ -1,28 +1,42 @@
-import Dropdown from "./dropdown";
+import { useArgs } from "@storybook/preview-api";
 import type { Meta, StoryObj } from "@storybook/react";
+
+import Dropdown from "./dropdown";
 
 const meta: Meta<typeof Dropdown> = {
   title: "Components/Dropdown",
   component: Dropdown,
-
   argTypes: {
+    isOpen: { control: "boolean" },
     size: {
+      options: ["sm", "md"],
       control: { type: "radio" },
-      options: ["md", "sm"],
     },
   },
 };
 
 export default meta;
-
 type Story = StoryObj<typeof Dropdown>;
 
-export const dropdown: Story = {
+export const Default: Story = {
   args: {
-    size: "md",
+    isOpen: true,
+    size: "sm",
     items: [
-      { label: "수정하기", onClick: () => alert("수정하기 클릭") },
-      { label: "삭제하기", onClick: () => alert("삭제하기 클릭") },
+      { label: "Item 1", onClick: () => alert("Item 1") },
+      { label: "Item 2", onClick: () => alert("Item 2") },
+      { label: "Item 3", onClick: () => alert("Item 3") },
     ],
+  },
+  render: function Render(args) {
+    const [{ isOpen }, updateArgs] = useArgs();
+
+    return (
+      <Dropdown
+        {...args}
+        isOpen={isOpen}
+        setIsOpen={(newState) => updateArgs({ isOpen: newState })}
+      />
+    );
   },
 };
