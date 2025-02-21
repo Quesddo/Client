@@ -10,16 +10,16 @@ import SidebarHeader from "../organisms/SidebarHeader";
 const TABLET_BREAKPOINT = 964;
 
 export default function Sidebar({ title }: { title: string }) {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleToggleSidebar = () => {
     setIsOpen((prev) => !prev);
   };
 
   useEffect(() => {
-    // 모바일이면 Sidebar를 닫음
-    if (window.innerWidth < TABLET_BREAKPOINT) {
-      setIsOpen(false);
+    // 기본 사이드 바 상태 지정 (모바일: 닫힘, PC/태블릿: 열림)
+    if (window.innerWidth >= TABLET_BREAKPOINT) {
+      setIsOpen(true);
     }
   }, []);
 
