@@ -3,7 +3,7 @@ import { ReactNode, useState } from "react";
 
 import Dropdown from "@/components/atoms/dropdown/dropdown";
 
-const dropdownItems = [
+const DROPDOWN_ITEMS = [
   { label: "수정하기", onClick: () => alert("수정하기") },
   { label: "삭제하기", onClick: () => alert("삭제하기") },
 ];
@@ -51,12 +51,14 @@ function CardHeader() {
         className="cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       />
-      {isOpen && (
+      {
         <Dropdown
-          items={dropdownItems}
+          items={DROPDOWN_ITEMS}
           className="absolute top-[58px] right-6"
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
         />
-      )}
+      }
     </div>
   );
 }
