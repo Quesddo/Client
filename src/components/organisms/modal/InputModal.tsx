@@ -18,6 +18,7 @@ import { useModalContext } from "@/contexts/InputModalContext";
 import useDragAndDrop from "@/hooks/useDragAndDrop";
 import useFilePreview from "@/hooks/useFilePreview";
 import { cn } from "@/utils/cn";
+import { TodoCheckImg } from "@/views/todo/todo-checkbox/TodoCheckImg";
 
 import InputDropdown from "../../../views/todo/input-dropdown/InputDropdown";
 import type { Control, FieldValues, Path } from "react-hook-form";
@@ -279,15 +280,9 @@ function CheckButton({
         checked && "bg-slate-800 text-white",
       )}
     >
-      <img
-        src={
-          checked
-            ? "/icons/active-check-white.png"
-            : "/icons/inactive-check.png"
-        }
-        alt={checked ? "체크됨" : "미체크"}
-        width={18}
-        height={18}
+      <TodoCheckImg
+        checked={checked}
+        checkedImgSrc="/icons/active-check-white.png"
         className="rounded-md group-hover:shadow-sm"
       />
       <p>{children}</p>
