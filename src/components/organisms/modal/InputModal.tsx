@@ -8,7 +8,8 @@ import {
   useRef,
 } from "react";
 import ReactDOM from "react-dom";
-import { useFormContext } from "react-hook-form";
+
+import { useController, useFormContext } from "react-hook-form";
 
 import Button from "@/components/atoms/button/Button";
 import Input from "@/components/atoms/input/Input";
@@ -17,6 +18,9 @@ import { useModalContext } from "@/contexts/InputModalContext";
 import useDragAndDrop from "@/hooks/useDragAndDrop";
 import useFilePreview from "@/hooks/useFilePreview";
 import { cn } from "@/utils/cn";
+
+import InputDropdown from "../../../views/todo/input-dropdown/InputDropdown";
+import type { Control, FieldValues, Path } from "react-hook-form";
 
 export default function InputModal({ children }: { children: ReactNode }) {
   const { isOpen } = useModalContext();
@@ -124,8 +128,10 @@ const TextInput = ({
 
 function FileInput({
   onFileChange,
+  className,
 }: {
   onFileChange: (files: FileList) => void;
+  className?: string;
 }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -148,7 +154,7 @@ function FileInput({
 
   return (
     <div
-      className="h-[184px] transition-all"
+      className={cn("h-[184px] transition-all", className)}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
@@ -187,7 +193,9 @@ function FileInput({
         ) : (
           <>
             <PlusIcon color="gray" />
-            <p className="font-normal text-slate-400">파일을 업로드해주세요</p>
+            <p className="text-sm font-normal text-slate-400 sm:text-base">
+              파일을 업로드해주세요
+            </p>
           </>
         )}
         <input
@@ -207,26 +215,33 @@ function FileInput({
   );
 }
 
-function DropdownInput<T extends string | number>({
-  options,
+function DropdownInput<T extends FieldValues>({
+  dropdownItems,
+  buttonText,
+  name,
+  control,
   ...props
 }: {
-  options: T[];
+  dropdownItems: { title: string; id: number }[];
+  buttonText: string;
+  name: Path<T>;
+  control: Control<T>;
 }) {
-  const selectRef = useRef<HTMLSelectElement>(null);
+  const {
+    field: { onChange, value },
+  } = useController<T>({ name, control });
+
+  // 선택된 id에 해당하는 title 찾기
+  const selectedItem = dropdownItems.find((item) => item.id === value) || null;
 
   return (
-    <select
-      ref={selectRef}
-      className="w-full rounded-xl bg-slate-200 p-2"
+    <InputDropdown
+      dropdownItems={dropdownItems}
+      buttonText={buttonText}
+      selectedItem={selectedItem}
+      onSelect={(item) => onChange(item.id)}
       {...props}
-    >
-      {options.map((option) => (
-        <option key={option} value={option}>
-          {option}
-        </option>
-      ))}
-    </select>
+    />
   );
 }
 // -----------------------
@@ -259,7 +274,8 @@ function CheckButton({
         onToggle();
       }}
       className={cn(
-        "group flex shrink-0 cursor-pointer items-center gap-[10px] rounded-lg bg-slate-100 p-2 pr-3 pl-3 text-base font-medium text-slate-800 transition duration-200",
+        "group flex shrink-0 cursor-pointer items-center gap-[10px] rounded-lg p-2 pr-3 pl-3",
+        "bg-slate-100 text-sm font-medium text-slate-800 transition duration-200 sm:text-base",
         checked && "bg-slate-800 text-white",
       )}
     >
