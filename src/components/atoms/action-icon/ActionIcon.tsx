@@ -3,7 +3,7 @@ import { useState } from "react";
 import { TodoResponse } from "@/types/todo";
 import { cn } from "@/utils/cn";
 
-import Dropdown from "../dropdown/dropdown";
+import ActionDropdown from "../action-dropdown/ActionDropdown";
 
 interface ActionIconProps {
   todo: TodoResponse["todos"][number];
@@ -74,12 +74,14 @@ export function ActionIcon({
           <img src={src} alt={alt} width={24} height={24} />
         </li>
       ))}
-      {isOpen && (
-        <Dropdown
+      {
+        <ActionDropdown
           items={dropdownItems}
           className="absolute top-[30px] right-2 z-10 min-w-[81px]"
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
         />
-      )}
+      }
     </ul>
   );
 }
