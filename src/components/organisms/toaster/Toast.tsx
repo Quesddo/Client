@@ -9,7 +9,7 @@ export const toastVariants = cva(
     variants: {
       variant: {
         default: "bg-blue-200 text-blue-500",
-        destructive: "bg-red-200 text-red-500",
+        error: "bg-red-200 text-red-500",
       },
       size: {
         default: "ml-auto w-[250px] rounded",
@@ -34,12 +34,14 @@ const getIconSrc = (variant: VariantProps<typeof toastVariants>["variant"]) => {
   switch (variant) {
     case "default":
       return "/icons/check.png";
-    case "destructive":
+    case "error":
       return "/icons/error.png";
     default:
       return "/icons/check.png";
   }
 };
+
+const TOAST_UNMOUNT_DELAY = 190;
 
 export default function Toast({
   content,
@@ -50,13 +52,14 @@ export default function Toast({
 }: ToastProps) {
   const [isOpen, setIsOpen] = useState(true);
 
+  // toast가 unmount되기(close) 전 toast-close 애니메이션 실행
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
 
-    if (delay && autoClose) {
+    if (autoClose && delay) {
       timeoutId = setTimeout(() => {
         setIsOpen(false);
-      }, delay - 190);
+      }, delay - TOAST_UNMOUNT_DELAY);
     }
 
     return () => {

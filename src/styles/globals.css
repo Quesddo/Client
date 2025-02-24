@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./fonts.css";
+@import "./toast.css";
 
 @theme {
   /* Font */
@@ -67,33 +68,5 @@
 @layer base {
   * {
     box-sizing: content-box;
-  }
-}
-
-/* toast slide animation */
-@theme {
-  --animate-toast-open: toast-open 200ms ease;
-  --animate-toast-close: toast-close 200ms ease;
-
-  @keyframes toast-open {
-    0% {
-      transform: translateY(40px);
-      opacity: 0;
-    }
-    100% {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-
-  @keyframes toast-close {
-    0% {
-      transform: translateY(0px);
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(40px);
-      opacity: 0;
-    }
   }
 }
