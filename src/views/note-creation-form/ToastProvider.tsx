@@ -1,28 +1,44 @@
 import { createContext, PropsWithChildren, useCallback, useState } from "react";
 
 import { ToastProps } from "./Toast";
-import { ToasterProps } from "./Toaster";
 
-export type ToastActionContextProps = ({ content }: ToastProps) => void;
+export interface ToastStateProps extends ToastProps {
+  id: number;
+}
 
-export const ToastStateContext = createContext<ToasterProps[]>([]);
+export const ToastStateContext = createContext<ToastStateProps[]>([]);
 
-export const ToastActionContext = createContext<(toast: ToastProps) => void>(
-  () => {},
-);
+export const ToastActionContext = createContext<
+  (toast: Omit<ToastStateProps, "id" | "state">) => void
+>(() => {});
 
 export const ToastProvider = ({ children }: PropsWithChildren) => {
-  const [toasts, setToasts] = useState<ToasterProps[]>([]);
+  const [toasts, setToasts] = useState<ToastStateProps[]>([]);
 
-  const addToast = useCallback((toast: ToastProps) => {
-    const newId = Math.random() * Number.MAX_SAFE_INTEGER;
-    setToasts((prev) => [...prev, { id: newId, ...toast }]);
+  const addToast = useCallback(
+    ({
+      autoClose = true,
+      delay = 3000,
+      ...toast
+    }: Omit<ToastStateProps, "id" | "state">) => {
+      const newId = Math.random() * Number.MAX_SAFE_INTEGER;
+      setToasts((prev) => [...prev, { id: newId, delay, autoClose, ...toast }]);
+      removeToast(newId, autoClose, delay);
+    },
+    [],
+  );
 
-    const timeoutId = setTimeout(() => {
-      setToasts((prev) => prev.slice(1));
-      clearTimeout(timeoutId);
-    }, 2000);
-  }, []);
+  const removeToast = useCallback(
+    (toastId: number, autoClose: boolean, delay: number) => {
+      if (autoClose) {
+        const timeoutId = setTimeout(() => {
+          setToasts((prev) => prev.filter((item) => item.id !== toastId));
+          clearTimeout(timeoutId);
+        }, delay);
+      }
+    },
+    [],
+  );
 
   return (
     <ToastStateContext.Provider value={toasts}>

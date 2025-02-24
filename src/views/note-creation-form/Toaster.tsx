@@ -1,12 +1,10 @@
 import React, { useContext } from "react";
 
-import Toast, { ToastProps } from "./Toast";
-import { ToastStateContext } from "./ToastProvider";
-
-export type ToasterProps = ToastProps & { id: number };
+import Toast from "./Toast";
+import { ToastStateContext, ToastStateProps } from "./ToastProvider";
 
 export default function Toaster() {
-  const toasts = useContext<ToasterProps[]>(ToastStateContext);
+  const toasts = useContext<ToastStateProps[]>(ToastStateContext);
 
   return (
     <div className="pointer-events-none sticky bottom-0 z-50 flex h-0 flex-col-reverse bg-red-200">

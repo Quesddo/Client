@@ -1,10 +1,10 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import { ReactElement } from "react";
+import { ReactElement, useEffect, useState } from "react";
 
 import { cn } from "@/utils/cn";
 
 export const toastVariants = cva(
-  "animate-bottom-to-top mx-10 mb-4 flex items-center gap-2 px-6 py-3 text-sm font-semibold first:mb-10",
+  "data-[state=open]:animate-toast-open data-[state=close]:animate-toast-close mx-10 mb-4 flex items-center gap-2 px-6 py-3 text-sm font-semibold first:mb-10",
   {
     variants: {
       variant: {
@@ -26,6 +26,8 @@ export const toastVariants = cva(
 export interface ToastProps extends VariantProps<typeof toastVariants> {
   content: string | ReactElement;
   className?: string;
+  delay?: number;
+  autoClose?: boolean;
 }
 
 const getIconSrc = (variant: VariantProps<typeof toastVariants>["variant"]) => {
@@ -39,7 +41,31 @@ const getIconSrc = (variant: VariantProps<typeof toastVariants>["variant"]) => {
   }
 };
 
-export default function Toast({ content, className, ...props }: ToastProps) {
+export default function Toast({
+  content,
+  delay,
+  autoClose,
+  className,
+  ...props
+}: ToastProps) {
+  const [isOpen, setIsOpen] = useState(true);
+
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
+    if (delay && autoClose) {
+      timeoutId = setTimeout(() => {
+        setIsOpen(false);
+      }, delay - 190);
+    }
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, []);
+
   return (
     <div
       className={cn(
@@ -48,6 +74,7 @@ export default function Toast({ content, className, ...props }: ToastProps) {
           className,
         }),
       )}
+      data-state={isOpen ? "open" : "close"}
     >
       <img
         src={getIconSrc(props.variant)}
