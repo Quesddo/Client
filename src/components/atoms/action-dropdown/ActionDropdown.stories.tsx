@@ -1,11 +1,11 @@
 import { useArgs } from "@storybook/preview-api";
 import type { Meta, StoryObj } from "@storybook/react";
 
-import Dropdown from "./ActionDropdown";
+import ActionDropdown from "./ActionDropdown";
 
-const meta: Meta<typeof Dropdown> = {
-  title: "Components/Dropdown",
-  component: Dropdown,
+const meta: Meta<typeof ActionDropdown> = {
+  title: "Common/Atoms/ActionDropdown",
+  component: ActionDropdown,
   argTypes: {
     isOpen: { control: "boolean" },
     size: {
@@ -16,7 +16,7 @@ const meta: Meta<typeof Dropdown> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Dropdown>;
+type Story = StoryObj<typeof ActionDropdown>;
 
 export const Default: Story = {
   args: {
@@ -32,7 +32,7 @@ export const Default: Story = {
     const [{ isOpen }, updateArgs] = useArgs();
 
     return (
-      <Dropdown
+      <ActionDropdown
         {...args}
         isOpen={isOpen}
         setIsOpen={(newState) => updateArgs({ isOpen: newState })}
