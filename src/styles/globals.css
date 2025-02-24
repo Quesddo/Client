@@ -69,3 +69,19 @@
     box-sizing: content-box;
   }
 }
+
+/* toast slide animation */
+@theme {
+  --animate-bottom-to-top: bottom-to-top 200ms ease;
+
+  @keyframes bottom-to-top {
+    0% {
+      transform: translateY(40px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}

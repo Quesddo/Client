@@ -1,30 +1,61 @@
-import { ReactElement, useContext } from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { ReactElement } from "react";
 
-import { ToastStateContext } from "./ToastProvider";
+import { cn } from "@/utils/cn";
 
-export interface ToastProps {
-  id: number;
+export const toastVariants = cva(
+  "animate-bottom-to-top mx-10 mb-4 flex items-center gap-2 px-6 py-3 text-sm font-semibold first:mb-10",
+  {
+    variants: {
+      variant: {
+        default: "bg-blue-200 text-blue-500",
+        destructive: "bg-red-200 text-red-500",
+      },
+      size: {
+        default: "ml-auto w-[250px] rounded",
+        full: "box-border rounded-[28px]",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  },
+);
+
+export interface ToastProps extends VariantProps<typeof toastVariants> {
   content: string | ReactElement;
+  className?: string;
 }
 
-export default function Toast() {
-  const toasts = useContext<ToastProps[]>(ToastStateContext);
+const getIconSrc = (variant: VariantProps<typeof toastVariants>["variant"]) => {
+  switch (variant) {
+    case "default":
+      return "/icons/check.png";
+    case "destructive":
+      return "/icons/error.png";
+    default:
+      return "/icons/check.png";
+  }
+};
 
+export default function Toast({ content, className, ...props }: ToastProps) {
   return (
-    <div className="flex h-[500px] flex-col-reverse gap-4">
-      {toasts.map((toast) => (
-        <div
-          key={toast.id}
-          className="flex items-center gap-2 rounded-[28px] bg-blue-200 px-6 py-3 text-sm font-semibold text-blue-500"
-        >
-          <img src="/icons/check.png" alt="확인" width={24} height={24} />
-          {typeof toast.content === "string" ? (
-            <p>{toast.content}</p>
-          ) : (
-            toast.content
-          )}
-        </div>
-      ))}
+    <div
+      className={cn(
+        toastVariants({
+          ...props,
+          className,
+        }),
+      )}
+    >
+      <img
+        src={getIconSrc(props.variant)}
+        alt="토스트 아이콘"
+        width={24}
+        height={24}
+      />
+      {typeof content === "string" ? <p>{content}</p> : content}
     </div>
   );
 }

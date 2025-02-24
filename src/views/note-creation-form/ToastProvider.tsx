@@ -1,19 +1,22 @@
 import { createContext, PropsWithChildren, useCallback, useState } from "react";
 
 import { ToastProps } from "./Toast";
+import { ToasterProps } from "./Toaster";
 
-export const ToastStateContext = createContext<ToastProps[]>([]);
+export type ToastActionContextProps = ({ content }: ToastProps) => void;
 
-export const ToastActionContext = createContext<
-  ({ content }: Omit<ToastProps, "id">) => void
->(() => {});
+export const ToastStateContext = createContext<ToasterProps[]>([]);
+
+export const ToastActionContext = createContext<(toast: ToastProps) => void>(
+  () => {},
+);
 
 export const ToastProvider = ({ children }: PropsWithChildren) => {
-  const [toasts, setToasts] = useState<ToastProps[]>([]);
+  const [toasts, setToasts] = useState<ToasterProps[]>([]);
 
-  const addToast = useCallback(({ content }: Omit<ToastProps, "id">) => {
+  const addToast = useCallback((toast: ToastProps) => {
     const newId = Math.random() * Number.MAX_SAFE_INTEGER;
-    setToasts((prev) => [...prev, { id: newId, content }]);
+    setToasts((prev) => [...prev, { id: newId, ...toast }]);
 
     const timeoutId = setTimeout(() => {
       setToasts((prev) => prev.slice(1));
