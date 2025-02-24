@@ -9,7 +9,7 @@ import SidebarHeader from "../organisms/SidebarHeader";
 
 const TABLET_BREAKPOINT = 964;
 
-export default function Sidebar({ title }: { title: string }) {
+export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
 
   const handleToggleSidebar = () => {
@@ -31,7 +31,6 @@ export default function Sidebar({ title }: { title: string }) {
         <button onClick={handleToggleSidebar}>
           <img src="/icons/hamburger.png" width={24} height={24} alt="메뉴" />
         </button>
-        <h1 className="text-base font-semibold">{title}</h1>
       </header>
       <aside
         className={cn(
