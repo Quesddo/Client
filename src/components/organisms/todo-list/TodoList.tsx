@@ -1,20 +1,18 @@
-import { Dispatch, SetStateAction } from "react";
-
 import { useModalContext } from "@/contexts/InputModalContext";
 import { TodoResponse } from "@/types/todo";
 
-import { TodoItem } from "../../molecules/todo-item/TodoItem";
+import { TodoItem } from "../../../views/todo/todo-item/TodoItem";
 
 interface TodoListProps {
-  data?: TodoResponse["todos"];
+  data: TodoResponse["todos"];
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
-  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
+  setSelectedTodoId: (todoId: number) => void;
 }
 
 export default function TodoList({
   data,
   handleToggleTodo,
-  setIsModalOpen,
+  setSelectedTodoId,
 }: TodoListProps) {
   const { openModal } = useModalContext();
 
@@ -29,7 +27,7 @@ export default function TodoList({
             console.log(`노트 상세 페이지 열기: ${noteId}`);
           }}
           onOpenTodoModal={() => {
-            setIsModalOpen(true);
+            setSelectedTodoId(todo.id);
             openModal();
           }}
         />

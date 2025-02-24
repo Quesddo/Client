@@ -1,9 +1,9 @@
 import { useState } from "react";
 
+import ActionDropdown from "@/components/atoms/action-dropdown/ActionDropdown";
 import { TodoResponse } from "@/types/todo";
 import { cn } from "@/utils/cn";
 
-import ActionDropdown from "../action-dropdown/ActionDropdown";
 
 interface ActionIconProps {
   todo: TodoResponse["todos"][number];
@@ -29,15 +29,15 @@ export function ActionIcon({
   const hoverIconStyle = `opacity-0 invisible -ml-6 mr-0 group-hover:opacity-100 group-hover:visible scale-90 group-hover:scale-100 group-hover:ml-0 group-hover:mr-2 hover:shadow-md transition-all duration-150 cursor-pointer ${isOpen ? "opacity-100 visible ml-0 mr-2 scale-100" : ""}`;
   const actions = [
     todo.fileUrl && {
-      src: "/file.png",
+      src: "/icons/file.png",
       alt: "첨부파일",
     },
     todo.linkUrl && {
-      src: "/link.png",
+      src: "/icons/link.png",
       alt: "첨부링크",
     },
     {
-      src: todo.noteId ? "/note-view.png" : "/note-write.png",
+      src: todo.noteId ? "/icons/note-view.png" : "/icons/note-write.png",
       alt: todo.noteId ? "노트보기" : "노트작성",
       className: todo.noteId ? "" : hoverIconStyle,
       onClick: todo.noteId
@@ -46,7 +46,7 @@ export function ActionIcon({
       role: "button",
     },
     {
-      src: "/round-kebab.png",
+      src: "/icons/kebab.png",
       alt: "수정,삭제",
       className: hoverIconStyle,
       onClick: (e: React.MouseEvent) => {
