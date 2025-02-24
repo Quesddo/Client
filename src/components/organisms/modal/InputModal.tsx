@@ -5,6 +5,7 @@ import {
   InputHTMLAttributes,
   LabelHTMLAttributes,
   ReactNode,
+  useEffect,
   useRef,
 } from "react";
 import ReactDOM from "react-dom";
@@ -79,7 +80,7 @@ function Content({
   );
 }
 
-function Title({ children }: { children: string }) {
+function Title({ children }: { children: string | string[] }) {
   return <h1 className="z-30 text-lg font-bold">{children}</h1>;
 }
 
@@ -128,9 +129,11 @@ const TextInput = ({
 };
 
 function FileInput({
+  fileUrl,
   onFileChange,
   className,
 }: {
+  fileUrl?: string;
   onFileChange: (files: FileList) => void;
   className?: string;
 }) {
@@ -144,7 +147,6 @@ function FileInput({
         onFileChange(files);
         updateFilePreview(files);
 
-        // input 값도 업데이트
         if (fileInputRef.current) {
           const dataTransfer = new DataTransfer();
           Array.from(files).forEach((file) => dataTransfer.items.add(file));
@@ -152,6 +154,13 @@ function FileInput({
         }
       },
     });
+
+  useEffect(() => {
+    // 기존 fileUrl 미리보기
+    if (fileUrl && !previewFile) {
+      updateFilePreview(fileUrl);
+    }
+  }, [fileUrl, previewFile]);
 
   return (
     <div
@@ -232,7 +241,6 @@ function DropdownInput<T extends FieldValues>({
     field: { onChange, value },
   } = useController<T>({ name, control });
 
-  // 선택된 id에 해당하는 title 찾기
   const selectedItem = dropdownItems.find((item) => item.id === value) || null;
 
   return (
