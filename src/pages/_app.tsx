@@ -4,6 +4,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { useRouter } from "next/router";
 
+import AuthGuard from "@/components/AuthGuard";
+
 import Sidebar from "../views/layouts/template/Sidebar";
 import type { AppProps } from "next/app";
 
@@ -24,13 +26,15 @@ export default function App({ Component, pageProps }: PageProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex h-screen flex-col overflow-y-hidden sm:flex-row">
-        {!isHidden && <Sidebar title={headerContent} />}
-        <main className="flex-1 overflow-y-auto">
-          <Component {...pageProps} />
-        </main>
-      </div>
-      <div id="global-modal"></div>
+      <AuthGuard>
+        <div className="flex h-screen flex-col overflow-y-hidden sm:flex-row">
+          {!isHidden && <Sidebar title={headerContent} />}
+          <main className="flex-1 overflow-y-auto">
+            <Component {...pageProps} />
+          </main>
+        </div>
+        <div id="global-modal"></div>
+      </AuthGuard>
     </QueryClientProvider>
   );
 }

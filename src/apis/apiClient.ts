@@ -1,8 +1,10 @@
-import type { AxiosError, AxiosInstance } from "axios";
 import axios from "axios";
 
 import { ErrorResponsePayload } from "@/types/types";
 import { tokenUtils } from "@/utils/tokenUtils";
+
+import refreshTokens from "./apiRefreshTokens";
+import type { AxiosError, AxiosInstance } from "axios";
 
 const instance: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BACKEND_URL,
@@ -24,7 +26,7 @@ instance.interceptors.response.use(
   (error) => handleError(error),
 );
 
-const handleError = (error: AxiosError): Promise<never> => {
+const handleError = async (error: AxiosError): Promise<never> => {
   if (error.message.includes("Network Error")) {
     return Promise.reject(new Error("네트워크 오류가 발생했습니다."));
   }
@@ -46,6 +48,18 @@ const handleError = (error: AxiosError): Promise<never> => {
       errorMessages[error.response.status] ||
       data.message ||
       `오류가 발생했습니다. (코드: ${error.response.status})`;
+
+    if (data.message === "Unauthorized") {
+      try {
+        const accessToken = await refreshTokens();
+        if (accessToken) {
+          if (error.config) {
+            error.config.headers.Authorization = `Bearer ${accessToken}`;
+            return axios(error.config);
+          }
+        }
+      } catch {}
+    }
   }
 
   return Promise.reject(error);
