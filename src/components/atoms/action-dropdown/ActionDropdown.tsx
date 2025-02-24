@@ -34,7 +34,7 @@ const dropdownStyleVariants = cva(
   },
 );
 
-export interface NoteDropdownProps
+export interface ActionDropdownProps
   extends VariantProps<typeof dropdownStyleVariants> {
   items: { label: string; onClick: () => void }[];
   className?: string;
@@ -42,15 +42,15 @@ export interface NoteDropdownProps
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function NoteDropdown({
+export default function ActionDropdown({
   size,
   items,
   className,
   isOpen,
   setIsOpen,
-}: NoteDropdownProps) {
+}: ActionDropdownProps) {
   const closeDropdown = () => setIsOpen(false);
-  const handleClickDropdown = (onClickItem: () => void) => {
+  const handleClickItem = (onClickItem: () => void) => {
     return () => {
       // 드롭다운 메뉴 클릭 시 지정된 onClick이 작동하고 드롭다운 닫힘
       closeDropdown();
@@ -76,7 +76,7 @@ export default function NoteDropdown({
               <li
                 key={idx}
                 className={cn(dropdownStyleVariants({ size }))}
-                onClick={handleClickDropdown(item.onClick)}
+                onClick={handleClickItem(item.onClick)}
               >
                 {item.label}
               </li>

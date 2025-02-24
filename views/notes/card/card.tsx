@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ReactNode, useState } from "react";
 
-import NoteDropdown from "@/components/atoms/note-dropdown/NoteDropdown";
+import ActionDropdown from "@/components/atoms/action-dropdown/ActionDropdown";
 
 const DROPDOWN_ITEMS = [
   { label: "수정하기", onClick: () => alert("수정하기") },
@@ -52,7 +52,7 @@ function CardHeader() {
         onClick={() => setIsOpen(!isOpen)}
       />
       {
-        <NoteDropdown
+        <ActionDropdown
           items={DROPDOWN_ITEMS}
           className="absolute top-[58px] right-6"
           isOpen={isOpen}

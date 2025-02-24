@@ -1,7 +1,7 @@
 import { useArgs } from "@storybook/preview-api";
 import type { Meta, StoryObj } from "@storybook/react";
 
-import Dropdown from "./NoteDropdown";
+import Dropdown from "./ActionDropdown";
 
 const meta: Meta<typeof Dropdown> = {
   title: "Components/Dropdown",
