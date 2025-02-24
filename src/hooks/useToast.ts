@@ -1,9 +1,12 @@
 import { useContext } from "react";
 
-import { ToastActionContext } from "@/components/organisms/toaster/ToastProvider";
+import {
+  ToastActionContext,
+  ToastActionProps,
+} from "@/components/organisms/toaster/ToastProvider";
 
 export default function useToast() {
-  const addToast = useContext(ToastActionContext);
+  const addToast = useContext<ToastActionProps>(ToastActionContext);
 
   return { addToast };
 }

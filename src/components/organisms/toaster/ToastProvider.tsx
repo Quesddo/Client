@@ -6,11 +6,13 @@ export interface ToastStateProps extends ToastProps {
   id: number;
 }
 
+export type ToastActionProps = (
+  toast: Omit<ToastStateProps, "id" | "state">,
+) => void;
+
 export const ToastStateContext = createContext<ToastStateProps[]>([]);
 
-export const ToastActionContext = createContext<
-  (toast: Omit<ToastStateProps, "id" | "state">) => void
->(() => {});
+export const ToastActionContext = createContext<ToastActionProps>(() => {});
 
 const MINIMUM_DELAY_TIME = 500;
 const DEFAULT_TOAST_DELAY_TIME = 2500;
