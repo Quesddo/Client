@@ -5,6 +5,7 @@ import { useFormContext } from "react-hook-form";
 
 import instance from "@/apis/apiClient";
 import { UserCreateRequstDto } from "@/types/types";
+import { tokenUtils } from "@/utils/tokenUtils";
 
 interface FormData extends UserCreateRequstDto {
   confirmPassword: string;
@@ -18,7 +19,8 @@ function useLogin() {
       const response = await instance.post("/auth/login", params);
       return response.data;
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      tokenUtils.setToken(data.accessToken, data.refreshToken);
       router.push("/dashboard");
     },
     onError: (error) => {

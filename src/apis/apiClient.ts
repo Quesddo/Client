@@ -2,6 +2,7 @@ import type { AxiosError, AxiosInstance } from "axios";
 import axios from "axios";
 
 import { ErrorResponsePayload } from "@/types/types";
+import { tokenUtils } from "@/utils/tokenUtils";
 
 const instance: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BACKEND_URL,
@@ -11,6 +12,8 @@ const instance: AxiosInstance = axios.create({
 instance.interceptors.request.use(
   (config) => {
     // header 설정 코드
+    const accessToken = tokenUtils.getAccessToken();
+    if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
     return config;
   },
   (error) => handleError(error),
