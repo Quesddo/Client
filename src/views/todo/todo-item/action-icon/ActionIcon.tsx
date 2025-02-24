@@ -26,15 +26,23 @@ export function ActionIcon({
 }: ActionIconProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const hoverIconStyle = `opacity-0 invisible -ml-6 mr-0 group-hover:opacity-100 group-hover:visible scale-90 group-hover:scale-100 group-hover:ml-0 group-hover:mr-2 hover:shadow-md transition-all duration-150 cursor-pointer ${isOpen ? "opacity-100 visible ml-0 mr-2 scale-100" : ""}`;
+  const hoverIconStyle = `opacity-0 invisible -ml-6 mr-0 group-hover:opacity-100 group-hover:visible scale-90 group-hover:scale-100 group-hover:ml-0 group-hover:mr-2 hover:shadow-md transition-all duration-150 ${isOpen ? "opacity-100 visible ml-0 mr-2 scale-100" : ""}`;
   const actions = [
     todo.fileUrl && {
       src: "/icons/file.png",
       alt: "첨부파일",
+      onClick: () => {
+        if (todo.fileUrl)
+          window.open(todo.fileUrl, "_blank", "noopener,noreferrer");
+      },
     },
     todo.linkUrl && {
       src: "/icons/link.png",
       alt: "첨부링크",
+      onClick: () => {
+        if (todo.linkUrl)
+          window.open(todo.linkUrl, "_blank", "noopener,noreferrer");
+      },
     },
     {
       src: todo.noteId ? "/icons/note-view.png" : "/icons/note-write.png",
@@ -67,7 +75,7 @@ export function ActionIcon({
       {actions.map(({ src, alt, className, onClick, role }, index) => (
         <li
           key={index}
-          className={cn("mr-2 rounded-full", className)}
+          className={cn("mr-2 cursor-pointer rounded-full", className)}
           onClick={onClick}
           role={role}
         >
