@@ -12,6 +12,7 @@ export const ToastActionContext = createContext<
   (toast: Omit<ToastStateProps, "id" | "state">) => void
 >(() => {});
 
+const MINIMUM_DELAY_TIME = 500;
 const DEFAULT_TOAST_DELAY_TIME = 2500;
 
 export const ToastProvider = ({ children }: PropsWithChildren) => {
@@ -23,7 +24,7 @@ export const ToastProvider = ({ children }: PropsWithChildren) => {
       delay = DEFAULT_TOAST_DELAY_TIME,
       ...toast
     }: Omit<ToastStateProps, "id" | "state">) => {
-      if (delay <= 500) {
+      if (delay <= MINIMUM_DELAY_TIME) {
         throw new Error("addToast의 delay는 500ms 이상이어야 합니다. ");
       }
 
