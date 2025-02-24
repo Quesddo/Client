@@ -15,7 +15,6 @@ export default function TodoPage() {
 
   const filterType = ["All", "Done", "To do"] as const;
   const [filter, setFilter] = useState<(typeof filterType)[number]>("All");
-  const [_isModalOpen, setIsModalOpen] = useState(false);
 
   const filteredTodos = data?.todos.filter((todo) => {
     if (filter === "Done") return todo.done;
