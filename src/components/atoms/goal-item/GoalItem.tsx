@@ -21,7 +21,7 @@ const textVariants = cva("text-base font-medium text-slate-800", {
 
 interface GoalItemProps extends VariantProps<typeof textVariants> {
   iconSize: "sm" | "lg";
-  gap: number;
+  gap?: number;
   goal?: string;
 }
 
