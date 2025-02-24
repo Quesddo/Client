@@ -13,16 +13,12 @@ const textVariants = cva("text-base font-medium text-slate-800", {
       semibold: "font-semibold",
     },
   },
-  defaultVariants: {
-    fontSize: "sm",
-    fontWeight: "medium",
-  },
 });
 
-interface GoalItemProps extends VariantProps<typeof textVariants> {
+interface GoalItemProps extends Required<VariantProps<typeof textVariants>> {
   iconSize: "sm" | "lg";
+  goal: string;
   gap?: number;
-  goal?: string;
 }
 
 export default function GoalItem({

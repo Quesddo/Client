@@ -7,7 +7,13 @@ const meta: Meta<typeof GoalItem> = {
   argTypes: {
     goal: { control: "text" },
     iconSize: {
-      control: "radio",
+      control: {
+        type: "radio",
+        labels: {
+          sm: "sm (width: 24px)",
+          lg: "lg (width: 40px)",
+        },
+      },
       options: ["sm", "lg"],
     },
     fontSize: {
