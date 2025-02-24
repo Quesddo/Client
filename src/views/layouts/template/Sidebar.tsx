@@ -15,7 +15,7 @@ export default function Sidebar() {
   const pathname = usePathname();
   const isHidden = TO_HIDE_PATH.includes(pathname);
 
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleToggleSidebar = () => {
     setIsOpen((prev) => !prev);
