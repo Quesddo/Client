@@ -1,11 +1,11 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import Image from "next/image";
 
-const textVariants = cva("text-base font-medium text-slate-800", {
+const textVariants = cva("text-slate-800", {
   variants: {
-    fontSize: {
+    textSize: {
       sm: "text-sm",
-      md: "text-base",
+      base: "text-base",
       lg: "text-lg",
     },
     fontWeight: {
@@ -17,14 +17,14 @@ const textVariants = cva("text-base font-medium text-slate-800", {
 
 interface GoalItemProps extends Required<VariantProps<typeof textVariants>> {
   iconSize: "sm" | "lg";
-  goal: string;
+  goal?: string;
   gap?: number;
 }
 
 export default function GoalItem({
   goal,
   iconSize,
-  fontSize,
+  textSize,
   fontWeight,
   gap = 6,
 }: GoalItemProps) {
@@ -42,7 +42,7 @@ export default function GoalItem({
       style={{ gap: `${gap}px` }}
     >
       <Image {...iconProps} />
-      <span className={textVariants({ fontWeight, fontSize })}>{goal}</span>
+      <span className={textVariants({ textSize, fontWeight })}>{goal}</span>
     </div>
   );
 }

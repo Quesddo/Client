@@ -16,9 +16,9 @@ const meta: Meta<typeof GoalItem> = {
       },
       options: ["sm", "lg"],
     },
-    fontSize: {
+    textSize: {
       control: "radio",
-      options: ["sm", "md", "lg"],
+      options: ["sm", "base", "lg"],
     },
     fontWeight: {
       control: "radio",
@@ -36,7 +36,7 @@ export const Default: Story = {
   args: {
     goal: "자바스크립트로 웹 서비스 만들기",
     iconSize: "sm",
-    fontSize: "sm",
+    textSize: "sm",
     fontWeight: "medium",
   },
 };
