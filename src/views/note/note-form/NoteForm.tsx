@@ -2,17 +2,21 @@ import { FormProvider, useForm } from "react-hook-form";
 
 import Button from "@/components/atoms/button/Button";
 import PageTitle from "@/components/atoms/page-title/PageTitle";
-import { CreateNoteBodyDto } from "@/types/types";
-import InputWithCount from "@/views/note-creation-form/InputWithCount";
-import ToastBtn from "@/views/note-creation-form/ToastBtn";
+import { CreateNoteBodyDto, UpdateNoteBodyDto } from "@/types/types";
+import Editor from "@/views/note/note-form/Editor";
+import InputWithCount from "@/views/note/note-form/InputWithCount";
+import ToastBtn from "@/views/note/note-form/ToastBtn";
 
-import Editor from "./Editor";
+interface NoteFormProps<
+  TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto,
+> {
+  onSubmit: (data: TNoteBody) => void;
+}
 
-export default function NoteCreationForm() {
-  const methods = useForm<CreateNoteBodyDto>();
-  const onSubmit = (data: CreateNoteBodyDto) => {
-    console.log(data);
-  };
+export default function NoteForm<
+  TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto,
+>({ onSubmit }: NoteFormProps<TNoteBody>) {
+  const methods = useForm<TNoteBody>();
 
   return (
     <FormProvider {...methods}>
@@ -36,7 +40,12 @@ export default function NoteCreationForm() {
           </div>
         </div>
         <div className="flex flex-col gap-4 pt-[11px] pb-[24px] md:flex-col-reverse">
-          <input {...methods.register("todoId", { value: 2 })} type="hidden" />
+          {/* {todoId && (
+            <input
+              {...methods.register("todoId", { value: +todoId })}
+              type="hidden"
+            />
+          )} */}
           <div>
             <h3>자바스크립트로 웹 서비스 만들기</h3>
             <p>자바스크립트 기초 챕터1 듣기</p>
