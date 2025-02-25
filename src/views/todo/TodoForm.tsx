@@ -1,5 +1,6 @@
 import { FormProvider } from "react-hook-form";
 
+import TextCounting from "@/components/atoms/text-counting/TextCounting";
 import InputModal from "@/components/organisms/modal/InputModal";
 import { useFetchGoals } from "@/hooks/goal/useFetchGoals";
 import { UpdateTodoBodyDto } from "@/types/types";
@@ -82,8 +83,8 @@ export function TodoForm({
             className="flex flex-col gap-6"
           >
             <div>
-              <InputModal.Label>
-                제목 <span>{titleCounting}/30</span>
+              <InputModal.Label className="mb-3 flex items-center justify-between">
+                제목 <TextCounting count={titleCounting} total={30} />
               </InputModal.Label>
 
               <InputModal.TextInput
