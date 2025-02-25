@@ -27,7 +27,9 @@ export const ToastProvider = ({ children }: PropsWithChildren) => {
       ...toast
     }: Omit<ToastStateProps, "id" | "state">) => {
       if (delay <= MINIMUM_DELAY_TIME) {
-        throw new Error("addToast의 delay는 500ms 이상이어야 합니다. ");
+        throw new Error(
+          `addToast의 delay는 ${MINIMUM_DELAY_TIME}ms보다 초과되어야 합니다. `,
+        );
       }
 
       const newId = Math.random() * Number.MAX_SAFE_INTEGER;
