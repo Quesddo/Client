@@ -25,7 +25,6 @@ export const useDeleteTodo = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
-      alert("할 일이 삭제되었습니다");
     },
     onError: (error, _, context) => {
       if (context?.previousTodos) {

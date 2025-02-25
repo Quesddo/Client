@@ -1,15 +1,14 @@
 import { useState } from "react";
 
 import ActionDropdown from "@/components/atoms/action-dropdown/ActionDropdown";
-import { useDeleteTodo } from "@/hooks/todo/useDeleteTodo";
 import { TodoResponse } from "@/types/todo";
 import { cn } from "@/utils/cn";
-
 
 interface ActionIconProps {
   todo: TodoResponse["todos"][number];
   onOpenNoteDetail: (noteId: TodoResponse["todos"][number]["noteId"]) => void;
   onOpenTodoModal: () => void;
+  onOpenDeletePopup: () => void;
 }
 
 interface ActionOptions {
@@ -24,9 +23,9 @@ export function ActionIcon({
   todo,
   onOpenNoteDetail,
   onOpenTodoModal,
+  onOpenDeletePopup,
 }: ActionIconProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const deleteTodoMutation = useDeleteTodo();
 
   const hoverIconStyle = `opacity-0 invisible -ml-6 mr-0 group-hover:opacity-100 group-hover:visible scale-90 group-hover:scale-100 group-hover:ml-0 group-hover:mr-2 hover:shadow-md transition-all duration-150 ${isOpen ? "opacity-100 visible ml-0 mr-2 scale-100" : ""}`;
   const actions = [
@@ -71,14 +70,7 @@ export function ActionIcon({
     { label: "수정하기", onClick: onOpenTodoModal },
     {
       label: "삭제하기",
-      onClick: () => {
-        deleteTodoMutation.mutate(todo.id, {
-          onSuccess: () => {
-            console.log("삭제 성공:", todo.id);
-            setIsOpen(false);
-          },
-        });
-      },
+      onClick: onOpenDeletePopup,
     },
   ];
 

@@ -7,12 +7,14 @@ interface TodoListProps {
   data: TodoResponse["todos"];
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
   setSelectedTodoId: (todoId: number) => void;
+  onOpenDeletePopup: () => void;
 }
 
 export default function TodoList({
   data,
   handleToggleTodo,
   setSelectedTodoId,
+  onOpenDeletePopup,
 }: TodoListProps) {
   const { openModal } = useModalContext();
 
@@ -30,6 +32,7 @@ export default function TodoList({
             setSelectedTodoId(todo.id);
             openModal();
           }}
+          onOpenDeletePopup={onOpenDeletePopup}
         />
       ))}
     </ul>
