@@ -68,4 +68,7 @@
   * {
     box-sizing: content-box;
   }
+  button {
+    @apply cursor-pointer;
+  }
 }
