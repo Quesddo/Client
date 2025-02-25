@@ -868,7 +868,7 @@ export interface teamIdGoalsPostParams {
   createGoalBodyDto: CreateGoalBodyDto;
 }
 export interface teamIdNotesGetParams {
-  goalId?: number;
+  goalId: number;
   cursor?: number;
   size?: number;
 }
