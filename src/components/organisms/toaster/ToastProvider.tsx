@@ -17,7 +17,7 @@ export const ToastActionContext = createContext<ToastActionProps>(() => {});
 const MINIMUM_DELAY_TIME = 500;
 const DEFAULT_TOAST_DELAY_TIME = 2500;
 
-export const ToastProvider = ({ children }: PropsWithChildren) => {
+export default function ToastProvider({ children }: PropsWithChildren) {
   const [toasts, setToasts] = useState<ToastStateProps[]>([]);
 
   const addToast = useCallback(
@@ -58,4 +58,4 @@ export const ToastProvider = ({ children }: PropsWithChildren) => {
       </ToastActionContext.Provider>
     </ToastStateContext.Provider>
   );
-};
+}

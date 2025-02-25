@@ -5,9 +5,8 @@ import { act, PropsWithChildren, useContext } from "react";
 import useToast from "@/hooks/useToast";
 
 import Toaster from "./Toaster";
-import {
+import ToastProvider, {
   ToastActionContext,
-  ToastProvider,
   ToastStateProps,
 } from "./ToastProvider";
 

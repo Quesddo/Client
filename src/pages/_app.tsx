@@ -3,7 +3,7 @@ import "@/styles/globals.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import Toaster from "@/components/organisms/toaster/Toaster";
-import { ToastProvider } from "@/components/organisms/toaster/ToastProvider";
+import ToastProvider from "@/components/organisms/toaster/ToastProvider";
 
 import Sidebar from "../views/layouts/template/Sidebar";
 import type { AppProps } from "next/app";

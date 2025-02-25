@@ -3,7 +3,7 @@ import useToast from "@/hooks/useToast";
 
 import Toast from "./Toast";
 import Toaster from "./Toaster";
-import { ToastProvider, ToastStateProps } from "./ToastProvider";
+import ToastProvider, { ToastStateProps } from "./ToastProvider";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
