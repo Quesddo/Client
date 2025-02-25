@@ -2,35 +2,40 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import instance from "@/apis/apiClient";
 import { TodoResponse } from "@/types/todo";
+import { UpdateTodoBodyDto } from "@/types/types";
 
 export const useUpdateTodo = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ todoId, done }: { todoId: number; done: boolean }) => {
-      const { data } = await instance.patch(`/todos/${todoId}`, { done });
-      return data;
+    mutationFn: async ({
+      todoId,
+      data,
+    }: {
+      todoId: number;
+      data: Partial<UpdateTodoBodyDto> & { done?: boolean };
+    }) => {
+      const { data: response } = await instance.patch(`/todos/${todoId}`, data);
+      return response;
     },
-    onMutate: async ({ todoId, done }) => {
+    onMutate: async ({ todoId, data }) => {
       await queryClient.cancelQueries({ queryKey: ["todos"] });
       const previousTodos = queryClient.getQueryData<TodoResponse>(["todos"]);
-      // 낙관적 업데이트
+
       if (previousTodos) {
         queryClient.setQueryData<TodoResponse>(["todos"], {
           ...previousTodos,
           todos: previousTodos.todos.map((todo) =>
-            todo.id === todoId ? { ...todo, done } : todo,
+            todo.id === todoId ? { ...todo, ...data } : todo,
           ),
         });
       }
       return { previousTodos };
     },
-
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
-    onError: (error, variables, context) => {
-      // 낙관적 업데이트를 롤백
+    onError: (error, _, context) => {
       if (context?.previousTodos) {
         queryClient.setQueryData(["todos"], context.previousTodos);
       }
