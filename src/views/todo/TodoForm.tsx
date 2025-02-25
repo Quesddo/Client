@@ -2,19 +2,17 @@ import { FormProvider } from "react-hook-form";
 
 import InputModal from "@/components/organisms/modal/InputModal";
 import { useFetchGoals } from "@/hooks/goal/useFetchGoals";
-import { CreateTodoBodyDto, UpdateTodoBodyDto } from "@/types/types";
+import { UpdateTodoBodyDto } from "@/types/types";
 import { cn } from "@/utils/cn";
 
 import TodoUpdateFormCheckbox from "./todo-checkbox/TodoUpdateFormCheckbox";
 import type { UseFormReturn } from "react-hook-form";
 
-type TodoFormData = CreateTodoBodyDto | UpdateTodoBodyDto;
-
 interface TodoFormProps {
   isUpdate?: boolean;
   isDone?: boolean;
   setIsDone?: (value: boolean) => void;
-  formMethods: UseFormReturn<TodoFormData>;
+  formMethods: UseFormReturn<UpdateTodoBodyDto>;
 
   isFileCheck: boolean;
   setIsFileCheck: (value: boolean) => void;
@@ -24,10 +22,10 @@ interface TodoFormProps {
   setSelectedInput: (value: "file" | "link") => void;
 
   handleFileChange: (files: FileList) => void;
-  handleTodoSubmit: (data: TodoFormData) => void;
+  handleTodoSubmit: (data: UpdateTodoBodyDto) => void;
   onSubmit: (
-    data: TodoFormData,
-    handleTodoSubmit: (data: TodoFormData) => void,
+    data: UpdateTodoBodyDto,
+    handleTodoSubmit: (data: UpdateTodoBodyDto) => void,
   ) => void;
 }
 
@@ -61,7 +59,7 @@ export function TodoForm({
         <InputModal.Content
           className={cn(
             "flex flex-col gap-6 sm:max-h-[628px] sm:w-[472px] sm:rounded-xl",
-            isUpdate && "sm:max-h-[726px]",
+            isUpdate && "sm:max-h-[660px]",
           )}
         >
           <div className="flex flex-col gap-2">
