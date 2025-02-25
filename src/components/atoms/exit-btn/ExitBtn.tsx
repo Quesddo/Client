@@ -14,7 +14,7 @@ export default function ExitBtn({ onClick, className }: ExitBtnProps) {
       width={24}
       height={24}
       layout="fixed"
-      className={cn("cursor-pointer", className)}
+      className={cn("cursor-pointer hover:brightness-50", className)}
       onClick={onClick}
     />
   );
