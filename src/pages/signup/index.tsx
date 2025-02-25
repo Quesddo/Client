@@ -4,7 +4,7 @@ import Link from "next/link";
 import Form from "@/views/sign/Form";
 import logo from "@public/img_logo.png";
 
-export default function Signup() {
+export default function SignUpPage() {
   return (
     <div className="mt-12 sm:mt-16 md:mt-30">
       <Image
