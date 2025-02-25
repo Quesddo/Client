@@ -1,4 +1,3 @@
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import {
   ButtonHTMLAttributes,
@@ -20,16 +19,25 @@ import { useModalContext } from "@/contexts/InputModalContext";
 import useDragAndDrop from "@/hooks/useDragAndDrop";
 import useFilePreview from "@/hooks/useFilePreview";
 import { cn } from "@/utils/cn";
+import ClosePopup from "@/views/todo/close-confirm-popup/ClosePopup";
 import { TodoCheckImg } from "@/views/todo/todo-checkbox/TodoCheckImg";
 
 import InputDropdown from "../../../views/todo/input-dropdown/InputDropdown";
 import type { Control, FieldValues, Path } from "react-hook-form";
 
 export default function InputModal({ children }: { children: ReactNode }) {
-  const { isOpen } = useModalContext();
+  const { isOpen, isPopupOpen, hidePopup, confirmPopup } = useModalContext();
   if (!isOpen) return null;
 
-  return ReactDOM.createPortal(<div>{children}</div>, document.body);
+  return ReactDOM.createPortal(
+    <div>
+      {children}
+      {isPopupOpen && (
+        <ClosePopup onClose={hidePopup} onConfirm={confirmPopup} />
+      )}
+    </div>,
+    document.body,
+  );
 }
 
 const MODAL_ANIMATION = {
@@ -37,25 +45,30 @@ const MODAL_ANIMATION = {
 };
 
 function Overlay({ className }: { className?: string }) {
-  const { isOpen, closeModal } = useModalContext();
+  const { isOpen, showPopup, closeModal } = useModalContext();
   const { watch, reset } = useFormContext();
   const [title, linkUrl, fileUrl] = watch(["title", "linkUrl", "fileUrl"]);
 
+  const handleOverlayClick = () => {
+    if (title || linkUrl || fileUrl) {
+      showPopup();
+    } else {
+      closeModal();
+      reset();
+    }
+  };
+
   return (
-    <div
-      className={cn(
-        "fixed inset-0 z-20 flex items-center justify-center sm:bg-black/50",
-        isOpen && MODAL_ANIMATION.fadeIn,
-        className,
-      )}
-      onClick={() => {
-        if (title || linkUrl || fileUrl) {
-          if (!confirm("(팝업창)모달 닫기 확인")) return;
-        }
-        closeModal();
-        reset();
-      }}
-    />
+    <>
+      <div
+        className={cn(
+          "fixed inset-0 z-20 flex items-center justify-center sm:bg-black/50",
+          isOpen && MODAL_ANIMATION.fadeIn,
+          className,
+        )}
+        onClick={handleOverlayClick}
+      />
+    </>
   );
 }
 
@@ -86,18 +99,19 @@ function Title({ children }: { children: string | string[] }) {
 }
 
 function CloseButton() {
-  const { closeModal } = useModalContext();
+  const { closeModal, showPopup } = useModalContext();
   const { watch, reset } = useFormContext();
   const [title, linkUrl, fileUrl] = watch(["title", "linkUrl", "fileUrl"]);
-  const closeConfirm = () => {
+  const handleCloseClick = () => {
     if (title || linkUrl || fileUrl) {
-      if (!confirm("(팝업창)모달 닫기 확인")) return;
+      showPopup();
+    } else {
+      closeModal();
+      reset();
     }
-    closeModal();
-    reset();
   };
 
-  return <ExitBtn onClick={closeConfirm} />;
+  return <ExitBtn onClick={handleCloseClick} />;
 }
 
 function Label({ children, ...props }: LabelHTMLAttributes<HTMLLabelElement>) {
