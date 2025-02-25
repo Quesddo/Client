@@ -19,7 +19,7 @@ import { useModalContext } from "@/contexts/InputModalContext";
 import useDragAndDrop from "@/hooks/useDragAndDrop";
 import useFilePreview from "@/hooks/useFilePreview";
 import { cn } from "@/utils/cn";
-import ClosePopup from "@/views/todo/close-confirm-popup/ClosePopup";
+import ClosePopup from "@/views/todo/popup/ClosePopup";
 import { TodoCheckImg } from "@/views/todo/todo-checkbox/TodoCheckImg";
 
 import InputDropdown from "../../../views/todo/input-dropdown/InputDropdown";
