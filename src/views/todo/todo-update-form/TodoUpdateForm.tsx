@@ -17,7 +17,6 @@ export default function TodoUpdateForm({ todoId }: { todoId: number }) {
     queryKey: ["todo", todoId],
     queryFn: async () => {
       const response = await instance.get(`/todos/${todoId}`);
-      console.log(response.data);
       return response.data;
     },
     enabled: !!todoId,
