@@ -13,6 +13,7 @@ import ReactDOM from "react-dom";
 import { useController, useFormContext } from "react-hook-form";
 
 import Button from "@/components/atoms/button/Button";
+import ExitBtn from "@/components/atoms/exit-btn/ExitBtn";
 import Input from "@/components/atoms/input/Input";
 import PlusIcon from "@/components/atoms/plus-icon/PlusIcon";
 import { useModalContext } from "@/contexts/InputModalContext";
@@ -84,10 +85,6 @@ function Title({ children }: { children: string | string[] }) {
   return <h1 className="z-30 text-lg font-bold">{children}</h1>;
 }
 
-const CloseIcon = dynamic(
-  () => import("@/components/atoms/close-icon/CloseIcon"),
-  { ssr: false },
-);
 function CloseButton() {
   const { closeModal } = useModalContext();
   const { watch, reset } = useFormContext();
@@ -100,11 +97,7 @@ function CloseButton() {
     reset();
   };
 
-  return (
-    <button onClick={closeConfirm}>
-      <CloseIcon />
-    </button>
-  );
+  return <ExitBtn onClick={closeConfirm} />;
 }
 
 function Label({ children, ...props }: LabelHTMLAttributes<HTMLLabelElement>) {
