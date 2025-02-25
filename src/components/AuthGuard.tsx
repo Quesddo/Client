@@ -15,12 +15,18 @@ export default function AuthGuard({ children }: AuthGuardProps) {
   const isPublicPage = PUBLICPATH.includes(router.pathname);
 
   useEffect(() => {
-    if (!isLoading) {
-      if (!isAuthenticated && !isPublicPage) {
-        router.replace("/login");
-      } else if (isAuthenticated && isPublicPage) {
-        router.replace("/dashboard");
-      }
+    if (isLoading) return;
+
+    if (router.pathname === "/") {
+      if (isAuthenticated) router.replace("/dashboard");
+      else router.replace("/login");
+      return;
+    }
+
+    if (!isAuthenticated && !isPublicPage) {
+      router.replace("/login");
+    } else if (isAuthenticated && isPublicPage) {
+      router.replace("/dashboard");
     }
   }, [isAuthenticated, router, isPublicPage, isLoading]);
 
