@@ -24,10 +24,10 @@ interface TodoFormProps {
   setSelectedInput: (value: "file" | "link") => void;
 
   handleFileChange: (files: FileList) => void;
-  handletodoSubmit: (data: TodoFormData) => void;
+  handleTodoSubmit: (data: TodoFormData) => void;
   onSubmit: (
     data: TodoFormData,
-    handletodoSubmit: (data: TodoFormData) => void,
+    handleTodoSubmit: (data: TodoFormData) => void,
   ) => void;
 }
 
@@ -43,7 +43,7 @@ export function TodoForm({
   selectedInput,
   setSelectedInput,
   handleFileChange,
-  handletodoSubmit,
+  handleTodoSubmit,
   onSubmit,
 }: TodoFormProps) {
   const fetchGoalList = useFetchGoals();
@@ -80,7 +80,7 @@ export function TodoForm({
           </div>
 
           <form
-            onSubmit={handleSubmit((data) => onSubmit(data, handletodoSubmit))}
+            onSubmit={handleSubmit((data) => onSubmit(data, handleTodoSubmit))}
             className="flex flex-col gap-6"
           >
             <div>
@@ -92,7 +92,7 @@ export function TodoForm({
                 type="text"
                 placeholder="할 일의 제목을 적어주세요"
                 maxLength={30}
-                {...register("title")}
+                {...register("title", { required: true })}
               />
             </div>
 

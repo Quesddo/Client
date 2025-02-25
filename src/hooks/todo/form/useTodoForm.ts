@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import instance from "@/apis/apiClient";
-import { CreateTodoBodyDto, UpdateTodoBodyDto } from "@/types/types";
+import { UpdateTodoBodyDto } from "@/types/types";
 
 export function useTodoForm(isUpdate: boolean = false) {
-  const formMethods = useForm<UpdateTodoBodyDto | CreateTodoBodyDto>();
+  const formMethods = useForm<UpdateTodoBodyDto>();
   const { register, handleSubmit, setValue, watch, reset, control } =
     formMethods;
 
@@ -31,8 +31,8 @@ export function useTodoForm(isUpdate: boolean = false) {
   };
 
   const onSubmit = (
-    data: UpdateTodoBodyDto | CreateTodoBodyDto,
-    handletodoSubmit: (data: UpdateTodoBodyDto | CreateTodoBodyDto) => void,
+    data: UpdateTodoBodyDto,
+    handleTodoSubmit: (data: UpdateTodoBodyDto) => void,
   ) => {
     if (!isFileCheck) {
       if (isUpdate) {
@@ -50,10 +50,10 @@ export function useTodoForm(isUpdate: boolean = false) {
     }
     if (data.goalId) data.goalId = Number(data.goalId);
     if (isUpdate) {
-      (data as UpdateTodoBodyDto).done = isDone;
+      data.done = isDone;
     }
 
-    handletodoSubmit(data);
+    handleTodoSubmit(data);
   };
 
   return {
