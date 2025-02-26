@@ -12,7 +12,7 @@ type Story = StoryObj<typeof Card>;
 export const card: Story = {
   render: () => (
     <Card>
-      <Card.Header />
+      <Card.Header noteId={-1} />
       <Card.Body>
         <Card.Title>자바스크립트를 시작하기 전 준비물</Card.Title>
         <Card.Divider />
