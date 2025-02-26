@@ -1,3 +1,5 @@
+import { InputModalProvider } from "@/contexts/InputModalContext";
+
 import { sampleTodos } from "./dummy";
 import TodoList from "./TodoList";
 import type { Meta, StoryObj } from "@storybook/react";
@@ -5,6 +7,13 @@ import type { Meta, StoryObj } from "@storybook/react";
 const meta: Meta<typeof TodoList> = {
   title: "components/organisms/TodoList",
   component: TodoList,
+  decorators: [
+    (Story) => (
+      <InputModalProvider>
+        <Story />
+      </InputModalProvider>
+    ),
+  ],
 };
 
 export default meta;
