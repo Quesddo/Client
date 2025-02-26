@@ -1,14 +1,15 @@
 import { TodoResponse } from "@/types/todo";
 
-import { ActionIcon } from "../../atoms/action-icon/ActionIcon";
-import { TodoCheckbox } from "../../atoms/todo-checkbox/TodoCheckbox";
-import { TodoTitle } from "../../atoms/todo-title/TodoTitle";
+import { TodoCheckbox } from "../todo-checkbox/TodoCheckbox";
+import { ActionIcon } from "./action-icon/ActionIcon";
+import { TodoTitle } from "./todo-title/TodoTitle";
 
 interface TodoItemProps {
   todo: TodoResponse["todos"][number];
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
   onOpenNoteDetail: (noteId: TodoResponse["todos"][number]["noteId"]) => void;
   onOpenTodoModal: () => void;
+  onOpenDeletePopup: () => void;
 }
 
 export function TodoItem({
@@ -16,11 +17,12 @@ export function TodoItem({
   handleToggleTodo,
   onOpenNoteDetail,
   onOpenTodoModal,
+  onOpenDeletePopup,
 }: TodoItemProps) {
   return (
     <li className="group mb-2 flex h-6 w-full last:mb-0">
       <TodoCheckbox
-        done={todo.done}
+        checked={todo.done}
         onToggle={() => handleToggleTodo(todo.id, todo.done)}
       />
       <div className="flex w-full min-w-0 items-center justify-between">
@@ -29,6 +31,7 @@ export function TodoItem({
           todo={todo}
           onOpenNoteDetail={onOpenNoteDetail}
           onOpenTodoModal={onOpenTodoModal}
+          onOpenDeletePopup={onOpenDeletePopup}
         />
       </div>
     </li>
