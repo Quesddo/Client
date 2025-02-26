@@ -17,7 +17,7 @@ export const card: Story = {
         <Card.Title>자바스크립트를 시작하기 전 준비물</Card.Title>
         <Card.Divider />
         <Card.Content>
-          <Card.TodoStatus>To do</Card.TodoStatus>
+          <Card.todoChip />
           <Card.TodoTitle>자바스크립트 기초 챕터2 듣기</Card.TodoTitle>
         </Card.Content>
       </Card.Body>

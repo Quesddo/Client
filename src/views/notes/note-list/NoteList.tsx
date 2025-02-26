@@ -22,9 +22,7 @@ export default function NoteList({ data, inViewRef }: noteListProps) {
                   <Card.Title>{title}</Card.Title>
                   <Card.Divider />
                   <Card.Content>
-                    <Card.TodoStatus>
-                      {todo.done ? "Done" : "To do"}
-                    </Card.TodoStatus>
+                    <Card.todoChip isDone={todo.done} />
                     <Card.TodoTitle>{todo.title}</Card.TodoTitle>
                   </Card.Content>
                 </Card.Body>
