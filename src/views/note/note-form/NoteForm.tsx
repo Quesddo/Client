@@ -2,10 +2,11 @@ import { FormProvider, type UseFormReturn } from "react-hook-form";
 
 import Button from "@/components/atoms/button/Button";
 import PageTitle from "@/components/atoms/page-title/PageTitle";
+// import ToastBtn from "@/views/note/note-form/ToastBtn";
+import useToast from "@/hooks/useToast";
 import { CreateNoteBodyDto, UpdateNoteBodyDto } from "@/types/types";
 import Editor from "@/views/note/note-form/Editor";
 import InputWithCount from "@/views/note/note-form/InputWithCount";
-import ToastBtn from "@/views/note/note-form/ToastBtn";
 
 interface NoteFormProps<
   TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto,
@@ -17,8 +18,18 @@ interface NoteFormProps<
 export default function NoteForm<
   TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto,
 >({ methods, onSubmit }: NoteFormProps<TNoteBody>) {
+  const { addToast } = useToast();
+  const handleClick = () => {
+    addToast({
+      content: "hihi",
+      size: "full",
+    });
+  };
+
   return (
     <FormProvider {...methods}>
+      <Button onClick={handleClick}>add</Button>
+
       <form
         className="flex flex-1 flex-col"
         onSubmit={methods.handleSubmit(onSubmit)}

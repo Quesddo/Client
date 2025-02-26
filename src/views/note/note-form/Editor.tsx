@@ -6,8 +6,6 @@ import { Controller, useFormContext } from "react-hook-form";
 import Button from "@/components/atoms/button/Button";
 import Input from "@/components/atoms/input/Input";
 
-import Toast from "./Toast";
-
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
 const toolbarOptions = [
@@ -48,15 +46,14 @@ export default function Editor() {
           ></ReactQuill>
         )}
       />
-      {/* <Toast /> */}
-      {/* <div>
+      <div>
         <Button>link추가</Button>
         <Input
           {...register("linkUrl", {
             setValueAs: setEmptyToUndefined,
           })}
         />
-      </div> */}
+      </div>
     </div>
   );
 }

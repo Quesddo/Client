@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 import ExitBtn from "@/components/atoms/exit-btn/ExitBtn";
+import Toaster from "@/components/organisms/toaster/Toaster";
+import ToastProvider from "@/components/organisms/toaster/ToastProvider";
 
 import NoteCreationForm from "../note-form/NoteCreationForm";
 import NoteUpdateForm from "../note-form/NoteUpdateForm";
@@ -51,8 +53,11 @@ export default function NoteDrawer() {
     <div className="fixed inset-0 z-20 bg-black/50">
       <section className="fixed inset-0 flex flex-col bg-white p-6 sm:left-auto sm:w-[512px] sm:border-l sm:border-slate-200 md:w-[800px]">
         <ExitBtn onClick={handleClick} />
-        {mode === MODE.CREATE && <NoteCreationForm />}
-        {mode === MODE.EDIT && <NoteUpdateForm noteId={noteId} />}
+        <ToastProvider>
+          {mode === MODE.CREATE && <NoteCreationForm />}
+          {mode === MODE.EDIT && <NoteUpdateForm noteId={noteId} />}
+          <Toaster />
+        </ToastProvider>
       </section>
     </div>
   );
