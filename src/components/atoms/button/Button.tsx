@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/utils/cn";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center font-semibold rounded-[12px]",
+  "box-border inline-flex items-center justify-center font-semibold rounded-[12px]",
   {
     variants: {
       variant: {
@@ -30,10 +30,8 @@ const buttonVariants = cva(
   },
 );
 
-type ButtonElementProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
+export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof buttonVariants>;
-
-type ButtonProps = ButtonElementProps;
 
 export default function Button({
   variant = "default",

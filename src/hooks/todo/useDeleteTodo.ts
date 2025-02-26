@@ -2,32 +2,23 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import instance from "@/apis/apiClient";
 import { TodoResponse } from "@/types/todo";
-import { UpdateTodoBodyDto } from "@/types/types";
 
-export const useUpdateTodo = () => {
+export const useDeleteTodo = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({
-      todoId,
-      data,
-    }: {
-      todoId: number;
-      data: Partial<UpdateTodoBodyDto> & { done?: boolean };
-    }) => {
-      const { data: response } = await instance.patch(`/todos/${todoId}`, data);
-      return response;
+    mutationFn: async (todoId: number) => {
+      const { data } = await instance.delete(`/todos/${todoId}`);
+      return data;
     },
-    onMutate: async ({ todoId, data }) => {
+    onMutate: async (todoId: number) => {
       await queryClient.cancelQueries({ queryKey: ["todos"] });
       const previousTodos = queryClient.getQueryData<TodoResponse>(["todos"]);
 
       if (previousTodos) {
         queryClient.setQueryData<TodoResponse>(["todos"], {
           ...previousTodos,
-          todos: previousTodos.todos.map((todo) =>
-            todo.id === todoId ? { ...todo, ...data } : todo,
-          ),
+          todos: previousTodos.todos.filter((todo) => todo.id !== todoId),
         });
       }
       return { previousTodos };
