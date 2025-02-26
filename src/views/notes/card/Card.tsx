@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { ReactNode, useState } from "react";
 
+import { deleteNote } from "@/apis/note/deleteNote";
 import ActionDropdown from "@/components/atoms/action-dropdown/ActionDropdown";
 import Divider from "@/components/atoms/divider/Divider";
 import TodoChip from "@/components/atoms/todo-chip/TodoChip";
@@ -31,7 +32,8 @@ function CardHeader({ noteId }: CardHeaderProps) {
     router.push(editPath);
   };
   const handleClickDelete = () => {
-    alert("삭제하기");
+    // 임시 모달
+    if (confirm("")) deleteNote(noteId);
   };
 
   const dropdownItems = [
