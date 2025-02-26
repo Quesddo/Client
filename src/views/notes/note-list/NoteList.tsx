@@ -17,7 +17,7 @@ export default function NoteList({ data, inViewRef }: noteListProps) {
           return (
             <>
               <Card key={id}>
-                <Card.Header />
+                <Card.Header noteId={id} />
                 <Card.Body>
                   <Card.Title>{title}</Card.Title>
                   <Card.Divider />

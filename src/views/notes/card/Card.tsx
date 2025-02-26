@@ -1,17 +1,17 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { ReactNode, useState } from "react";
 
 import ActionDropdown from "@/components/atoms/action-dropdown/ActionDropdown";
 import Divider from "@/components/atoms/divider/Divider";
 import TodoChip from "@/components/atoms/todo-chip/TodoChip";
 
-const DROPDOWN_ITEMS = [
-  { label: "수정하기", onClick: () => alert("수정하기") },
-  { label: "삭제하기", onClick: () => alert("삭제하기") },
-];
-
 interface CardProps {
   children: ReactNode;
+}
+
+interface CardHeaderProps {
+  noteId: number;
 }
 
 export default function Card({ children }: CardProps) {
@@ -22,8 +22,25 @@ export default function Card({ children }: CardProps) {
   );
 }
 
-function CardHeader() {
+function CardHeader({ noteId }: CardHeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+  const editPath = `/goal/${router.query.goalId}/notes?noteId=${noteId}&mode=edit`;
+
+  const handleClickEdit = () => {
+    router.push(editPath);
+  };
+  const handleClickDelete = () => {
+    alert("삭제하기");
+  };
+
+  const dropdownItems = [
+    {
+      label: "수정하기",
+      onClick: handleClickEdit,
+    },
+    { label: "삭제하기", onClick: handleClickDelete },
+  ];
 
   return (
     <div className="flex items-center justify-between">
@@ -43,7 +60,7 @@ function CardHeader() {
       />
       {
         <ActionDropdown
-          items={DROPDOWN_ITEMS}
+          items={dropdownItems}
           className="absolute top-[58px] right-6"
           isOpen={isOpen}
           setIsOpen={setIsOpen}
