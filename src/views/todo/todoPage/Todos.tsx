@@ -2,7 +2,7 @@ import { Dispatch, memo, SetStateAction } from "react";
 
 import TodoList from "@/components/organisms/todo-list/TodoList";
 import { FILTER_TYPES } from "@/pages/todo";
-import { TodoItem } from "@/types/todo";
+import { TodoResponseDto } from "@/types/types";
 import { cn } from "@/utils/cn";
 
 const EMPTY_MESSAGE: Record<(typeof FILTER_TYPES)[number], string> = {
@@ -12,7 +12,7 @@ const EMPTY_MESSAGE: Record<(typeof FILTER_TYPES)[number], string> = {
 };
 
 interface TodosProps {
-  todos: TodoItem[];
+  todos: TodoResponseDto[];
   filter: (typeof FILTER_TYPES)[number];
   setFilter: Dispatch<SetStateAction<(typeof FILTER_TYPES)[number]>>;
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
