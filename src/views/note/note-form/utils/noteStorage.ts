@@ -3,16 +3,14 @@ import { CreateNoteBodyDto, UpdateNoteBodyDto } from "@/types/types";
 const NOTE_DRAFT_CREATE_KEY = "note-draft-create";
 const NOTE_DRAFT_UPDATE_KEY = "note-draft-update";
 
-export interface NoteStorage<T extends CreateNoteBodyDto | UpdateNoteBodyDto> {
-  set: (id: number, data: T) => void;
-  get: (id: number) => T | null;
-  remove: (id: number) => void;
+interface NoteStorageDataType {
+  [key: number]: UpdateNoteBodyDto | CreateNoteBodyDto;
 }
 
-interface NoteStorageDataType {
-  [key: number]: UpdateNoteBodyDto & {
-    id: number;
-  };
+export interface NoteStorage<T extends CreateNoteBodyDto | UpdateNoteBodyDto> {
+  set: (id: number, data: T) => void;
+  get: (id: number) => CreateNoteBodyDto | null;
+  remove: (id: number) => void;
 }
 
 export const CREATE_NOTE_STORAGE: NoteStorage<CreateNoteBodyDto> = {

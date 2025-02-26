@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { type UseFormReturn } from "react-hook-form";
+import { type Path, type PathValue, type UseFormReturn } from "react-hook-form";
 
 import { CreateNoteBodyDto, UpdateNoteBodyDto } from "@/types/types";
 import {
@@ -70,6 +70,31 @@ export default function useSaveDraft<
     addInterval();
   };
 
+  const handleLoadDraftNote = () => {
+    const values = methods.getValues();
+    const noteStorage =
+      "todoId" in values ? CREATE_NOTE_STORAGE : UPDATE_NOTE_STORAGE;
+
+    const data = noteStorage.get(id) as TNoteBody | null;
+
+    if (data) {
+      Object.keys(data).forEach((key) => {
+        methods.setValue(
+          key as Path<TNoteBody>,
+          data[key as keyof TNoteBody] as PathValue<TNoteBody, Path<TNoteBody>>,
+        );
+      });
+    }
+  };
+
+  const isNoteDraftSaved = () => {
+    const values = methods.getValues();
+    const noteStorage =
+      "todoId" in values ? CREATE_NOTE_STORAGE : UPDATE_NOTE_STORAGE;
+
+    return !!noteStorage.get(id);
+  };
+
   // form 내용 변화 감지
   useEffect(() => {
     const { unsubscribe } = watch(checkFormkValueChange);
@@ -77,5 +102,5 @@ export default function useSaveDraft<
     return () => unsubscribe();
   }, [watch]);
 
-  return { handleClickSaveDraft };
+  return { handleClickSaveDraft, handleLoadDraftNote, isNoteDraftSaved };
 }
