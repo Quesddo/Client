@@ -1,28 +1,44 @@
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import {
   ButtonHTMLAttributes,
   InputHTMLAttributes,
   LabelHTMLAttributes,
   ReactNode,
+  useEffect,
   useRef,
 } from "react";
 import ReactDOM from "react-dom";
-import { useFormContext } from "react-hook-form";
+
+import { useController, useFormContext } from "react-hook-form";
 
 import Button from "@/components/atoms/button/Button";
+import ExitBtn from "@/components/atoms/exit-btn/ExitBtn";
+
 import Input from "@/components/atoms/input/Input";
 import PlusIcon from "@/components/atoms/plus-icon/PlusIcon";
 import { useModalContext } from "@/contexts/InputModalContext";
 import useDragAndDrop from "@/hooks/useDragAndDrop";
 import useFilePreview from "@/hooks/useFilePreview";
 import { cn } from "@/utils/cn";
+import ClosePopup from "@/views/todo/popup/ClosePopup";
+import { TodoCheckImg } from "@/views/todo/todo-checkbox/TodoCheckImg";
+
+import InputDropdown from "../../../views/todo/input-dropdown/InputDropdown";
+import type { Control, FieldValues, Path } from "react-hook-form";
 
 export default function InputModal({ children }: { children: ReactNode }) {
-  const { isOpen } = useModalContext();
+  const { isOpen, isPopupOpen, hidePopup, confirmPopup } = useModalContext();
   if (!isOpen) return null;
 
-  return ReactDOM.createPortal(<div>{children}</div>, document.body);
+  return ReactDOM.createPortal(
+    <div>
+      {children}
+      {isPopupOpen && (
+        <ClosePopup onClose={hidePopup} onConfirm={confirmPopup} />
+      )}
+    </div>,
+    document.body,
+  );
 }
 
 const MODAL_ANIMATION = {
@@ -30,25 +46,30 @@ const MODAL_ANIMATION = {
 };
 
 function Overlay({ className }: { className?: string }) {
-  const { isOpen, closeModal } = useModalContext();
+  const { isOpen, showPopup, closeModal } = useModalContext();
   const { watch, reset } = useFormContext();
   const [title, linkUrl, fileUrl] = watch(["title", "linkUrl", "fileUrl"]);
 
+  const handleOverlayClick = () => {
+    if (title || linkUrl || fileUrl) {
+      showPopup();
+    } else {
+      closeModal();
+      reset();
+    }
+  };
+
   return (
-    <div
-      className={cn(
-        "fixed inset-0 z-20 flex items-center justify-center sm:bg-black/50",
-        isOpen && MODAL_ANIMATION.fadeIn,
-        className,
-      )}
-      onClick={() => {
-        if (title || linkUrl || fileUrl) {
-          if (!confirm("(팝업창)모달 닫기 확인")) return;
-        }
-        closeModal();
-        reset();
-      }}
-    />
+    <>
+      <div
+        className={cn(
+          "fixed inset-0 z-20 flex items-center justify-center sm:bg-black/50",
+          isOpen && MODAL_ANIMATION.fadeIn,
+          className,
+        )}
+        onClick={handleOverlayClick}
+      />
+    </>
   );
 }
 
@@ -74,31 +95,24 @@ function Content({
   );
 }
 
-function Title({ children }: { children: string }) {
+function Title({ children }: { children: string | string[] }) {
   return <h1 className="z-30 text-lg font-bold">{children}</h1>;
 }
 
-const CloseIcon = dynamic(
-  () => import("@/components/atoms/close-icon/CloseIcon"),
-  { ssr: false },
-);
 function CloseButton() {
-  const { closeModal } = useModalContext();
+  const { closeModal, showPopup } = useModalContext();
   const { watch, reset } = useFormContext();
   const [title, linkUrl, fileUrl] = watch(["title", "linkUrl", "fileUrl"]);
-  const closeConfirm = () => {
+  const handleCloseClick = () => {
     if (title || linkUrl || fileUrl) {
-      if (!confirm("(팝업창)모달 닫기 확인")) return;
+      showPopup();
+    } else {
+      closeModal();
+      reset();
     }
-    closeModal();
-    reset();
   };
 
-  return (
-    <button onClick={closeConfirm}>
-      <CloseIcon />
-    </button>
-  );
+  return <ExitBtn onClick={handleCloseClick} />;
 }
 
 function Label({ children, ...props }: LabelHTMLAttributes<HTMLLabelElement>) {
@@ -123,9 +137,14 @@ const TextInput = ({
 };
 
 function FileInput({
+  fileUrl,
   onFileChange,
+  className,
 }: {
+  fileUrl?: string;
   onFileChange: (files: FileList) => void;
+  className?: string;
+
 }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -137,7 +156,6 @@ function FileInput({
         onFileChange(files);
         updateFilePreview(files);
 
-        // input 값도 업데이트
         if (fileInputRef.current) {
           const dataTransfer = new DataTransfer();
           Array.from(files).forEach((file) => dataTransfer.items.add(file));
@@ -146,9 +164,16 @@ function FileInput({
       },
     });
 
+  useEffect(() => {
+    // 기존 fileUrl 미리보기
+    if (fileUrl && !previewFile) {
+      updateFilePreview(fileUrl);
+    }
+  }, [fileUrl, previewFile]);
+
   return (
     <div
-      className="h-[184px] transition-all"
+      className={cn("h-[184px] transition-all", className)}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
@@ -187,7 +212,9 @@ function FileInput({
         ) : (
           <>
             <PlusIcon color="gray" />
-            <p className="font-normal text-slate-400">파일을 업로드해주세요</p>
+            <p className="text-sm font-normal text-slate-400 sm:text-base">
+              파일을 업로드해주세요
+            </p>
           </>
         )}
         <input
@@ -207,26 +234,32 @@ function FileInput({
   );
 }
 
-function DropdownInput<T extends string | number>({
-  options,
+function DropdownInput<T extends FieldValues>({
+  dropdownItems,
+  buttonText,
+  name,
+  control,
   ...props
 }: {
-  options: T[];
+  dropdownItems: { title: string; id: number }[];
+  buttonText: string;
+  name: Path<T>;
+  control: Control<T>;
 }) {
-  const selectRef = useRef<HTMLSelectElement>(null);
+  const {
+    field: { onChange, value },
+  } = useController<T>({ name, control });
+
+  const selectedItem = dropdownItems.find((item) => item.id === value) || null;
 
   return (
-    <select
-      ref={selectRef}
-      className="w-full rounded-xl bg-slate-200 p-2"
+    <InputDropdown
+      dropdownItems={dropdownItems}
+      buttonText={buttonText}
+      selectedItem={selectedItem}
+      onSelect={(item) => onChange(item.id)}
       {...props}
-    >
-      {options.map((option) => (
-        <option key={option} value={option}>
-          {option}
-        </option>
-      ))}
-    </select>
+    />
   );
 }
 // -----------------------
@@ -259,19 +292,14 @@ function CheckButton({
         onToggle();
       }}
       className={cn(
-        "group flex shrink-0 cursor-pointer items-center gap-[10px] rounded-lg bg-slate-100 p-2 pr-3 pl-3 text-base font-medium text-slate-800 transition duration-200",
+        "group flex shrink-0 cursor-pointer items-center gap-[10px] rounded-lg p-2 pr-3 pl-3",
+        "bg-slate-100 text-sm font-medium text-slate-800 transition duration-200 sm:text-base",
         checked && "bg-slate-800 text-white",
       )}
     >
-      <img
-        src={
-          checked
-            ? "/icons/active-check-white.png"
-            : "/icons/inactive-check.png"
-        }
-        alt={checked ? "체크됨" : "미체크"}
-        width={18}
-        height={18}
+      <TodoCheckImg
+        checked={checked}
+        checkedImgSrc="/icons/active-check-white.png"
         className="rounded-md group-hover:shadow-sm"
       />
       <p>{children}</p>
