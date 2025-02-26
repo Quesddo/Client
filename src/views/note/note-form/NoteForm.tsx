@@ -20,7 +20,7 @@ export default function NoteForm<
   return (
     <FormProvider {...methods}>
       <form
-        className="max-w-[808px] px-4"
+        className="flex flex-1 flex-col"
         onSubmit={methods.handleSubmit(onSubmit)}
       >
         <div className="flex items-center justify-between py-[11px]">
@@ -43,7 +43,7 @@ export default function NoteForm<
             <h3>자바스크립트로 웹 서비스 만들기</h3>
             <p>자바스크립트 기초 챕터1 듣기</p>
           </div>
-          <ToastBtn />
+          {/* <ToastBtn /> */}
         </div>
         <InputWithCount />
         <Editor />

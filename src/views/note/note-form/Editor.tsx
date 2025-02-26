@@ -30,7 +30,7 @@ export default function Editor() {
   const content = watch("content");
 
   return (
-    <div>
+    <div className="flex flex-1 flex-col gap-2">
       <p className="pt-[12px] text-xs font-medium text-slate-800">
         공백포함 : 총 {content?.length || 0}자 | 공백제외 : 총{" "}
         {content?.replace(/\s/gm, "").length || 0}자
@@ -44,18 +44,19 @@ export default function Editor() {
             modules={modules}
             onChange={onChange}
             value={value}
+            className="flex flex-1 flex-col"
           ></ReactQuill>
         )}
       />
-      <Toast />
-      <div>
+      {/* <Toast /> */}
+      {/* <div>
         <Button>link추가</Button>
         <Input
           {...register("linkUrl", {
             setValueAs: setEmptyToUndefined,
           })}
         />
-      </div>
+      </div> */}
     </div>
   );
 }

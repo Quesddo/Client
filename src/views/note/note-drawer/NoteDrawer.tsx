@@ -49,7 +49,7 @@ export default function NoteDrawer() {
 
   return (
     <div className="fixed inset-0 z-20 bg-black/50">
-      <section className="fixed inset-0 bg-white p-6 sm:left-auto sm:w-[512px] sm:border-l sm:border-slate-200 md:w-[800px]">
+      <section className="fixed inset-0 flex flex-col bg-white p-6 sm:left-auto sm:w-[512px] sm:border-l sm:border-slate-200 md:w-[800px]">
         <ExitBtn onClick={handleClick} />
         {mode === MODE.CREATE && <NoteCreationForm />}
         {mode === MODE.EDIT && <NoteUpdateForm noteId={noteId} />}
