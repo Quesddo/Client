@@ -16,13 +16,15 @@ const noteApi = {
     noteId,
     data,
   }: {
-    noteId: string;
+    noteId: number;
     data: UpdateNoteBodyDto;
   }): Promise<TeamIdNotesPost201Response> => {
     return await instance.patch(`/notes/${noteId}`, data);
   },
-  fetchNote: async (noteId: string): Promise<TeamIdNotesPost201Response> => {
-    return await instance.get(`/notes/${noteId}`);
+  fetchNote: async (noteId: number): Promise<TeamIdNotesPost201Response> => {
+    const { data } = await instance.get(`/notes/${noteId}`);
+
+    return data;
   },
 };
 

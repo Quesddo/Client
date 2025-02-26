@@ -22,6 +22,9 @@ const modules = {
   toolbar: toolbarOptions,
 };
 
+const setEmptyToUndefined = (value: string) =>
+  value === "" ? undefined : value;
+
 export default function Editor() {
   const { register, watch, control } = useFormContext();
   const content = watch("content");
@@ -47,7 +50,11 @@ export default function Editor() {
       <Toast />
       <div>
         <Button>link추가</Button>
-        <Input {...register("linkUrl")} />
+        <Input
+          {...register("linkUrl", {
+            setValueAs: setEmptyToUndefined,
+          })}
+        />
       </div>
     </div>
   );
