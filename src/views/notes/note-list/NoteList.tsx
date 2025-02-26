@@ -2,7 +2,7 @@ import { InfiniteData } from "@tanstack/react-query";
 
 import { TeamIdNotesGet200Response } from "@/types/types";
 
-import Card from "../card/card";
+import Card from "../card/Card";
 
 interface noteListProps {
   data: InfiniteData<TeamIdNotesGet200Response, unknown> | undefined;

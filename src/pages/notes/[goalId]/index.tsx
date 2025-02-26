@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
 import { useNotes } from "@/hooks/notes/useNotes";
-import Goal from "@/views/notes/goal/goal";
-import NoteList from "@/views/notes/notes-list/notes-list";
+import Goal from "@/views/notes/goal/Goal";
+import NoteList from "@/views/notes/note-list/NoteList";
 
 export default function NotesPage() {
   const {
