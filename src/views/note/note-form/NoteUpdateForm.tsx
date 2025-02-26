@@ -32,5 +32,5 @@ export default function NoteUpdateForm({ noteId }: NoteUpdateFormProps) {
     methods.setValue("linkUrl", data.linkUrl);
   }, [data, methods]);
 
-  return <NoteForm methods={methods} onSubmit={handleSubmit} />;
+  return <NoteForm id={noteId} methods={methods} onSubmit={handleSubmit} />;
 }

@@ -1,35 +1,28 @@
+import { PropsWithChildren } from "react";
 import { FormProvider, type UseFormReturn } from "react-hook-form";
 
 import Button from "@/components/atoms/button/Button";
 import PageTitle from "@/components/atoms/page-title/PageTitle";
+import useSaveDraft from "@/hooks/note/useSaveDraft";
 // import ToastBtn from "@/views/note/note-form/ToastBtn";
-import useToast from "@/hooks/useToast";
 import { CreateNoteBodyDto, UpdateNoteBodyDto } from "@/types/types";
 import Editor from "@/views/note/note-form/Editor";
 import InputWithCount from "@/views/note/note-form/InputWithCount";
 
-interface NoteFormProps<
-  TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto,
-> {
+interface NoteFormProps<TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto>
+  extends PropsWithChildren {
+  id: number;
   methods: UseFormReturn<TNoteBody>;
   onSubmit: (data: TNoteBody) => void;
 }
 
 export default function NoteForm<
   TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto,
->({ methods, onSubmit }: NoteFormProps<TNoteBody>) {
-  const { addToast } = useToast();
-  const handleClick = () => {
-    addToast({
-      content: "hihi",
-      size: "full",
-    });
-  };
+>({ id, methods, onSubmit, children }: NoteFormProps<TNoteBody>) {
+  const { handleClickSaveDraft } = useSaveDraft({ id, methods });
 
   return (
     <FormProvider {...methods}>
-      <Button onClick={handleClick}>add</Button>
-
       <form
         className="flex flex-1 flex-col"
         onSubmit={methods.handleSubmit(onSubmit)}
@@ -41,6 +34,7 @@ export default function NoteForm<
               size="xs"
               variant="outline"
               className="border-none sm:h-[44px]"
+              onClick={handleClickSaveDraft}
             >
               임시저장
             </Button>
@@ -58,6 +52,7 @@ export default function NoteForm<
         </div>
         <InputWithCount />
         <Editor />
+        {children}
       </form>
     </FormProvider>
   );

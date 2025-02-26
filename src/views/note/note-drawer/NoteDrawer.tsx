@@ -54,7 +54,7 @@ export default function NoteDrawer() {
       <section className="fixed inset-0 flex flex-col bg-white p-6 sm:left-auto sm:w-[512px] sm:border-l sm:border-slate-200 md:w-[800px]">
         <ExitBtn onClick={handleClick} />
         <ToastProvider>
-          {mode === MODE.CREATE && <NoteCreationForm />}
+          {mode === MODE.CREATE && <NoteCreationForm todoId={todoId} />}
           {mode === MODE.EDIT && <NoteUpdateForm noteId={noteId} />}
           <Toaster />
         </ToastProvider>
