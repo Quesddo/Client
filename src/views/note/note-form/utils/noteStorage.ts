@@ -6,7 +6,13 @@ const NOTE_DRAFT_UPDATE_KEY = "note-draft-update";
 export interface NoteStorage<T extends CreateNoteBodyDto | UpdateNoteBodyDto> {
   set: (id: number, data: T) => void;
   get: (id: number) => T | null;
-  clear: (id: number) => void;
+  remove: (id: number) => void;
+}
+
+interface NoteStorageDataType {
+  [key: number]: UpdateNoteBodyDto & {
+    id: number;
+  };
 }
 
 export const CREATE_NOTE_STORAGE: NoteStorage<CreateNoteBodyDto> = {
@@ -21,17 +27,15 @@ export const CREATE_NOTE_STORAGE: NoteStorage<CreateNoteBodyDto> = {
 
     return data ? JSON.parse(data)[todoId] : null;
   },
-  clear: (todoId) => {
+  remove: (todoId) => {
     const data = localStorage.getItem(NOTE_DRAFT_CREATE_KEY);
 
-    // if (data) {
-    //   const filteredData = JSON.parse(data).filter(
-    //     (item: Omit<CreateNoteBodyDto, "todoId"> & { id: number }) =>
-    //       item.id !== todoId,
-    //   );
+    if (data) {
+      const parsedData = JSON.parse(data) as NoteStorageDataType;
+      delete parsedData[todoId];
 
-    //   localStorage.setItem(NOTE_DRAFT_CREATE_KEY, JSON.stringify(filteredData));
-    // }
+      localStorage.setItem(NOTE_DRAFT_CREATE_KEY, JSON.stringify(parsedData));
+    }
   },
 };
 
@@ -47,15 +51,14 @@ export const UPDATE_NOTE_STORAGE: NoteStorage<UpdateNoteBodyDto> = {
 
     return data ? JSON.parse(data)[noteId] : null;
   },
-  clear: (noteId: number) => {
+  remove: (noteId: number) => {
     const data = localStorage.getItem(NOTE_DRAFT_UPDATE_KEY);
 
-    // if (data) {
-    //   const filteredData = JSON.parse(data).filter(
-    //     (item: UpdateNoteBodyDto & { id: number }) => item.id !== noteId,
-    //   );
+    if (data) {
+      const parsedData = JSON.parse(data) as NoteStorageDataType;
+      delete parsedData[noteId];
 
-    //   localStorage.setItem(NOTE_DRAFT_UPDATE_KEY, JSON.stringify(filteredData));
-    // }
+      localStorage.setItem(NOTE_DRAFT_CREATE_KEY, JSON.stringify(parsedData));
+    }
   },
 };
