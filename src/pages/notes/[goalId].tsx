@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
 import { useNotes } from "@/hooks/notes/useNotes";
-import Card from "@/views/notes/card/card";
 import Goal from "@/views/notes/goal/goal";
+import NoteList from "@/views/notes/notes-list/notes-list";
 
 export default function NotesPage() {
   const {
@@ -24,34 +24,7 @@ export default function NotesPage() {
         <h1 className="text-lg font-semibold text-slate-900">노트 모아보기</h1>
 
         <Goal goal={data?.pages[0]?.notes[0]?.goal?.title} />
-
-        <div className="flex flex-col gap-4">
-          {data?.pages.map((page, pageIdx) =>
-            page.notes.map(({ id, title, todo }, noteIdx, notes) => {
-              return (
-                <>
-                  <Card key={id}>
-                    <Card.Header />
-                    <Card.Body>
-                      <Card.Title>{title}</Card.Title>
-                      <Card.Divider />
-                      <Card.Content>
-                        <Card.TodoStatus>
-                          {todo.done ? "Done" : "To do"}
-                        </Card.TodoStatus>
-                        <Card.TodoTitle>{todo.title}</Card.TodoTitle>
-                      </Card.Content>
-                    </Card.Body>
-                  </Card>
-
-                  {/* 마지막 페이지의 마지막 노트보다 4개 위에있는 노트에 스크롤 감지 블록을 위치시킴 */}
-                  {pageIdx === data.pages.length - 1 &&
-                    notes.length - 5 === noteIdx && <div ref={inViewRef} />}
-                </>
-              );
-            }),
-          )}
-        </div>
+        <NoteList data={data} inViewRef={inViewRef} />
       </div>
     </div>
   );
