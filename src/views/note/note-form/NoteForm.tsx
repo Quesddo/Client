@@ -1,4 +1,4 @@
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, type UseFormReturn } from "react-hook-form";
 
 import Button from "@/components/atoms/button/Button";
 import PageTitle from "@/components/atoms/page-title/PageTitle";
@@ -10,14 +10,13 @@ import ToastBtn from "@/views/note/note-form/ToastBtn";
 interface NoteFormProps<
   TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto,
 > {
+  methods: UseFormReturn<TNoteBody>;
   onSubmit: (data: TNoteBody) => void;
 }
 
 export default function NoteForm<
   TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto,
->({ onSubmit }: NoteFormProps<TNoteBody>) {
-  const methods = useForm<TNoteBody>();
-
+>({ methods, onSubmit }: NoteFormProps<TNoteBody>) {
   return (
     <FormProvider {...methods}>
       <form
@@ -40,12 +39,6 @@ export default function NoteForm<
           </div>
         </div>
         <div className="flex flex-col gap-4 pt-[11px] pb-[24px] md:flex-col-reverse">
-          {/* {todoId && (
-            <input
-              {...methods.register("todoId", { value: +todoId })}
-              type="hidden"
-            />
-          )} */}
           <div>
             <h3>자바스크립트로 웹 서비스 만들기</h3>
             <p>자바스크립트 기초 챕터1 듣기</p>
