@@ -3,7 +3,7 @@ import { FormProvider, type UseFormReturn } from "react-hook-form";
 
 import Button from "@/components/atoms/button/Button";
 import PageTitle from "@/components/atoms/page-title/PageTitle";
-import useSaveDraft from "@/hooks/note/useSaveDraft";
+import useNoteDraft from "@/hooks/note/useNoteDraft";
 import { CreateNoteBodyDto, UpdateNoteBodyDto } from "@/types/types";
 import Editor from "@/views/note/note-form/Editor";
 import InputWithCount from "@/views/note/note-form/InputWithCount";
@@ -19,8 +19,8 @@ interface NoteFormProps<TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto>
 export default function NoteForm<
   TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto,
 >({ id, methods, onSubmit, children }: NoteFormProps<TNoteBody>) {
-  const { handleClickSaveDraft, handleLoadDraftNote, isNoteDraftSaved } =
-    useSaveDraft({
+  const { handleClickSaveDraft, handleLoadNoteDraft, isNoteDraftSaved } =
+    useNoteDraft({
       id,
       methods,
     });
@@ -54,7 +54,7 @@ export default function NoteForm<
           </div>
           <ToastBtn
             isOpen={isNoteDraftSaved()}
-            onLoadData={handleLoadDraftNote}
+            onLoadData={handleLoadNoteDraft}
           />
         </div>
         <InputWithCount />

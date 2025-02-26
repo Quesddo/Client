@@ -10,7 +10,7 @@ import {
 
 import useToast from "../useToast";
 
-interface UseSaveDraftProps<
+interface UseNoteDraftProps<
   TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto,
 > {
   id: number;
@@ -19,9 +19,9 @@ interface UseSaveDraftProps<
 
 const TOAST_INTERVAL_TIME = 1000 * 60 * 5;
 
-export default function useSaveDraft<
+export default function UseNoteDraft<
   TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto,
->({ id, methods }: UseSaveDraftProps<TNoteBody>) {
+>({ id, methods }: UseNoteDraftProps<TNoteBody>) {
   const { watch } = methods;
   const { addToast } = useToast();
   const toastIntervalRef = useRef<NodeJS.Timeout>(null);
@@ -70,7 +70,7 @@ export default function useSaveDraft<
     addInterval();
   };
 
-  const handleLoadDraftNote = () => {
+  const handleLoadNoteDraft = () => {
     const values = methods.getValues();
     const noteStorage =
       "todoId" in values ? CREATE_NOTE_STORAGE : UPDATE_NOTE_STORAGE;
@@ -102,5 +102,5 @@ export default function useSaveDraft<
     return () => unsubscribe();
   }, [watch]);
 
-  return { handleClickSaveDraft, handleLoadDraftNote, isNoteDraftSaved };
+  return { handleClickSaveDraft, handleLoadNoteDraft, isNoteDraftSaved };
 }
