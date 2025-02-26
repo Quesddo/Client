@@ -5,8 +5,8 @@ import TodoPage from "../../pages/todo";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof TodoPage> = {
-  component: TodoPage,
   title: "Pages/TodoPage",
+  component: TodoPage,
   decorators: [
     (Story) => (
       <InputModalProvider>
