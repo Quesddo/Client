@@ -9,6 +9,7 @@ export default function NotesPage() {
   const {
     query: { goalId },
   } = useRouter();
+
   const { data: notes, inViewRef } = useInfiniteNotes(Number(goalId));
 
   const hasNotes = notes && notes.length > 0;

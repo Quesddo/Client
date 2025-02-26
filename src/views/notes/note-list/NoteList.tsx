@@ -25,7 +25,7 @@ export default function NoteList({ notes, inViewRef }: noteListProps) {
               </Card.Body>
             </Card>
 
-            {/* 마지막 페이지의 마지막 노트보다 4개 위에있는 노트에 스크롤 감지 블록을 위치시킴 */}
+            {/* 마지막 노트보다 4개 위에있는 노트에 스크롤 감지 블록을 위치시킴 */}
             {notes.length - 5 === noteIdx && <div ref={inViewRef} />}
           </>
         );
