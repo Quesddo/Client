@@ -22,7 +22,7 @@ export default function NoteCreationForm() {
     if (todoId) {
       methods.setValue("todoId", +todoId);
     }
-  }, [methods, searchParams]);
+  }, [searchParams]);
 
   return <NoteForm methods={methods} onSubmit={handleSubmit} />;
 }

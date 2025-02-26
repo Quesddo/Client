@@ -30,7 +30,7 @@ export default function NoteUpdateForm({ noteId }: NoteUpdateFormProps) {
     methods.setValue("title", data.title);
     methods.setValue("content", data.content);
     methods.setValue("linkUrl", data.linkUrl);
-  }, [data, methods]);
+  }, [data]);
 
   return <NoteForm methods={methods} onSubmit={handleSubmit} />;
 }
