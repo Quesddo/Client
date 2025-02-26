@@ -8,7 +8,11 @@ import { TeamIdNotesGet200Response, teamIdNotesGetParams } from "@/types/types";
 export const useInfiniteNotes = (goalId: number) => {
   const { ref: inViewRef, inView } = useInView();
 
-  const query = useInfiniteQuery<TeamIdNotesGet200Response>({
+  const query = useInfiniteQuery<
+    TeamIdNotesGet200Response,
+    Error,
+    TeamIdNotesGet200Response["notes"]
+  >({
     queryKey: ["notes", goalId],
     queryFn: async ({ pageParam }) => {
       const params: teamIdNotesGetParams = {
@@ -21,6 +25,7 @@ export const useInfiniteNotes = (goalId: number) => {
     getNextPageParam: (lastPage) => lastPage.nextCursor,
     initialPageParam: null,
     enabled: !!goalId,
+    select: ({ pages }) => pages.flatMap(({ notes }) => notes),
   });
 
   useEffect(() => {
