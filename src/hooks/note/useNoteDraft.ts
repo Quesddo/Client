@@ -15,13 +15,14 @@ interface UseNoteDraftProps<
 > {
   id: number;
   methods: UseFormReturn<TNoteBody>;
+  isEditMode: boolean;
 }
 
 const TOAST_INTERVAL_TIME = 1000 * 60 * 5;
 
 export default function UseNoteDraft<
   TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto,
->({ id, methods }: UseNoteDraftProps<TNoteBody>) {
+>({ id, isEditMode, methods }: UseNoteDraftProps<TNoteBody>) {
   const { watch } = methods;
   const { addToast } = useToast();
   const toastIntervalRef = useRef<NodeJS.Timeout>(null);
@@ -71,9 +72,7 @@ export default function UseNoteDraft<
   };
 
   const handleLoadNoteDraft = () => {
-    const values = methods.getValues();
-    const noteStorage =
-      "todoId" in values ? CREATE_NOTE_STORAGE : UPDATE_NOTE_STORAGE;
+    const noteStorage = isEditMode ? UPDATE_NOTE_STORAGE : CREATE_NOTE_STORAGE;
 
     const data = noteStorage.get(id) as TNoteBody | null;
 
@@ -88,9 +87,7 @@ export default function UseNoteDraft<
   };
 
   const isNoteDraftSaved = () => {
-    const values = methods.getValues();
-    const noteStorage =
-      "todoId" in values ? CREATE_NOTE_STORAGE : UPDATE_NOTE_STORAGE;
+    const noteStorage = isEditMode ? UPDATE_NOTE_STORAGE : CREATE_NOTE_STORAGE;
 
     return !!noteStorage.get(id);
   };

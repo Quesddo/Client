@@ -13,16 +13,24 @@ interface NoteFormProps<TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto>
   extends PropsWithChildren {
   id: number;
   methods: UseFormReturn<TNoteBody>;
+  editMode?: boolean;
   onSubmit: (data: TNoteBody) => void;
 }
 
 export default function NoteForm<
   TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto,
->({ id, methods, onSubmit, children }: NoteFormProps<TNoteBody>) {
+>({
+  id,
+  methods,
+  onSubmit,
+  editMode = false,
+  children,
+}: NoteFormProps<TNoteBody>) {
   const { handleClickSaveDraft, handleLoadNoteDraft, isNoteDraftSaved } =
     useNoteDraft({
       id,
       methods,
+      isEditMode: editMode,
     });
 
   return (
