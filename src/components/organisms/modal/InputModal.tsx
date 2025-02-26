@@ -13,6 +13,7 @@ import { useController, useFormContext } from "react-hook-form";
 
 import Button from "@/components/atoms/button/Button";
 import ExitBtn from "@/components/atoms/exit-btn/ExitBtn";
+
 import Input from "@/components/atoms/input/Input";
 import PlusIcon from "@/components/atoms/plus-icon/PlusIcon";
 import { useModalContext } from "@/contexts/InputModalContext";
@@ -143,6 +144,7 @@ function FileInput({
   fileUrl?: string;
   onFileChange: (files: FileList) => void;
   className?: string;
+
 }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
