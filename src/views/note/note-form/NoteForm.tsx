@@ -31,7 +31,7 @@ export default function NoteForm<
         className="flex flex-1 flex-col"
         onSubmit={methods.handleSubmit(onSubmit)}
       >
-        <div className="flex items-center justify-between py-[11px]">
+        <div className="flex items-center justify-between">
           <PageTitle title="노트 작성" />
           <div className="flex gap-2">
             <Button
@@ -47,7 +47,7 @@ export default function NoteForm<
             </Button>
           </div>
         </div>
-        <div className="flex flex-col gap-4 pt-[11px] pb-[24px] md:flex-col-reverse">
+        <div className="flex flex-col gap-4 pt-[11px] pb-[24px] sm:pt-4 md:flex-col-reverse">
           <div>
             <h3>자바스크립트로 웹 서비스 만들기</h3>
             <p>자바스크립트 기초 챕터1 듣기</p>
