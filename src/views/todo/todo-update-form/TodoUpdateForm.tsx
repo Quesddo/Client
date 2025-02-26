@@ -23,14 +23,10 @@ export default function TodoUpdateForm({ todoId }: { todoId: number }) {
   });
 
   const todoformProps = useTodoForm(true);
-  const {
-    reset,
-    setValue,
-    setIsDone,
-    setIsFileCheck,
-    setIsLinkCheck,
-    setSelectedInput,
-  } = todoformProps;
+  const { reset, setValue } = todoformProps.formMethods;
+  const { setIsDone, setIsFileCheck, setIsLinkCheck, setSelectedInput } =
+    todoformProps;
+
   useEffect(() => {
     if (todo) {
       reset(todo);
@@ -71,7 +67,7 @@ export default function TodoUpdateForm({ todoId }: { todoId: number }) {
         onSuccess: () => {
           closeModal();
           alert("할 일이 수정되었습니다");
-          todoformProps.reset();
+          reset();
         },
       },
     );

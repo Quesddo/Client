@@ -6,8 +6,7 @@ import { UpdateTodoBodyDto } from "@/types/types";
 
 export function useTodoForm(isUpdate: boolean = false) {
   const formMethods = useForm<UpdateTodoBodyDto>();
-  const { register, handleSubmit, setValue, watch, reset, control } =
-    formMethods;
+  const { setValue } = formMethods;
 
   const [isDone, setIsDone] = useState(false);
   const [isFileCheck, setIsFileCheck] = useState(true);
@@ -58,12 +57,6 @@ export function useTodoForm(isUpdate: boolean = false) {
 
   return {
     formMethods,
-    register,
-    handleSubmit,
-    setValue,
-    watch,
-    reset,
-    control,
     isDone,
     setIsDone,
     isFileCheck,
