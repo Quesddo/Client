@@ -1,17 +1,22 @@
-import { useState } from "react";
-
+import { useModalContext } from "@/contexts/InputModalContext";
 import { TodoResponse } from "@/types/todo";
 
-import { TodoItem } from "../../molecules/todo-item/TodoItem";
-import CreateModal from "../modal/CreateModal";
+import { TodoItem } from "../../../views/todo/todo-item/TodoItem";
 
 interface TodoListProps {
-  data?: TodoResponse["todos"];
+  data: TodoResponse["todos"];
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
+  setSelectedTodoId: (todoId: number) => void;
+  onOpenDeletePopup: () => void;
 }
 
-export default function TodoList({ data, handleToggleTodo }: TodoListProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+export default function TodoList({
+  data,
+  handleToggleTodo,
+  setSelectedTodoId,
+  onOpenDeletePopup,
+}: TodoListProps) {
+  const { openModal } = useModalContext();
 
   return (
     <ul className="text-sm font-normal text-slate-800">
@@ -24,16 +29,12 @@ export default function TodoList({ data, handleToggleTodo }: TodoListProps) {
             console.log(`노트 상세 페이지 열기: ${noteId}`);
           }}
           onOpenTodoModal={() => {
-            console.log("할 일 수정 모달 열기");
-            setIsModalOpen(true);
+            setSelectedTodoId(todo.id);
+            openModal();
           }}
+          onOpenDeletePopup={onOpenDeletePopup}
         />
       ))}
-      {isModalOpen && (
-        <CreateModal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-          모달내용
-        </CreateModal>
-      )}
     </ul>
   );
 }

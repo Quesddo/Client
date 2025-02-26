@@ -1,4 +1,5 @@
 import { cva, type VariantProps } from "class-variance-authority";
+import { forwardRef } from "react";
 
 import { cn } from "@/utils/cn";
 
@@ -29,23 +30,26 @@ type InputElementProps = Omit<
   VariantProps<typeof inputVariants> &
   InputSize;
 
-export default function Input({
-  className,
-  size,
-  ...props
-}: InputElementProps) {
-  const sizeProps = typeof size === "number" ? { size } : {};
+const RefInput = forwardRef<HTMLInputElement, InputElementProps>(
+  ({ className, size, ...props }, ref) => {
+    const sizeProps = typeof size === "number" ? { size } : {};
 
-  return (
-    <input
-      className={cn(
-        inputVariants({
-          size: typeof size !== "number" ? size : undefined,
-          className,
-        }),
-      )}
-      {...sizeProps}
-      {...props}
-    />
-  );
-}
+    return (
+      <input
+        ref={ref}
+        className={cn(
+          inputVariants({
+            size: typeof size !== "number" ? size : undefined,
+            className,
+          }),
+        )}
+        {...sizeProps}
+        {...props}
+      />
+    );
+  },
+);
+
+RefInput.displayName = "RefInput";
+
+export default RefInput;
