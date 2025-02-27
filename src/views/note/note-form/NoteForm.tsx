@@ -6,7 +6,7 @@ import PageTitle from "@/components/atoms/page-title/PageTitle";
 import useNoteDraft from "@/hooks/note/useNoteDraft";
 import { CreateNoteBodyDto, UpdateNoteBodyDto } from "@/types/types";
 import Editor from "@/views/note/note-form/Editor";
-import InputWithCount from "@/views/note/note-form/InputWithCount";
+import InputWithCount from "@/views/note/note-form/TitleCounter";
 import ToastBtn from "@/views/note/note-form/ToastBtn";
 
 import EditorTextCounter from "./EditorTextCounter";
