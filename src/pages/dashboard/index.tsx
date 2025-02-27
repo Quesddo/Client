@@ -5,7 +5,7 @@ import RecentTodo from "@/views/dashboard/recent-todo/RecentTodo";
 
 export default function Dashboard() {
   return (
-    <div className="flex h-full flex-col bg-slate-100 px-4 text-slate-800 sm:px-21 md:px-[357px]">
+    <div className="smd:pl-[357px] flex h-full flex-col bg-slate-100 px-4 text-slate-800 sm:pl-21">
       <PageTitle title="대시보드" className="sm:pt-6" isMobileFixed={true} />
 
       <div className="smd:max-w-[1200px] smd:gap-5 flex h-full flex-grow flex-col gap-4 py-4 sm:pt-0">
