@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { ReactNode, useState } from "react";
+import { PropsWithChildren, useState } from "react";
 
 import ActionDropdown from "@/components/atoms/action-dropdown/ActionDropdown";
 import Divider from "@/components/atoms/divider/Divider";
@@ -8,15 +8,15 @@ import TodoChip from "@/components/atoms/todo-chip/TodoChip";
 import Popup from "@/components/molecules/popup/Popup";
 import { useDeleteNote } from "@/hooks/note/useDeleteNote";
 
-interface CardProps {
-  children: ReactNode;
+interface CardTitleProps extends PropsWithChildren {
+  noteId: number;
 }
 
 interface CardHeaderProps {
   noteId: number;
 }
 
-export default function Card({ children }: CardProps) {
+export default function Card({ children }: PropsWithChildren) {
   return (
     <div className="relative flex flex-col gap-4 rounded-xl bg-white p-6">
       {children}
@@ -29,7 +29,7 @@ function CardHeader({ noteId }: CardHeaderProps) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const router = useRouter();
   const goalId = Number(router.query.goalId);
-  const editPath = `/goal/${goalId}/notes?noteId=${noteId}&mode=edit`;
+  const editPath = `${router.asPath}?noteId=${noteId}&mode=edit`;
 
   const { mutate } = useDeleteNote(goalId);
   const handleClickEdit = () => {
@@ -101,19 +101,32 @@ function CardHeader({ noteId }: CardHeaderProps) {
   );
 }
 
-function CardBody({ children }: CardProps) {
+function CardBody({ children }: PropsWithChildren) {
   return <div className="flex flex-col justify-start gap-3">{children}</div>;
 }
 
-function CardTitle({ children }: CardProps) {
-  return <h1 className="text-lg font-medium text-slate-800">{children}</h1>;
+function CardTitle({ children, noteId }: CardTitleProps) {
+  const router = useRouter();
+  return (
+    <h1
+      className="cursor-pointer text-lg font-medium text-slate-800"
+      // 노트 상세 사이드바 띄우기
+      onClick={() => {
+        router.push(
+          `${router.asPath.split("?")[0]}?noteId=${noteId}&mode=detail`,
+        );
+      }}
+    >
+      {children}
+    </h1>
+  );
 }
 
-function CardContent({ children }: CardProps) {
+function CardContent({ children }: PropsWithChildren) {
   return <div className="flex items-center gap-2">{children}</div>;
 }
 
-function CardTodoTitle({ children }: CardProps) {
+function CardTodoTitle({ children }: PropsWithChildren) {
   return <h2 className="text-xs font-normal text-slate-700">{children}</h2>;
 }
 

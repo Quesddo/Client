@@ -15,7 +15,7 @@ export const Default: Story = {
     <Card>
       <Card.Header noteId={-1} />
       <Card.Body>
-        <Card.Title>자바스크립트를 시작하기 전 준비물</Card.Title>
+        <Card.Title noteId={-1}>자바스크립트를 시작하기 전 준비물</Card.Title>
         <Card.Divider />
         <Card.Content>
           <Card.todoChip />

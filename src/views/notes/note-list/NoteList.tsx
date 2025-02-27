@@ -22,7 +22,7 @@ export default function NoteList({ notes, inViewRef }: noteListProps) {
             <Card key={id}>
               <Card.Header noteId={id} />
               <Card.Body>
-                <Card.Title>{title}</Card.Title>
+                <Card.Title noteId={id}>{title}</Card.Title>
                 <Card.Divider />
                 <Card.Content>
                   <Card.todoChip isDone={todo.done} />
