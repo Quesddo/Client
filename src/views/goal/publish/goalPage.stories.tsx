@@ -1,5 +1,3 @@
-import type { Meta } from "@storybook/react";
-
 import goalPage from "./goalPage";
 
 const meta = {
