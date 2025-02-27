@@ -1,17 +1,19 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { ReactNode, useState } from "react";
 
 import ActionDropdown from "@/components/atoms/action-dropdown/ActionDropdown";
 import Divider from "@/components/atoms/divider/Divider";
 import TodoChip from "@/components/atoms/todo-chip/TodoChip";
-
-const DROPDOWN_ITEMS = [
-  { label: "수정하기", onClick: () => alert("수정하기") },
-  { label: "삭제하기", onClick: () => alert("삭제하기") },
-];
+import Popup from "@/components/molecules/popup/Popup";
+import { useDeleteNote } from "@/hooks/note/useDeleteNote";
 
 interface CardProps {
   children: ReactNode;
+}
+
+interface CardHeaderProps {
+  noteId: number;
 }
 
 export default function Card({ children }: CardProps) {
@@ -22,8 +24,40 @@ export default function Card({ children }: CardProps) {
   );
 }
 
-function CardHeader() {
-  const [isOpen, setIsOpen] = useState(false);
+function CardHeader({ noteId }: CardHeaderProps) {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const router = useRouter();
+  const goalId = Number(router.query.goalId);
+  const editPath = `/goal/${goalId}/notes?noteId=${noteId}&mode=edit`;
+
+  const { mutate } = useDeleteNote(goalId);
+  const handleClickEdit = () => {
+    router.push(editPath);
+  };
+  const handleClickDelete = () => {
+    setIsPopupOpen(true);
+  };
+
+  const handlePopupClose = () => {
+    setIsPopupOpen(false);
+  };
+
+  const handlePopupConfirm = () => {
+    mutate(noteId, {
+      onSuccess: () => {
+        handlePopupClose();
+      },
+    });
+  };
+
+  const dropdownItems = [
+    {
+      label: "수정하기",
+      onClick: handleClickEdit,
+    },
+    { label: "삭제하기", onClick: handleClickDelete },
+  ];
 
   return (
     <div className="flex items-center justify-between">
@@ -33,22 +67,36 @@ function CardHeader() {
         width={28}
         height={28}
       />
+
+      {/* kebab 아이콘 */}
       <Image
         src="/icons/kebab.png"
         alt="edit or delete toggle"
         width={24}
         height={24}
         className="cursor-pointer"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
       />
-      {
-        <ActionDropdown
-          items={DROPDOWN_ITEMS}
-          className="absolute top-[58px] right-6"
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-        />
-      }
+
+      {/* 수정/삭제 드롭다운 */}
+      <ActionDropdown
+        items={dropdownItems}
+        className="absolute top-[58px] right-6"
+        isOpen={isDropdownOpen}
+        setIsOpen={setIsDropdownOpen}
+      />
+
+      {/* 삭제 확인 모달 */}
+      {isPopupOpen && (
+        <Popup
+          onConfirm={handlePopupConfirm}
+          onClose={handlePopupClose}
+          isCancelEnabled
+        >
+          <div>노트를 삭제하시겠어요?</div>
+          <div>삭제된 노트는 복구할 수 없습니다.</div>
+        </Popup>
+      )}
     </div>
   );
 }

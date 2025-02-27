@@ -2,25 +2,23 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
-import instance from "@/apis/apiClient";
-import { TeamIdNotesGet200Response, teamIdNotesGetParams } from "@/types/types";
+import { fetchNotes } from "@/apis/note/fetchNotes";
+import { TeamIdNotesGet200Response } from "@/types/types";
 
 export const useInfiniteNotes = (goalId: number) => {
   const { ref: inViewRef, inView } = useInView();
 
-  const query = useInfiniteQuery<TeamIdNotesGet200Response>({
+  const query = useInfiniteQuery<
+    TeamIdNotesGet200Response,
+    Error,
+    TeamIdNotesGet200Response["notes"]
+  >({
     queryKey: ["notes", goalId],
-    queryFn: async ({ pageParam }) => {
-      const params: teamIdNotesGetParams = {
-        goalId,
-        cursor: pageParam as number,
-        size: 5,
-      };
-      return (await instance.get("notes", { params })).data;
-    },
+    queryFn: ({ pageParam }) => fetchNotes(Number(pageParam), goalId),
     getNextPageParam: (lastPage) => lastPage.nextCursor,
     initialPageParam: null,
     enabled: !!goalId,
+    select: ({ pages }) => pages.flatMap(({ notes }) => notes),
   });
 
   useEffect(() => {
