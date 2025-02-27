@@ -10,6 +10,7 @@ import { InputModalProvider } from "@/contexts/InputModalContext";
 import Sidebar from "@/views/layouts/sidebar/Sidebar";
 
 import type { AppProps } from "next/app";
+import Sidebar from "@/views/layouts/sidebar/Sidebar";
 
 const queryClient = new QueryClient();
 
