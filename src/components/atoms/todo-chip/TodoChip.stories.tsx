@@ -3,6 +3,8 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof TodoChip> = {
   title: "Common/Atoms/TodoChip",
+  tags: ["autodocs"],
+
   component: TodoChip,
 };
 
@@ -10,7 +12,7 @@ export default meta;
 
 type Story = StoryObj<typeof TodoChip>;
 
-export const todoChip: Story = {
+export const Default: Story = {
   args: {
     isDone: true,
   },

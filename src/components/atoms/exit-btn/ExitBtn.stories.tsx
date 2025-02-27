@@ -3,6 +3,8 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof ExitBtn> = {
   title: "Common/Atoms/ExitBtn",
+  tags: ["autodocs"],
+
   component: ExitBtn,
 };
 

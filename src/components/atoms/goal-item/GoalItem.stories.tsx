@@ -4,6 +4,8 @@ import type { Meta, StoryObj } from "@storybook/react";
 const meta: Meta<typeof GoalItem> = {
   title: "Common/Atoms/GoalItem",
   component: GoalItem,
+  tags: ["autodocs"],
+
   argTypes: {
     goal: { control: "text" },
     iconSize: {
