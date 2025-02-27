@@ -4,12 +4,13 @@ import type { Meta, StoryObj } from "@storybook/react";
 const meta: Meta<typeof Card> = {
   title: "views/notes/Card",
   component: Card,
+  tags: ["autodocs"],
 };
 
 export default meta;
 type Story = StoryObj<typeof Card>;
 
-export const card: Story = {
+export const Default: Story = {
   render: () => (
     <Card>
       <Card.Header noteId={-1} />
