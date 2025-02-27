@@ -21,7 +21,7 @@ export default function SidebarHeader({
     >
       <Link href="/">
         <img
-          src="/icons/logo_horizontal.png"
+          src="/icons/logo-horizontal.png"
           alt="로고_horizontal"
           width={106}
           height={35}
