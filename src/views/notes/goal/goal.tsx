@@ -1,6 +1,10 @@
 import Image from "next/image";
 
-export default function Goal() {
+interface GoalProps {
+  goal?: string;
+}
+
+export default function Goal({ goal }: GoalProps) {
   return (
     <div className="flex items-center gap-2 rounded-xl border border-slate-100 bg-white px-6 py-[14px]">
       <Image
@@ -9,9 +13,7 @@ export default function Goal() {
         height={24}
         width={24}
       />
-      <span className="text-sm font-semibold text-slate-800">
-        자바스크립트로 웹 서비스 만들기
-      </span>
+      <span className="text-sm font-semibold text-slate-800">{goal}</span>
     </div>
   );
 }
