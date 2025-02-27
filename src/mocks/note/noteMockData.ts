@@ -13,6 +13,7 @@ export const noteDetailMockData = (
   updatedAt: "2024-02-25T12:00:00Z",
   createdAt: "2024-02-25T12:00:00Z",
   title: `운동 기록 - ${noteId}`,
+  linkUrl: "https://www.youtube.com/embed/W2jfXmfeFo0",
   content: `
 오늘 아침, 이른 시간에 일어나 창문을 열고 신선한 공기를 마시며 하루를 시작했다. 
 눈을 뜬 순간부터 몸의 각 근육을 깨우기 위해 가벼운 스트레칭과 호흡 운동을 진행하였으며, 평소보다 더 집중하여 준비 운동을 했다. 

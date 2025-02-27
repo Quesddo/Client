@@ -10,6 +10,8 @@ export default function LinkItem({ linkUrl, setIsEmbedOpen }: LinkItemProps) {
   const toggleEmbed = () => {
     setIsEmbedOpen((isOpen) => !isOpen);
   };
+
+  if (!linkUrl) return;
   return (
     <div
       onClick={toggleEmbed}
