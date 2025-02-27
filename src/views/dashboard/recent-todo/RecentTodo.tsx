@@ -6,7 +6,7 @@ export default function RecentTodo() {
     router.push("/todo");
   };
   return (
-    <div className="mb-4 h-[202px] rounded-xl bg-white p-6 transition-shadow duration-300 hover:shadow-2xl sm:w-[258px] md:w-[540px]">
+    <div className="smd:w-[540px] mb-4 h-[202px] rounded-xl bg-white p-6 transition-shadow duration-300 hover:shadow-2xl sm:w-[258px]">
       <div className="flex h-10 justify-between">
         <h2>최근 등록한 할 일</h2>
         <button
