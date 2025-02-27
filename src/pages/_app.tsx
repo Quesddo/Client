@@ -18,13 +18,11 @@ export default function App({ Component, pageProps }: AppProps) {
       <AuthGuard>
         <ToastProvider>
           <InputModalProvider>
-            <div className="flex h-screen flex-col overflow-y-hidden sm:flex-row">
-              <Sidebar />
-              <main className="flex-1 overflow-y-auto">
-                <Component {...pageProps} />
-                <Toaster />
-              </main>
-            </div>
+            <Sidebar />
+            <main>
+              <Component {...pageProps} />
+              <Toaster />
+            </main>
           </InputModalProvider>
         </ToastProvider>
       </AuthGuard>
