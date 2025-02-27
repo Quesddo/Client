@@ -3,11 +3,10 @@ import { useEffect, useState } from "react";
 
 import { InputModalProvider } from "@/contexts/InputModalContext";
 import { cn } from "@/utils/cn";
-import MenuDashboard from "@/views/layouts/organisms/MenuDashBoard";
-import MenuGoal from "@/views/layouts/organisms/MenuGoal";
-import Profile from "@/views/layouts/organisms/Profile";
-
-import SidebarHeader from "../organisms/SidebarHeader";
+import MenuDashboard from "@/views/layouts/sidebar/components/MenuDashBoard";
+import Profile from "@/views/layouts/sidebar/components/Profile";
+import SidebarHeader from "./components/SidebarHeader";
+import MenuGoal from "./components/goals/MenuGoal";
 
 const TABLET_BREAKPOINT = 964;
 const TO_HIDE_PATH = ["/", "/login", "/signup"];

@@ -4,8 +4,8 @@ import { memo } from "react";
 import { useModalContext } from "@/contexts/InputModalContext";
 import TodoCreateForm from "@/views/todo/todo-create-form/TodoCreateForm";
 
-import AddButton from "../atoms/AddButton";
-import MenuItem from "../atoms/MenuItem";
+import AddButton from "./AddButton";
+import MenuItem from "./MenuItem";
 
 export default memo(function MenuDashboard() {
   const { openModal } = useModalContext();

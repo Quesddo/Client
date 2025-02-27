@@ -1,16 +1,13 @@
 import { FormEventHandler, memo, useRef, useState } from "react";
 
 import { useCreateGoal } from "@/hooks/goal/useCreateGoal";
-<<<<<<< HEAD
-=======
-import { useFetchGoals } from "@/hooks/goal/useFetchGoals";
->>>>>>> 247f2d1 (feat(TODO-107): 컴포넌트 분리 (#70))
+
 import { cn } from "@/utils/cn";
 
-import AddButton from "../atoms/AddButton";
-import MenuItem from "../atoms/MenuItem";
-import GoalCreationForm from "../molecules/GoalCreationForm";
-import TabSideMenuList from "../molecules/TabSideMenuList";
+import AddButton from "../AddButton";
+import MenuItem from "../MenuItem";
+import GoalCreationForm from "./GoalCreationForm";
+import TabSideMenuList from "./TabSideMenuList";
 
 export default memo(function MenuGoal() {
   const ulRef = useRef<HTMLUListElement>(null);
@@ -22,7 +19,6 @@ export default memo(function MenuGoal() {
       });
     },
   });
-
 
   const [showForm, setShowForm] = useState(false);
 
