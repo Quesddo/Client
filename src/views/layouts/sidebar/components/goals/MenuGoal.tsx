@@ -1,8 +1,8 @@
 import { memo } from "react";
 import flag from "@public/icons/flag.png";
 
-import MenuItem from "../atoms/MenuItem";
-import TabSideMenuList from "../molecules/TabSideMenuList";
+import MenuItem from "../MenuItem";
+import TabSideMenuList from "./TabSideMenuList";
 
 const items = ["hihihihi"];
 

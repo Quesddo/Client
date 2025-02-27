@@ -1,4 +1,4 @@
-import TabSideMenuItem from "../atoms/TabSideMenuItem";
+import TabSideMenuItem from "./TabSideMenuItem";
 
 interface TabSideMenuItemProps {
   items: string[];
