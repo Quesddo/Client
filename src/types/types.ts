@@ -368,7 +368,7 @@ export interface TeamIdNotesGet200Response {
 export interface TeamIdNotesGet200ResponseNotesInner {
   /**
    *
-   * @tye {TeamIdNotesGet200ResponseNotesInnerTodo}
+   * @type {TeamIdNotesGet200ResponseNotesInnerTodo}
    * @memberof TeamIdNotesGet200ResponseNotesInner
    */
   todo: TeamIdNotesGet200ResponseNotesInnerTodo;
@@ -414,6 +414,7 @@ export interface TeamIdNotesGet200ResponseNotesInner {
    * @memberof TeamIdNotesGet200ResponseNotesInner
    */
   teamId: string;
+  content: string;
 }
 /**
  *
