@@ -9,6 +9,8 @@ import Editor from "@/views/note/note-form/Editor";
 import InputWithCount from "@/views/note/note-form/InputWithCount";
 import ToastBtn from "@/views/note/note-form/ToastBtn";
 
+import EditorTextCounter from "./EditorTextCounter";
+import LinkDisplay from "./LinkDisplay";
 import LinkModal from "./LinkModal";
 
 interface NoteFormProps<TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto>
@@ -68,7 +70,11 @@ export default function NoteForm<
           />
         </div>
         <InputWithCount />
-        <Editor />
+        <div className="flex flex-1 flex-col gap-2">
+          <EditorTextCounter />
+          <LinkDisplay />
+          <Editor />
+        </div>
         <LinkModal />
         {children}
       </form>
