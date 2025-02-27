@@ -1,6 +1,7 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { InputModalProvider } from "@/contexts/InputModalContext";
 import { cn } from "@/utils/cn";
 import MenuDashboard from "@/views/layouts/organisms/MenuDashBoard";
 import MenuGoal from "@/views/layouts/organisms/MenuGoal";
@@ -59,7 +60,9 @@ export default function Sidebar() {
             )}
           >
             <Profile />
-            <MenuDashboard />
+            <InputModalProvider>
+              <MenuDashboard />
+            </InputModalProvider>
             <MenuGoal />
           </div>
         </aside>
