@@ -10,6 +10,7 @@ import InputWithCount from "@/views/note/note-form/TitleCounter";
 import ToastBtn from "@/views/note/note-form/ToastBtn";
 
 import EditorTextCounter from "./EditorTextCounter";
+import GoalTodoDisplay from "./GoalTodoDisplay";
 import LinkDisplay from "./LinkDisplay";
 import LinkModal from "./LinkModal";
 
@@ -19,6 +20,8 @@ interface NoteFormProps<TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto>
   methods: UseFormReturn<TNoteBody>;
   editMode?: boolean;
   onSubmit: (data: TNoteBody) => void;
+  goal?: string;
+  todo?: string;
 }
 
 export default function NoteForm<
@@ -28,6 +31,8 @@ export default function NoteForm<
   methods,
   onSubmit,
   editMode = false,
+  goal,
+  todo,
   children,
 }: NoteFormProps<TNoteBody>) {
   const { handleClickSaveDraft, handleLoadNoteDraft, isNoteDraftSaved } =
@@ -60,10 +65,7 @@ export default function NoteForm<
           </div>
         </div>
         <div className="flex flex-col gap-4 pt-[11px] pb-[24px] sm:pt-4 md:flex-col-reverse">
-          <div>
-            <h3>자바스크립트로 웹 서비스 만들기</h3>
-            <p>자바스크립트 기초 챕터1 듣기</p>
-          </div>
+          <GoalTodoDisplay goal={goal} todo={todo} />
           <ToastBtn
             isOpen={isNoteDraftSaved()}
             onLoadData={handleLoadNoteDraft}

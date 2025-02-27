@@ -33,6 +33,13 @@ export default function NoteUpdateForm({ noteId }: NoteUpdateFormProps) {
   }, [data, methods]);
 
   return (
-    <NoteForm id={noteId} methods={methods} onSubmit={handleSubmit} editMode />
+    <NoteForm
+      id={noteId}
+      methods={methods}
+      onSubmit={handleSubmit}
+      editMode
+      goal={data?.goal?.title}
+      todo={data?.todo.title}
+    />
   );
 }
