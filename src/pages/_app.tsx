@@ -6,6 +6,7 @@ import AuthGuard from "@/components/AuthGuard";
 import Toaster from "@/components/organisms/toaster/Toaster";
 import ToastProvider from "@/components/organisms/toaster/ToastProvider";
 import { InputModalProvider } from "@/contexts/InputModalContext";
+import NoteDrawer from "@/views/note/note-drawer/NoteDrawer";
 
 import Sidebar from "../views/layouts/template/Sidebar";
 import type { AppProps } from "next/app";
@@ -22,6 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
               <Sidebar />
               <main className="flex-1 overflow-y-auto">
                 <Component {...pageProps} />
+                <NoteDrawer />
                 <Toaster />
               </main>
             </div>
