@@ -2,6 +2,8 @@ import Image from "next/image";
 import { ReactNode, useState } from "react";
 
 import ActionDropdown from "@/components/atoms/action-dropdown/ActionDropdown";
+import Divider from "@/components/atoms/divider/Divider";
+import TodoChip from "@/components/atoms/todo-chip/TodoChip";
 
 const DROPDOWN_ITEMS = [
   { label: "수정하기", onClick: () => alert("수정하기") },
@@ -59,21 +61,10 @@ function CardTitle({ children }: CardProps) {
   return <h1 className="text-lg font-medium text-slate-800">{children}</h1>;
 }
 
-function CardDivider() {
-  return <div className="h-[1px] bg-slate-200" />;
-}
-
 function CardContent({ children }: CardProps) {
   return <div className="flex items-center gap-2">{children}</div>;
 }
 
-function CardTodoStatus({ children }: CardProps) {
-  return (
-    <div className="rounded-sm bg-slate-100 px-[3px] py-[2px] text-xs font-medium text-slate-700">
-      {children}
-    </div>
-  );
-}
 function CardTodoTitle({ children }: CardProps) {
   return <h2 className="text-xs font-normal text-slate-700">{children}</h2>;
 }
@@ -81,7 +72,7 @@ function CardTodoTitle({ children }: CardProps) {
 Card.Header = CardHeader;
 Card.Body = CardBody;
 Card.Title = CardTitle;
-Card.Divider = CardDivider;
+Card.Divider = Divider;
 Card.Content = CardContent;
-Card.TodoStatus = CardTodoStatus;
+Card.todoChip = TodoChip;
 Card.TodoTitle = CardTodoTitle;
