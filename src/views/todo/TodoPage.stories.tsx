@@ -14,11 +14,6 @@ const meta: Meta<typeof TodoPage> = {
       </InputModalProvider>
     ),
   ],
-  parameters: {
-    msw: {
-      handlers: todoHandlers,
-    },
-  },
 };
 
 export default meta;
