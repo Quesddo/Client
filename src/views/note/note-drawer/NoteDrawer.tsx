@@ -33,6 +33,7 @@ export default function NoteDrawer() {
       router.push(pathname);
     } else {
       // TODO: 수정 시 동작
+      router.push(pathname);
     }
   };
 
@@ -40,7 +41,7 @@ export default function NoteDrawer() {
     if (todoId >= 0) {
       setMode(MODE.CREATE);
     } else if (noteId >= 0) {
-      setMode(isEditMode ? MODE.EDIT : MODE.DETAIL);
+      setMode(isEditMode ? MODE.EDIT : null);
     } else {
       setMode(null);
     }
