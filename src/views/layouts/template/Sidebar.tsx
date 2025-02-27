@@ -15,14 +15,15 @@ export default function Sidebar() {
   const pathname = usePathname();
   const isHidden = TO_HIDE_PATH.includes(pathname);
 
-  const [isOpen, setIsOpen] = useState(true);
+  // 기본 사이드 바 상태 지정 (모바일: 닫힘)
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleToggleSidebar = () => {
     setIsOpen((prev) => !prev);
   };
 
   useEffect(() => {
-    // 기본 사이드 바 상태 지정 (모바일: 닫힘, PC/태블릿: 열림)
+    // 기본 사이드 바 상태 지정 (PC/태블릿: 열림)
     if (window.innerWidth >= TABLET_BREAKPOINT) {
       setIsOpen(true);
     }
