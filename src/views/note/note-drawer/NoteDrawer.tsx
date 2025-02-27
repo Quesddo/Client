@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import ExitBtn from "@/components/atoms/exit-btn/ExitBtn";
 import Toaster from "@/components/organisms/toaster/Toaster";
 import ToastProvider from "@/components/organisms/toaster/ToastProvider";
+import { InputModalProvider } from "@/contexts/InputModalContext";
 
 import NoteCreationForm from "../note-form/NoteCreationForm";
 import NoteUpdateForm from "../note-form/NoteUpdateForm";
@@ -53,11 +54,13 @@ export default function NoteDrawer() {
     <div className="fixed inset-0 z-20 bg-black/50">
       <section className="fixed inset-0 flex flex-col gap-4 bg-white p-6 sm:left-auto sm:w-[512px] sm:border-l sm:border-slate-200 md:w-[800px]">
         <ExitBtn onClick={handleClick} />
-        <ToastProvider>
-          {mode === MODE.CREATE && <NoteCreationForm todoId={todoId} />}
-          {mode === MODE.EDIT && <NoteUpdateForm noteId={noteId} />}
-          <Toaster />
-        </ToastProvider>
+        <InputModalProvider>
+          <ToastProvider>
+            {mode === MODE.CREATE && <NoteCreationForm todoId={todoId} />}
+            {mode === MODE.EDIT && <NoteUpdateForm noteId={noteId} />}
+            <Toaster />
+          </ToastProvider>
+        </InputModalProvider>
       </section>
     </div>
   );

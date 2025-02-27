@@ -9,6 +9,8 @@ import Editor from "@/views/note/note-form/Editor";
 import InputWithCount from "@/views/note/note-form/InputWithCount";
 import ToastBtn from "@/views/note/note-form/ToastBtn";
 
+import LinkModal from "./LinkModal";
+
 interface NoteFormProps<TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto>
   extends PropsWithChildren {
   id: number;
@@ -67,6 +69,7 @@ export default function NoteForm<
         </div>
         <InputWithCount />
         <Editor />
+        <LinkModal />
         {children}
       </form>
     </FormProvider>
