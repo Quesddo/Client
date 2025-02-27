@@ -1,6 +1,6 @@
 import { InputModalProvider } from "@/contexts/InputModalContext";
+import { sampleTodos } from "@/mocks/todo/todoMockData";
 
-import { sampleTodos } from "./dummy";
 import TodoList from "./TodoList";
 import type { Meta, StoryObj } from "@storybook/react";
 
