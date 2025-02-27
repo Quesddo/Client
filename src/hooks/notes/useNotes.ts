@@ -10,7 +10,7 @@ export const useNotes = (goalId: number) => {
       const params: teamIdNotesGetParams = {
         goalId,
         cursor: pageParam as number,
-        size: 10,
+        size: 5,
       };
       return (
         await instance.get("notes", {
