@@ -1,5 +1,7 @@
 import { useRouter } from "next/router";
+import { Suspense } from "react";
 
+import Spinner from "@/components/atoms/spinner/Spinner";
 import TitleWithIcon from "@/components/atoms/title-with-icon/TitleWithIcon.tsx";
 import TodoList from "@/components/organisms/todo-list/TodoList";
 import { useTodos } from "@/hooks/todo/useTodos";
@@ -47,12 +49,14 @@ export default function RecentTodo({
             최근에 등록한 할 일이 없어요
           </div>
         ) : (
-          <TodoList
-            data={todos}
-            handleToggleTodo={handleToggleTodo}
-            setSelectedTodoId={setSelectedTodoId}
-            onOpenDeletePopup={onOpenDeletePopup}
-          />
+          <Suspense fallback={<Spinner size={60} />}>
+            <TodoList
+              data={todos}
+              handleToggleTodo={handleToggleTodo}
+              setSelectedTodoId={setSelectedTodoId}
+              onOpenDeletePopup={onOpenDeletePopup}
+            />
+          </Suspense>
         )}
       </div>
     </section>
