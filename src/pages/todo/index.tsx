@@ -1,6 +1,7 @@
-import { useCallback, useMemo, useState } from "react";
+import { Suspense, useCallback, useMemo, useState } from "react";
 
 import PlusIcon from "@/components/atoms/plus-icon/PlusIcon";
+import Spinner from "@/components/atoms/spinner/Spinner";
 import { useModalContext } from "@/contexts/InputModalContext";
 import { useDeleteTodo } from "@/hooks/todo/useDeleteTodo";
 import { useTodos } from "@/hooks/todo/useTodos";
@@ -69,14 +70,16 @@ export default function TodoPage() {
         </button>
       </div>
 
-      <Todos
-        todos={filteredTodos}
-        filter={filter}
-        setFilter={setFilter}
-        handleToggleTodo={handleToggleTodo}
-        setSelectedTodoId={setSelectedTodoId}
-        setIsPopupOpen={() => setIsPopupOpen(true)}
-      />
+      <Suspense fallback={<Spinner size={60} />}>
+        <Todos
+          todos={filteredTodos}
+          filter={filter}
+          setFilter={setFilter}
+          handleToggleTodo={handleToggleTodo}
+          setSelectedTodoId={setSelectedTodoId}
+          setIsPopupOpen={() => setIsPopupOpen(true)}
+        />
+      </Suspense>
 
       {isOpen && !selectedTodoId && <TodoCreateForm />}
       {isOpen && selectedTodoId && <TodoUpdateForm todoId={selectedTodoId} />}
