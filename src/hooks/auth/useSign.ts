@@ -21,7 +21,7 @@ function useLogin() {
     },
     onSuccess: (data) => {
       tokenUtils.setToken(data.accessToken, data.refreshToken);
-      router.push("/dashboard");
+      router.replace("dashboard");
     },
     onError: (error) => {
       if (isAxiosError(error)) {
