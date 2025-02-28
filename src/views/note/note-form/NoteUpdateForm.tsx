@@ -16,7 +16,7 @@ export default function NoteUpdateForm({ noteId }: NoteUpdateFormProps) {
   const methods = useForm<UpdateNoteBodyDto>();
   const mutation = useUpdateNote(noteId);
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["note", noteId],
+    queryKey: ["noteDetail", noteId],
     queryFn: () => noteApi.fetchNote(noteId),
     enabled: !!noteId,
   });
