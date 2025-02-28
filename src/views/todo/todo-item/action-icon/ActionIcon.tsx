@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -28,9 +29,17 @@ export function ActionIcon({
   onOpenDeletePopup,
   setSelectedTodoId,
 }: ActionIconProps) {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
   const actionRef = useRef<HTMLUListElement>(null);
+
+  const handleNoteDetail = () => {
+    router.push(`?noteId=${todo.noteId}&mode=detail`);
+  };
+  const handleNoteCreation = () => {
+    router.push(`?todoId=${todo.id}`);
+  };
 
   const hoverIconStyle = `hover-icon-style opacity-0 invisible -ml-6 group-hover:opacity-100 group-hover:visible group-hover:ml-0 hover:shadow-md transition-all duration-150 ${isOpen && "opacity-100 visible ml-0"}`;
   const actions = [
@@ -55,8 +64,8 @@ export function ActionIcon({
       alt: todo.noteId ? "노트보기" : "노트작성",
       className: todo.noteId ? "" : hoverIconStyle,
       onClick: todo.noteId
-        ? () => onOpenNoteDetail(todo.noteId)
-        : () => alert("노트 작성 페이지"),
+        ? () => handleNoteDetail()
+        : () => handleNoteCreation(),
       role: "button",
     },
     {
