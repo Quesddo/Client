@@ -3,10 +3,7 @@ import { FormProvider } from "react-hook-form";
 import TextCounting from "@/components/atoms/text-counting/TextCounting";
 import InputModal from "@/components/organisms/modal/InputModal";
 import { useFetchGoals } from "@/hooks/goal/useFetchGoals";
-import {
-  TeamIdGoalsGet200ResponseGoalsInner,
-  UpdateTodoBodyDto,
-} from "@/types/types";
+import { UpdateTodoBodyDto } from "@/types/types";
 import { cn } from "@/utils/cn";
 
 import TodoUpdateFormCheckbox from "./todo-checkbox/TodoUpdateFormCheckbox";

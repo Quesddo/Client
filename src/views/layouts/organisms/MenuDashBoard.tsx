@@ -2,7 +2,7 @@ import Link from "next/link";
 import { memo } from "react";
 import home from "@public/icons/home.png";
 
-import MenuItem from "./MenuItem";
+import MenuItem from "../atoms/MenuItem";
 
 export default memo(function MenuDashboard() {
   return (
