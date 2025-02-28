@@ -26,6 +26,9 @@ const meta = {
       options: ["default", "lg", "sm", "xs"],
       description: "default: w-full, 나머지: 특정 width 고정",
     },
+    rounded: {
+      control: "boolean",
+    },
     disabled: {
       control: "boolean",
     },
@@ -43,14 +46,20 @@ export const Default: Story = {
     size: "default",
     children: "Button",
     disabled: false,
+    rounded: false,
   },
 };
 
 export const Disabled: Story = {
   args: {
-    variant: "default",
-    size: "default",
-    children: "Button",
+    ...Default.args,
     disabled: true,
+  },
+};
+
+export const Rounded: Story = {
+  args: {
+    ...Default.args,
+    rounded: true,
   },
 };
