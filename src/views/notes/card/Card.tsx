@@ -108,7 +108,7 @@ function CardBody({ children }: PropsWithChildren) {
 function CardTitle({ children, noteId }: CardTitleProps) {
   const router = useRouter();
   return (
-    <h1
+    <span
       className="cursor-pointer text-lg font-medium text-slate-800"
       // 노트 상세 사이드바 띄우기
       onClick={() => {
@@ -118,7 +118,7 @@ function CardTitle({ children, noteId }: CardTitleProps) {
       }}
     >
       {children}
-    </h1>
+    </span>
   );
 }
 
