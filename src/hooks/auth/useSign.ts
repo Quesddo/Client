@@ -1,6 +1,5 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
-import { useRouter } from "next/router";
 import { useFormContext } from "react-hook-form";
 
 import instance from "@/apis/apiClient";
@@ -12,8 +11,8 @@ interface FormData extends UserCreateRequstDto {
 }
 
 function useLogin() {
-  const router = useRouter();
   const methods = useFormContext();
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (params: FormData) => {
       const response = await instance.post("/auth/login", params);
@@ -21,7 +20,7 @@ function useLogin() {
     },
     onSuccess: (data) => {
       tokenUtils.setToken(data.accessToken, data.refreshToken);
-      router.replace("dashboard");
+      queryClient.invalidateQueries({ queryKey: ["user"] });
     },
     onError: (error) => {
       if (isAxiosError(error)) {
