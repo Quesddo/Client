@@ -16,7 +16,7 @@ interface TodosProps {
   filter: (typeof FILTER_TYPES)[number];
   setFilter: Dispatch<SetStateAction<(typeof FILTER_TYPES)[number]>>;
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
-  setSelectedTodoId: (todoId: number) => void;
+  setSelectedTodoId: (todoId: number | null) => void;
   setIsPopupOpen: () => void;
 }
 
