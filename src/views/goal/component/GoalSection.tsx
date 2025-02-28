@@ -20,16 +20,14 @@ export default function GoalSection({ id }: GoalSectionProps) {
   const [isOpenActionDropDown, setIsOpenActionDropDown] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [action, setAction] = useState<string>("");
-  const [title, setTitle] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
-  const { data, isLoading } = useFetchGoal(id);
+  const { data, isPending } = useFetchGoal(id);
   const { mutate: updateGoalName } = useUpdateGoal(id);
   const { mutate: deleteGoal } = useDeleteGoal(id);
 
   useEffect(() => {
-    if (isLoading) return;
-    setTitle(data.title);
-  }, [isLoading]);
+    if (isPending) return;
+  }, [isPending]);
 
   const handleClick = () => {
     setIsOpenActionDropDown(true);
@@ -45,7 +43,6 @@ export default function GoalSection({ id }: GoalSectionProps) {
 
   const onClickUpdateGoalName = () => {
     updateGoalName(inputRef.current?.value as string);
-    setTitle(inputRef.current?.value as string);
     setIsOpenModal(false);
   };
 
@@ -53,11 +50,13 @@ export default function GoalSection({ id }: GoalSectionProps) {
     deleteGoal();
   };
 
+  if (isPending) return null;
+
   return (
     <>
       <div className="mb-[24px] flex justify-between">
         <GoalItem
-          goal={title}
+          goal={data?.title}
           fontWeight="semibold"
           iconSize="lg"
           textSize="sm"
