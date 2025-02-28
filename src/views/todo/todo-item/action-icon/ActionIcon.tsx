@@ -9,7 +9,8 @@ interface ActionIconProps {
   todo: TodoResponse["todos"][number];
   onOpenNoteDetail: (noteId: TodoResponse["todos"][number]["noteId"]) => void;
   onOpenTodoModal: () => void;
-  onOpenDeletePopup: () => void;
+  onOpenDeletePopup: (todoId: number) => void;
+  setSelectedTodoId: (id: number | null) => void;
 }
 
 interface ActionOptions {
@@ -25,6 +26,7 @@ export function ActionIcon({
   onOpenNoteDetail,
   onOpenTodoModal,
   onOpenDeletePopup,
+  setSelectedTodoId,
 }: ActionIconProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
@@ -73,7 +75,9 @@ export function ActionIcon({
     { label: "수정하기", onClick: onOpenTodoModal },
     {
       label: "삭제하기",
-      onClick: onOpenDeletePopup,
+      onClick: () => {
+        onOpenDeletePopup(todo.id);
+      },
     },
   ];
 
