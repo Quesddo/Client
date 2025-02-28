@@ -21,6 +21,9 @@ export default function RecentTodo({
     router.push("/todo");
   };
 
+  console.log("(RecentTodo) data 확인:", data);
+  const todos = data?.todos ?? [];
+
   return (
     <section className="mb-4 h-[218px] flex-1 rounded-xl bg-white p-4 transition-shadow duration-300 hover:shadow-2xl">
       <div className="mb-4 flex justify-between">
@@ -39,13 +42,13 @@ export default function RecentTodo({
       </div>
 
       <div className="h-full max-h-[154px] overflow-y-hidden">
-        {data?.todos.length === 0 ? (
+        {todos.length === 0 ? (
           <div className="flex h-full items-center justify-center text-sm font-normal text-slate-500">
             최근에 등록한 할 일이 없어요
           </div>
         ) : (
           <TodoList
-            data={data?.todos ?? []}
+            data={todos}
             handleToggleTodo={handleToggleTodo}
             setSelectedTodoId={setSelectedTodoId}
             onOpenDeletePopup={onOpenDeletePopup}
