@@ -1,5 +1,4 @@
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
-import Image from "next/image";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { Dispatch, SetStateAction, Suspense } from "react";
 import ReactDOM from "react-dom";
 
@@ -47,7 +46,7 @@ function NoteDetailContent({ noteId }: { noteId: number }) {
   });
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex h-full flex-col gap-6">
       <div className="flex flex-col gap-3">
         <GoalItem
           goal={data?.goal?.title}
@@ -68,7 +67,7 @@ function NoteDetailContent({ noteId }: { noteId: number }) {
           </span>
         </div>
       </div>
-      <div className="flex flex-col gap-4">
+      <div className="flex h-full flex-col gap-4">
         <div>
           <Divider />
           <h1 className="py-3 text-lg font-medium text-slate-800">
@@ -76,7 +75,7 @@ function NoteDetailContent({ noteId }: { noteId: number }) {
           </h1>
           <Divider />
         </div>
-        <p className="overflow-y-auto text-base font-normal text-slate-700">
+        <p className="mb-30 h-full overflow-y-auto text-base font-normal text-slate-700">
           {data?.content}
         </p>
       </div>
