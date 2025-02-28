@@ -1,8 +1,10 @@
 // format 인자를 넣지 않으면 YYYY. MM. DD 형식이 기본으로 적용
 export function formatDate(
-  inputDate: Date | number | string,
+  inputDate?: Date | number | string,
   format: string = "YYYY. MM. DD",
 ): string {
+  if (!inputDate) return "";
+
   let date: Date;
 
   // 입력이 Date 객체라면 그대로 사용
