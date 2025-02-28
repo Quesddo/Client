@@ -2,7 +2,7 @@ import NoteDetail from "./NoteDetail";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof NoteDetail> = {
-  title: "components/organisms/NoteDetail",
+  title: "common/organisms/NoteDetail",
   component: NoteDetail,
 
   parameters: {
