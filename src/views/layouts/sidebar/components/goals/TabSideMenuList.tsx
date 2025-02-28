@@ -3,7 +3,7 @@ import { ForwardedRef, forwardRef, memo, useRef } from "react";
 import useInfiniteGoals from "@/hooks/goal/useIniniteGoals";
 import { cn } from "@/utils/cn";
 
-import TabSideMenuItem from "../atoms/TabSideMenuItem";
+import TabSideMenuItem from "./TabSideMenuItem";
 
 export default memo(
   forwardRef(function TabSideMenuList(_, ref: ForwardedRef<HTMLUListElement>) {

@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Dispatch, SetStateAction } from "react";
+import { CSSProperties, Dispatch, SetStateAction } from "react";
 
 import { cn } from "@/utils/cn";
 import type { Variants } from "framer-motion";
@@ -38,6 +38,7 @@ export interface ActionDropdownProps
   extends VariantProps<typeof dropdownStyleVariants> {
   items: { label: string; onClick: () => void }[];
   className?: string;
+  style?: CSSProperties;
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
@@ -46,6 +47,7 @@ export default function ActionDropdown({
   size,
   items,
   className,
+  style,
   isOpen,
   setIsOpen,
 }: ActionDropdownProps) {
@@ -71,6 +73,7 @@ export default function ActionDropdown({
               "relative z-2 flex w-fit flex-col rounded-xl bg-white text-slate-700 shadow-lg",
               className,
             )}
+            style={style}
           >
             {items.map((item, idx) => (
               <li

@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { memo } from "react";
 
-import AddButton from "../atoms/AddButton";
-import MenuItem from "../atoms/MenuItem";
+import AddButton from "./AddButton";
+import MenuItem from "./MenuItem";
 
 export default memo(function MenuDashboard() {
   return (
