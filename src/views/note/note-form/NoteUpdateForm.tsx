@@ -15,7 +15,7 @@ interface NoteUpdateFormProps {
 export default function NoteUpdateForm({ noteId }: NoteUpdateFormProps) {
   const methods = useForm<UpdateNoteBodyDto>();
   const mutation = useUpdateNote();
-  const { data } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ["note", noteId],
     queryFn: () => noteApi.fetchNote(noteId),
     enabled: !!noteId,
@@ -31,6 +31,14 @@ export default function NoteUpdateForm({ noteId }: NoteUpdateFormProps) {
     methods.setValue("content", data.content);
     methods.setValue("linkUrl", data.linkUrl);
   }, [data, methods]);
+
+  if (isError) {
+    return <p>에러 발생: {(error as Error).message}</p>;
+  }
+
+  if (isLoading) {
+    return <p>로딩중...</p>;
+  }
 
   return (
     <NoteForm

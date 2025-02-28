@@ -19,7 +19,7 @@ export default function NoteCreationForm({ todoId }: NoteCreationFormProps) {
   const methods = useForm<CreateNoteBodyDto>();
   const mutation = useCreateNote();
 
-  const { data } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ["todo", todoId],
     queryFn: () => todoApi.fetchTodo(todoId),
     enabled: !!todoId,
@@ -28,6 +28,14 @@ export default function NoteCreationForm({ todoId }: NoteCreationFormProps) {
   const handleSubmit = async (data: CreateNoteBodyDto) => {
     mutation.mutate(data);
   };
+
+  if (isError) {
+    return <p>에러 발생: {(error as Error).message}</p>;
+  }
+
+  if (isLoading) {
+    return <p>로딩중...</p>;
+  }
 
   return (
     <NoteForm

@@ -10,7 +10,7 @@ export default function useCreateNote() {
       console.log("success");
     },
     onError: (error, _, context) => {
-      console.error("error");
+      alert("노트 작성 중 오류가 발생했습니다.");
     },
   });
 }

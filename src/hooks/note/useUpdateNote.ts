@@ -10,7 +10,7 @@ export default function useUpdateNote() {
       console.log("success");
     },
     onError: (error, _, context) => {
-      console.error("error");
+      alert("노트 수정 중 오류가 발생했습니다.");
     },
   });
 }
