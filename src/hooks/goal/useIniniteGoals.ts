@@ -14,7 +14,7 @@ export default function useInfiniteGoals<
     Error,
     TeamIdGoalsGet200Response["goals"]
   >({
-    queryKey: ["goals"],
+    queryKey: ["goals", "inifinite"],
     queryFn: async ({ pageParam }) => {
       const params: teamIdGoalsGetParams = {
         sortOrder: "newest",

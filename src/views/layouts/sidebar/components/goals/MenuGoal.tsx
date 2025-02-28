@@ -1,12 +1,13 @@
 import { FormEventHandler, memo, useRef, useState } from "react";
 
 import { useCreateGoal } from "@/hooks/goal/useCreateGoal";
+
 import { cn } from "@/utils/cn";
 
-import MenuItem from "../MenuItem";
-import TabSideMenuList from "./TabSideMenuList";
 import AddButton from "../AddButton";
+import MenuItem from "../MenuItem";
 import GoalCreationForm from "./GoalCreationForm";
+import TabSideMenuList from "./TabSideMenuList";
 
 export default memo(function MenuGoal() {
   const ulRef = useRef<HTMLUListElement>(null);

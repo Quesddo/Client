@@ -1,12 +1,12 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { InputModalProvider } from "@/contexts/InputModalContext";
 import { cn } from "@/utils/cn";
 import MenuDashboard from "@/views/layouts/sidebar/components/MenuDashBoard";
 import Profile from "@/views/layouts/sidebar/components/Profile";
-
-import MenuGoal from "./components/goals/MenuGoal";
 import SidebarHeader from "./components/SidebarHeader";
+import MenuGoal from "./components/goals/MenuGoal";
 
 const TABLET_BREAKPOINT = 964;
 const TO_HIDE_PATH = ["/", "/login", "/signup"];
@@ -59,7 +59,9 @@ export default function Sidebar() {
             )}
           >
             <Profile />
-            <MenuDashboard />
+            <InputModalProvider>
+              <MenuDashboard />
+            </InputModalProvider>
             <MenuGoal />
           </div>
         </aside>

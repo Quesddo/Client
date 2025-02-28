@@ -8,6 +8,7 @@ import Toaster from "@/components/organisms/toaster/Toaster";
 import ToastProvider from "@/components/organisms/toaster/ToastProvider";
 import { InputModalProvider } from "@/contexts/InputModalContext";
 import Sidebar from "@/views/layouts/sidebar/Sidebar";
+
 import type { AppProps } from "next/app";
 
 const queryClient = new QueryClient();
