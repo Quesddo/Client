@@ -6,7 +6,7 @@ import { TodoItem } from "../../../views/todo/todo-item/TodoItem";
 interface TodoListProps {
   data: TodoResponse["todos"];
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
-  setSelectedTodoId: (todoId: number) => void;
+  setSelectedTodoId: (todoId: number | null) => void;
   onOpenDeletePopup: () => void;
 }
 
@@ -33,6 +33,7 @@ export default function TodoList({
             openModal();
           }}
           onOpenDeletePopup={onOpenDeletePopup}
+          setSelectedTodoId={setSelectedTodoId}
         />
       ))}
     </ul>
