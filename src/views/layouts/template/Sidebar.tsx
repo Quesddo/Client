@@ -15,14 +15,15 @@ export default function Sidebar() {
   const pathname = usePathname();
   const isHidden = TO_HIDE_PATH.includes(pathname);
 
-  const [isOpen, setIsOpen] = useState(true);
+  // 기본 사이드 바 상태 지정 (모바일/태블릭(sm): 닫힘)
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleToggleSidebar = () => {
     setIsOpen((prev) => !prev);
   };
 
   useEffect(() => {
-    // 기본 사이드 바 상태 지정 (모바일: 닫힘, PC/태블릿: 열림)
+    // 기본 사이드 바 상태 지정 (PC/태블릿(smd): 열림)
     if (window.innerWidth >= TABLET_BREAKPOINT) {
       setIsOpen(true);
     }
@@ -41,11 +42,9 @@ export default function Sidebar() {
         <aside
           className={cn(
             // mobile 스타일
-            "z-20 box-border flex h-screen w-full flex-[0_0_100%] flex-col overflow-hidden border-slate-200 bg-white pt-3 pb-8 transition-[flex,width] ease-[cubic-bezier(0,0.36,0,0.84)]",
+            "fixed inset-0 z-20 box-border flex h-screen w-full flex-[0_0_100%] flex-col overflow-hidden border-slate-200 bg-white pt-3 pb-8 transition-[flex,width] ease-[cubic-bezier(0,0.36,0,0.84)]",
             // tablet + pc 스타일
-            "sm:w-[280px] sm:flex-[0_0_280px] sm:border-r sm:pb-9",
-            // tablet:fixed 관련
-            "smd:relative sm:fixed sm:inset-y-0 sm:left-0",
+            "sm:right-auto sm:w-[280px] sm:flex-[0_0_280px] sm:border-r sm:pb-9",
             !isOpen && "hidden sm:flex sm:w-[60px] sm:flex-[0_0_60px]",
           )}
         >
@@ -66,13 +65,10 @@ export default function Sidebar() {
         </aside>
         <div
           className={cn(
-            // sm ~ smd 까지 fixed 된 공간 설정
-            "h-screen w-[60px]",
-            "smd:hidden hidden sm:block",
             // backdrop
-            "after:fixed after:inset-0 after:z-10 after:bg-black/50 after:opacity-100 after:transition-[opacity] after:delay-[10ms]",
-            "smd:after:hidden after:hidden sm:after:block",
-            !isOpen && "after:opacity-0 sm:after:hidden",
+            "fixed inset-0 z-10 bg-black/50 opacity-100 transition-[opacity] delay-[10ms]",
+            "smd:hidden hidden sm:block",
+            !isOpen && "opacity-0 sm:hidden",
           )}
         ></div>
       </>
