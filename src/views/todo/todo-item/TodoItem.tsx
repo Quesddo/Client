@@ -11,6 +11,7 @@ interface TodoItemProps {
   onOpenTodoModal: () => void;
   onOpenDeletePopup: (todoId: number) => void;
   setSelectedTodoId: (id: number | null) => void;
+  isShowGoal?: boolean;
 }
 
 export function TodoItem({
@@ -20,6 +21,7 @@ export function TodoItem({
   onOpenTodoModal,
   onOpenDeletePopup,
   setSelectedTodoId,
+  isShowGoal = false,
 }: TodoItemProps) {
   return (
     <li className="group mb-2 w-full last:mb-0">
@@ -41,7 +43,7 @@ export function TodoItem({
         </div>
       </div>
 
-      {todo.goal && (
+      {todo.goal && isShowGoal && (
         <span className="ml-8 flex h-6 items-center gap-[6px] truncate text-sm font-normal text-slate-500">
           <img src="/icons/goal.png" alt="goal" width={24} />
           {todo.goal?.title}
