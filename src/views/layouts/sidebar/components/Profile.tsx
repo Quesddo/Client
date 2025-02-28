@@ -1,11 +1,22 @@
+import profile from "@public/icons/profile.png";
+import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { memo } from "react";
 
 import { useFetchUser } from "@/hooks/user/useFetchUser";
-import profile from "@public/icons/profile.png";
+import { tokenUtils } from "@/utils/tokenUtils";
 
 export default memo(function Profile() {
+  const router = useRouter();
+  const queryClient = useQueryClient();
   const { data, isError, error } = useFetchUser();
+
+  const handleLogout = async () => {
+    tokenUtils.clearToken();
+    await queryClient.clear();
+    router.replace("/");
+  };
 
   return (
     <section className="flex items-center gap-2 pt-4 pb-6 sm:gap-3">
@@ -24,7 +35,10 @@ export default memo(function Profile() {
                 {data.email}
               </span>
             </div>
-            <button className="text-xs font-medium text-slate-400">
+            <button
+              className="text-xs font-medium text-slate-400"
+              onClick={handleLogout}
+            >
               로그아웃
             </button>
           </>
