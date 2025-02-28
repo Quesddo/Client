@@ -4,7 +4,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import AuthGuard from "@/components/AuthGuard";
 import NoteDetail from "@/components/organisms/note-detail/NoteDetail";
-import NoteDetail from "@/components/organisms/note-detail/NoteDetail";
 import Toaster from "@/components/organisms/toaster/Toaster";
 import ToastProvider from "@/components/organisms/toaster/ToastProvider";
 import { InputModalProvider } from "@/contexts/InputModalContext";
