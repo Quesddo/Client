@@ -2,11 +2,11 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { cn } from "@/utils/cn";
-import MenuDashboard from "@/views/layouts/sidebar/components/MenuDashBoard";
-import Profile from "@/views/layouts/sidebar/components/Profile";
+import MenuDashboard from "@/views/layouts/organisms/MenuDashBoard";
+import MenuGoal from "@/views/layouts/organisms/MenuGoal";
+import Profile from "@/views/layouts/organisms/Profile";
 
-import MenuGoal from "./components/goals/MenuGoal";
-import SidebarHeader from "./components/SidebarHeader";
+import SidebarHeader from "../organisms/SidebarHeader";
 
 const TABLET_BREAKPOINT = 964;
 const TO_HIDE_PATH = ["/", "/login", "/signup"];
