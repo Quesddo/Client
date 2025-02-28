@@ -20,7 +20,7 @@ interface UseNoteDraftProps<
 
 const TOAST_INTERVAL_TIME = 1000 * 60 * 5;
 
-export default function UseNoteDraft<
+export default function useNoteDraft<
   TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto,
 >({ id, isEditMode, methods }: UseNoteDraftProps<TNoteBody>) {
   const { watch } = methods;

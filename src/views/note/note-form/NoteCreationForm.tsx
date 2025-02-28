@@ -3,11 +3,7 @@ import { useForm } from "react-hook-form";
 
 import { todoApi } from "@/apis/todoApi";
 import useCreateNote from "@/hooks/note/useCreateNote";
-import {
-  CreateNoteBodyDto,
-  TeamIdTodosGet200Response,
-  TodoResponseDto,
-} from "@/types/types";
+import { CreateNoteBodyDto } from "@/types/types";
 
 import NoteForm from "./NoteForm";
 
