@@ -3,10 +3,12 @@ import "@/styles/globals.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import AuthGuard from "@/components/AuthGuard";
+import NoteDetail from "@/components/organisms/note-detail/NoteDetail";
+import NoteDetail from "@/components/organisms/note-detail/NoteDetail";
 import Toaster from "@/components/organisms/toaster/Toaster";
 import ToastProvider from "@/components/organisms/toaster/ToastProvider";
 import { InputModalProvider } from "@/contexts/InputModalContext";
-import NoteDetail from "@/components/organisms/note-detail/NoteDetail";
+
 import Sidebar from "../views/layouts/template/Sidebar";
 import type { AppProps } from "next/app";
 
