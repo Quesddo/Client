@@ -1,6 +1,10 @@
 import { useFormContext } from "react-hook-form";
 
-export default function InputWithCount() {
+import TextCounting from "@/components/atoms/text-counting/TextCounting";
+
+const MAX_TITLE_COUNT = 30;
+
+export default function TitleCounter() {
   const { register, watch } = useFormContext();
   const title = watch("title");
 
@@ -9,12 +13,9 @@ export default function InputWithCount() {
       <input
         className="w-full text-base font-medium placeholder:text-slate-400 focus:outline-none sm:text-lg"
         placeholder="노트의 제목을 입력해주세요"
-        {...register("title", { required: true })}
+        {...register("title", { required: true, maxLength: MAX_TITLE_COUNT })}
       />
-      <div className="text-xs font-medium text-slate-800">
-        <span>{title?.length || 0}/</span>
-        <span className="text-blue-500">30</span>
-      </div>
+      <TextCounting count={title?.length || 0} total={MAX_TITLE_COUNT} />
     </div>
   );
 }

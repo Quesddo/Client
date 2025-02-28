@@ -37,12 +37,13 @@ export default function Button({
   variant = "default",
   size = "default",
   type = "button",
+  rounded = false,
   className,
   ...props
 }: ButtonProps) {
   return (
     <button
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(buttonVariants({ variant, size, rounded, className }))}
       type={type}
       {...props}
     />
