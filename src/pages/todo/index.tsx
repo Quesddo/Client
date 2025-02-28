@@ -52,7 +52,7 @@ export default function TodoPage() {
       className={cn(
         "flex flex-col bg-slate-100 px-4 text-slate-800",
         "h-[calc(100vh-48px)]",
-        "sm:h-screen sm:px-6 md:px-20",
+        "smd:pl-90 sm:h-screen sm:pl-21",
       )}
     >
       <div className="flex items-center justify-between sm:max-w-[636px] md:max-w-[792px]">
