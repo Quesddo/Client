@@ -1,12 +1,15 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import noteApi from "@/apis/noteApi";
 
 export default function useCreateNote() {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationKey: ["addNote"],
     mutationFn: noteApi.createNote,
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["notes"] });
       console.log("success");
     },
     onError: (error, _, context) => {
