@@ -24,9 +24,10 @@ export default function TodoPage() {
 
   const [filter, setFilter] = useState<(typeof FILTER_TYPES)[number]>("All");
 
+  console.log("(TodoPage) data 확인:", data);
   const filteredTodos = useMemo(() => {
     return (
-      data?.todos.filter((todo) => {
+      (data?.todos ?? []).filter((todo) => {
         if (filter === "Done") return todo.done;
         if (filter === "To do") return !todo.done;
         return true;
@@ -56,7 +57,7 @@ export default function TodoPage() {
     >
       <div className="flex items-center justify-between sm:max-w-[636px] md:max-w-[792px]">
         <h1 className="py-[18px] text-base font-semibold sm:text-lg">
-          모든 할일 ({data?.totalCount})
+          모든 할일 ({data?.totalCount ?? 0})
         </h1>
 
         <button
