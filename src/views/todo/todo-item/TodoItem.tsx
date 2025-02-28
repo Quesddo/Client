@@ -9,7 +9,7 @@ interface TodoItemProps {
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
   onOpenNoteDetail: (noteId: TodoResponse["todos"][number]["noteId"]) => void;
   onOpenTodoModal: () => void;
-  onOpenDeletePopup: () => void;
+  onOpenDeletePopup: (todoId: number) => void;
   setSelectedTodoId: (id: number | null) => void;
 }
 
@@ -21,10 +21,10 @@ export function TodoItem({
   onOpenDeletePopup,
   setSelectedTodoId,
 }: TodoItemProps) {
-  const handleDeleteClick = () => {
-    setSelectedTodoId(todo.id);
-    onOpenDeletePopup();
-  };
+  // const handleDeleteClick = () => {
+  //   setSelectedTodoId(todo.id);
+  //   onOpenDeletePopup();
+  // };
   return (
     <li className="group mb-2 w-full last:mb-0">
       <div className="flex h-6 items-center">
@@ -39,7 +39,8 @@ export function TodoItem({
             todo={todo}
             onOpenNoteDetail={onOpenNoteDetail}
             onOpenTodoModal={onOpenTodoModal}
-            onOpenDeletePopup={handleDeleteClick}
+            onOpenDeletePopup={onOpenDeletePopup}
+            setSelectedTodoId={setSelectedTodoId}
           />
         </div>
       </div>

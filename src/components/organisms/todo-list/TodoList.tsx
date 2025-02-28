@@ -7,7 +7,7 @@ interface TodoListProps {
   data: TodoResponse["todos"];
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
   setSelectedTodoId: (todoId: number | null) => void;
-  onOpenDeletePopup: () => void;
+  onOpenDeletePopup: (todoId: number) => void;
 }
 
 export default function TodoList({
