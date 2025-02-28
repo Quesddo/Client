@@ -8,14 +8,14 @@ import NoteDetailContent from "./components/NoteDetailContent";
 
 export default function NoteDetail() {
   const router = useRouter();
-  const { noteId } = router.query;
+  const { noteId, mode } = router.query;
 
   const handleCloseSidebar = () => {
-    router.push(router.pathname, undefined, { shallow: true });
+    router.push(router.asPath.split("?")[0], undefined, { shallow: true });
   };
 
-  // noteId가 없는 경우 렌더링하지 않음
-  if (!noteId) return;
+  // mode가 "detail"인 경우만 렌더링
+  if (mode !== "detail") return;
   return (
     // 사이드바의 바깥쪽을 누르면 쿼리스트링이 사라지도록 함 => 사이드바가 닫힘
     <div
