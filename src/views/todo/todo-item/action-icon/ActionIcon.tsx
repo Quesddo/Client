@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 import ActionDropdown from "@/components/atoms/action-dropdown/ActionDropdown";
 import { TodoResponse } from "@/types/todo";
@@ -8,7 +9,8 @@ interface ActionIconProps {
   todo: TodoResponse["todos"][number];
   onOpenNoteDetail: (noteId: TodoResponse["todos"][number]["noteId"]) => void;
   onOpenTodoModal: () => void;
-  onOpenDeletePopup: () => void;
+  onOpenDeletePopup: (todoId: number) => void;
+  setSelectedTodoId: (id: number | null) => void;
 }
 
 interface ActionOptions {
@@ -24,10 +26,13 @@ export function ActionIcon({
   onOpenNoteDetail,
   onOpenTodoModal,
   onOpenDeletePopup,
+  setSelectedTodoId,
 }: ActionIconProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
+  const actionRef = useRef<HTMLUListElement>(null);
 
-  const hoverIconStyle = `opacity-0 invisible -ml-6 mr-0 group-hover:opacity-100 group-hover:visible scale-90 group-hover:scale-100 group-hover:ml-0 group-hover:mr-2 hover:shadow-md transition-all duration-150 ${isOpen ? "opacity-100 visible ml-0 mr-2 scale-100" : ""}`;
+  const hoverIconStyle = `hover-icon-style opacity-0 invisible -ml-6 group-hover:opacity-100 group-hover:visible group-hover:ml-0 hover:shadow-md transition-all duration-150 ${isOpen && "opacity-100 visible ml-0"}`;
   const actions = [
     todo.fileUrl && {
       src: "/icons/file.png",
@@ -70,30 +75,60 @@ export function ActionIcon({
     { label: "수정하기", onClick: onOpenTodoModal },
     {
       label: "삭제하기",
-      onClick: onOpenDeletePopup,
+      onClick: () => {
+        onOpenDeletePopup(todo.id);
+      },
     },
   ];
 
+  // 드롭다운 위치 계산
+  useEffect(() => {
+    if (isOpen && actionRef.current) {
+      const rect = actionRef.current.getBoundingClientRect();
+      setDropdownPosition({
+        top: rect.bottom + window.scrollY + 2,
+        left: rect.right + window.scrollX - 81,
+      });
+    }
+  }, [isOpen]);
+
   return (
-    <ul className="relative flex flex-shrink-0 transition">
-      {actions.map(({ src, alt, className, onClick, role }, index) => (
-        <li
-          key={index}
-          className={cn("mr-2 cursor-pointer rounded-full", className)}
-          onClick={onClick}
-          role={role}
-        >
-          <img src={src} alt={alt} width={24} height={24} />
-        </li>
-      ))}
-      {
+    <ul ref={actionRef} className="relative flex flex-shrink-0 transition">
+      {actions.map(({ src, alt, className, onClick, role }, index) => {
+        const nextItem = actions[index + 1];
+        const isBeforeHoverIcon =
+          nextItem && nextItem.className?.includes("hover-icon-style");
+        return (
+          <li
+            key={index}
+            className={cn(
+              "cursor-pointer rounded-full",
+              className,
+              isBeforeHoverIcon ? "mr-0 group-hover:mr-2" : "mr-2 last:mr-0",
+              isOpen && "mr-2",
+            )}
+            onClick={onClick}
+            role={role}
+          >
+            <img src={src} alt={alt} width={24} height={24} />
+          </li>
+        );
+      })}
+
+      {createPortal(
         <ActionDropdown
           items={dropdownItems}
-          className="absolute top-[30px] right-2 z-10 min-w-[81px]"
+          className="z-50 min-w-[81px]"
+          style={{
+            top: `${dropdownPosition.top}px`,
+            left: `${dropdownPosition.left}px`,
+            position: "absolute",
+          }}
           isOpen={isOpen}
           setIsOpen={setIsOpen}
-        />
-      }
+        />,
+        document.body,
+      )}
     </ul>
   );
 }
