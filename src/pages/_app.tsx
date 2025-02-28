@@ -8,9 +8,8 @@ import Toaster from "@/components/organisms/toaster/Toaster";
 import ToastProvider from "@/components/organisms/toaster/ToastProvider";
 import { InputModalProvider } from "@/contexts/InputModalContext";
 import Sidebar from "@/views/layouts/sidebar/Sidebar";
-
+import NoteDrawer from "@/views/note/note-drawer/NoteDrawer";
 import type { AppProps } from "next/app";
-import Sidebar from "@/views/layouts/sidebar/Sidebar";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
               <main className="flex-1 overflow-y-auto">
                 <Component {...pageProps} />
+                <NoteDrawer />
                 <Toaster />
               </main>
             </div>
