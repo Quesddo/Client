@@ -1,14 +1,35 @@
 import { useRouter } from "next/router";
 
-export default function RecentTodo() {
+import TitleWithIcon from "@/components/atoms/title-with-icon/TitleWithIcon.tsx";
+import TodoList from "@/components/organisms/todo-list/TodoList";
+import { useTodos } from "@/hooks/todo/useTodos";
+
+interface RecentTodoProps {
+  handleToggleTodo: (todoId: number, isDone: boolean) => void;
+  setSelectedTodoId: (id: number | null) => void;
+  onOpenDeletePopup: (todoId: number) => void;
+}
+
+export default function RecentTodo({
+  handleToggleTodo,
+  setSelectedTodoId,
+  onOpenDeletePopup,
+}: RecentTodoProps) {
+  const { data } = useTodos();
   const router = useRouter();
   const handleShowAll = () => {
     router.push("/todo");
   };
+
   return (
-    <section className="mb-4 h-[202px] flex-1 rounded-xl bg-white p-6 transition-shadow duration-300 hover:shadow-2xl">
-      <div className="flex h-10 justify-between">
-        <h2>최근 등록한 할 일</h2>
+    <section className="mb-4 h-[218px] flex-1 rounded-xl bg-white p-4 transition-shadow duration-300 hover:shadow-2xl">
+      <div className="mb-4 flex justify-between">
+        <TitleWithIcon
+          imgUrl="/icons/todo-recently.png"
+          title="최근 등록한 할 일"
+          gap={8}
+          className="font-semibold sm:text-lg"
+        />
         <button
           onClick={handleShowAll}
           className="text-sm font-medium text-slate-600"
@@ -17,10 +38,19 @@ export default function RecentTodo() {
         </button>
       </div>
 
-      <div className="h-full max-h-[154px] overflow-y-hidden pt-[6px]">
-        <div className="flex h-full items-center justify-center text-sm font-normal text-slate-500">
-          최근에 등록한 할 일이 없어요
-        </div>
+      <div className="h-full max-h-[154px] overflow-y-hidden">
+        {data?.todos.length === 0 ? (
+          <div className="flex h-full items-center justify-center text-sm font-normal text-slate-500">
+            최근에 등록한 할 일이 없어요
+          </div>
+        ) : (
+          <TodoList
+            data={data?.todos ?? []}
+            handleToggleTodo={handleToggleTodo}
+            setSelectedTodoId={setSelectedTodoId}
+            onOpenDeletePopup={onOpenDeletePopup}
+          />
+        )}
       </div>
     </section>
   );
