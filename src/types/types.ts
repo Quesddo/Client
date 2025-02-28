@@ -368,7 +368,7 @@ export interface TeamIdNotesGet200Response {
 export interface TeamIdNotesGet200ResponseNotesInner {
   /**
    *
-   * @type {TeamIdNotesGet200ResponseNotesInnerTodo}
+   * @tye {TeamIdNotesGet200ResponseNotesInnerTodo}
    * @memberof TeamIdNotesGet200ResponseNotesInner
    */
   todo: TeamIdNotesGet200ResponseNotesInnerTodo;
@@ -414,8 +414,6 @@ export interface TeamIdNotesGet200ResponseNotesInner {
    * @memberof TeamIdNotesGet200ResponseNotesInner
    */
   teamId: string;
-  content: string;
-  linkUrl?: string;
 }
 /**
  *
@@ -460,9 +458,6 @@ export interface TeamIdNotesGet200ResponseNotesInnerTodo {
    * @memberof TeamIdNotesGet200ResponseNotesInnerTodo
    */
   id: number;
-
-  fileUrl?: string;
-  linkUrl?: string;
 }
 /**
  *
