@@ -10,6 +10,7 @@ interface TodoItemProps {
   onOpenNoteDetail: (noteId: TodoResponse["todos"][number]["noteId"]) => void;
   onOpenTodoModal: () => void;
   onOpenDeletePopup: () => void;
+  setSelectedTodoId: (id: number | null) => void;
 }
 
 export function TodoItem({
@@ -18,22 +19,37 @@ export function TodoItem({
   onOpenNoteDetail,
   onOpenTodoModal,
   onOpenDeletePopup,
+  setSelectedTodoId,
 }: TodoItemProps) {
+  const handleDeleteClick = () => {
+    setSelectedTodoId(todo.id);
+    onOpenDeletePopup();
+  };
   return (
-    <li className="group mb-2 flex h-6 w-full last:mb-0">
-      <TodoCheckbox
-        checked={todo.done}
-        onToggle={() => handleToggleTodo(todo.id, todo.done)}
-      />
-      <div className="flex w-full min-w-0 items-center justify-between">
-        <TodoTitle title={todo.title} done={todo.done} />
-        <ActionIcon
-          todo={todo}
-          onOpenNoteDetail={onOpenNoteDetail}
-          onOpenTodoModal={onOpenTodoModal}
-          onOpenDeletePopup={onOpenDeletePopup}
+    <li className="group mb-2 w-full last:mb-0">
+      <div className="flex h-6 items-center">
+        <TodoCheckbox
+          checked={todo.done}
+          onToggle={() => handleToggleTodo(todo.id, todo.done)}
         />
+
+        <div className="flex w-full min-w-0 items-center justify-between">
+          <TodoTitle title={todo.title} done={todo.done} />
+          <ActionIcon
+            todo={todo}
+            onOpenNoteDetail={onOpenNoteDetail}
+            onOpenTodoModal={onOpenTodoModal}
+            onOpenDeletePopup={handleDeleteClick}
+          />
+        </div>
       </div>
+
+      {todo.goal && (
+        <span className="ml-8 flex h-6 items-center gap-[6px] truncate text-sm font-normal text-slate-500">
+          <img src="/icons/goal.png" alt="goal" width={24} />
+          {todo.goal?.title}
+        </span>
+      )}
     </li>
   );
 }
