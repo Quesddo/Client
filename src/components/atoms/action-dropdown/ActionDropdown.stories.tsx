@@ -6,6 +6,7 @@ import ActionDropdown from "./ActionDropdown";
 const meta: Meta<typeof ActionDropdown> = {
   title: "Common/Atoms/ActionDropdown",
   component: ActionDropdown,
+  tags: ["autodocs"],
   argTypes: {
     isOpen: { control: "boolean" },
     size: {
@@ -22,6 +23,7 @@ export const Default: Story = {
   args: {
     isOpen: true,
     size: "sm",
+
     items: [
       { label: "Item 1", onClick: () => alert("Item 1") },
       { label: "Item 2", onClick: () => alert("Item 2") },

@@ -22,7 +22,6 @@ const preview: Preview = {
       handlers: [...handlers],
     },
   },
-  tags: ["autodocs"],
   loaders: [mswLoader],
 
   decorators: [

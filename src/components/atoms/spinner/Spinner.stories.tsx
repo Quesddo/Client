@@ -6,6 +6,7 @@ import Spinner from "./Spinner";
 const meta: Meta<typeof Spinner> = {
   title: "Common/Atoms/Spinner",
   component: Spinner,
+  tags: ["autodocs"],
 };
 
 export default meta;
