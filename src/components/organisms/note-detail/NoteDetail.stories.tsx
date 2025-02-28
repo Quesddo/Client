@@ -10,6 +10,7 @@ const meta: Meta<typeof NoteDetail> = {
       router: {
         query: {
           noteId: "1",
+          mode: "detail",
         },
       },
     },
