@@ -10,7 +10,6 @@ export default function useCreateNote() {
     mutationFn: noteApi.createNote,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["notes"] });
-      console.log("success");
     },
     onError: (error, _, context) => {
       alert("노트 작성 중 오류가 발생했습니다.");
