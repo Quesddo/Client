@@ -415,6 +415,7 @@ export interface TeamIdNotesGet200ResponseNotesInner {
    */
   teamId: string;
   content: string;
+  linkUrl?: string;
 }
 /**
  *
@@ -459,6 +460,9 @@ export interface TeamIdNotesGet200ResponseNotesInnerTodo {
    * @memberof TeamIdNotesGet200ResponseNotesInnerTodo
    */
   id: number;
+
+  fileUrl?: string;
+  linkUrl?: string;
 }
 /**
  *
