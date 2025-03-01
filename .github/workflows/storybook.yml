@@ -7,6 +7,10 @@ on:
       - feature/**
       - develop
 
+  push:
+    branches:
+      - main
+
 permissions:
   contents: write
   pages: write
@@ -16,7 +20,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  storybook-preview:
+  storybook-deploy:
     runs-on: ubuntu-20.04
     steps:
       - name: checkout repository
@@ -62,7 +66,9 @@ jobs:
 
   github-bot-storybook:
     runs-on: ubuntu-latest
-    needs: [storybook-preview]
+    needs: [storybook-deploy]
+    # PR일 때만 실행
+    if: github.event_name == 'pull_request'
     steps:
       - name: Leave PR comment
         uses: thollander/actions-comment-pull-request@v2
