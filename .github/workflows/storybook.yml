@@ -53,6 +53,9 @@ jobs:
           onlyChanged: true
           autoAcceptChanges: true
 
+        env:
+          NEXT_PUBLIC_API_BACKEND_URL: ${{ secrets.NEXT_PUBLIC_API_BACKEND_URL }}
+
       - name: bring current time
         uses: josStorer/get-current-time@v2
         id: current-time
