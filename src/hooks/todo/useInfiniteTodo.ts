@@ -1,10 +1,10 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
 import instance from "@/apis/apiClient";
 import { TeamIdTodosGet200Response, teamIdTodosGetParams } from "@/types/types";
 
 export const useInfiniteTodo = () => {
-  return useInfiniteQuery<TeamIdTodosGet200Response>({
+  return useSuspenseInfiniteQuery<TeamIdTodosGet200Response>({
     queryKey: ["todos"],
     queryFn: async ({ pageParam }) => {
       const params: teamIdTodosGetParams = {
