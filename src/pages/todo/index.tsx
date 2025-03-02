@@ -60,8 +60,8 @@ export default function TodoPage() {
   return (
     <div
       className={cn(
-        "flex flex-col bg-slate-100 px-4 text-slate-800",
-        "smd:pl-90 sm:h-screen sm:pl-21",
+        "flex min-h-[calc(100vh-48px)] flex-col bg-slate-100 px-4 text-slate-800",
+        "smd:pl-90 sm:min-h-screen sm:pl-21",
       )}
     >
       <div className="flex items-center justify-between sm:max-w-[636px] md:max-w-[792px]">
