@@ -1,29 +1,15 @@
 import note from "@public/icons/note.svg";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+
+import { useGoalDetailContext } from "@/contexts/GoalDetailContext";
 import arrowRight from "@public/icons/ic_arrow_right.svg";
 
-interface NotePreviewProsp {
-  goalId: number;
-}
-
-export default function NoteSection({ goalId }: NotePreviewProsp) {
-  const path = `/goal/${goalId}/notes`;
-  const [hasNotes, setHasNotes] = useState(true);
-
-  useEffect(() => {
-    fetch(path).then((res) => setHasNotes(res.ok));
-  }, [path]);
-
-  const handleClick = () => {
-    if (!hasNotes) {
-      alert("노트가 없습니다.");
-    }
-  };
+export default function NoteSection() {
+  const { goalId } = useGoalDetailContext();
 
   return (
-    <Link href={hasNotes ? path : "#"} onClick={handleClick}>
+    <Link href={`/goal/${goalId}/notes`}>
       <div className="flex justify-between">
         <div className="flex gap-[8px]">
           <Image
