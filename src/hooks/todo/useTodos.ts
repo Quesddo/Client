@@ -7,7 +7,7 @@ export const useTodos = (goalId?: number) => {
   return useSuspenseQuery<TodoResponse>({
     queryKey: ["todos"],
     queryFn: async () => {
-      const { data } = await instance.get(`/todos?goalID=${goalId ?? ""}`);
+      const { data } = await instance.get(`/todos?goalId=${goalId ?? ""}`);
       return data;
     },
   });
