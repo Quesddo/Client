@@ -8,6 +8,8 @@ interface TodoListProps {
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
   setSelectedTodoId: (todoId: number | null) => void;
   onOpenDeletePopup: (todoId: number) => void;
+  isShowGoal?: boolean;
+  isNew?: boolean;
 }
 
 export default function TodoList({
@@ -15,6 +17,8 @@ export default function TodoList({
   handleToggleTodo,
   setSelectedTodoId,
   onOpenDeletePopup,
+  isShowGoal,
+  isNew,
 }: TodoListProps) {
   const { openModal } = useModalContext();
 
@@ -34,6 +38,8 @@ export default function TodoList({
           }}
           onOpenDeletePopup={onOpenDeletePopup}
           setSelectedTodoId={setSelectedTodoId}
+          isShowGoal={isShowGoal}
+          isNew={isNew}
         />
       ))}
     </ul>

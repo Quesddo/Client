@@ -58,6 +58,8 @@ export default memo(function Todos({
             handleToggleTodo={handleToggleTodo}
             setSelectedTodoId={setSelectedTodoId}
             onOpenDeletePopup={setIsPopupOpen}
+            isShowGoal={true}
+            isNew={true}
           />
           {isFetchingNextPage && <Spinner size={30} />}
           <div ref={inViewRef}></div>

@@ -1,4 +1,5 @@
 import { TodoResponse } from "@/types/todo";
+import { cn } from "@/utils/cn";
 
 import { TodoCheckbox } from "../todo-checkbox/TodoCheckbox";
 import { ActionIcon } from "./action-icon/ActionIcon";
@@ -12,6 +13,7 @@ interface TodoItemProps {
   onOpenDeletePopup: (todoId: number) => void;
   setSelectedTodoId: (id: number | null) => void;
   isShowGoal?: boolean;
+  isNew?: boolean;
 }
 
 export function TodoItem({
@@ -22,9 +24,15 @@ export function TodoItem({
   onOpenDeletePopup,
   setSelectedTodoId,
   isShowGoal = false,
+  isNew = false,
 }: TodoItemProps) {
   return (
-    <li className="group mb-2 w-full last:mb-0">
+    <li
+      className={cn(
+        "group mb-2 w-full last:mb-0",
+        isNew && "animate-slideUp will-change-[transform,opacity]",
+      )}
+    >
       <div className="flex h-6 items-center">
         <TodoCheckbox
           checked={todo.done}
