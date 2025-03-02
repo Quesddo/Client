@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import ActionDropdown from "@/components/atoms/action-dropdown/ActionDropdown";
 import GoalItem from "@/components/atoms/goal-item/GoalItem";
 import Input from "@/components/atoms/input/Input";
+import { useGoalDetailContext } from "@/contexts/GoalDetailContext";
 import { useDeleteGoal } from "@/hooks/goal/useDeleteGoal";
 import { useFetchGoal } from "@/hooks/goal/useFetchGoal";
 import { useUpdateGoal } from "@/hooks/goal/useUpdateGoal";
@@ -12,18 +13,16 @@ import meatBalls from "@public/icons/meatballs_menu.svg";
 import Modal from "./Modal";
 import ProgressContainer from "./ProgressContainer";
 
-interface GoalSectionProps {
-  id: number;
-}
+export default function GoalSection() {
+  const { goalId } = useGoalDetailContext();
 
-export default function GoalSection({ id }: GoalSectionProps) {
   const [isOpenActionDropDown, setIsOpenActionDropDown] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [action, setAction] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
-  const { data, isPending } = useFetchGoal(id);
-  const { mutate: updateGoalName } = useUpdateGoal(id);
-  const { mutate: deleteGoal } = useDeleteGoal(id);
+  const { data, isPending } = useFetchGoal(goalId);
+  const { mutate: updateGoalName } = useUpdateGoal(goalId);
+  const { mutate: deleteGoal } = useDeleteGoal(goalId);
 
   useEffect(() => {
     if (isPending) return;
@@ -93,7 +92,7 @@ export default function GoalSection({ id }: GoalSectionProps) {
           className="absolute top-[56px] right-6"
         />
       </div>
-      <ProgressContainer goalId={id} />
+      <ProgressContainer />
       <Modal
         isOpen={isOpenModal}
         onClose={onClickCloseModal}
