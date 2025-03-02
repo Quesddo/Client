@@ -1,10 +1,11 @@
-import { Suspense, useCallback, useMemo, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 import PlusIcon from "@/components/atoms/plus-icon/PlusIcon";
 import Spinner from "@/components/atoms/spinner/Spinner";
 import { useModalContext } from "@/contexts/InputModalContext";
 import { useDeleteTodo } from "@/hooks/todo/useDeleteTodo";
-import { useTodos } from "@/hooks/todo/useTodos";
+import { useInfiniteTodo } from "@/hooks/todo/useInfiniteTodo";
 import { useUpdateTodo } from "@/hooks/todo/useUpdateTodo";
 import { cn } from "@/utils/cn";
 import DeletePopup from "@/views/todo/popup/DeletePopup";
@@ -15,26 +16,30 @@ import Todos from "@/views/todo/todoPage/Todos";
 export const FILTER_TYPES = ["All", "Done", "To do"] as const;
 
 export default function TodoPage() {
-  const { data } = useTodos();
+  const { ref: inViewRef, inView } = useInView();
+  const { data, fetchNextPage, hasNextPage } = useInfiniteTodo();
   const toggleTodoMutation = useUpdateTodo();
   const deleteTodoMutation = useDeleteTodo();
   const { isOpen, openModal } = useModalContext();
 
   const [selectedTodoId, setSelectedTodoId] = useState<number | null>(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-
   const [filter, setFilter] = useState<(typeof FILTER_TYPES)[number]>("All");
 
   console.log("(TodoPage) data 확인:", data);
+  const allTodos = useMemo(() => {
+    return data?.pages.flatMap((page) => page.todos ?? []) ?? [];
+  }, [data?.pages]);
+
   const filteredTodos = useMemo(() => {
-    return (
-      (data?.todos ?? []).filter((todo) => {
-        if (filter === "Done") return todo.done;
-        if (filter === "To do") return !todo.done;
-        return true;
-      }) || []
-    );
-  }, [data?.todos, filter]);
+    return allTodos.filter((todo) => {
+      if (filter === "Done") return todo.done;
+      if (filter === "To do") return !todo.done;
+      return true;
+    });
+  }, [allTodos, filter]);
+
+  const totalCount = data?.pages[0]?.totalCount ?? 0;
 
   const handleToggleTodo = useCallback(
     (todoId: number, isDone: boolean) => {
@@ -48,17 +53,20 @@ export default function TodoPage() {
     openModal();
   };
 
+  useEffect(() => {
+    if (inView && hasNextPage) fetchNextPage();
+  }, [inView, hasNextPage, fetchNextPage]);
+
   return (
     <div
       className={cn(
         "flex flex-col bg-slate-100 px-4 text-slate-800",
-        "h-[calc(100vh-48px)]",
         "smd:pl-90 sm:h-screen sm:pl-21",
       )}
     >
       <div className="flex items-center justify-between sm:max-w-[636px] md:max-w-[792px]">
         <h1 className="py-[18px] text-base font-semibold sm:text-lg">
-          모든 할일 ({data?.totalCount ?? 0})
+          모든 할일 ({totalCount})
         </h1>
 
         <button
@@ -72,6 +80,7 @@ export default function TodoPage() {
 
       <Suspense fallback={<Spinner size={60} />}>
         <Todos
+          inViewRef={inViewRef}
           todos={filteredTodos}
           filter={filter}
           setFilter={setFilter}

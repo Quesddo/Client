@@ -12,6 +12,7 @@ const EMPTY_MESSAGE: Record<(typeof FILTER_TYPES)[number], string> = {
 };
 
 interface TodosProps {
+  inViewRef: (node?: Element | null) => void;
   todos: TodoResponseDto[];
   filter: (typeof FILTER_TYPES)[number];
   setFilter: Dispatch<SetStateAction<(typeof FILTER_TYPES)[number]>>;
@@ -21,6 +22,7 @@ interface TodosProps {
 }
 
 export default memo(function Todos({
+  inViewRef,
   todos,
   filter,
   setFilter,
@@ -46,12 +48,15 @@ export default memo(function Todos({
       </div>
 
       {todos.length > 0 ? (
-        <TodoList
-          data={todos}
-          handleToggleTodo={handleToggleTodo}
-          setSelectedTodoId={setSelectedTodoId}
-          onOpenDeletePopup={setIsPopupOpen}
-        />
+        <>
+          <TodoList
+            data={todos}
+            handleToggleTodo={handleToggleTodo}
+            setSelectedTodoId={setSelectedTodoId}
+            onOpenDeletePopup={setIsPopupOpen}
+          />
+          <div ref={inViewRef}></div>
+        </>
       ) : (
         <div className="flex flex-1 items-center justify-center text-sm font-normal text-slate-600">
           {EMPTY_MESSAGE[filter]}
