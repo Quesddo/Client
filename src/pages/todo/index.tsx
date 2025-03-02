@@ -17,7 +17,8 @@ export const FILTER_TYPES = ["All", "Done", "To do"] as const;
 
 export default function TodoPage() {
   const { ref: inViewRef, inView } = useInView();
-  const { data, fetchNextPage, hasNextPage } = useInfiniteTodo();
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useInfiniteTodo();
   const toggleTodoMutation = useUpdateTodo();
   const deleteTodoMutation = useDeleteTodo();
   const { isOpen, openModal } = useModalContext();
@@ -87,6 +88,7 @@ export default function TodoPage() {
           handleToggleTodo={handleToggleTodo}
           setSelectedTodoId={setSelectedTodoId}
           setIsPopupOpen={() => setIsPopupOpen(true)}
+          isFetchingNextPage={isFetchingNextPage}
         />
       </Suspense>
 
