@@ -43,6 +43,7 @@ export default memo(function Todos({
             )}
           >
             {type}
+            {filter !== "All" && filter === type && ` (${todos.length})`}
           </button>
         ))}
       </div>
