@@ -12,7 +12,6 @@ export const useInfiniteTodo = () => {
         size: 40,
       };
       const response = await instance.get("todos", { params });
-      console.log("useInfiniteTodo - response.data:", response.data);
       return response.data;
     },
     getNextPageParam: (lastPage) => lastPage.nextCursor,

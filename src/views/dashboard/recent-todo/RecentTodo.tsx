@@ -23,7 +23,6 @@ export default function RecentTodo({
     router.push("/todo");
   };
 
-  console.log("(RecentTodo) data 확인:", data);
   const todos = data?.todos ?? [];
 
   return (

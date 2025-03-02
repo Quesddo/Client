@@ -27,7 +27,6 @@ export default function TodoPage() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [filter, setFilter] = useState<(typeof FILTER_TYPES)[number]>("All");
 
-  console.log("(TodoPage) data 확인:", data);
   const allTodos = useMemo(() => {
     return data?.pages.flatMap((page) => page.todos ?? []) ?? [];
   }, [data?.pages]);
