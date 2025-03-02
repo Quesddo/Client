@@ -2,17 +2,15 @@
 
 import { http, HttpResponse } from "msw";
 
+import { API_BACKEND_URL } from "@/constants/env";
 import { TeamIdNotesGet200ResponseNotesInner } from "@/types/types";
 
 import { noteDetailMockData } from "./noteMockData";
 
 export const noteHandlers = [
-  http.get(
-    `${process.env.NEXT_PUBLIC_API_BACKEND_URL}notes/:noteId`,
-    ({ params: { noteId } }) => {
-      if (!noteId) return;
-      return HttpResponse.json(noteDetailMockData(Number(noteId)));
-    },
-  ),
+  http.get(`${API_BACKEND_URL}notes/:noteId`, ({ params: { noteId } }) => {
+    if (!noteId) return;
+    return HttpResponse.json(noteDetailMockData(Number(noteId)));
+  }),
   ,
 ];

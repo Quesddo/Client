@@ -1,5 +1,6 @@
 import axios from "axios";
 
+import { API_BACKEND_URL } from "@/constants/env";
 import { ErrorResponsePayload } from "@/types/types";
 import { tokenUtils } from "@/utils/tokenUtils";
 
@@ -7,7 +8,7 @@ import refreshTokens from "./apiRefreshTokens";
 import type { AxiosError, AxiosInstance } from "axios";
 
 const instance: AxiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BACKEND_URL,
+  baseURL: API_BACKEND_URL,
   timeout: 10000,
 });
 
