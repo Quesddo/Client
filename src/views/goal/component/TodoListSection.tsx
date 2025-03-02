@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 import PlusIcon from "@/components/atoms/plus-icon/PlusIcon";
 import TodoList from "@/components/organisms/todo-list/TodoList";
+import { useGoalDetailContext } from "@/contexts/GoalDetailContext";
 import { useModalContext } from "@/contexts/InputModalContext";
 import { useDeleteTodo } from "@/hooks/todo/useDeleteTodo";
 import { useTodos } from "@/hooks/todo/useTodos";
@@ -13,11 +14,10 @@ import TodoUpdateForm from "@/views/todo/todo-update-form/TodoUpdateForm";
 
 import Section from "./Section";
 
-interface TodoListContainerProps {
-  goalId: number;
-}
+export default function TodoListSection() {
+  const { updateProgress, goalId } = useGoalDetailContext();
 
-export default function TodoListSection({ goalId }: TodoListContainerProps) {
+  /* todolist */
   const { data } = useTodos(goalId);
   const { isOpen, openModal } = useModalContext();
   const toggleTodoMutation = useUpdateTodo();
@@ -42,10 +42,15 @@ export default function TodoListSection({ goalId }: TodoListContainerProps) {
     setSelectedTodoId(null);
     openModal();
   };
+  /* todolist */
 
   useEffect(() => {
-    queryClient.invalidateQueries({ queryKey: ["progress", goalId] });
+    updateProgress(dones.length, data.totalCount);
   }, [data]);
+
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: ["todos"] });
+  }, [goalId]);
 
   return (
     <>
@@ -61,7 +66,7 @@ export default function TodoListSection({ goalId }: TodoListContainerProps) {
             할일 추가
           </button>
         </div>
-        <div className="min-h-[168px]">
+        <div className="h-[168px] overflow-x-hidden overflow-y-scroll">
           {todos?.length ? (
             <TodoList
               data={todos}
@@ -81,7 +86,7 @@ export default function TodoListSection({ goalId }: TodoListContainerProps) {
         <div className="mb-[16px] flex justify-between">
           <p className="text-lg font-bold">done</p>
         </div>
-        <div className="min-h-[168px]">
+        <div className="h-[168px] overflow-x-hidden overflow-y-scroll">
           {dones?.length ? (
             <TodoList
               data={dones}
