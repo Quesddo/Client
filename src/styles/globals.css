@@ -2,6 +2,7 @@
 @import "./fonts.css";
 @import "./toast.css";
 @import "./modal.css";
+@import "./slideUp.css";
 
 @theme {
   /* Font */
