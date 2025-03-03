@@ -13,19 +13,19 @@ import TabSideMenuList from "./TabSideMenuList";
 
 export default memo(function MenuGoal() {
   const ulRef = useRef<HTMLUListElement>(null);
-  const mutation = useCreateGoal({
-    onSuccess: () => {
-      ulRef?.current?.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    },
-  });
+  const mutation = useCreateGoal();
 
   const [showForm, setShowForm] = useState(false);
 
   const handleShowForm = () => {
     setShowForm(true);
+  };
+
+  const scrollListToTop = () => {
+    ulRef?.current?.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   const handleSubmit: FormEventHandler = (e) => {
@@ -34,7 +34,16 @@ export default memo(function MenuGoal() {
     const title = formData.get("title") as string;
 
     if (title) {
-      mutation.mutate(title);
+      mutation.mutate(
+        { title },
+        {
+          onSuccess: () => {
+            if (confirm("목표가 추가되었습니다.")) {
+              scrollListToTop();
+            }
+          },
+        },
+      );
     }
 
     setShowForm(false);
