@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { Ref, RefObject, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
@@ -9,7 +9,7 @@ export default function useInfiniteGoals<
   T extends HTMLElement | null,
   U extends HTMLElement | null,
 >(parentRef: Ref<T>, childRef: Ref<U>) {
-  const query = useInfiniteQuery<
+  const query = useSuspenseInfiniteQuery<
     TeamIdGoalsGet200Response,
     Error,
     TeamIdGoalsGet200Response["goals"]
