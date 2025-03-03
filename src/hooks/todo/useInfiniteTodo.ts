@@ -1,10 +1,18 @@
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
 import instance from "@/apis/apiClient";
-import { TeamIdTodosGet200Response, teamIdTodosGetParams } from "@/types/types";
+import {
+  TeamIdTodosGet200Response,
+  teamIdTodosGetParams,
+  TodoResponseDto,
+} from "@/types/types";
 
 export const useInfiniteTodo = () => {
-  return useSuspenseInfiniteQuery<TeamIdTodosGet200Response>({
+  return useSuspenseInfiniteQuery<
+    TeamIdTodosGet200Response,
+    Error,
+    { todos: TodoResponseDto[]; totalCount: number }
+  >({
     queryKey: ["todos"],
     queryFn: async ({ pageParam }) => {
       const params: teamIdTodosGetParams = {
@@ -16,5 +24,9 @@ export const useInfiniteTodo = () => {
     },
     getNextPageParam: (lastPage) => lastPage.nextCursor,
     initialPageParam: null,
+    select: (data) => ({
+      todos: data.pages.flatMap((page) => page.todos ?? []),
+      totalCount: data.pages[0]?.totalCount ?? 0,
+    }),
   });
 };

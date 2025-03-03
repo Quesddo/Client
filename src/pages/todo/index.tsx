@@ -27,19 +27,13 @@ export default function TodoPage() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [filter, setFilter] = useState<(typeof FILTER_TYPES)[number]>("All");
 
-  const allTodos = useMemo(() => {
-    return data?.pages.flatMap((page) => page.todos ?? []) ?? [];
-  }, [data?.pages]);
-
   const filteredTodos = useMemo(() => {
-    return allTodos.filter((todo) => {
+    return data.todos.filter((todo) => {
       if (filter === "Done") return todo.done;
       if (filter === "To do") return !todo.done;
       return true;
     });
-  }, [allTodos, filter]);
-
-  const totalCount = data?.pages[0]?.totalCount ?? 0;
+  }, [data.todos, filter]);
 
   const handleToggleTodo = useCallback(
     (todoId: number, isDone: boolean) => {
@@ -66,7 +60,7 @@ export default function TodoPage() {
     >
       <div className="flex items-center justify-between sm:max-w-[636px] md:max-w-[792px]">
         <h1 className="py-[18px] text-base font-semibold sm:text-lg">
-          모든 할일 ({totalCount})
+          모든 할일 ({data.totalCount})
         </h1>
 
         <button
