@@ -1,13 +1,24 @@
 import React, { useContext } from "react";
 
+import { cn } from "@/utils/cn";
+
 import Toast from "./Toast";
 import { ToastStateContext, ToastStateProps } from "./ToastProvider";
 
-export default function Toaster() {
+interface ToasterProps {
+  className?: string;
+}
+
+export default function Toaster({ className }: ToasterProps) {
   const toasts = useContext<ToastStateProps[]>(ToastStateContext);
 
   return (
-    <div className="pointer-events-none sticky bottom-0 z-50 flex h-0 flex-col-reverse bg-red-200">
+    <div
+      className={cn(
+        "pointer-events-none sticky bottom-0 z-50 flex h-0 flex-col-reverse bg-red-200",
+        className,
+      )}
+    >
       {toasts.map(({ id, ...props }) => (
         <Toast key={id} {...props} />
       ))}
