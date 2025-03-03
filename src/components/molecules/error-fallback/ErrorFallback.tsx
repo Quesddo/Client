@@ -1,11 +1,14 @@
+import { useErrorBoundary } from "react-error-boundary";
+
 import Button from "@/components/atoms/button/Button";
 
 interface ErrorFallbackProps {
   error: Error;
-  reset: () => void;
 }
 
-export default function ErrorFallback({ error, reset }: ErrorFallbackProps) {
+export default function ErrorFallback({ error }: ErrorFallbackProps) {
+  const { resetBoundary } = useErrorBoundary();
+
   return (
     <section className="p-2">
       <div className="flex flex-col items-center gap-4 rounded bg-red-200 p-4 text-red-500">
@@ -19,7 +22,7 @@ export default function ErrorFallback({ error, reset }: ErrorFallbackProps) {
           <p>{error.message}</p>
         </div>
         <Button
-          onClick={reset}
+          onClick={resetBoundary}
           variant="outline"
           size="sm"
           rounded
