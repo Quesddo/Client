@@ -2,7 +2,7 @@ import "@/styles/globals.css";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import AuthGuard from "@/components/AuthGuard";
+import AuthLayer from "@/components/AuthLayer";
 import NoteDetail from "@/components/organisms/note-detail/NoteDetail";
 import Toaster from "@/components/organisms/toaster/Toaster";
 import ToastProvider from "@/components/organisms/toaster/ToastProvider";
@@ -16,7 +16,7 @@ const queryClient = new QueryClient();
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthGuard>
+      <AuthLayer>
         <ToastProvider>
           <InputModalProvider>
             <div className="flex h-screen flex-col overflow-y-hidden sm:flex-row">
@@ -31,7 +31,7 @@ export default function App({ Component, pageProps }: AppProps) {
             </div>
           </InputModalProvider>
         </ToastProvider>
-      </AuthGuard>
+      </AuthLayer>
     </QueryClientProvider>
   );
 }
