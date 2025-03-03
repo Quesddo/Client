@@ -1,7 +1,8 @@
 import { ForwardedRef, forwardRef, memo, useRef } from "react";
 
-import useInfiniteGoals from "@/hooks/goal/useIniniteGoals";
+import useInfiniteGoals from "@/hooks/goal/useInfiniteGoals";
 import { cn } from "@/utils/cn";
+
 import TabSideMenuItem from "./TabSideMenuItem";
 
 export default memo(

@@ -23,7 +23,7 @@ export const useCreateGoal = (config: useCreatieGoalProps) => {
       await queryClient.cancelQueries({ queryKey: ["goals"] });
 
       const previousGoals = queryClient.setQueryData(
-        ["goals", "inifinite"],
+        ["goals"],
         (oldData: {
           pages: TeamIdGoalsGet200Response[];
           pageParams: number;
@@ -57,10 +57,7 @@ export const useCreateGoal = (config: useCreatieGoalProps) => {
     },
     onError: (error, _, context) => {
       if (context?.previousGoals) {
-        queryClient.setQueryData(
-          ["goals", "inifinite"],
-          context?.previousGoals,
-        );
+        queryClient.setQueryData(["goals"], context?.previousGoals);
       }
 
       if (config?.onError) {
