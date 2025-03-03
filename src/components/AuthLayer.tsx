@@ -17,7 +17,7 @@ function SpinnerFallback() {
   );
 }
 
-const PUBLIC_PATH = ["/", "/login", "/signup"];
+const PUBLIC_PATH = ["/login", "/signup"];
 
 function AuthGuard({ children }: AuthGuardProps) {
   const router = useRouter();
@@ -26,13 +26,9 @@ function AuthGuard({ children }: AuthGuardProps) {
 
   useEffect(() => {
     if (isLoading) return;
-
-    if (isAuthenticated === isPublicPage) {
-      if (isAuthenticated) {
-        router.replace("/dashboard");
-      } else {
-        router.replace("/login");
-      }
+    const redirectTo = isAuthenticated ? "/dashboard" : "/login";
+    if (router.pathname === "/" || isAuthenticated === isPublicPage) {
+      router.replace(redirectTo);
     }
   }, [isAuthenticated, router, isPublicPage, isLoading]);
 
