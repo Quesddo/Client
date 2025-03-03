@@ -4,16 +4,19 @@ import { FormEventHandler, memo, Suspense, useRef, useState } from "react";
 import Spinner from "@/components/atoms/spinner/Spinner";
 import ErrorFallback from "@/components/molecules/error-fallback/ErrorFallback";
 import { useCreateGoal } from "@/hooks/goal/useCreateGoal";
+import useToast from "@/hooks/useToast";
 import { cn } from "@/utils/cn";
 
 import AddButton from "../AddButton";
 import MenuItem from "../MenuItem";
 import GoalCreationForm from "./GoalCreationForm";
+import GoalToast from "./GoalToast";
 import TabSideMenuList from "./TabSideMenuList";
 
 export default memo(function MenuGoal() {
   const ulRef = useRef<HTMLUListElement>(null);
   const mutation = useCreateGoal();
+  const { addToast } = useToast();
 
   const [showForm, setShowForm] = useState(false);
 
@@ -33,20 +36,39 @@ export default memo(function MenuGoal() {
     const formData = new FormData(e.target as HTMLFormElement);
     const title = formData.get("title") as string;
 
-    if (title) {
-      mutation.mutate(
-        { title },
-        {
-          onSuccess: () => {
-            if (confirm("목표가 추가되었습니다.")) {
-              scrollListToTop();
-            }
-          },
-        },
-      );
+    if (!title) {
+      setShowForm(false);
+      return;
     }
 
-    setShowForm(false);
+    const toastStyle = "mx-0 box-border w-full px-3";
+    const handleSuccess = () => {
+      addToast({
+        content: (
+          <GoalToast
+            content="목표가 추가되었습니다."
+            onClick={scrollListToTop}
+          />
+        ),
+        className: toastStyle,
+      });
+      setShowForm(false);
+    };
+    const handleError = (error: Error) => {
+      addToast({
+        variant: "error",
+        content: <GoalToast content={error.message} error />,
+        className: toastStyle,
+      });
+    };
+
+    mutation.mutate(
+      { title },
+      {
+        onSuccess: handleSuccess,
+        onError: handleError,
+      },
+    );
   };
 
   return (

@@ -1,12 +1,15 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import Toaster from "@/components/organisms/toaster/Toaster";
+import ToastProvider from "@/components/organisms/toaster/ToastProvider";
 import { InputModalProvider } from "@/contexts/InputModalContext";
 import { cn } from "@/utils/cn";
 import MenuDashboard from "@/views/layouts/sidebar/components/MenuDashBoard";
 import Profile from "@/views/layouts/sidebar/components/Profile";
-import SidebarHeader from "./components/SidebarHeader";
+
 import MenuGoal from "./components/goals/MenuGoal";
+import SidebarHeader from "./components/SidebarHeader";
 
 const TABLET_BREAKPOINT = 964;
 const TO_HIDE_PATH = ["/", "/login", "/signup"];
@@ -31,7 +34,7 @@ export default function Sidebar() {
 
   return (
     !isHidden && (
-      <>
+      <ToastProvider>
         <header
           className={cn("flex gap-4 px-4 py-3 sm:hidden", isOpen && "hidden")}
         >
@@ -64,6 +67,7 @@ export default function Sidebar() {
             </InputModalProvider>
             <MenuGoal />
           </div>
+          <Toaster className="bottom-[40px] w-auto px-4" />
         </aside>
         <div
           className={cn(
@@ -73,7 +77,7 @@ export default function Sidebar() {
             !isOpen && "opacity-0 sm:hidden",
           )}
         ></div>
-      </>
+      </ToastProvider>
     )
   );
 }
