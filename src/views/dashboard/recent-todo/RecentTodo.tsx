@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { Suspense } from "react";
 
@@ -5,6 +6,7 @@ import Spinner from "@/components/atoms/spinner/Spinner";
 import TitleWithIcon from "@/components/atoms/title-with-icon/TitleWithIcon.tsx";
 import TodoList from "@/components/organisms/todo-list/TodoList";
 import { useTodos } from "@/hooks/todo/useTodos";
+import arrowRight from "@public/icons/ic_arrow_right.svg";
 
 interface RecentTodoProps {
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
@@ -36,9 +38,10 @@ export default function RecentTodo({
         />
         <button
           onClick={handleShowAll}
-          className="text-sm font-medium text-slate-600"
+          className="flex items-center text-sm font-medium text-slate-600"
         >
           모두보기
+          <Image src={arrowRight} alt="arrow-right" width={24} height={24} />
         </button>
       </div>
 
