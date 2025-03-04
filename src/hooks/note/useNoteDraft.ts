@@ -43,7 +43,6 @@ export default function useNoteDraft<
     saveDraft();
     addToast({
       content: "임시 저장이 완료되었습니다",
-      size: "full",
     });
   };
 

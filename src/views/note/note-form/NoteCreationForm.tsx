@@ -1,4 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
 import { todoApi } from "@/apis/todoApi";
@@ -14,24 +16,25 @@ interface NoteCreationFormProps {
 export default function NoteCreationForm({ todoId }: NoteCreationFormProps) {
   const methods = useForm<CreateNoteBodyDto>();
   const mutation = useCreateNote();
+  const pathname = usePathname();
+  const router = useRouter();
 
-  const { data, isLoading, isError, error } = useQuery({
+  const { data } = useSuspenseQuery({
     queryKey: ["todo", todoId],
     queryFn: () => todoApi.fetchTodo(todoId),
-    enabled: !!todoId,
   });
 
   const handleSubmit = async (data: CreateNoteBodyDto) => {
-    mutation.mutate(data);
+    mutation.mutate(data, {
+      onSuccess: (data) => {
+        const queryParams = new URLSearchParams();
+
+        queryParams.set("noteId", data.id.toString());
+        queryParams.set("mode", "detail");
+        router.push(`${pathname}?${queryParams.toString()}`);
+      },
+    });
   };
-
-  if (isError) {
-    return <p>에러 발생: {(error as Error).message}</p>;
-  }
-
-  if (isLoading) {
-    return <p>로딩중...</p>;
-  }
 
   return (
     <NoteForm

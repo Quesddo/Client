@@ -10,7 +10,7 @@ const noteApi = {
   createNote: async (
     body: CreateNoteBodyDto,
   ): Promise<TeamIdNotesPost201Response> => {
-    return await instance.post("/notes", body);
+    return (await instance.post("/notes", body)).data;
   },
   updateNote: async ({
     noteId,

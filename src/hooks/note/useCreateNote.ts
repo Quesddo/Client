@@ -2,17 +2,27 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import noteApi from "@/apis/noteApi";
 
+import useToast from "../useToast";
+
 export default function useCreateNote() {
   const queryClient = useQueryClient();
+  const { addToast } = useToast();
 
   return useMutation({
     mutationKey: ["addNote"],
     mutationFn: noteApi.createNote,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["notes"] });
+    onSuccess: (data) => {
+      addToast({
+        content: "노트가 작성되었습니다.",
+      });
+      queryClient.invalidateQueries({ queryKey: ["notes", data.goal?.id] });
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
-    onError: (error, _, context) => {
-      alert("노트 작성 중 오류가 발생했습니다.");
+    onError: (error) => {
+      addToast({
+        variant: "error",
+        content: error.message,
+      });
     },
   });
 }

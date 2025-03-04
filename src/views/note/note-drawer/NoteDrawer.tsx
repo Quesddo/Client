@@ -1,10 +1,11 @@
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
-import { useMemo } from "react";
+import { Suspense, useMemo } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 
 import ExitBtn from "@/components/atoms/exit-btn/ExitBtn";
-import Toaster from "@/components/organisms/toaster/Toaster";
-import ToastProvider from "@/components/organisms/toaster/ToastProvider";
+import Spinner from "@/components/atoms/spinner/Spinner";
+import ErrorFallback from "@/components/molecules/error-fallback/ErrorFallback";
 import { InputModalProvider } from "@/contexts/InputModalContext";
 
 import NoteCreationForm from "../note-form/NoteCreationForm";
@@ -52,11 +53,12 @@ export default function NoteDrawer() {
       <section className="fixed inset-0 flex flex-col gap-4 bg-white p-6 sm:left-auto sm:w-[512px] sm:border-l sm:border-slate-200 md:w-[800px]">
         <ExitBtn onClick={handleClick} />
         <InputModalProvider>
-          <ToastProvider>
-            {mode === MODE.CREATE && <NoteCreationForm todoId={todoId} />}
-            {mode === MODE.EDIT && <NoteUpdateForm noteId={noteId} />}
-            <Toaster />
-          </ToastProvider>
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <Suspense fallback={<Spinner size={80} />}>
+              {mode === MODE.CREATE && <NoteCreationForm todoId={todoId} />}
+              {mode === MODE.EDIT && <NoteUpdateForm noteId={noteId} />}
+            </Suspense>
+          </ErrorBoundary>
         </InputModalProvider>
       </section>
     </div>
