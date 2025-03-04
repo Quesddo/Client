@@ -5,11 +5,13 @@ import instance from "@/apis/apiClient";
 import { useModalContext } from "@/contexts/InputModalContext";
 import { useTodoForm } from "@/hooks/todo/form/useTodoForm";
 import { useUpdateTodo } from "@/hooks/todo/useUpdateTodo";
+import useToast from "@/hooks/useToast";
 import { UpdateTodoBodyDto } from "@/types/types";
 
 import { TodoForm } from "../TodoForm";
 
 export default function TodoUpdateForm({ todoId }: { todoId: number }) {
+  const { addToast } = useToast();
   const { closeModal } = useModalContext();
   const updateTodoMutation = useUpdateTodo();
 
@@ -66,7 +68,9 @@ export default function TodoUpdateForm({ todoId }: { todoId: number }) {
       {
         onSuccess: () => {
           closeModal();
-          alert("할 일이 수정되었습니다");
+          addToast({
+            content: "할 일이 수정되었습니다.",
+          });
           reset();
         },
       },

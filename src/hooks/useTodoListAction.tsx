@@ -4,6 +4,8 @@ import { useModalContext } from "@/contexts/InputModalContext";
 import { useDeleteTodo } from "@/hooks/todo/useDeleteTodo";
 import { useUpdateTodo } from "@/hooks/todo/useUpdateTodo";
 
+import useToast from "./useToast";
+
 interface TodoListActions {
   selectedTodoId: number | null;
   isPopupOpen: boolean;
@@ -15,6 +17,7 @@ interface TodoListActions {
 }
 
 export function useTodoListAction(): TodoListActions {
+  const { addToast } = useToast();
   const { closeModal } = useModalContext();
   const toggleTodoMutation = useUpdateTodo();
   const deleteTodoMutation = useDeleteTodo();
@@ -23,7 +26,22 @@ export function useTodoListAction(): TodoListActions {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const handleToggleTodo = (todoId: number, isDone: boolean) => {
-    toggleTodoMutation.mutate({ todoId, data: { done: !isDone } });
+    toggleTodoMutation.mutate(
+      { todoId, data: { done: !isDone } },
+      {
+        onSuccess: () => {
+          addToast({
+            content: "할 일이 수정되었습니다.",
+          });
+        },
+        onError: (error: Error) => {
+          addToast({
+            variant: "error",
+            content: error.message,
+          });
+        },
+      },
+    );
   };
 
   const onOpenDeletePopup = (todoId: number) => {
@@ -39,6 +57,15 @@ export function useTodoListAction(): TodoListActions {
           setIsPopupOpen(false);
           setSelectedTodoId(null);
           closeModal();
+          addToast({
+            content: "할 일이 삭제되었습니다.",
+          });
+        },
+        onError: (error: Error) => {
+          addToast({
+            variant: "error",
+            content: error.message,
+          });
         },
       });
     }
