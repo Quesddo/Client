@@ -10,11 +10,11 @@ interface BoundaryWrapperProps {
   errorFallback?: ({ error }: { error: Error }) => ReactNode;
 }
 
-function defaultFallback(): ReactNode {
+function DefaultFallback(): ReactNode {
   return <Skeleton />;
 }
 
-function defaultErrorFallback({ error }: { error: Error }) {
+function DefaultErrorFallback({ error }: { error: Error }) {
   return <ErrorFallback error={error} />;
 }
 
@@ -24,8 +24,8 @@ export default function BoundaryWrapper({
   errorFallback,
 }: BoundaryWrapperProps) {
   return (
-    <ErrorBoundary FallbackComponent={errorFallback || defaultErrorFallback}>
-      <Suspense fallback={fallback || defaultFallback()}>{children}</Suspense>
+    <ErrorBoundary FallbackComponent={errorFallback || DefaultErrorFallback}>
+      <Suspense fallback={fallback || DefaultFallback()}>{children}</Suspense>
     </ErrorBoundary>
   );
 }
