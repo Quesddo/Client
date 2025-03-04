@@ -1,4 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
@@ -15,14 +17,24 @@ interface NoteUpdateFormProps {
 export default function NoteUpdateForm({ noteId }: NoteUpdateFormProps) {
   const methods = useForm<UpdateNoteBodyDto>();
   const mutation = useUpdateNote(noteId);
-  const { data, isLoading, isError, error } = useQuery({
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const { data } = useSuspenseQuery({
     queryKey: ["noteDetail", noteId],
     queryFn: () => noteApi.fetchNote(noteId),
-    enabled: !!noteId,
   });
 
   const handleSubmit = (data: UpdateNoteBodyDto) => {
-    mutation.mutate({ noteId, data });
+    mutation.mutate(data, {
+      onSuccess: (data) => {
+        const queryParams = new URLSearchParams();
+
+        queryParams.set("noteId", data.id.toString());
+        queryParams.set("mode", "detail");
+        router.push(`${pathname}?${queryParams.toString()}`);
+      },
+    });
   };
 
   useEffect(() => {
@@ -31,14 +43,6 @@ export default function NoteUpdateForm({ noteId }: NoteUpdateFormProps) {
     methods.setValue("content", data.content);
     methods.setValue("linkUrl", data.linkUrl);
   }, [data, methods]);
-
-  if (isError) {
-    return <p>에러 발생: {(error as Error).message}</p>;
-  }
-
-  if (isLoading) {
-    return <p>로딩중...</p>;
-  }
 
   return (
     <NoteForm
