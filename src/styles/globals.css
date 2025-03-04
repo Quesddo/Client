@@ -3,6 +3,7 @@
 @import "./toast.css";
 @import "./modal.css";
 @import "./slideUp.css";
+@import "./skeleton.css";
 
 @theme {
   /* Font */

@@ -1,0 +1,11 @@
+@theme {
+  --animate-skeleton: 2s skeleton linear infinite;
+  @keyframes skeleton {
+    from {
+      background-position-x: 100%;
+    }
+    to {
+      background-position-x: -100%;
+    }
+  }
+}
