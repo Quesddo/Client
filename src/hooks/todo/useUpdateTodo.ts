@@ -53,7 +53,7 @@ export const useUpdateTodo = () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
       queryClient.invalidateQueries({ queryKey: ["todos", "infinite"] });
     },
-    onError: (error, _, context) => {
+    onError: (_error, _, context) => {
       if (context?.previousTodos) {
         queryClient.setQueryData(["todos"], context.previousTodos);
       }
@@ -63,7 +63,6 @@ export const useUpdateTodo = () => {
           context.previousInfiniteTodos,
         );
       }
-      alert(`${error.message}`);
     },
   });
 };
