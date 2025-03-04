@@ -1,10 +1,9 @@
-import { Suspense, useCallback, useState } from "react";
+import { Suspense, useCallback } from "react";
 
 import PlusIcon from "@/components/atoms/plus-icon/PlusIcon";
 import Spinner from "@/components/atoms/spinner/Spinner";
 import { useModalContext } from "@/contexts/InputModalContext";
-import { useDeleteTodo } from "@/hooks/todo/useDeleteTodo";
-import { useUpdateTodo } from "@/hooks/todo/useUpdateTodo";
+import { useTodoListAction } from "@/hooks/useTodoListAction";
 import { cn } from "@/utils/cn";
 import DeletePopup from "@/views/todo/popup/DeletePopup";
 import TodoCreateForm from "@/views/todo/todo-create-form/TodoCreateForm";
@@ -12,24 +11,21 @@ import TodoUpdateForm from "@/views/todo/todo-update-form/TodoUpdateForm";
 import Todos from "@/views/todo/todoPage/Todos";
 
 export default function TodoPage() {
-  const toggleTodoMutation = useUpdateTodo();
-  const deleteTodoMutation = useDeleteTodo();
   const { isOpen, openModal } = useModalContext();
+  const {
+    selectedTodoId,
+    isPopupOpen,
+    handleToggleTodo,
+    setSelectedTodoId,
+    onOpenDeletePopup,
+    onConfirmDelete,
+    onCancelDelete,
+  } = useTodoListAction();
 
-  const [selectedTodoId, setSelectedTodoId] = useState<number | null>(null);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-
-  const handleToggleTodo = useCallback(
-    (todoId: number, isDone: boolean) => {
-      toggleTodoMutation.mutate({ todoId, data: { done: !isDone } });
-    },
-    [toggleTodoMutation],
-  );
-
-  const handleOpenCreateModal = () => {
+  const handleOpenCreateModal = useCallback(() => {
     setSelectedTodoId(null);
     openModal();
-  };
+  }, [setSelectedTodoId, openModal]);
 
   return (
     <div
@@ -51,27 +47,18 @@ export default function TodoPage() {
         </button>
       </div>
 
-      <Suspense fallback={<Spinner size={60} />}>
+      <Suspense fallback={<Spinner size={80} />}>
         <Todos
           handleToggleTodo={handleToggleTodo}
           setSelectedTodoId={setSelectedTodoId}
-          setIsPopupOpen={() => setIsPopupOpen(true)}
+          onOpenDeletePopup={onOpenDeletePopup}
         />
       </Suspense>
 
       {isOpen && !selectedTodoId && <TodoCreateForm />}
       {isOpen && selectedTodoId && <TodoUpdateForm todoId={selectedTodoId} />}
       {isPopupOpen && selectedTodoId && (
-        <DeletePopup
-          onConfirm={() =>
-            deleteTodoMutation.mutate(selectedTodoId, {
-              onSuccess: () => {
-                setIsPopupOpen(false);
-              },
-            })
-          }
-          onCancel={() => setIsPopupOpen(false)}
-        />
+        <DeletePopup onConfirm={onConfirmDelete} onCancel={onCancelDelete} />
       )}
     </div>
   );
