@@ -13,8 +13,8 @@ export const useInfiniteTodo = () => {
     Error,
     { todos: TodoResponseDto[]; totalCount: number }
   >({
-    queryKey: ["todos"],
-    queryFn: async ({ pageParam }) => {
+    queryKey: ["todos", "infinite"],
+    queryFn: async ({ pageParam = 0 }) => {
       const params: teamIdTodosGetParams = {
         cursor: pageParam as number,
         size: 40,
@@ -24,9 +24,10 @@ export const useInfiniteTodo = () => {
     },
     getNextPageParam: (lastPage) => lastPage.nextCursor,
     initialPageParam: null,
-    select: (data) => ({
-      todos: data.pages.flatMap((page) => page.todos ?? []),
-      totalCount: data.pages[0]?.totalCount ?? 0,
-    }),
+    select: (data) => {
+      const todos = data?.pages?.flatMap((page) => page.todos ?? []) || [];
+      const totalCount = data?.pages?.[0]?.totalCount ?? 0;
+      return { todos, totalCount };
+    },
   });
 };

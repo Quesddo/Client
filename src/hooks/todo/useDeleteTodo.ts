@@ -13,7 +13,13 @@ export const useDeleteTodo = () => {
     },
     onMutate: async (todoId: number) => {
       await queryClient.cancelQueries({ queryKey: ["todos"] });
+      await queryClient.cancelQueries({ queryKey: ["todos", "infinite"] });
+
       const previousTodos = queryClient.getQueryData<TodoResponse>(["todos"]);
+      const previousInfiniteTodos = queryClient.getQueryData<{
+        pages: { todos: TodoResponse["todos"]; totalCount: number }[];
+        pageParams: number[];
+      }>(["todos", "infinite"]);
 
       if (previousTodos) {
         queryClient.setQueryData<TodoResponse>(["todos"], {
@@ -21,16 +27,31 @@ export const useDeleteTodo = () => {
           todos: previousTodos.todos.filter((todo) => todo.id !== todoId),
         });
       }
-      return { previousTodos };
+      if (previousInfiniteTodos) {
+        queryClient.setQueryData(["todos", "infinite"], {
+          ...previousInfiniteTodos,
+          pages: previousInfiniteTodos.pages.map((page) => ({
+            ...page,
+            todos: page.todos.filter((todo) => todo.id !== todoId),
+          })),
+        });
+      }
+      return { previousTodos, previousInfiniteTodos };
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
+      queryClient.invalidateQueries({ queryKey: ["todos", "infinite"] });
     },
-    onError: (error, _, context) => {
+    onError: (_error, _, context) => {
       if (context?.previousTodos) {
         queryClient.setQueryData(["todos"], context.previousTodos);
       }
-      alert(`${error}`);
+      if (context?.previousInfiniteTodos) {
+        queryClient.setQueryData(
+          ["todos", "infinite"],
+          context.previousInfiniteTodos,
+        );
+      }
     },
   });
 };

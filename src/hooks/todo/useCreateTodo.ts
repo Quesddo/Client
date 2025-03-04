@@ -13,9 +13,7 @@ export const useCreateTodo = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
-    },
-    onError: (error) => {
-      alert(`${error}`);
+      queryClient.invalidateQueries({ queryKey: ["todos", "infinite"] });
     },
   });
 };
