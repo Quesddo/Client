@@ -46,7 +46,7 @@ export function TodoItem({
       </div>
 
       {todo.goal && isShowGoal && (
-        <span className="ml-8 flex h-6 items-center gap-[6px] truncate text-sm font-normal text-slate-500">
+        <span className="ml-8 flex h-6 items-center gap-[6px] truncate text-sm font-light text-slate-500">
           <img src="/icons/goal.png" alt="goal" width={24} />
           {todo.goal?.title}
         </span>
