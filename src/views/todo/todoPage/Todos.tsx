@@ -1,10 +1,12 @@
-import { Dispatch, memo, SetStateAction } from "react";
+import { memo, useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 import Spinner from "@/components/atoms/spinner/Spinner";
 import TodoList from "@/components/organisms/todo-list/TodoList";
-import { FILTER_TYPES } from "@/pages/todo";
-import { TodoResponseDto } from "@/types/types";
+import { useInfiniteTodo } from "@/hooks/todo/useInfiniteTodo";
 import { cn } from "@/utils/cn";
+
+export const FILTER_TYPES = ["All", "Done", "To do"] as const;
 
 const EMPTY_MESSAGE: Record<(typeof FILTER_TYPES)[number], string> = {
   All: "등록한 일이 없어요",
@@ -13,26 +15,32 @@ const EMPTY_MESSAGE: Record<(typeof FILTER_TYPES)[number], string> = {
 };
 
 interface TodosProps {
-  inViewRef: (node?: Element | null) => void;
-  todos: TodoResponseDto[];
-  filter: (typeof FILTER_TYPES)[number];
-  setFilter: Dispatch<SetStateAction<(typeof FILTER_TYPES)[number]>>;
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
   setSelectedTodoId: (todoId: number | null) => void;
   setIsPopupOpen: () => void;
-  isFetchingNextPage?: boolean;
 }
 
 export default memo(function Todos({
-  inViewRef,
-  todos,
-  filter,
-  setFilter,
   handleToggleTodo,
   setSelectedTodoId,
   setIsPopupOpen,
-  isFetchingNextPage,
 }: TodosProps) {
+  const [filter, setFilter] = useState<(typeof FILTER_TYPES)[number]>("All");
+
+  const { ref: inViewRef, inView } = useInView();
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useInfiniteTodo();
+
+  const filteredTodos = (data?.todos ?? []).filter((todo) => {
+    if (filter === "Done") return todo.done;
+    if (filter === "To do") return !todo.done;
+    return true;
+  });
+
+  useEffect(() => {
+    if (inView && hasNextPage) fetchNextPage();
+  }, [inView, hasNextPage, fetchNextPage]);
+
   return (
     <div className="mb-4 flex h-full flex-grow flex-col rounded-xl bg-white p-4 sm:mb-6 sm:max-w-[588px] sm:p-6 md:max-w-[744px]">
       <div>
@@ -46,15 +54,15 @@ export default memo(function Todos({
             )}
           >
             {type}
-            {filter !== "All" && filter === type && ` (${todos.length})`}
+            {filter === type && ` (${filteredTodos.length})`}
           </button>
         ))}
       </div>
 
-      {todos.length > 0 ? (
+      {filteredTodos.length > 0 ? (
         <>
           <TodoList
-            data={todos}
+            data={filteredTodos}
             handleToggleTodo={handleToggleTodo}
             setSelectedTodoId={setSelectedTodoId}
             onOpenDeletePopup={setIsPopupOpen}
