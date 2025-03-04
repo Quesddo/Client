@@ -8,10 +8,8 @@ import { TodoTitle } from "./todo-title/TodoTitle";
 interface TodoItemProps {
   todo: TodoResponse["todos"][number];
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
-  onOpenNoteDetail: (noteId: TodoResponse["todos"][number]["noteId"]) => void;
   onOpenTodoModal: () => void;
   onOpenDeletePopup: (todoId: number) => void;
-  setSelectedTodoId: (id: number | null) => void;
   isShowGoal?: boolean;
   isNew?: boolean;
 }
@@ -19,10 +17,8 @@ interface TodoItemProps {
 export function TodoItem({
   todo,
   handleToggleTodo,
-  onOpenNoteDetail,
   onOpenTodoModal,
   onOpenDeletePopup,
-  setSelectedTodoId,
   isShowGoal = false,
   isNew = false,
 }: TodoItemProps) {
@@ -43,10 +39,8 @@ export function TodoItem({
           <TodoTitle title={todo.title} done={todo.done} />
           <ActionIcon
             todo={todo}
-            onOpenNoteDetail={onOpenNoteDetail}
             onOpenTodoModal={onOpenTodoModal}
             onOpenDeletePopup={onOpenDeletePopup}
-            setSelectedTodoId={setSelectedTodoId}
           />
         </div>
       </div>

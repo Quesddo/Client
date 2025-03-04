@@ -29,15 +29,11 @@ export default function TodoList({
           key={todo.id}
           todo={todo}
           handleToggleTodo={handleToggleTodo}
-          onOpenNoteDetail={(noteId) => {
-            console.log(`노트 상세 페이지 열기: ${noteId}`);
-          }}
           onOpenTodoModal={() => {
             setSelectedTodoId(todo.id);
             openModal();
           }}
           onOpenDeletePopup={onOpenDeletePopup}
-          setSelectedTodoId={setSelectedTodoId}
           isShowGoal={isShowGoal}
           isNew={isNew}
         />

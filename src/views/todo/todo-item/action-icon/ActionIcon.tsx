@@ -1,3 +1,4 @@
+import { usePathname } from "next/navigation";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
@@ -8,10 +9,8 @@ import { cn } from "@/utils/cn";
 
 interface ActionIconProps {
   todo: TodoResponse["todos"][number];
-  onOpenNoteDetail: (noteId: TodoResponse["todos"][number]["noteId"]) => void;
   onOpenTodoModal: () => void;
   onOpenDeletePopup: (todoId: number) => void;
-  setSelectedTodoId: (id: number | null) => void;
 }
 
 interface ActionOptions {
@@ -24,21 +23,20 @@ interface ActionOptions {
 
 export function ActionIcon({
   todo,
-  onOpenNoteDetail,
   onOpenTodoModal,
   onOpenDeletePopup,
-  setSelectedTodoId,
 }: ActionIconProps) {
+  const pathname = usePathname();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
   const actionRef = useRef<HTMLUListElement>(null);
 
   const handleNoteDetail = () => {
-    router.push(`?noteId=${todo.noteId}&mode=detail`);
+    router.push(`${pathname}?noteId=${todo.noteId}&mode=detail`);
   };
   const handleNoteCreation = () => {
-    router.push(`?todoId=${todo.id}`);
+    router.push(`${pathname}?todoId=${todo.id}`);
   };
 
   const hoverIconStyle = `hover-icon-style opacity-0 invisible -ml-6 group-hover:opacity-100 group-hover:visible group-hover:ml-0 hover:shadow-md transition-all duration-150 ${isOpen && "opacity-100 visible ml-0"}`;
