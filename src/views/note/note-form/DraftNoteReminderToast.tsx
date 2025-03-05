@@ -2,12 +2,15 @@ import { useState } from "react";
 
 import Button from "@/components/atoms/button/Button";
 
-interface ToastBtnProps {
+interface DraftNoteReminderToastProps {
   isOpen: boolean;
   onLoadData: () => void;
 }
 
-export default function ToastBtn({ isOpen, onLoadData }: ToastBtnProps) {
+export default function DraftNoteReminderToast({
+  isOpen,
+  onLoadData,
+}: DraftNoteReminderToastProps) {
   const [isOpenToast, setIsOpenToast] = useState(isOpen);
 
   const handleClose = () => {

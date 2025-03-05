@@ -5,9 +5,9 @@ import Button from "@/components/atoms/button/Button";
 import PageTitle from "@/components/atoms/page-title/PageTitle";
 import useNoteDraft from "@/hooks/note/useNoteDraft";
 import { CreateNoteBodyDto, UpdateNoteBodyDto } from "@/types/types";
+import DraftNoteReminderToast from "@/views/note/note-form/DraftNoteReminderToast";
 import Editor from "@/views/note/note-form/Editor";
 import InputWithCount from "@/views/note/note-form/TitleCounter";
-import ToastBtn from "@/views/note/note-form/ToastBtn";
 
 import EditorTextCounter from "./EditorTextCounter";
 import GoalTodoDisplay from "./GoalTodoDisplay";
@@ -75,7 +75,7 @@ export default function NoteForm<
         </div>
         <div className="flex flex-col gap-4 pt-[11px] pb-[24px] sm:pt-4 md:flex-col-reverse">
           <GoalTodoDisplay goal={goal} todo={todo} />
-          <ToastBtn
+          <DraftNoteReminderToast
             isOpen={isNoteDraftSaved()}
             onLoadData={handleLoadNoteDraft}
           />
