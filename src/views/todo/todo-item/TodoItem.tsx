@@ -49,6 +49,7 @@ export function TodoItem({
       className={cn(
         "group mb-2 w-full last:mb-0",
         isNew && "animate-slideUp will-change-[transform,opacity]",
+        isMobile && "cursor-pointer",
       )}
     >
       <div className="flex h-6 items-center">
