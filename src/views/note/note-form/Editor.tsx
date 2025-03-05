@@ -1,9 +1,9 @@
 import "react-quill-new/dist/quill.snow.css";
 
 import dynamic from "next/dynamic";
-import { ForwardedRef, useEffect, useMemo, useRef } from "react";
+import { ForwardedRef, useCallback, useMemo, useRef } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import ReactQuill, { Quill } from "react-quill-new";
+import ReactQuill from "react-quill-new";
 
 import { useModalContext } from "@/contexts/InputModalContext";
 import { cn } from "@/utils/cn";
@@ -59,6 +59,13 @@ export default function Editor() {
     );
   };
 
+  const setEditorRef = useCallback((el: ReactQuill | null) => {
+    if (!el) return;
+    editorRef.current = el;
+
+    handleChangePlainText();
+  }, []);
+
   return (
     <Controller
       control={methods.control}
@@ -67,9 +74,7 @@ export default function Editor() {
       render={({ field: { onChange, value } }) => (
         <>
           <ReactQuillEditor
-            forwardedRef={(el: ReactQuill | null) => {
-              editorRef.current = el;
-            }}
+            forwardedRef={setEditorRef}
             theme="snow"
             modules={modules}
             onChange={(value) => {
