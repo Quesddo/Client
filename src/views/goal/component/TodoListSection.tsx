@@ -66,7 +66,7 @@ export default function TodoListSection() {
             할일 추가
           </button>
         </div>
-        <div className="h-[168px] overflow-x-hidden overflow-y-scroll">
+        <div className="h-[168px] overflow-x-hidden overflow-y-auto pr-4">
           {todos?.length ? (
             <TodoList
               data={todos}
@@ -86,7 +86,7 @@ export default function TodoListSection() {
         <div className="mb-[16px] flex justify-between">
           <p className="text-lg font-bold">done</p>
         </div>
-        <div className="h-[168px] overflow-x-hidden overflow-y-scroll">
+        <div className="h-[168px] overflow-x-hidden overflow-y-auto pr-4">
           {dones?.length ? (
             <TodoList
               data={dones}
