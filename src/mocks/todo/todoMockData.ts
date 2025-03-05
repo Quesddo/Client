@@ -42,10 +42,10 @@ export const sampleTodos: TodoResponseDto[] = [
     teamId: "quesddo",
     createdAt: "2024-02-26T12:00:00Z",
     updatedAt: "2024-02-26T12:00:00Z",
-    noteId: 1,
+    noteId: null,
     linkUrl: "https://github.com/Quesddo/Client",
     fileUrl: "https://github.com/Quesddo/Client",
-    goal: null,
+    goal: { id: 1, title: "매일 꾸준히 운동하기" },
   },
   {
     id: 2,
