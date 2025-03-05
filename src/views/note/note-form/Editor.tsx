@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
 import { useModalContext } from "@/contexts/InputModalContext";
+import { cn } from "@/utils/cn";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
@@ -43,7 +44,15 @@ export default function Editor() {
           modules={modules}
           onChange={onChange}
           value={value}
-          className="flex flex-1 flex-col"
+          placeholder="내용을 입력하세요"
+          className={cn(
+            "relative flex min-h-0 flex-1 flex-col-reverse gap-4",
+            "[&_.ql-toolbar]:rounded-[22px]",
+            "[&>.ql-container.ql-snow]:!border-none",
+            "[&>.ql-container]:min-h-0 [&>.ql-container]:!font-normal",
+            "[&_.ql-editor]:!p-0",
+            "[&_.ql-editor.ql-blank::before]:!left-0",
+          )}
         ></ReactQuill>
       )}
     />
