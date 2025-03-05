@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { useModalContext } from "@/contexts/InputModalContext";
 import { TodoResponse } from "@/types/todo";
 
@@ -21,6 +23,7 @@ export default function TodoList({
   isNew,
 }: TodoListProps) {
   const { openModal } = useModalContext();
+  const [isTouchedId, setIsTouchedId] = useState<number | null>(null);
 
   return (
     <ul className="text-sm font-normal text-slate-800">
@@ -36,6 +39,8 @@ export default function TodoList({
           onOpenDeletePopup={onOpenDeletePopup}
           isShowGoal={isShowGoal}
           isNew={isNew}
+          isTouched={isTouchedId === todo.id}
+          setIsTouchedId={setIsTouchedId}
         />
       ))}
     </ul>

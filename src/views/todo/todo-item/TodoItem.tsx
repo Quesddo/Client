@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import { TodoResponse } from "@/types/todo";
 import { cn } from "@/utils/cn";
 
@@ -12,6 +14,8 @@ interface TodoItemProps {
   onOpenDeletePopup: (todoId: number) => void;
   isShowGoal?: boolean;
   isNew?: boolean;
+  isTouched: boolean;
+  setIsTouchedId: (id: number | null) => void;
 }
 
 export function TodoItem({
@@ -21,19 +25,34 @@ export function TodoItem({
   onOpenDeletePopup,
   isShowGoal = false,
   isNew = false,
+  isTouched,
+  setIsTouchedId,
 }: TodoItemProps) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(navigator.maxTouchPoints > 0);
+  }, []);
+
+  const handleCheckToggle = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    handleToggleTodo(todo.id, todo.done);
+  };
+
+  const handleClickLi = () => {
+    if (isMobile) setIsTouchedId(isTouched ? null : todo.id);
+  };
+
   return (
     <li
+      onClick={handleClickLi}
       className={cn(
         "group mb-2 w-full last:mb-0",
         isNew && "animate-slideUp will-change-[transform,opacity]",
       )}
     >
       <div className="flex h-6 items-center">
-        <TodoCheckbox
-          checked={todo.done}
-          onToggle={() => handleToggleTodo(todo.id, todo.done)}
-        />
+        <TodoCheckbox checked={todo.done} onToggle={handleCheckToggle} />
 
         <div className="flex w-full min-w-0 items-center justify-between">
           <TodoTitle title={todo.title} done={todo.done} />
@@ -41,6 +60,7 @@ export function TodoItem({
             todo={todo}
             onOpenTodoModal={onOpenTodoModal}
             onOpenDeletePopup={onOpenDeletePopup}
+            isTouched={isTouched}
           />
         </div>
       </div>

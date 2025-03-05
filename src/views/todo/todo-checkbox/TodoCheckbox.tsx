@@ -4,7 +4,7 @@ import { TodoCheckImg } from "./TodoCheckImg";
 
 interface TodoCheckboxProps {
   checked: boolean;
-  onToggle: () => void;
+  onToggle: (e: React.MouseEvent) => void;
   className?: string;
   checkedImgSrc?: string;
 }
