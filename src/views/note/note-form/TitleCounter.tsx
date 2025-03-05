@@ -13,6 +13,7 @@ export default function TitleCounter() {
       <input
         className="w-full text-base font-medium placeholder:text-slate-400 focus:outline-none sm:text-lg"
         placeholder="노트의 제목을 입력해주세요"
+        autoFocus
         {...register("title", { required: true, maxLength: MAX_TITLE_COUNT })}
       />
       <TextCounting count={title?.length || 0} total={MAX_TITLE_COUNT} />
