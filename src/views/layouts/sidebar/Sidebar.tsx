@@ -1,6 +1,8 @@
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 
+import ErrorFallback from "@/components/molecules/error-fallback/ErrorFallback";
 import Toaster from "@/components/organisms/toaster/Toaster";
 import ToastProvider from "@/components/organisms/toaster/ToastProvider";
 import { InputModalProvider } from "@/contexts/InputModalContext";
@@ -61,7 +63,11 @@ export default function Sidebar() {
               !isOpen ? "opacity-0" : "transition-[opacity] delay-[10ms]",
             )}
           >
-            <Profile />
+            <ErrorBoundary FallbackComponent={ErrorFallback}>
+              <Suspense>
+                <Profile />
+              </Suspense>
+            </ErrorBoundary>
             <InputModalProvider>
               <MenuDashboard />
             </InputModalProvider>
