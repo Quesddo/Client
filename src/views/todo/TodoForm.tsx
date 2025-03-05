@@ -94,7 +94,7 @@ export function TodoForm({
                 type="text"
                 placeholder="할 일의 제목을 적어주세요"
                 maxLength={30}
-                {...register("title", { required: true })}
+                {...register("title", { required: true, maxLength: 30 })}
               />
             </div>
 
