@@ -79,12 +79,14 @@ export default function Editor() {
             value={value}
             placeholder="내용을 입력하세요"
             className={cn(
+              // container
               "relative flex min-h-0 flex-1 flex-col-reverse gap-4",
-              "[&_.ql-toolbar]:rounded-[22px]",
-              "[&>.ql-container.ql-snow]:!border-none",
-              "[&>.ql-container]:min-h-0 [&>.ql-container]:!text-base [&>.ql-container]:!font-normal",
-              "[&_.ql-editor]:!p-0",
-              "[&_.ql-editor.ql-blank::before]:!left-0",
+              // toolbar, link item
+              "[&_.ql-toolbar]:rounded-[22px] [&_.ql-toolbar.ql-snow]:!flex [&_.ql-toolbar.ql-snow_.ql-formats]:last:ml-auto [&_.ql-toolbar.ql-snow_.ql-formats]:last:rounded-full [&_.ql-toolbar.ql-snow_.ql-formats]:last:bg-slate-200",
+              // content container
+              "[&>.ql-container]:min-h-0 [&>.ql-container]:!text-base [&>.ql-container]:!font-normal [&>.ql-container.ql-snow]:!border-none",
+              // content, content placeholder
+              "[&_.ql-editor]:!p-0 [&_.ql-editor.ql-blank::before]:!left-0",
             )}
           ></ReactQuillEditor>
           <input type="hidden" {...methods.register("plainText")} />
