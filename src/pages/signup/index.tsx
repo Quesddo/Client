@@ -20,7 +20,7 @@ export default function SignUpPage() {
       <p className="mt-10 text-center font-normal">
         이미 회원이신가요?
         <Link
-          className="text-blue-600 underline hover:text-blue-800"
+          className="ml-1 inline-block text-blue-600 underline hover:text-blue-800"
           href={"/login"}
         >
           로그인
