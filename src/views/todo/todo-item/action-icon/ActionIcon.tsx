@@ -44,7 +44,7 @@ export function ActionIcon({
     setIsMobile(navigator.maxTouchPoints > 0);
   }, []);
 
-  const hoverIconStyle = `hover-icon-style opacity-0 invisible -ml-6 group-hover:opacity-100 group-hover:visible group-hover:ml-0 hover:shadow-md transition-all duration-150 ${isOpen || isMobile ? "opacity-100 visible ml-0" : ""}`;
+  const hoverIconStyle = `hover-icon-style opacity-0 invisible -ml-6 group-hover:opacity-100 group-hover:visible group-hover:ml-0 hover:shadow-md transition-all duration-150 ${(isOpen || isMobile) && "opacity-100 visible ml-0"}`;
   const actions = [
     todo.fileUrl && {
       src: "/icons/file.png",
@@ -117,7 +117,7 @@ export function ActionIcon({
               "cursor-pointer rounded-full",
               className,
               isBeforeHoverIcon ? "mr-0 group-hover:mr-2" : "mr-2 last:mr-0",
-              isOpen || isMobile ? "mr-2" : "",
+              (isOpen || isMobile) && "mr-2",
             )}
             onClick={onClick}
             role={role}
