@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { ReactNode, Suspense, useEffect } from "react";
 
-import { useAuth } from "@/hooks/auth/useAuth";
+import { useFetchUser } from "@/hooks/user/useFetchUser";
 
 import Spinner from "./atoms/spinner/Spinner";
 
@@ -21,7 +21,7 @@ const PUBLIC_PATH = ["/login", "/signup"];
 
 function AuthGuard({ children }: AuthGuardProps) {
   const router = useRouter();
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading } = useFetchUser();
   const isPublicPage = PUBLIC_PATH.includes(router.pathname);
 
   useEffect(() => {
