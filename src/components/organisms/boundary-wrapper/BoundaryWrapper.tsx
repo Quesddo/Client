@@ -1,17 +1,13 @@
 import { ReactNode, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
-import Skeleton from "@/components/atoms/skeleton/Skeleton";
+import Spinner from "@/components/atoms/spinner/Spinner";
 import ErrorFallback from "@/components/molecules/error-fallback/ErrorFallback";
 
 interface BoundaryWrapperProps {
   children: ReactNode;
   fallback?: ReactNode;
   errorFallback?: ({ error }: { error: Error }) => ReactNode;
-}
-
-function DefaultFallback(): ReactNode {
-  return <Skeleton />;
 }
 
 function DefaultErrorFallback({ error }: { error: Error }) {
@@ -25,7 +21,9 @@ export default function BoundaryWrapper({
 }: BoundaryWrapperProps) {
   return (
     <ErrorBoundary FallbackComponent={errorFallback || DefaultErrorFallback}>
-      <Suspense fallback={fallback || DefaultFallback()}>{children}</Suspense>
+      <Suspense fallback={fallback || <Spinner size={80} />}>
+        {children}
+      </Suspense>
     </ErrorBoundary>
   );
 }
