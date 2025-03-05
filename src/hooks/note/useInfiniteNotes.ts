@@ -14,9 +14,10 @@ export const useInfiniteNotes = (goalId: number) => {
     TeamIdNotesGet200Response["notes"]
   >({
     queryKey: ["notes", goalId],
-    queryFn: ({ pageParam }) => fetchNotes(Number(pageParam), goalId),
+    queryFn: ({ pageParam }) =>
+      fetchNotes({ pageParam: pageParam as number | undefined, goalId }),
     getNextPageParam: (lastPage) => lastPage.nextCursor,
-    initialPageParam: null,
+    initialPageParam: undefined,
     enabled: !!goalId,
     select: ({ pages }) => pages.flatMap(({ notes }) => notes),
   });

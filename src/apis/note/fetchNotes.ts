@@ -4,7 +4,12 @@ import instance from "../apiClient";
 
 const PAGE_SIZE = 6;
 
-export const fetchNotes = async (pageParam: number, goalId: number) => {
+interface fetchNotesParams {
+  pageParam?: number;
+  goalId: number;
+}
+
+export const fetchNotes = async ({ pageParam, goalId }: fetchNotesParams) => {
   const params: teamIdNotesGetParams = {
     goalId,
     cursor: pageParam,
