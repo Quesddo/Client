@@ -9,7 +9,7 @@ export default async function refreshTokens() {
     if (!refreshToken) throw new Error("No refresh token");
 
     const { data } = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_BACKEND_URL}/auth/tokens`,
+      `${process.env.NEXT_PUBLIC_API_BACKEND_URL}auth/tokens`,
       undefined,
       {
         headers: {
