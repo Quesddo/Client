@@ -15,7 +15,7 @@ import { LOGIN, SIGNUP } from "./fieldSet";
 import Input from "./Input";
 import Modal from "./Modal";
 
-interface FormData extends UserCreateRequstDto {
+interface SignFormData extends UserCreateRequstDto {
   confirmPassword: string;
 }
 
@@ -23,8 +23,8 @@ interface FormProps {
   children: ReactNode;
 }
 
-const Form = ({ children }: FormProps) => {
-  const methods = useForm<FormData>({
+const SignForm = ({ children }: FormProps) => {
+  const methods = useForm<SignFormData>({
     shouldFocusError: false,
   });
 
@@ -32,13 +32,15 @@ const Form = ({ children }: FormProps) => {
 };
 
 const InnerForm = () => {
-  const methods = useFormContext<FormData>();
+  const methods = useFormContext<SignFormData>();
   const pathname = usePathname();
   const isLoginPage = pathname === "/login" ? true : false;
   const hooks = isLoginPage ? useSign.login() : useSign.signup();
   const field = isLoginPage ? LOGIN : SIGNUP;
 
-  const handleRequest: SubmitHandler<FormData> = async (formData: FormData) => {
+  const handleRequest: SubmitHandler<SignFormData> = async (
+    formData: SignFormData,
+  ) => {
     hooks.mutate(formData);
   };
 
@@ -78,6 +80,6 @@ const InnerForm = () => {
   );
 };
 
-Form.InnerForm = InnerForm;
+SignForm.InnerForm = InnerForm;
 
-export default Form;
+export default SignForm;

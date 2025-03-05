@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import Form from "@/views/sign/Form";
+import SignForm from "@/views/sign/SignForm";
 import logo from "@public/img_logo.png";
 
 export default function LoginPage() {
@@ -14,9 +14,9 @@ export default function LoginPage() {
         width={270}
         height={89}
       />
-      <Form>
-        <Form.InnerForm />
-      </Form>
+      <SignForm>
+        <SignForm.InnerForm />
+      </SignForm>
       <p className="mt-10 text-center font-normal">
         슬리드 투두가 처음이신가요?
         <Link
