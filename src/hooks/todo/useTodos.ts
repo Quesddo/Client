@@ -5,7 +5,7 @@ import { TodoResponse } from "@/types/todo";
 
 export const useTodos = (goalId?: number) => {
   return useSuspenseQuery<TodoResponse>({
-    queryKey: ["todos"],
+    queryKey: ["todos", goalId],
     queryFn: async () => {
       const { data } = await instance.get(`/todos?goalId=${goalId ?? ""}`);
       return data;
