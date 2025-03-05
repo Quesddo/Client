@@ -39,8 +39,8 @@ export default function NoteUpdateForm({ noteId }: NoteUpdateFormProps) {
 
   useEffect(() => {
     if (!data) return;
-    methods.setValue("title", data.title);
-    methods.setValue("content", data.content);
+    methods.setValue("title", data.title, { shouldValidate: true });
+    methods.setValue("content", data.content, { shouldValidate: true });
     methods.setValue("linkUrl", data.linkUrl);
   }, [data, methods]);
 
