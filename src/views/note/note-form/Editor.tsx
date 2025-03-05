@@ -82,7 +82,7 @@ export default function Editor() {
               "relative flex min-h-0 flex-1 flex-col-reverse gap-4",
               "[&_.ql-toolbar]:rounded-[22px]",
               "[&>.ql-container.ql-snow]:!border-none",
-              "[&>.ql-container]:min-h-0 [&>.ql-container]:!font-normal",
+              "[&>.ql-container]:min-h-0 [&>.ql-container]:!text-base [&>.ql-container]:!font-normal",
               "[&_.ql-editor]:!p-0",
               "[&_.ql-editor.ql-blank::before]:!left-0",
             )}
