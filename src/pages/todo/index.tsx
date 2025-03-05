@@ -2,6 +2,7 @@ import { Suspense, useCallback } from "react";
 
 import PlusIcon from "@/components/atoms/plus-icon/PlusIcon";
 import Spinner from "@/components/atoms/spinner/Spinner";
+import BoundaryWrapper from "@/components/organisms/boundary-wrapper/BoundaryWrapper";
 import { useModalContext } from "@/contexts/InputModalContext";
 import { useTodoListAction } from "@/hooks/useTodoListAction";
 import { cn } from "@/utils/cn";
@@ -47,13 +48,13 @@ export default function TodoPage() {
         </button>
       </div>
 
-      <Suspense fallback={<Spinner size={80} />}>
+      <BoundaryWrapper>
         <Todos
           handleToggleTodo={handleToggleTodo}
           setSelectedTodoId={setSelectedTodoId}
           onOpenDeletePopup={onOpenDeletePopup}
         />
-      </Suspense>
+      </BoundaryWrapper>
 
       {isOpen && !selectedTodoId && <TodoCreateForm />}
       {isOpen && selectedTodoId && <TodoUpdateForm todoId={selectedTodoId} />}
