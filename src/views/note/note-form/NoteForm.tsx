@@ -42,6 +42,10 @@ export default function NoteForm<
       isEditMode: editMode,
     });
 
+  const {
+    formState: { isValid },
+  } = methods;
+
   return (
     <FormProvider {...methods}>
       <form
@@ -59,7 +63,12 @@ export default function NoteForm<
             >
               임시저장
             </Button>
-            <Button size="xs" className="sm:h-[44px]" type="submit">
+            <Button
+              size="xs"
+              className="sm:h-[44px]"
+              type="submit"
+              disabled={!isValid}
+            >
               작성완료
             </Button>
           </div>

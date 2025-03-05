@@ -36,6 +36,7 @@ export default function Editor() {
     <Controller
       control={control}
       name="content"
+      rules={{ required: true }}
       render={({ field: { onChange, value } }) => (
         <ReactQuill
           theme="snow"
