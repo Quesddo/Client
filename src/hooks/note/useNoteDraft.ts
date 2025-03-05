@@ -27,6 +27,8 @@ export default function useNoteDraft<
   const { addToast } = useToast();
   const toastIntervalRef = useRef<NodeJS.Timeout>(null);
 
+  const noteStorage = isEditMode ? UPDATE_NOTE_STORAGE : CREATE_NOTE_STORAGE;
+
   const saveDraft = () => {
     const values = methods.getValues();
     const noteStorage =
@@ -70,15 +72,7 @@ export default function useNoteDraft<
     addInterval();
   };
 
-  const getDraftNoteData = () => {
-    const noteStorage = isEditMode ? UPDATE_NOTE_STORAGE : CREATE_NOTE_STORAGE;
-
-    return noteStorage.get(id) as TNoteBody | null;
-  };
-
   const handleLoadNoteDraft = () => {
-    const noteStorage = isEditMode ? UPDATE_NOTE_STORAGE : CREATE_NOTE_STORAGE;
-
     const data = noteStorage.get(id) as TNoteBody | null;
 
     if (data) {
@@ -91,12 +85,6 @@ export default function useNoteDraft<
     }
   };
 
-  const isNoteDraftSaved = () => {
-    const noteStorage = isEditMode ? UPDATE_NOTE_STORAGE : CREATE_NOTE_STORAGE;
-
-    return !!noteStorage.get(id);
-  };
-
   // form 내용 변화 감지
   useEffect(() => {
     const { unsubscribe } = watch(checkFormkValueChange);
@@ -106,8 +94,9 @@ export default function useNoteDraft<
 
   return {
     handleClickSaveDraft,
-    getDraftNoteData,
-    isNoteDraftSaved,
     handleLoadNoteDraft,
+    isNoteDraftSaved: () => !!noteStorage.get(id),
+    getDraftNoteData: () => noteStorage.get(id) as TNoteBody | null,
+    removeNoteDraft: noteStorage.remove,
   };
 }

@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 import noteApi from "@/apis/noteApi";
+import useNoteDraft from "@/hooks/note/useNoteDraft";
 import useUpdateNote from "@/hooks/note/useUpdateNote";
 import { UpdateNoteBodyDto } from "@/types/types";
 
@@ -25,11 +26,18 @@ export default function NoteUpdateForm({ noteId }: NoteUpdateFormProps) {
     queryFn: () => noteApi.fetchNote(noteId),
   });
 
+  const { removeNoteDraft } = useNoteDraft({
+    id: noteId,
+    methods,
+    isEditMode: true,
+  });
+
   const handleSubmit = (data: UpdateNoteBodyDto) => {
     mutation.mutate(data, {
       onSuccess: (data) => {
         const queryParams = new URLSearchParams();
 
+        removeNoteDraft(noteId);
         queryParams.set("noteId", data.id.toString());
         queryParams.set("mode", "detail");
         router.push(`${pathname}?${queryParams.toString()}`);
