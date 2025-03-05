@@ -13,6 +13,7 @@ export const useUpdateGoal = (goalId: number) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["goal", goalId] });
+      queryClient.invalidateQueries({ queryKey: ["goals"] });
     },
   });
 };
