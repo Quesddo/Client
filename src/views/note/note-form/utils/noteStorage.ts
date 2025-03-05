@@ -56,7 +56,7 @@ export const UPDATE_NOTE_STORAGE: NoteStorage<UpdateNoteBodyDto> = {
       const parsedData = JSON.parse(data) as NoteStorageDataType;
       delete parsedData[noteId];
 
-      localStorage.setItem(NOTE_DRAFT_CREATE_KEY, JSON.stringify(parsedData));
+      localStorage.setItem(NOTE_DRAFT_UPDATE_KEY, JSON.stringify(parsedData));
     }
   },
 };
