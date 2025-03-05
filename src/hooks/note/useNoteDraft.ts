@@ -80,6 +80,9 @@ export default function useNoteDraft<
         methods.setValue(
           key as Path<TNoteBody>,
           data[key as keyof TNoteBody] as PathValue<TNoteBody, Path<TNoteBody>>,
+          {
+            shouldValidate: true,
+          },
         );
       });
     }
