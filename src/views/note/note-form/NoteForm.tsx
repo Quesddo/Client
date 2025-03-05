@@ -35,12 +35,16 @@ export default function NoteForm<
   todo,
   children,
 }: NoteFormProps<TNoteBody>) {
-  const { handleClickSaveDraft, handleLoadNoteDraft, isNoteDraftSaved } =
-    useNoteDraft({
-      id,
-      methods,
-      isEditMode: editMode,
-    });
+  const {
+    handleClickSaveDraft,
+    getDraftNoteData,
+    isNoteDraftSaved,
+    handleLoadNoteDraft,
+  } = useNoteDraft({
+    id,
+    methods,
+    isEditMode: editMode,
+  });
 
   const {
     formState: { isValid },
@@ -77,7 +81,8 @@ export default function NoteForm<
           <GoalTodoDisplay goal={goal} todo={todo} />
           <DraftNoteReminderToast
             isOpen={isNoteDraftSaved()}
-            onLoadData={handleLoadNoteDraft}
+            getDraftNoteData={getDraftNoteData}
+            loadNoteDraft={handleLoadNoteDraft}
           />
         </div>
         <InputWithCount />

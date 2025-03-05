@@ -70,6 +70,12 @@ export default function useNoteDraft<
     addInterval();
   };
 
+  const getDraftNoteData = () => {
+    const noteStorage = isEditMode ? UPDATE_NOTE_STORAGE : CREATE_NOTE_STORAGE;
+
+    return noteStorage.get(id) as TNoteBody | null;
+  };
+
   const handleLoadNoteDraft = () => {
     const noteStorage = isEditMode ? UPDATE_NOTE_STORAGE : CREATE_NOTE_STORAGE;
 
@@ -98,5 +104,10 @@ export default function useNoteDraft<
     return () => unsubscribe();
   }, [watch]);
 
-  return { handleClickSaveDraft, handleLoadNoteDraft, isNoteDraftSaved };
+  return {
+    handleClickSaveDraft,
+    getDraftNoteData,
+    isNoteDraftSaved,
+    handleLoadNoteDraft,
+  };
 }
