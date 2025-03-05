@@ -8,6 +8,7 @@ import { useGoalDetailContext } from "@/contexts/GoalDetailContext";
 import { useDeleteGoal } from "@/hooks/goal/useDeleteGoal";
 import { useFetchGoal } from "@/hooks/goal/useFetchGoal";
 import { useUpdateGoal } from "@/hooks/goal/useUpdateGoal";
+import Section from "@/views/goal/component/Section";
 import meatBalls from "@public/icons/meatballs_menu.svg";
 
 import Modal from "./Modal";
@@ -52,7 +53,7 @@ export default function GoalSection() {
   if (isPending) return null;
 
   return (
-    <>
+    <Section className="relative bg-white hover:shadow">
       <div className="mb-[24px] flex justify-between">
         <GoalItem
           goal={data?.title}
@@ -113,6 +114,6 @@ export default function GoalSection() {
           </>
         )}
       </Modal>
-    </>
+    </Section>
   );
 }

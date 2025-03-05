@@ -6,7 +6,7 @@ interface Container {
   className?: string;
 }
 
-export default function Container({ children, className }: Container) {
+export default function Section({ children, className }: Container) {
   return (
     <section
       className={cn(`rounded-xl border-0 px-[24px] py-[16px] ${className}`)}

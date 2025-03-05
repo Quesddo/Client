@@ -53,7 +53,7 @@ export default function TodoListSection() {
   }, [goalId]);
 
   return (
-    <>
+    <Section className="flex flex-col gap-[16px] p-[0px] md:flex-row md:justify-between md:gap-[24px]">
       {/* todo list */}
       <Section className="flex-1 bg-white hover:shadow">
         <div className="mb-[16px] flex justify-between">
@@ -101,6 +101,7 @@ export default function TodoListSection() {
           )}
         </div>
       </Section>
+
       {isOpen && !selectedTodoId && <TodoCreateForm />}
       {isOpen && selectedTodoId && <TodoUpdateForm todoId={selectedTodoId} />}
       {isPopupOpen && selectedTodoId && (
@@ -115,6 +116,6 @@ export default function TodoListSection() {
           onCancel={() => setIsPopupOpen(false)}
         />
       )}
-    </>
+    </Section>
   );
 }
