@@ -15,7 +15,7 @@ export const useFetchGoals = () => {
     queryFn: async ({ pageParam }) => {
       const params: teamIdGoalsGetParams = {
         sortOrder: "newest",
-        size: 10,
+        size: 50,
         cursor: pageParam as number,
       };
 
