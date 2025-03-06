@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import ActionDropdown from "@/components/atoms/action-dropdown/ActionDropdown";
 import GoalItem from "@/components/atoms/goal-item/GoalItem";
@@ -10,9 +10,9 @@ import { useFetchGoal } from "@/hooks/goal/useFetchGoal";
 import { useUpdateGoal } from "@/hooks/goal/useUpdateGoal";
 import meatBalls from "@public/icons/meatballs_menu.svg";
 
-import Modal from "./Modal";
+import Modal from "../component/Modal";
 
-export default function GoalHeader() {
+export default function GoalTitle() {
   const { goalId } = useGoalDetailContext();
 
   const [isOpenActionDropDown, setIsOpenActionDropDown] = useState(false);

@@ -1,13 +1,13 @@
-import arrowRight from "@public/icons/ic_arrow_right.svg";
-import note from "@public/icons/note.svg";
 import Image from "next/image";
 import Link from "next/link";
 
 import { useGoalDetailContext } from "@/contexts/GoalDetailContext";
+import arrowRight from "@public/icons/ic_arrow_right.svg";
+import note from "@public/icons/note.svg";
 
-import Section from "./Section";
+import Section from "../component/Section";
 
-export default function NoteSection() {
+export default function GoalNote() {
   const { goalId } = useGoalDetailContext();
 
   return (

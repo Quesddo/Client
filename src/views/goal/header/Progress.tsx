@@ -28,7 +28,7 @@ interface ProgressBarProps {
   showLabel?: boolean;
 }
 
-export default function ProgressContainer({
+export default function Progress({
   label = "Progress",
   showLabel = true,
 }: ProgressBarProps) {
