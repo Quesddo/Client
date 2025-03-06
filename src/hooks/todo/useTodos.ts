@@ -1,14 +1,15 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-import instance from "@/apis/apiClient";
-import { TodoResponse } from "@/types/todo";
+import { todoApi } from "@/apis/todoApi";
+import { FilterType, TodoResponse } from "@/types/todo";
 
-export const useTodos = (goalId?: number) => {
+export const useTodos = (
+  goalId?: number,
+  size?: number,
+  filter?: FilterType,
+) => {
   return useSuspenseQuery<TodoResponse>({
-    queryKey: ["todos"],
-    queryFn: async () => {
-      const { data } = await instance.get(`/todos?goalId=${goalId ?? ""}`);
-      return data;
-    },
+    queryKey: ["todos", goalId, filter],
+    queryFn: () => todoApi.fetchTodos(goalId, size, filter),
   });
 };

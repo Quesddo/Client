@@ -20,3 +20,5 @@ export interface TodoItem {
   updatedAt: string;
   createdAt: string;
 }
+
+export type FilterType = "todo" | "done";
