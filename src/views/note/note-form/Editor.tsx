@@ -20,6 +20,7 @@ export default function Editor() {
   const { openModal } = useModalContext();
   const methods = useFormContext();
   const editorRef = useRef<ReactQuill>(null);
+  const isDirtyContentRef = useRef(false);
 
   const modules = useMemo(
     () => ({
@@ -50,22 +51,29 @@ export default function Editor() {
     handleChangePlainText();
   }, []);
 
+  const handleChange = (value: string) => {
+    if (!isDirtyContentRef.current) {
+      isDirtyContentRef.current = true;
+    } else {
+      methods.setValue("content", value, {
+        shouldDirty: true,
+      });
+    }
+  };
+
   return (
     <>
       <Controller
         control={methods.control}
         name="content"
         rules={{ required: true }}
-        render={({ field: { onChange, value } }) => (
+        render={({ field: { value } }) => (
           <ReactQuillEditor
             forwardedRef={setEditorRef}
             theme="snow"
             modules={modules}
-            onChange={(value: string) => {
-              onChange(value);
-              handleChangePlainText();
-            }}
-            value={value}
+            onChange={handleChange}
+            defaultValue={value}
             placeholder="내용을 입력하세요"
           ></ReactQuillEditor>
         )}
