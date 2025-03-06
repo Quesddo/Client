@@ -6,7 +6,7 @@ import TitleWithIcon from "@/components/atoms/title-with-icon/TitleWithIcon.tsx"
 import { useModalContext } from "@/contexts/InputModalContext";
 import { useTodos } from "@/hooks/todo/useTodos";
 
-import TodoContent from "./TodoContent";
+import TodoWrapper from "./TodoWrapper";
 
 interface GoalBasedTodoProps {
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
@@ -21,14 +21,16 @@ export default function GoalBasedTodo({
 }: GoalBasedTodoProps) {
   const {
     data: { todos: data },
-  } = useTodos(1828);
+  } = useTodos(1828, 6);
 
   const { openModal } = useModalContext();
 
-  const handleAddTodo = () => {
+  const handleClickAddTodo = () => {
     setSelectedTodoId(null);
     openModal();
   };
+
+  const handleClickMore = () => {};
 
   return (
     <section className="rounded-xl bg-white p-6 transition-shadow duration-300 hover:shadow-2xl">
@@ -47,7 +49,7 @@ export default function GoalBasedTodo({
             <h3 className="text-lg font-bold text-slate-800">목표 제목</h3>
             <button
               className="flex items-center justify-center gap-1 text-blue-500 hover:brightness-90"
-              onClick={handleAddTodo}
+              onClick={handleClickAddTodo}
             >
               <PlusIcon width={16} height={16} />
               <span className="text-sm font-semibold">할 일 추가</span>
@@ -63,7 +65,7 @@ export default function GoalBasedTodo({
           {/*  할 일 리스트 */}
           <div className="my-4 flex flex-col gap-6 sm:flex-row">
             {[false, true].map((done, idx) => (
-              <TodoContent
+              <TodoWrapper
                 handleToggleTodo={handleToggleTodo}
                 setSelectedTodoId={setSelectedTodoId}
                 onOpenDeletePopup={onOpenDeletePopup}
@@ -75,15 +77,18 @@ export default function GoalBasedTodo({
           </div>
 
           {/* 더보기 */}
-          <button className="flex h-[32px] w-[120px] items-center justify-center gap-1 self-center rounded-2xl bg-white transition hover:scale-105">
-            <span className="ml-5 text-sm font-semibold text-slate-700">
-              더보기
+          <button
+            onClick={handleClickMore}
+            className="flex h-[32px] w-[120px] items-center justify-center self-center rounded-2xl bg-white transition hover:scale-105"
+          >
+            <span className="ml-3 text-sm font-semibold text-slate-700">
+              자세히 보기
             </span>
             <Image
-              src="/icons/arrow_down.png"
-              alt={"arrow_down"}
-              width={24}
-              height={24}
+              src="/icons/ic_arrow_right.svg"
+              alt={"arrow_right"}
+              width={20}
+              height={20}
               layout="fixed"
             />
           </button>
