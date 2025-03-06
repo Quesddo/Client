@@ -17,19 +17,19 @@ export const todoApi = {
    * - 모든 할 일(todo, done)을 조회하려면 filter를 지정하지 마세요.
    */
   fetchTodos: async (goalId?: number, size?: number, filter?: FilterType) => {
-    let isDone;
+    let done;
     switch (filter) {
       case "todo":
-        isDone = false;
+        done = false;
         break;
       case "done":
-        isDone = true;
+        done = true;
         break;
     }
 
     const params = {
       goalId,
-      isDone,
+      done,
       size,
     };
 
