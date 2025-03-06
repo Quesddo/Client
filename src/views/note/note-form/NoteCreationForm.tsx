@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 
 import { todoApi } from "@/apis/todoApi";
 import useCreateNote from "@/hooks/note/useCreateNote";
-import useNoteDraft from "@/hooks/note/useNoteDraft";
+import useNoteStorage from "@/hooks/note/useNoteStorage";
 import { CreateNoteBodyDto } from "@/types/types";
 
 import NoteForm from "./NoteForm";
@@ -32,9 +32,8 @@ export default function NoteCreationForm({ todoId }: NoteCreationFormProps) {
     queryFn: () => todoApi.fetchTodo(todoId),
   });
 
-  const { removeNoteDraft } = useNoteDraft({
+  const { removeNoteDraft } = useNoteStorage({
     id: todoId,
-    methods,
     isEditMode: false,
   });
 

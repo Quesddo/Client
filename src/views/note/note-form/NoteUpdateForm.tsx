@@ -1,11 +1,10 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 import noteApi from "@/apis/noteApi";
-import useNoteDraft from "@/hooks/note/useNoteDraft";
+import useNoteStorage from "@/hooks/note/useNoteStorage";
 import useUpdateNote from "@/hooks/note/useUpdateNote";
 import { UpdateNoteBodyDto } from "@/types/types";
 
@@ -33,9 +32,8 @@ export default function NoteUpdateForm({ noteId }: NoteUpdateFormProps) {
     },
   });
 
-  const { removeNoteDraft } = useNoteDraft({
+  const { removeNoteDraft } = useNoteStorage({
     id: noteId,
-    methods,
     isEditMode: true,
   });
 
