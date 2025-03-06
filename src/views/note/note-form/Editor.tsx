@@ -37,6 +37,9 @@ export default function Editor() {
     methods.setValue(
       "plainText",
       editorRef.current?.getEditor().getText().replace(/\n+$/, ""),
+      {
+        shouldDirty: false,
+      },
     );
   };
 
@@ -48,12 +51,12 @@ export default function Editor() {
   }, []);
 
   return (
-    <Controller
-      control={methods.control}
-      name="content"
-      rules={{ required: true }}
-      render={({ field: { onChange, value } }) => (
-        <>
+    <>
+      <Controller
+        control={methods.control}
+        name="content"
+        rules={{ required: true }}
+        render={({ field: { onChange, value } }) => (
           <ReactQuillEditor
             forwardedRef={setEditorRef}
             theme="snow"
@@ -65,9 +68,9 @@ export default function Editor() {
             value={value}
             placeholder="내용을 입력하세요"
           ></ReactQuillEditor>
-          <input type="hidden" {...methods.register("plainText")} />
-        </>
-      )}
-    />
+        )}
+      />
+      <input type="hidden" defaultValue="" onChange={handleChangePlainText} />
+    </>
   );
 }

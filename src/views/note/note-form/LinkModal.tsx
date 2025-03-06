@@ -1,4 +1,4 @@
-import { register } from "module";
+import { ChangeEventHandler } from "react";
 import { useFormContext } from "react-hook-form";
 
 import InputModal from "@/components/organisms/modal/InputModal";
@@ -11,12 +11,22 @@ export default function LinkModal({}) {
   const { closeModal } = useModalContext();
   const methods = useFormContext();
 
-  const resetTempUrl = () => {
-    methods.resetField("tempLinkUrl");
+  const resetTempUrl = () => {};
+
+  const handleChangeTempLinkUrl: ChangeEventHandler = (e) => {
+    methods.setValue(
+      "tempLinkUrl",
+      (e.currentTarget as HTMLInputElement).value,
+      {
+        shouldDirty: false,
+      },
+    );
   };
 
   const handleSubmitLink = () => {
-    methods.setValue("linkUrl", methods.getValues("tempLinkUrl"));
+    methods.setValue("linkUrl", methods.getValues("tempLinkUrl"), {
+      shouldDirty: true,
+    });
     resetTempUrl();
     closeModal();
   };
@@ -33,7 +43,8 @@ export default function LinkModal({}) {
           <InputModal.Label>링크</InputModal.Label>
           <InputModal.TextInput
             placeholder="링크를 입력하세요."
-            {...methods.register("tempLinkUrl", {})}
+            defaultValue=""
+            onChange={handleChangeTempLinkUrl}
           />
         </div>
         <input

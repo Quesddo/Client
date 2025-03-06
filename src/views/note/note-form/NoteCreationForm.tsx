@@ -15,7 +15,14 @@ interface NoteCreationFormProps {
 }
 
 export default function NoteCreationForm({ todoId }: NoteCreationFormProps) {
-  const methods = useForm<CreateNoteBodyDto>();
+  const methods = useForm<CreateNoteBodyDto>({
+    defaultValues: {
+      title: "",
+      todoId,
+      content: "",
+      linkUrl: "",
+    },
+  });
   const mutation = useCreateNote();
   const pathname = usePathname();
   const router = useRouter();
