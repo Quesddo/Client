@@ -16,7 +16,6 @@ interface NoteUpdateFormProps {
 }
 
 export default function NoteUpdateForm({ noteId }: NoteUpdateFormProps) {
-  const methods = useForm<UpdateNoteBodyDto>();
   const mutation = useUpdateNote(noteId);
   const pathname = usePathname();
   const router = useRouter();
@@ -24,6 +23,14 @@ export default function NoteUpdateForm({ noteId }: NoteUpdateFormProps) {
   const { data } = useSuspenseQuery({
     queryKey: ["noteDetail", noteId],
     queryFn: () => noteApi.fetchNote(noteId),
+  });
+
+  const methods = useForm<UpdateNoteBodyDto>({
+    defaultValues: {
+      title: data.title,
+      content: data.content,
+      linkUrl: data.linkUrl,
+    },
   });
 
   const { removeNoteDraft } = useNoteDraft({
@@ -44,13 +51,6 @@ export default function NoteUpdateForm({ noteId }: NoteUpdateFormProps) {
       },
     });
   };
-
-  useEffect(() => {
-    if (!data) return;
-    methods.setValue("title", data.title, { shouldValidate: true });
-    methods.setValue("content", data.content, { shouldValidate: true });
-    methods.setValue("linkUrl", data.linkUrl);
-  }, [data, methods]);
 
   return (
     <NoteForm
