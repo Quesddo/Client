@@ -1,14 +1,10 @@
 import { useEffect, useRef } from "react";
-import { type Path, type PathValue, type UseFormReturn } from "react-hook-form";
+import { type UseFormReturn } from "react-hook-form";
 
 import { CreateNoteBodyDto, UpdateNoteBodyDto } from "@/types/types";
-import {
-  CREATE_NOTE_STORAGE,
-  NoteStorage,
-  UPDATE_NOTE_STORAGE,
-} from "@/views/note/note-form/utils/noteStorage";
 
 import useToast from "../useToast";
+import useNoteStorage from "./useNoteStorage";
 
 interface UseNoteDraftProps<
   TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto,
@@ -22,84 +18,54 @@ const TOAST_INTERVAL_TIME = 1000 * 60 * 5;
 
 export default function useNoteDraft<
   TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto,
->({ id, isEditMode, methods }: UseNoteDraftProps<TNoteBody>) {
-  const { watch } = methods;
+>({ id, methods, isEditMode }: UseNoteDraftProps<TNoteBody>) {
+  const {
+    formState: { isDirty },
+  } = methods;
   const { addToast } = useToast();
+  const { saveDraftNote } = useNoteStorage({ id, isEditMode });
+
   const toastIntervalRef = useRef<NodeJS.Timeout>(null);
 
-  const noteStorage = isEditMode ? UPDATE_NOTE_STORAGE : CREATE_NOTE_STORAGE;
-
-  const saveDraft = () => {
-    const values = methods.getValues();
-    const noteStorage =
-      "todoId" in values ? CREATE_NOTE_STORAGE : UPDATE_NOTE_STORAGE;
-
-    if ("todoId" in values) {
-      noteStorage.set(id, values);
-    } else {
-      (noteStorage as NoteStorage<UpdateNoteBodyDto>).set(id, values);
-    }
-  };
-
-  const handleSaveAndToast = () => {
-    saveDraft();
+  const saveDraftNoteAndShowToast = () => {
+    saveDraftNote(methods.getValues());
     addToast({
       content: "임시 저장이 완료되었습니다",
     });
   };
 
-  const addInterval = () => {
-    toastIntervalRef.current = setInterval(() => {
-      handleSaveAndToast();
-    }, TOAST_INTERVAL_TIME);
-  };
-
   const removeInterval = () => {
     if (toastIntervalRef.current) {
       clearInterval(toastIntervalRef.current);
+      toastIntervalRef.current = null;
     }
   };
 
-  const checkFormkValueChange = () => {
-    if (!toastIntervalRef.current) {
-      addInterval();
-    }
+  const addInterval = () => {
+    removeInterval();
+
+    toastIntervalRef.current = setInterval(() => {
+      saveDraftNoteAndShowToast();
+    }, TOAST_INTERVAL_TIME);
   };
 
   const handleClickSaveDraft = () => {
-    removeInterval();
-    handleSaveAndToast();
+    saveDraftNoteAndShowToast();
     addInterval();
   };
 
-  const handleLoadNoteDraft = () => {
-    const data = noteStorage.get(id) as TNoteBody | null;
-
-    if (data) {
-      Object.keys(data).forEach((key) => {
-        methods.setValue(
-          key as Path<TNoteBody>,
-          data[key as keyof TNoteBody] as PathValue<TNoteBody, Path<TNoteBody>>,
-          {
-            shouldValidate: true,
-          },
-        );
-      });
-    }
-  };
-
-  // form 내용 변화 감지
+  // 첫 데이터 입력 시 임시저장 토스트 시작
   useEffect(() => {
-    const { unsubscribe } = watch(checkFormkValueChange);
+    if (isDirty) {
+      addInterval();
+    }
 
-    return () => unsubscribe();
-  }, [watch]);
+    return () => {
+      removeInterval();
+    };
+  }, [isDirty]);
 
   return {
     handleClickSaveDraft,
-    handleLoadNoteDraft,
-    isNoteDraftSaved: () => !!noteStorage.get(id),
-    getDraftNoteData: () => noteStorage.get(id) as TNoteBody | null,
-    removeNoteDraft: noteStorage.remove,
   };
 }
