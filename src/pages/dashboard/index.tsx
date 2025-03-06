@@ -20,10 +20,10 @@ export default function Dashboard() {
   } = useTodoListAction();
 
   return (
-    <main className="smd:pl-[357px] flex h-full flex-col bg-slate-100 px-4 text-slate-800 sm:pl-21">
+    <main className="smd:pl-[357px] flex min-h-full flex-col bg-slate-100 px-4 text-slate-800 sm:pl-21">
       <PageTitle title="대시보드" className="sm:pt-6" isMobileFixed={true} />
 
-      <div className="smd:max-w-[1200px] smd:gap-5 flex h-full flex-grow flex-col gap-4 py-4 sm:pt-0">
+      <div className="smd:max-w-[1200px] smd:gap-5 flex flex-grow flex-col gap-4 py-4 sm:pt-0">
         <div className="sm:flex sm:h-[250px] sm:justify-between sm:gap-5">
           <RecentTodo
             handleToggleTodo={handleToggleTodo}
@@ -32,7 +32,11 @@ export default function Dashboard() {
           />
           <MyProgress />
         </div>
-        <GoalBasedTodo />
+        <GoalBasedTodo
+          handleToggleTodo={handleToggleTodo}
+          setSelectedTodoId={setSelectedTodoId}
+          onOpenDeletePopup={onOpenDeletePopup}
+        />
       </div>
 
       {isOpen && selectedTodoId && <TodoUpdateForm todoId={selectedTodoId} />}
