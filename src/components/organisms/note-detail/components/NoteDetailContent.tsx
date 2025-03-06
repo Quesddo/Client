@@ -6,6 +6,7 @@ import Divider from "@/components/atoms/divider/Divider";
 import GoalItem from "@/components/atoms/goal-item/GoalItem";
 import TodoChip from "@/components/atoms/todo-chip/TodoChip";
 import { formatDate } from "@/utils/formatDate/formatDate";
+import ReactQuillEditor from "@/views/note/editor/ReactQuillEditor";
 
 import EmbeddedContent from "./EmbeddedContent";
 import LinkItem from "./LinkItem";
@@ -55,9 +56,13 @@ export default function NoteDetailContent({ noteId }: NoteDetailContentProps) {
             <Divider />
           </div>
           <LinkItem linkUrl={data?.linkUrl} setIsEmbedOpen={setIsEmbedOpen} />
-          <p className="mb-30 h-full overflow-y-auto text-base font-normal text-slate-700">
-            {data?.content}
-          </p>
+          <div className="mb-30 overflow-y-auto pr-2">
+            <ReactQuillEditor
+              modules={{ toolbar: false }}
+              readOnly
+              value={data?.content}
+            />
+          </div>
         </div>
       </div>
     </>
