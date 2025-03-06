@@ -3,7 +3,7 @@ import { TodoResponseDto } from "@/types/types";
 
 import EmptyData from "./EmptyData";
 
-interface todoContentProps {
+interface TodoWrapperProps {
   data: TodoResponseDto[];
   isDone: boolean;
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
@@ -11,13 +11,17 @@ interface todoContentProps {
   onOpenDeletePopup: (todoId: number) => void;
 }
 
-export default function TodoContent({
+/**
+ * Todo, Done 타입을 받아서 각 타입에 맞는 할 일 리스트를 렌더링하는 컴포넌트
+ */
+
+export default function TodoWrapper({
   data,
   isDone,
   handleToggleTodo,
   setSelectedTodoId,
   onOpenDeletePopup,
-}: todoContentProps) {
+}: TodoWrapperProps) {
   const filteredData = data.filter((it) => it.done === isDone);
 
   return (
