@@ -6,7 +6,7 @@ import TitleWithIcon from "@/components/atoms/title-with-icon/TitleWithIcon.tsx"
 import { useModalContext } from "@/contexts/InputModalContext";
 import { FilterType } from "@/types/todo";
 
-import TodoWrapper from "./TodoWrapper";
+import TodoWrapper from "./components/TodoWrapper";
 
 interface GoalBasedTodoProps {
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
