@@ -58,6 +58,7 @@ export default function Editor() {
       methods.setValue("content", value, {
         shouldDirty: true,
       });
+      handleChangePlainText();
     }
   };
 
