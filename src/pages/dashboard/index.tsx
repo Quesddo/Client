@@ -5,6 +5,7 @@ import GoalBasedTodo from "@/views/dashboard/goal-based-todo/GoalBasedTodo";
 import MyProgress from "@/views/dashboard/my-progress/MyProgress";
 import RecentTodo from "@/views/dashboard/recent-todo/RecentTodo";
 import DeletePopup from "@/views/todo/popup/DeletePopup";
+import TodoCreateForm from "@/views/todo/todo-create-form/TodoCreateForm";
 import TodoUpdateForm from "@/views/todo/todo-update-form/TodoUpdateForm";
 
 export default function Dashboard() {
@@ -39,6 +40,7 @@ export default function Dashboard() {
         />
       </div>
 
+      {isOpen && !selectedTodoId && <TodoCreateForm />}
       {isOpen && selectedTodoId && <TodoUpdateForm todoId={selectedTodoId} />}
       {isPopupOpen && selectedTodoId && (
         <DeletePopup onConfirm={onConfirmDelete} onCancel={onCancelDelete} />

@@ -3,6 +3,7 @@ import Image from "next/image";
 import PlusIcon from "@/components/atoms/plus-icon/PlusIcon";
 import ProgressBar from "@/components/atoms/progress-bar/ProgressBar";
 import TitleWithIcon from "@/components/atoms/title-with-icon/TitleWithIcon.tsx";
+import { useModalContext } from "@/contexts/InputModalContext";
 import { useTodos } from "@/hooks/todo/useTodos";
 
 import TodoContent from "./TodoContent";
@@ -22,8 +23,11 @@ export default function GoalBasedTodo({
     data: { todos: data },
   } = useTodos(1828);
 
+  const { openModal } = useModalContext();
+
   const handleAddTodo = () => {
-    alert("할 일 추가");
+    setSelectedTodoId(null);
+    openModal();
   };
 
   return (

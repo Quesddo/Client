@@ -49,7 +49,9 @@ export const useDeleteNote = (goalId: number) => {
 
     // 최종적으로 데이터 갱신
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["notes", goalId] });
+      queryClient.invalidateQueries({
+        queryKey: ["notes", goalId],
+      });
     },
   });
 };
