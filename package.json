@@ -15,6 +15,7 @@
   "dependencies": {
     "@storybook/preview-api": "^8.5.8",
     "@tanstack/react-query": "^5.66.0",
+    "@tanstack/react-query-devtools": "^5.67.1",
     "axios": "^1.7.9",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

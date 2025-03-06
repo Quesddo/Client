@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import AuthLayer from "@/components/AuthLayer";
 import NoteDetail from "@/components/organisms/note-detail/NoteDetail";
@@ -32,6 +33,7 @@ export default function App({ Component, pageProps }: AppProps) {
           </InputModalProvider>
         </ToastProvider>
       </AuthLayer>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }
