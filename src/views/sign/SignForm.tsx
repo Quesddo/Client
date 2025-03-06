@@ -48,7 +48,7 @@ const InnerForm = () => {
     <>
       <form
         onSubmit={methods.handleSubmit(handleRequest)}
-        className="smd:mx-64 mx-4 mt-10 sm:mx-13 md:mx-160"
+        className="mx-4 mt-10 sm:mx-13"
       >
         {field.map((item) => (
           <Input

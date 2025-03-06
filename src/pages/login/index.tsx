@@ -1,12 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import Main from "@/views/sign/Main";
 import SignForm from "@/views/sign/SignForm";
 import logo from "@public/img_logo.png";
 
 export default function LoginPage() {
   return (
-    <div className="mt-12 sm:mt-16 md:mt-30">
+    <Main>
       <Image
         className="mx-auto my-0"
         src={logo}
@@ -26,6 +27,6 @@ export default function LoginPage() {
           회원가입
         </Link>
       </p>
-    </div>
+    </Main>
   );
 }
