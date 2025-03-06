@@ -6,7 +6,7 @@ import { CreateNoteBodyDto, UpdateNoteBodyDto } from "@/types/types";
 import useToast from "../useToast";
 import useNoteStorage from "./useNoteStorage";
 
-interface UseNoteDraftProps<
+interface UseAutoSaveNoteDraftProps<
   TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto,
 > {
   id: number;
@@ -16,9 +16,9 @@ interface UseNoteDraftProps<
 
 const TOAST_INTERVAL_TIME = 1000 * 60 * 5;
 
-export default function useNoteDraft<
+export default function useAutoSaveNoteDraft<
   TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto,
->({ id, methods, isEditMode }: UseNoteDraftProps<TNoteBody>) {
+>({ id, methods, isEditMode }: UseAutoSaveNoteDraftProps<TNoteBody>) {
   const {
     formState: { isDirty },
   } = methods;
