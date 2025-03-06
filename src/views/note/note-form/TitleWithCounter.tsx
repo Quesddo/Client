@@ -5,7 +5,7 @@ import { cn } from "@/utils/cn";
 
 const MAX_TITLE_COUNT = 30;
 
-export default function TitleCounter() {
+export default function TitleWithCounter() {
   const { register, watch } = useFormContext();
   const title = watch("title");
 

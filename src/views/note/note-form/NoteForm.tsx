@@ -7,7 +7,7 @@ import useAutoSaveNoteDraft from "@/hooks/note/useAutoSaveNoteDraft";
 import { CreateNoteBodyDto, UpdateNoteBodyDto } from "@/types/types";
 import DraftNoteReminderToast from "@/views/note/note-form/DraftNoteReminderToast";
 import Editor from "@/views/note/note-form/Editor";
-import InputWithCount from "@/views/note/note-form/TitleCounter";
+import TitleWithCounter from "@/views/note/note-form/TitleWithCounter";
 
 import EditorTextCounter from "./EditorTextCounter";
 import GoalTodoDisplay from "./GoalTodoDisplay";
@@ -76,7 +76,7 @@ export default function NoteForm<
           <GoalTodoDisplay goal={goal} todo={todo} />
           <DraftNoteReminderToast id={id} isEditMode={editMode} />
         </div>
-        <InputWithCount />
+        <TitleWithCounter />
         <div className="flex min-h-0 flex-1 flex-col gap-2">
           <EditorTextCounter />
           <LinkDisplay />
