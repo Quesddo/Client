@@ -15,9 +15,12 @@ export interface NoteStorage<T extends CreateNoteBodyDto | UpdateNoteBodyDto> {
 
 export const CREATE_NOTE_STORAGE: NoteStorage<CreateNoteBodyDto> = {
   set: (todoId, data) => {
+    const storageData = localStorage.getItem(NOTE_DRAFT_CREATE_KEY);
+    const storedData = storageData ? JSON.parse(storageData) : {};
+
     localStorage.setItem(
       NOTE_DRAFT_CREATE_KEY,
-      JSON.stringify({ [todoId]: { ...data, todoId } }),
+      JSON.stringify({ ...storedData, [todoId]: { ...data, todoId } }),
     );
   },
   get: (todoId) => {
@@ -39,9 +42,12 @@ export const CREATE_NOTE_STORAGE: NoteStorage<CreateNoteBodyDto> = {
 
 export const UPDATE_NOTE_STORAGE: NoteStorage<UpdateNoteBodyDto> = {
   set: (noteId: number, data: UpdateNoteBodyDto) => {
+    const storageData = localStorage.getItem(NOTE_DRAFT_UPDATE_KEY);
+    const storedData = storageData ? JSON.parse(storageData) : {};
+
     localStorage.setItem(
       NOTE_DRAFT_UPDATE_KEY,
-      JSON.stringify({ [noteId]: { ...data, noteId } }),
+      JSON.stringify({ ...storedData, [noteId]: { ...data, noteId } }),
     );
   },
   get: (noteId: number) => {
