@@ -52,7 +52,7 @@ export default function NoteDrawer() {
           <ExitBtn onClick={handleClick} />
         </div>
         <section
-          id="embed"
+          id="embed-container"
           className="smd:order-first smd:row-span-2 smd:h-screen sticky flex w-full items-center"
         ></section>
         <section className="smd:w-[512px] box-border flex min-h-[calc(100dvh-40px)] w-full flex-1 flex-col gap-4 overflow-hidden bg-white p-6 pt-0">
