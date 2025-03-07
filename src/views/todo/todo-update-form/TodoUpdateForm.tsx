@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 
-import instance from "@/apis/apiClient";
+import { todoApi } from "@/apis/todoApi";
 import { useModalContext } from "@/contexts/InputModalContext";
 import { useTodoForm } from "@/hooks/todo/form/useTodoForm";
 import { useUpdateTodo } from "@/hooks/todo/useUpdateTodo";
@@ -17,10 +17,7 @@ export default function TodoUpdateForm({ todoId }: { todoId: number }) {
 
   const { data: todo } = useQuery({
     queryKey: ["todo", todoId],
-    queryFn: async () => {
-      const response = await instance.get(`/todos/${todoId}`);
-      return response.data;
-    },
+    queryFn: () => todoApi.fetchTodo(todoId),
     enabled: !!todoId,
   });
 
