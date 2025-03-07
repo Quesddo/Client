@@ -13,13 +13,13 @@ export default memo(function MenuDashboard() {
   return (
     <>
       <div className="hidden pb-[24px] sm:block">
-        <AddButton onClick={openModal}>새 할일</AddButton>
+        <AddButton onClick={() => openModal("createTodo")}>새 할일</AddButton>
       </div>
       <section className="flex h-[36px] items-center justify-between border-t border-b border-slate-200 py-3">
         <Link href="/dashboard">
           <MenuItem title="대시보드" iconSrc="/icons/home.png" />
         </Link>
-        <AddButton size="xs" onClick={openModal}>
+        <AddButton size="xs" onClick={() => openModal("createTodo")}>
           새 할일
         </AddButton>
         <TodoCreateForm />
