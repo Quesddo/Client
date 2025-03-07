@@ -67,8 +67,9 @@ export default function DraftNoteReminderToast({
           data-open={isOpenToast}
         >
           <div className="flex items-center gap-4">
-            <button onClick={handleCloseToast}>
+            <button onClick={handleCloseToast} className="group shrink-0">
               <img
+                className="group-hover:brightness-[90%] group-hover:contrast-[150%]"
                 src="/icons/delete_circle.png"
                 alt="삭제"
                 width={24}
