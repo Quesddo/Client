@@ -34,7 +34,7 @@ export default function TodoList({
           handleToggleTodo={handleToggleTodo}
           onOpenTodoModal={() => {
             setSelectedTodoId(todo.id);
-            openModal();
+            openModal("updateTodo");
           }}
           onOpenDeletePopup={onOpenDeletePopup}
           isShowGoal={isShowGoal}
