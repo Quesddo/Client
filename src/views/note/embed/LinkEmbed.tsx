@@ -8,7 +8,7 @@ interface LinkEmbedProps {
 const checkEmbedContent = async (link: string) => {
   try {
     const res = await fetch(
-      `/api/check-iframe?url=${encodeURIComponent(link)}}`,
+      `/api/check-iframe?url=${encodeURIComponent(link)}`,
     );
     const data = await res.json();
 
@@ -34,10 +34,10 @@ export default function LinkEmbed({ link }: LinkEmbedProps) {
   }
 
   return createPortal(
-    <div className="w-full bg-white px-6 pb-6">
+    <div className="smd:p-0 smd:items-center smd:bg-blue-50 flex h-full flex-1 bg-white px-6">
       <iframe
         src={link}
-        className="h-[370px] w-full shrink-0 sm:h-[522px]"
+        className="smd:aspect-auto aspect-video h-[370px] w-full shrink-0 pb-6"
         allowFullScreen
       />
     </div>,
