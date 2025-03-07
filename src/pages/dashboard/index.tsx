@@ -9,7 +9,7 @@ import TodoCreateForm from "@/views/todo/todo-create-form/TodoCreateForm";
 import TodoUpdateForm from "@/views/todo/todo-update-form/TodoUpdateForm";
 
 export default function Dashboard() {
-  const { isOpen } = useModalContext();
+  const { modalType } = useModalContext();
   const {
     selectedTodoId,
     isPopupOpen,
@@ -40,8 +40,10 @@ export default function Dashboard() {
         />
       </div>
 
-      {isOpen && !selectedTodoId && <TodoCreateForm />}
-      {isOpen && selectedTodoId && <TodoUpdateForm todoId={selectedTodoId} />}
+      {modalType === "createTodo" && <TodoCreateForm />}
+      {modalType === "updateTodo" && selectedTodoId && (
+        <TodoUpdateForm todoId={selectedTodoId} />
+      )}
       {isPopupOpen && selectedTodoId && (
         <DeletePopup onConfirm={onConfirmDelete} onCancel={onCancelDelete} />
       )}

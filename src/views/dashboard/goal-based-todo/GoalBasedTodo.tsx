@@ -25,7 +25,7 @@ export default function GoalBasedTodo({
 
   const handleClickAddTodo = () => {
     setSelectedTodoId(null);
-    openModal();
+    openModal("createTodo");
   };
 
   const handleClickMore = () => {
