@@ -1,7 +1,12 @@
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { useInView } from "react-intersection-observer";
+
 import PlusIcon from "@/components/atoms/plus-icon/PlusIcon";
+import BoundaryWrapper from "@/components/organisms/boundary-wrapper/BoundaryWrapper";
 import TodoList from "@/components/organisms/todo-list/TodoList";
 import { useGoalDetailContext } from "@/contexts/GoalDetailContext";
-import { useTodos } from "@/hooks/todo/useTodos";
+import { useInfiniteTodo } from "@/hooks/todo/useInfiniteTodo";
 
 import Section from "../component/Section";
 
@@ -19,9 +24,18 @@ export default function GoalTodoList({
   onOpenDeletePopup,
 }: GoalTodoListProps) {
   const { goalId } = useGoalDetailContext();
+  const { data, fetchNextPage, hasNextPage } = useInfiniteTodo(goalId, "todo");
+  const { todos, totalCount } = data;
+  const { ref, inView } = useInView();
+  const queryClient = useQueryClient();
 
-  const { data } = useTodos(goalId);
-  const todos = data.todos;
+  useEffect(() => {
+    if (inView && hasNextPage) fetchNextPage();
+  }, [inView]);
+
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: ["todos"] });
+  }, [totalCount]);
 
   return (
     <Section className="flex-1 bg-white hover:shadow">
@@ -36,18 +50,23 @@ export default function GoalTodoList({
         </button>
       </div>
       <div className="h-[168px] overflow-x-hidden overflow-y-auto pr-4 md:h-[512px]">
-        {todos?.length ? (
-          <TodoList
-            data={todos}
-            handleToggleTodo={handleToggleTodo}
-            setSelectedTodoId={setSelectedTodoId}
-            onOpenDeletePopup={onOpenDeletePopup}
-          />
-        ) : (
-          <div className="flex h-full items-center justify-center text-sm font-normal text-slate-500">
-            해야할 일이 아직 없어요
-          </div>
-        )}
+        <BoundaryWrapper>
+          {todos?.length ? (
+            <>
+              <TodoList
+                data={todos}
+                handleToggleTodo={handleToggleTodo}
+                setSelectedTodoId={setSelectedTodoId}
+                onOpenDeletePopup={onOpenDeletePopup}
+              />
+              <div ref={ref}></div>
+            </>
+          ) : (
+            <div className="flex h-full items-center justify-center text-sm font-normal text-slate-500">
+              해야할 일이 아직 없어요
+            </div>
+          )}
+        </BoundaryWrapper>
       </div>
     </Section>
   );

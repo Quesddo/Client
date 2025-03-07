@@ -7,9 +7,9 @@ import DeletePopup from "@/views/todo/popup/DeletePopup";
 import TodoCreateForm from "@/views/todo/todo-create-form/TodoCreateForm";
 import TodoUpdateForm from "@/views/todo/todo-update-form/TodoUpdateForm";
 
-import Section from "../component/Section";
 import GoalDoneList from "./GoalDoneList";
 import GoalTodoList from "./GoalTodoList";
+import Section from "../component/Section";
 
 export default function GoalTodoContainer() {
   /* todolist */
@@ -42,8 +42,11 @@ export default function GoalTodoContainer() {
         onOpenDeletePopup={onOpenDeletePopup}
       />
       {/* done list */}
-      <GoalDoneList />
-
+      <GoalDoneList
+        handleToggleTodo={handleToggleTodo}
+        setSelectedTodoId={setSelectedTodoId}
+        onOpenDeletePopup={onOpenDeletePopup}
+      />
       {isOpen && !selectedTodoId && <TodoCreateForm />}
       {isOpen && selectedTodoId && <TodoUpdateForm todoId={selectedTodoId} />}
       {isPopupOpen && selectedTodoId && (

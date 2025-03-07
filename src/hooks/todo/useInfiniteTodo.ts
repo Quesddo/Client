@@ -7,17 +7,28 @@ import {
   TodoResponseDto,
 } from "@/types/types";
 
-export const useInfiniteTodo = () => {
+type FilterType = "todo" | "done";
+
+export const useInfiniteTodo = (goalId?: number, filter?: FilterType) => {
   return useSuspenseInfiniteQuery<
     TeamIdTodosGet200Response,
     Error,
     { todos: TodoResponseDto[]; totalCount: number }
   >({
-    queryKey: ["todos", "infinite"],
+    queryKey: ["todos", "infinite", goalId, filter],
     queryFn: async ({ pageParam = 0 }) => {
+      let done, size;
+      if (filter === "todo") {
+        done = false;
+      }
+      if (filter === "done") {
+        done = true;
+      }
       const params: teamIdTodosGetParams = {
         cursor: pageParam as number,
-        size: 40,
+        size: size ?? 40,
+        goalId,
+        done,
       };
       const response = await instance.get("todos", { params });
       return response.data;
