@@ -1,15 +1,17 @@
+import { Fragment } from "react";
+
 import { TeamIdNotesGet200Response } from "@/types/types";
 
 import Card from "../card/Card";
 
 const SCROLL_TRIGGER_OFFSET = 4;
 
-interface noteListProps {
+interface NoteListProps {
   notes: TeamIdNotesGet200Response["notes"] | undefined;
   inViewRef: (node?: Element | null) => void;
 }
 
-export default function NoteList({ notes, inViewRef }: noteListProps) {
+export default function NoteList({ notes, inViewRef }: NoteListProps) {
   return (
     <div className="flex flex-col gap-4">
       {notes?.map(({ id, title, todo }, noteIdx, notes) => {
@@ -18,8 +20,8 @@ export default function NoteList({ notes, inViewRef }: noteListProps) {
           notes.length - (1 + SCROLL_TRIGGER_OFFSET) === noteIdx;
 
         return (
-          <>
-            <Card key={id}>
+          <Fragment key={id}>
+            <Card>
               <Card.Header noteId={id} />
               <Card.Body>
                 <Card.Title noteId={id}>{title}</Card.Title>
@@ -32,7 +34,7 @@ export default function NoteList({ notes, inViewRef }: noteListProps) {
             </Card>
 
             {isShowScrollTrigger && <div ref={inViewRef} />}
-          </>
+          </Fragment>
         );
       })}
     </div>
