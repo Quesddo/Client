@@ -9,7 +9,11 @@ import {
 
 type FilterType = "todo" | "done";
 
-export const useInfiniteTodo = (goalId?: number, filter?: FilterType) => {
+export const useInfiniteTodo = (
+  goalId?: number,
+  filter?: FilterType,
+  size = 40,
+) => {
   return useSuspenseInfiniteQuery<
     TeamIdTodosGet200Response,
     Error,
@@ -17,16 +21,17 @@ export const useInfiniteTodo = (goalId?: number, filter?: FilterType) => {
   >({
     queryKey: ["todos", "infinite", goalId, filter],
     queryFn: async ({ pageParam = 0 }) => {
-      let done, size;
-      if (filter === "todo") {
-        done = false;
-      }
-      if (filter === "done") {
-        done = true;
+      let done;
+      if (filter) {
+        if (filter === "todo") {
+          done = false;
+        } else {
+          done = true;
+        }
       }
       const params: teamIdTodosGetParams = {
         cursor: pageParam as number,
-        size: size ?? 40,
+        size: size,
         goalId,
         done,
       };

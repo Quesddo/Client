@@ -19,7 +19,11 @@ export default function GoalDoneList({
   onOpenDeletePopup,
 }: GoalDoneListProps) {
   const { goalId, updateProgress } = useGoalDetailContext();
-  const { data, fetchNextPage, hasNextPage } = useInfiniteTodo(goalId, "done");
+  const { data, fetchNextPage, hasNextPage } = useInfiniteTodo(
+    goalId,
+    "done",
+    20,
+  );
   const { todos, totalCount } = data;
 
   const { ref, inView } = useInView();
