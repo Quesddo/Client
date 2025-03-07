@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import { todoApi } from "@/apis/todoApi";
 import { useModalContext } from "@/contexts/InputModalContext";
@@ -26,8 +26,10 @@ export default function TodoUpdateForm({ todoId }: { todoId: number }) {
   const { setIsDone, setIsFileCheck, setIsLinkCheck, setSelectedInput } =
     todoformProps;
 
+  const isInitialized = useRef(false);
+
   useEffect(() => {
-    if (todo) {
+    if (todo && !isInitialized.current) {
       reset(todo);
       setIsDone(todo.done || false);
 
@@ -38,6 +40,8 @@ export default function TodoUpdateForm({ todoId }: { todoId: number }) {
       setIsLinkCheck(!!todo.linkUrl);
 
       if (todo.goal?.id) setValue("goalId", todo.goal.id);
+
+      isInitialized.current = true;
     }
   }, [todo]);
 
