@@ -37,7 +37,7 @@ export default function GoalTodoList({
   }, [inView]);
 
   useEffect(() => {
-    queryClient.invalidateQueries({ queryKey: ["todos"] });
+    queryClient.invalidateQueries({ queryKey: ["progress", goalId] });
   }, [totalCount]);
 
   return (
@@ -53,7 +53,7 @@ export default function GoalTodoList({
         </button>
       </div>
       <div className="h-[168px] overflow-x-hidden overflow-y-auto pr-4 md:h-[512px]">
-        {todos?.length ? (
+        {totalCount ? (
           <>
             <TodoList
               data={todos}

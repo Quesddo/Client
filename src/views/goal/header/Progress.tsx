@@ -1,7 +1,8 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { useGoalDetailContext } from "@/contexts/GoalDetailContext";
+import useProgressTodo from "@/hooks/todo/useProgressTodo";
 
 import ProgressBar from "../../../components/atoms/progress-bar/ProgressBar";
 
@@ -32,7 +33,13 @@ export default function Progress({
   label = "Progress",
   showLabel = true,
 }: ProgressBarProps) {
-  const { progress } = useGoalDetailContext();
+  const { goalId } = useGoalDetailContext();
+  const { data } = useProgressTodo(goalId);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    setProgress(data.progress ?? 0);
+  }, [data]);
 
   return (
     <>
@@ -41,6 +48,7 @@ export default function Progress({
           {label}
         </p>
       )}
+
       <div className="flex items-center justify-between whitespace-nowrap">
         <ProgressBar progress={progress} />
         <p className="inline-block text-xs font-semibold">
