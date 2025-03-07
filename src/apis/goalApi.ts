@@ -12,12 +12,11 @@ const goalApi = {
    * 내 목표 리스트 조회
    */
   fetchGoals: async (
-    size: number,
-    pageParam: number,
+    pageParam: number | undefined,
   ): Promise<TeamIdGoalsGet200Response> => {
     const params: teamIdGoalsGetParams = {
       sortOrder: "newest",
-      size,
+      size: 50,
       cursor: pageParam,
     };
     return (await instance.get("/goals", { params })).data;
