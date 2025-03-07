@@ -13,7 +13,7 @@ export default async function handler(
   let canEmbed: boolean | null = null;
 
   try {
-    const response = await fetch(url, { method: "HEAD" });
+    const response = await fetch(url, { method: "GET" });
     const xFrameOptions = response.headers.get("x-frame-options");
 
     if (xFrameOptions) {
