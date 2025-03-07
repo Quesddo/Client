@@ -64,7 +64,9 @@ const TodoFormWrapper = ({ isUpdate = false }) => {
 
   return (
     <FormProvider {...formMethods}>
-      <Button onClick={openModal}>모달 열기</Button>
+      <Button onClick={() => openModal(isUpdate ? "updateTodo" : "createTodo")}>
+        모달 열기
+      </Button>
       <TodoForm
         isUpdate={isUpdate}
         isDone={isDone}
