@@ -9,7 +9,7 @@ async function fetchTodoProgress(goalId: number) {
 
 export default function useProgressTodo(goalId: number) {
   return useQuery({
-    queryKey: ["progress", goalId],
+    queryKey: ["todos", "progress", goalId],
     queryFn: () => fetchTodoProgress(goalId),
     staleTime: 0,
   });
