@@ -31,33 +31,15 @@ export default function TodoUpdateForm({ todoId }: { todoId: number }) {
       reset(todo);
       setIsDone(todo.done || false);
 
-      if (todo.fileUrl) {
-        setIsFileCheck(true);
-        setValue("fileUrl", todo.fileUrl);
-      } else {
-        setIsFileCheck(false);
-      }
+      if (todo.fileUrl) setValue("fileUrl", todo.fileUrl);
+      setIsFileCheck(!!todo.fileUrl);
 
-      if (todo.linkUrl) {
-        setIsLinkCheck(true);
-        setSelectedInput("link");
-      } else {
-        setIsLinkCheck(false);
-      }
+      if (todo.linkUrl) setSelectedInput("link");
+      setIsLinkCheck(!!todo.linkUrl);
 
-      if (todo.goal?.id) {
-        setValue("goalId", todo.goal.id);
-      }
+      if (todo.goal?.id) setValue("goalId", todo.goal.id);
     }
-  }, [
-    todo,
-    reset,
-    setValue,
-    setIsDone,
-    setIsFileCheck,
-    setIsLinkCheck,
-    setSelectedInput,
-  ]);
+  }, [todo]);
 
   const updateTodoSubmit = (data: UpdateTodoBodyDto) => {
     updateTodoMutation.mutate(
