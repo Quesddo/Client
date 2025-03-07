@@ -26,7 +26,7 @@ export default function Editor() {
       toolbar: {
         container: toolbarOptions,
         handlers: {
-          link: openModal,
+          link: () => openModal("link"),
         },
       },
     }),

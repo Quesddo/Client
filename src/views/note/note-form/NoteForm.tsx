@@ -3,6 +3,7 @@ import { FormProvider, type UseFormReturn } from "react-hook-form";
 
 import Button from "@/components/atoms/button/Button";
 import PageTitle from "@/components/atoms/page-title/PageTitle";
+import { useModalContext } from "@/contexts/InputModalContext";
 import useAutoSaveNoteDraft from "@/hooks/note/useAutoSaveNoteDraft";
 import { CreateNoteBodyDto, UpdateNoteBodyDto } from "@/types/types";
 import DraftNoteReminderToast from "@/views/note/note-form/DraftNoteReminderToast";
@@ -40,6 +41,7 @@ export default function NoteForm<
     methods,
     isEditMode: editMode,
   });
+  const { modalType } = useModalContext();
 
   const {
     formState: { isValid },
@@ -82,9 +84,7 @@ export default function NoteForm<
           <LinkDisplay />
           <Editor />
         </div>
-        <div className="-mt-4">
-          <LinkModal />
-        </div>
+        <div className="-mt-4">{modalType === "link" && <LinkModal />}</div>
         {children}
       </form>
     </FormProvider>
