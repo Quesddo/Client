@@ -1,15 +1,8 @@
-import { createContext, ReactNode, useContext, useState } from "react";
-
-import { useTodos } from "@/hooks/todo/useTodos";
+import { createContext, ReactNode, useContext } from "react";
 
 interface GoalDetailContextProps {
   goalId: number;
-  progress: number;
-  updateProgress: (doneCount: number) => void;
-  totalCount: number;
 }
-
-const MAX_TOTAL_COUNT = 9999;
 const GoalDetailContext = createContext<GoalDetailContextProps | null>(null);
 
 export const GoalDetailProvider = ({
@@ -19,23 +12,8 @@ export const GoalDetailProvider = ({
   children: ReactNode;
   goalId: number;
 }) => {
-  const [progress, setProgress] = useState<number>(0);
-  const { data } = useTodos(goalId, MAX_TOTAL_COUNT);
-  const { totalCount } = data;
-
-  const updateProgress = (doneCount: number) => {
-    if (totalCount > 0) {
-      setProgress(Math.round((doneCount / totalCount) * 100));
-    } else {
-      setProgress(0);
-    }
-  };
-
   const values: GoalDetailContextProps = {
     goalId,
-    progress,
-    updateProgress,
-    totalCount,
   };
 
   return (
