@@ -29,7 +29,7 @@ export default function LinkEmbed({ link }: LinkEmbedProps) {
     checkEmbedContent(link).then((res) => setCanEmbed(res));
   }, [link]);
 
-  if (!canEmbed) {
+  if (!link || !canEmbed) {
     return;
   }
 
