@@ -13,7 +13,7 @@ import GoalTodoList from "./GoalTodoList";
 
 export default function GoalTodoContainer() {
   /* todolist */
-  const { isOpen, openModal } = useModalContext();
+  const { modalType, openModal } = useModalContext();
   const toggleTodoMutation = useUpdateTodo();
   const deleteTodoMutation = useDeleteTodo();
   const [selectedTodoId, setSelectedTodoId] = useState<number | null>(null);
@@ -25,7 +25,7 @@ export default function GoalTodoContainer() {
 
   const handleClickOpenCreateModal = () => {
     setSelectedTodoId(null);
-    openModal();
+    openModal("createTodo");
   };
 
   const onOpenDeletePopup = () => {
@@ -44,8 +44,10 @@ export default function GoalTodoContainer() {
       {/* done list */}
       <GoalDoneList />
 
-      {isOpen && !selectedTodoId && <TodoCreateForm />}
-      {isOpen && selectedTodoId && <TodoUpdateForm todoId={selectedTodoId} />}
+      {modalType === "createTodo" && <TodoCreateForm />}
+      {modalType === "updateTodo" && selectedTodoId && (
+        <TodoUpdateForm todoId={selectedTodoId} />
+      )}
       {isPopupOpen && selectedTodoId && (
         <DeletePopup
           onConfirm={() =>
