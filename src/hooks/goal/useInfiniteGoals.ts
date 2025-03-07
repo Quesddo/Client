@@ -3,7 +3,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import instance from "@/apis/apiClient";
 import { TeamIdGoalsGet200Response, teamIdGoalsGetParams } from "@/types/types";
 
-export const useFetchGoals = () => {
+export const useInfiniteGoals = () => {
   return useInfiniteQuery<
     TeamIdGoalsGet200Response,
     Error,

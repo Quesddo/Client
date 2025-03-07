@@ -2,7 +2,7 @@ import { FormProvider } from "react-hook-form";
 
 import TextCounting from "@/components/atoms/text-counting/TextCounting";
 import InputModal from "@/components/organisms/modal/InputModal";
-import { useFetchGoals } from "@/hooks/goal/useFetchGoals";
+import { useInfiniteGoals } from "@/hooks/goal/useInfiniteGoals";
 import {
   TeamIdGoalsGet200ResponseGoalsInner,
   UpdateTodoBodyDto,
@@ -48,7 +48,7 @@ export function TodoForm({
   handleTodoSubmit,
   onSubmit,
 }: TodoFormProps) {
-  const fetchGoalList = useFetchGoals();
+  const fetchGoalList = useInfiniteGoals();
   const goals = fetchGoalList.data?.goals || [];
 
   const { register, handleSubmit, watch, control } = formMethods;
