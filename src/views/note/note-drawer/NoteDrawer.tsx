@@ -1,13 +1,9 @@
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
-import { Suspense, useMemo } from "react";
-import { ErrorBoundary } from "react-error-boundary";
+import { useMemo } from "react";
 
 import ExitBtn from "@/components/atoms/exit-btn/ExitBtn";
-import Spinner from "@/components/atoms/spinner/Spinner";
-import ErrorFallback from "@/components/molecules/error-fallback/ErrorFallback";
 import BoundaryWrapper from "@/components/organisms/boundary-wrapper/BoundaryWrapper";
-import { InputModalProvider } from "@/contexts/InputModalContext";
 
 import NoteCreationForm from "../note-form/NoteCreationForm";
 import NoteUpdateForm from "../note-form/NoteUpdateForm";
@@ -50,14 +46,20 @@ export default function NoteDrawer() {
   }
 
   return (
-    <div className="fixed inset-0 z-20 bg-black/50">
-      <section className="fixed inset-0 flex flex-col gap-4 bg-white p-6 sm:left-auto sm:w-[512px] sm:border-l sm:border-slate-200 md:w-[800px]">
+    <div className="fixed inset-0 z-20 flex justify-end bg-black/50">
+      <div className="grid max-w-[800px] grid-cols-1 bg-white md:max-w-none md:grid-cols-2">
         <ExitBtn onClick={handleClick} />
-        <BoundaryWrapper>
-          {mode === MODE.CREATE && <NoteCreationForm todoId={todoId} />}
-          {mode === MODE.EDIT && <NoteUpdateForm noteId={noteId} />}
-        </BoundaryWrapper>
-      </section>
+        <section
+          id="embed"
+          className="h-[300px] w-full grid-flow-col bg-amber-100 md:order-first md:row-span-2"
+        ></section>
+        <section className="smd:w-[800px] box-border flex w-full flex-1 flex-col gap-4 overflow-hidden bg-white p-6">
+          <BoundaryWrapper>
+            {mode === MODE.CREATE && <NoteCreationForm todoId={todoId} />}
+            {mode === MODE.EDIT && <NoteUpdateForm noteId={noteId} />}
+          </BoundaryWrapper>
+        </section>
+      </div>
     </div>
   );
 }
