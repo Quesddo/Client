@@ -1,7 +1,6 @@
-import { Suspense, useCallback } from "react";
+import { useCallback } from "react";
 
 import PlusIcon from "@/components/atoms/plus-icon/PlusIcon";
-import Spinner from "@/components/atoms/spinner/Spinner";
 import BoundaryWrapper from "@/components/organisms/boundary-wrapper/BoundaryWrapper";
 import { useModalContext } from "@/contexts/InputModalContext";
 import { useTodoListAction } from "@/hooks/useTodoListAction";
@@ -12,7 +11,7 @@ import TodoUpdateForm from "@/views/todo/todo-update-form/TodoUpdateForm";
 import Todos from "@/views/todo/todoPage/Todos";
 
 export default function TodoPage() {
-  const { isOpen, openModal } = useModalContext();
+  const { modalType, openModal } = useModalContext();
   const {
     selectedTodoId,
     isPopupOpen,
@@ -25,7 +24,7 @@ export default function TodoPage() {
 
   const handleOpenCreateModal = useCallback(() => {
     setSelectedTodoId(null);
-    openModal();
+    openModal("createTodo");
   }, [setSelectedTodoId, openModal]);
 
   return (
@@ -56,8 +55,10 @@ export default function TodoPage() {
         />
       </BoundaryWrapper>
 
-      {isOpen && !selectedTodoId && <TodoCreateForm />}
-      {isOpen && selectedTodoId && <TodoUpdateForm todoId={selectedTodoId} />}
+      {modalType === "createTodo" && <TodoCreateForm />}
+      {modalType === "updateTodo" && selectedTodoId && (
+        <TodoUpdateForm todoId={selectedTodoId} />
+      )}
       {isPopupOpen && selectedTodoId && (
         <DeletePopup onConfirm={onConfirmDelete} onCancel={onCancelDelete} />
       )}
