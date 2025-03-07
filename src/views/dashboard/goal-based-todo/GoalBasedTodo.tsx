@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 import PlusIcon from "@/components/atoms/plus-icon/PlusIcon";
 import TitleWithIcon from "@/components/atoms/title-with-icon/TitleWithIcon.tsx";
@@ -20,13 +21,16 @@ export default function GoalBasedTodo({
   onOpenDeletePopup,
 }: GoalBasedTodoProps) {
   const { openModal } = useModalContext();
+  const router = useRouter();
 
   const handleClickAddTodo = () => {
     setSelectedTodoId(null);
     openModal();
   };
 
-  const handleClickMore = () => {};
+  const handleClickMore = () => {
+    router.push(`/goal/${1828}`);
+  };
 
   return (
     <section className="rounded-xl bg-white p-6 transition-shadow duration-300 hover:shadow-2xl">
