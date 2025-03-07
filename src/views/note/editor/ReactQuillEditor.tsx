@@ -26,7 +26,7 @@ const ReactQuillEditor = dynamic(
           // content container
           "[&>.ql-container]:min-h-0 [&>.ql-container]:!text-base [&>.ql-container]:!font-normal [&>.ql-container.ql-snow]:!border-none",
           // content, content placeholder
-          "[&_.ql-editor]:!p-0 [&_.ql-editor.ql-blank::before]:!left-0",
+          "[&_.ql-editor]:!p-0 [&_.ql-editor]:!pr-2 [&_.ql-editor.ql-blank::before]:!left-0",
         )}
       />
     );
