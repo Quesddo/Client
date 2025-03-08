@@ -7,7 +7,7 @@ export default function useSidebarInfiniteGoals<
   T extends HTMLElement | null,
   U extends HTMLElement | null,
 >(parentRef: Ref<T>, childRef: Ref<U>) {
-  const query = useInfiniteGoals();
+  const query = useInfiniteGoals({ size: 20, source: "sidebar" });
 
   const { fetchNextPage, hasNextPage, isFetchingNextPage } = query;
 

@@ -48,7 +48,7 @@ export function TodoForm({
   handleTodoSubmit,
   onSubmit,
 }: TodoFormProps) {
-  const fetchGoalList = useInfiniteGoals();
+  const fetchGoalList = useInfiniteGoals({ size: 50, source: "todoForm" });
   const goals = fetchGoalList.data?.goals || [];
 
   const { register, handleSubmit, watch, control } = formMethods;

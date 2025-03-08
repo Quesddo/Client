@@ -1,11 +1,14 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import instance from "@/apis/apiClient";
 import goalApi from "@/apis/goalApi";
-import { todoApi } from "@/apis/todoApi";
-import { TeamIdGoalsGet200Response, teamIdGoalsGetParams } from "@/types/types";
+import { TeamIdGoalsGet200Response } from "@/types/types";
 
-export const useInfiniteGoals = () => {
+interface UseInfiniteGoalsParams {
+  source: "sidebar" | "dashboard" | "todoForm";
+  size: number;
+}
+
+export const useInfiniteGoals = ({ source, size }: UseInfiniteGoalsParams) => {
   return useInfiniteQuery<
     TeamIdGoalsGet200Response,
     Error,
@@ -13,9 +16,9 @@ export const useInfiniteGoals = () => {
       goals: TeamIdGoalsGet200Response["goals"];
     }
   >({
-    queryKey: ["goals"],
+    queryKey: ["goals", source],
     queryFn: async ({ pageParam }) =>
-      await goalApi.fetchGoals(pageParam as number | undefined),
+      await goalApi.fetchGoals(pageParam as number | undefined, size),
     initialPageParam: null,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
     select: (originData) => ({

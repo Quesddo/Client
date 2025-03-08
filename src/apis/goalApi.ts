@@ -13,11 +13,12 @@ const goalApi = {
    */
   fetchGoals: async (
     pageParam: number | undefined,
+    size: number,
   ): Promise<TeamIdGoalsGet200Response> => {
     const params: teamIdGoalsGetParams = {
       sortOrder: "newest",
-      size: 50,
       cursor: pageParam,
+      size,
     };
     return (await instance.get("/goals", { params })).data;
   },
