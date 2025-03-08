@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import instance from "@/apis/apiClient";
 import { fileApi } from "@/apis/fileApi";
+import useToast from "@/hooks/useToast";
 import { TodoResponseDto, UpdateTodoBodyDto } from "@/types/types";
 
 export function useTodoForm(
@@ -10,6 +10,7 @@ export function useTodoForm(
   todo?: TodoResponseDto,
   goalId?: number,
 ) {
+  const { addToast } = useToast();
   const formMethods = useForm<UpdateTodoBodyDto>();
   const { reset, setValue } = formMethods;
 
@@ -25,7 +26,10 @@ export function useTodoForm(
         const response = await fileApi.uploadFile(file);
         setValue("fileUrl", response.url);
       } catch (error) {
-        console.error("파일 업로드 오류:", error);
+        addToast({
+          variant: "error",
+          content: "파일 업로드에 실패했습니다.",
+        });
       }
     }
   };
