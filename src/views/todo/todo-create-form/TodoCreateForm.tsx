@@ -6,10 +6,10 @@ import { UpdateTodoBodyDto } from "@/types/types";
 
 import { TodoForm } from "../TodoForm";
 
-export default function TodoCreateForm() {
+export default function TodoCreateForm({ goalId }: { goalId?: number }) {
   const { addToast } = useToast();
   const { closeModal } = useModalContext();
-  const todoformProps = useTodoForm();
+  const todoformProps = useTodoForm(false, undefined, goalId);
   const { reset } = todoformProps.formMethods;
 
   const createTodoMutation = useCreateTodo();

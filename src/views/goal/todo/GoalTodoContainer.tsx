@@ -18,13 +18,17 @@ export default function GoalTodoContainer() {
   const deleteTodoMutation = useDeleteTodo();
   const [selectedTodoId, setSelectedTodoId] = useState<number | null>(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [createGoalId, setCreateGoalId] = useState<number | undefined>(
+    undefined,
+  );
 
   const handleToggleTodo = (todoId: number, isDone: boolean) => {
     toggleTodoMutation.mutate({ todoId, data: { done: !isDone } });
   };
 
-  const handleClickOpenCreateModal = () => {
+  const handleClickOpenCreateModal = (goalId: number) => {
     setSelectedTodoId(null);
+    setCreateGoalId(goalId);
     openModal("createTodo");
   };
 
@@ -48,7 +52,7 @@ export default function GoalTodoContainer() {
         onOpenDeletePopup={onOpenDeletePopup}
       />
 
-      {modalType === "createTodo" && <TodoCreateForm />}
+      {modalType === "createTodo" && <TodoCreateForm goalId={createGoalId} />}
       {modalType === "updateTodo" && selectedTodoId && (
         <TodoUpdateForm todoId={selectedTodoId} />
       )}

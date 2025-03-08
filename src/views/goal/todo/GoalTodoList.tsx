@@ -9,7 +9,7 @@ import { useInfiniteTodo } from "@/hooks/todo/useInfiniteTodo";
 import Section from "../component/Section";
 
 interface GoalTodoListProps {
-  handleClick: () => void;
+  handleClick: (goalId: number) => void;
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
   setSelectedTodoId: (todoId: number | null) => void;
   onOpenDeletePopup: () => void;
@@ -39,7 +39,7 @@ export default function GoalTodoList({
       <div className="mb-[16px] flex justify-between">
         <p className="text-lg font-bold">To do</p>
         <button
-          onClick={handleClick}
+          onClick={() => handleClick(goalId)}
           className="flex items-center gap-1 text-sm font-semibold text-blue-500"
         >
           <PlusIcon width={16} height={16} />

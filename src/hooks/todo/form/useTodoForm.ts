@@ -4,7 +4,11 @@ import { useForm } from "react-hook-form";
 import instance from "@/apis/apiClient";
 import { TodoResponseDto, UpdateTodoBodyDto } from "@/types/types";
 
-export function useTodoForm(isUpdate: boolean = false, todo?: TodoResponseDto) {
+export function useTodoForm(
+  isUpdate: boolean = false,
+  todo?: TodoResponseDto,
+  goalId?: number,
+) {
   const formMethods = useForm<UpdateTodoBodyDto>();
   const { reset, setValue } = formMethods;
 
@@ -39,8 +43,10 @@ export function useTodoForm(isUpdate: boolean = false, todo?: TodoResponseDto) {
       if (todo.linkUrl) setSelectedInput("link");
       setIsLinkCheck(!!todo.linkUrl);
       if (todo.goal?.id) setValue("goalId", todo.goal.id);
+    } else if (!isUpdate && goalId) {
+      setValue("goalId", goalId);
     }
-  }, [todo]);
+  }, [todo, goalId, isUpdate]);
 
   const onSubmit = (
     data: UpdateTodoBodyDto,
