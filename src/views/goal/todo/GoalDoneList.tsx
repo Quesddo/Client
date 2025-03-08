@@ -1,4 +1,3 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
@@ -20,22 +19,17 @@ export default function GoalDoneList({
   onOpenDeletePopup,
 }: GoalDoneListProps) {
   const { goalId } = useGoalDetailContext();
-  const { data, fetchNextPage, hasNextPage } = useInfiniteTodo(
+  const { data, fetchNextPage, hasNextPage } = useInfiniteTodo({
     goalId,
-    "done",
-    20,
-  );
+    filter: "done",
+    size: 20,
+  });
   const { todos, totalCount } = data;
   const { ref, inView } = useInView();
-  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (inView && hasNextPage) fetchNextPage();
   }, [inView]);
-
-  useEffect(() => {
-    queryClient.invalidateQueries({ queryKey: ["progress", goalId] });
-  }, [totalCount]);
 
   return (
     <Section className="flex-1 bg-slate-200 hover:shadow">

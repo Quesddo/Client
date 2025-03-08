@@ -9,32 +9,35 @@ import {
 
 type FilterType = "todo" | "done";
 
-export const useInfiniteTodo = (
-  goalId?: number,
-  filter?: FilterType,
-  size = 40,
-) => {
+interface UseInfiniteTodoProsp {
+  goalId?: number;
+  filter?: FilterType;
+  size: number;
+}
+
+const createTodoParams = (
+  pageParam: unknown,
+  props?: UseInfiniteTodoProsp,
+): teamIdTodosGetParams => {
+  const filterMap = { todo: false, done: true };
+  const done = props?.filter ? filterMap[props.filter] : undefined;
+  return {
+    cursor: pageParam as number,
+    size: props?.size ?? 40,
+    goalId: props?.goalId,
+    done,
+  };
+};
+
+export const useInfiniteTodo = (props?: UseInfiniteTodoProsp) => {
   return useSuspenseInfiniteQuery<
     TeamIdTodosGet200Response,
     Error,
     { todos: TodoResponseDto[]; totalCount: number }
   >({
-    queryKey: ["todos", "infinite", goalId, filter],
+    queryKey: ["todos", "infinite", props?.goalId, props?.filter],
     queryFn: async ({ pageParam = 0 }) => {
-      let done;
-      if (filter) {
-        if (filter === "todo") {
-          done = false;
-        } else {
-          done = true;
-        }
-      }
-      const params: teamIdTodosGetParams = {
-        cursor: pageParam as number,
-        size: size,
-        goalId,
-        done,
-      };
+      const params = createTodoParams(pageParam, props);
       const response = await instance.get("todos", { params });
       return response.data;
     },

@@ -1,5 +1,5 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
 
 import { useGoalDetailContext } from "@/contexts/GoalDetailContext";
 import useProgressTodo from "@/hooks/todo/useProgressTodo";
@@ -35,11 +35,7 @@ export default function Progress({
 }: ProgressBarProps) {
   const { goalId } = useGoalDetailContext();
   const { data } = useProgressTodo(goalId);
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    setProgress(data.progress ?? 0);
-  }, [data]);
+  const progress = useMemo(() => data?.progress ?? 0, [data]);
 
   return (
     <>

@@ -42,7 +42,11 @@ export default function GoalTodoContainer() {
         onOpenDeletePopup={onOpenDeletePopup}
       />
       {/* done list */}
-      <GoalDoneList />
+      <GoalDoneList
+        handleToggleTodo={handleToggleTodo}
+        setSelectedTodoId={setSelectedTodoId}
+        onOpenDeletePopup={onOpenDeletePopup}
+      />
 
       {modalType === "createTodo" && <TodoCreateForm />}
       {modalType === "updateTodo" && selectedTodoId && (
