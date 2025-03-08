@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import instance from "@/apis/apiClient";
-import { UpdateTodoBodyDto } from "@/types/types";
+import { TodoResponseDto, UpdateTodoBodyDto } from "@/types/types";
 
-export function useTodoForm(isUpdate: boolean = false) {
+export function useTodoForm(isUpdate: boolean = false, todo?: TodoResponseDto) {
   const formMethods = useForm<UpdateTodoBodyDto>();
-  const { setValue } = formMethods;
+  const { reset, setValue } = formMethods;
 
   const [isDone, setIsDone] = useState(false);
   const [isFileCheck, setIsFileCheck] = useState(true);
@@ -28,6 +28,19 @@ export function useTodoForm(isUpdate: boolean = false) {
       }
     }
   };
+
+  useEffect(() => {
+    if (todo) {
+      reset(todo);
+      setIsDone(todo.done || false);
+
+      if (todo.fileUrl) setValue("fileUrl", todo.fileUrl);
+      setIsFileCheck(!!todo.fileUrl);
+      if (todo.linkUrl) setSelectedInput("link");
+      setIsLinkCheck(!!todo.linkUrl);
+      if (todo.goal?.id) setValue("goalId", todo.goal.id);
+    }
+  }, [todo]);
 
   const onSubmit = (
     data: UpdateTodoBodyDto,
