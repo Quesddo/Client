@@ -84,7 +84,9 @@ export default function NoteForm<
           <LinkDisplay />
           <Editor />
         </div>
-        <div className="-mt-4">{modalType === "link" && <LinkModal />}</div>
+        <div className="-mt-4">
+          <LinkModal />
+        </div>
         {children}
       </form>
     </FormProvider>
