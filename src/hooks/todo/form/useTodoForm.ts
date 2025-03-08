@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import instance from "@/apis/apiClient";
+import { fileApi } from "@/apis/fileApi";
 import { TodoResponseDto, UpdateTodoBodyDto } from "@/types/types";
 
 export function useTodoForm(
@@ -20,13 +21,9 @@ export function useTodoForm(
   const handleFileChange = async (files: FileList) => {
     if (files.length > 0) {
       const file = files[0];
-      const formData = new FormData();
-      formData.append("file", file);
       try {
-        const response = await instance.post("files", formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-        setValue("fileUrl", response.data.url);
+        const response = await fileApi.uploadFile(file);
+        setValue("fileUrl", response.url);
       } catch (error) {
         console.error("파일 업로드 오류:", error);
       }
