@@ -3,7 +3,7 @@
 ```
 GoalBasedTodo
 │
-├── GoalItem
+├── GoalItem (무한스크롤로 렌더링되는 각 목표 아이템)
 │    ├── ProgressWrapper (목표별 진행률)
 │    └── TodoWrapper (todo, done 타입에 따른 라벨 + 할 일 리스트)
 │         ├── EmptyData (할 일 없을 때)
