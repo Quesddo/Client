@@ -12,8 +12,8 @@ import useSign from "@/hooks/auth/useSign";
 import { UserCreateRequstDto } from "@/types/types";
 
 import { LOGIN, SIGNUP } from "./fieldSet";
-import Input from "./Input";
 import Modal from "./Modal";
+import SignInput from "./SignInput";
 
 interface SignFormData extends UserCreateRequstDto {
   confirmPassword: string;
@@ -26,6 +26,7 @@ interface FormProps {
 const SignForm = ({ children }: FormProps) => {
   const methods = useForm<SignFormData>({
     shouldFocusError: false,
+    mode: "onChange",
   });
 
   return <FormProvider {...methods}>{children}</FormProvider>;
@@ -34,9 +35,9 @@ const SignForm = ({ children }: FormProps) => {
 const InnerForm = () => {
   const methods = useFormContext<SignFormData>();
   const pathname = usePathname();
-  const isLoginPage = pathname === "/login" ? true : false;
-  const hooks = isLoginPage ? useSign.login() : useSign.signup();
+  const isLoginPage = pathname === "/login";
   const field = isLoginPage ? LOGIN : SIGNUP;
+  const hooks = useSign(isLoginPage)();
 
   const handleRequest: SubmitHandler<SignFormData> = async (
     formData: SignFormData,
@@ -51,18 +52,17 @@ const InnerForm = () => {
         className="mx-4 mt-10 sm:mx-13"
       >
         {field.map((item) => (
-          <Input
+          <SignInput
             key={item.name}
             label={item.label}
             name={item.name}
             type={item.type}
             placeholder={item.placeholder}
             rules={item.rules}
-            disabled={methods.formState.isSubmitting}
           >
-            <Input.Label />
-            <Input.Input />
-          </Input>
+            <SignInput.Label />
+            <SignInput.Input />
+          </SignInput>
         ))}
         <Button
           onClick={(e) => e.currentTarget.blur()}
