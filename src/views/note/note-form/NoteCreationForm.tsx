@@ -20,8 +20,9 @@ export default function NoteCreationForm({ todoId }: NoteCreationFormProps) {
       title: "",
       todoId,
       content: "",
-      linkUrl: "",
+      linkUrl: undefined,
     },
+    mode: "onChange",
   });
   const mutation = useCreateNote();
   const pathname = usePathname();

@@ -1,8 +1,9 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useState } from "react";
 import { FormProvider, type Path, type UseFormReturn } from "react-hook-form";
 
 import Button from "@/components/atoms/button/Button";
 import PageTitle from "@/components/atoms/page-title/PageTitle";
+import EmbeddedContent from "@/components/organisms/note-detail/components/EmbeddedContent";
 import useAutoSaveNoteDraft from "@/hooks/note/useAutoSaveNoteDraft";
 import { CreateNoteBodyDto, UpdateNoteBodyDto } from "@/types/types";
 import DraftNoteReminderToast from "@/views/note/note-form/DraftNoteReminderToast";
@@ -13,7 +14,6 @@ import EditorTextCounter from "./EditorTextCounter";
 import GoalTodoDisplay from "./GoalTodoDisplay";
 import LinkDisplay from "./LinkDisplay";
 import LinkModal from "./LinkModal";
-import LinkEmbed from "../embed/LinkEmbed";
 
 interface NoteFormProps<TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto>
   extends PropsWithChildren {
@@ -41,6 +41,7 @@ export default function NoteForm<
     methods,
     isEditMode: editMode,
   });
+  const [isEmbedOpen, setIsEmbedOpen] = useState(false);
 
   const linkUrl = methods.watch("linkUrl" as Path<TNoteBody>)?.toString();
 
@@ -48,9 +49,15 @@ export default function NoteForm<
     formState: { isValid },
   } = methods;
 
+  const handleToggleEmbedOpen = () => {
+    setIsEmbedOpen((prev) => !prev);
+  };
+
   return (
     <>
-      <LinkEmbed link={linkUrl} />
+      {/* 링크 embed 영역 (링크가 존재할 경우만 표시) */}
+      <EmbeddedContent isOpen={isEmbedOpen} linkUrl={linkUrl} />
+
       <FormProvider {...methods}>
         <form
           className="flex min-h-0 flex-1 flex-col"
@@ -84,7 +91,7 @@ export default function NoteForm<
           <TitleWithCounter />
           <div className="flex min-h-0 flex-1 flex-col gap-2">
             <EditorTextCounter />
-            <LinkDisplay />
+            <LinkDisplay onClick={handleToggleEmbedOpen} />
             <Editor />
           </div>
           <div className="-mt-4">

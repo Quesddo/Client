@@ -18,7 +18,7 @@ const ReactQuillEditor = dynamic(
         {...props}
         className={cn(
           // container
-          "relative flex min-h-0 flex-1 flex-col-reverse gap-4",
+          "relative flex min-h-[300px] flex-1 flex-col-reverse justify-end gap-4 pb-6",
           // toolbar, link item
           "[&_.ql-toolbar]:rounded-[22px] [&_.ql-toolbar.ql-snow]:!flex [&_.ql-toolbar.ql-snow_.ql-formats]:last:ml-auto [&_.ql-toolbar.ql-snow_.ql-formats]:last:rounded-full [&_.ql-toolbar.ql-snow_.ql-formats]:last:bg-slate-200",
           // color palette

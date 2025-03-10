@@ -30,6 +30,7 @@ export default function NoteUpdateForm({ noteId }: NoteUpdateFormProps) {
       content: data.content,
       linkUrl: data.linkUrl,
     },
+    mode: "onChange",
   });
 
   const { removeNoteDraft } = useNoteStorage({
