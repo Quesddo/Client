@@ -2,7 +2,7 @@ import { FormProvider, useForm } from "react-hook-form";
 
 import Button from "@/components/atoms/button/Button";
 
-import Input from "./Input";
+import Input from "./SignInput";
 import type { Meta, StoryFn } from "@storybook/react";
 
 const story: Meta<typeof Input> = {

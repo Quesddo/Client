@@ -1,84 +1,69 @@
 import On from "@public/visibility_on.png";
 import Image from "next/image";
-import React, { createContext, useContext, useRef, useState } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useRef,
+  useState,
+} from "react";
 import { useFormContext } from "react-hook-form";
 
 import Input from "@/components/atoms/input/Input";
 import { SignField } from "@/types/Sign";
 import Off from "@public/visibility_off.png";
 
-interface InputField extends SignField {
-  disabled?: boolean;
+interface SignInputContextProps extends SignField {
+  children: ReactNode;
 }
 
-interface InputComponentProps extends SignField {
-  children: React.ReactNode;
-  disabled?: boolean;
-}
+const SignInputContext = createContext<SignInputContextProps | null>(null);
 
-const InputContext = createContext<InputField | null>(null);
-
-export const InputComponent = ({
+const SignInput = ({
   name,
   type,
   label,
   children,
   placeholder,
   rules,
-  disabled,
-}: InputComponentProps) => {
+}: SignInputContextProps) => {
+  const values = {
+    name,
+    type,
+    label,
+    children,
+    placeholder,
+    rules,
+  };
+
   return (
-    <InputContext.Provider
-      value={{ name, type, label, placeholder, rules, disabled }}
-    >
+    <SignInputContext.Provider value={values}>
       <div className="mt-6 flex flex-col first:mt-0">{children}</div>
-    </InputContext.Provider>
+    </SignInputContext.Provider>
   );
 };
 
-const InputContainer = () => {
+const InputWrapper = () => {
   const {
     register,
     formState: { errors },
     trigger,
-    clearErrors,
-    setValue,
   } = useFormContext();
-  const context = useContext(InputContext);
-  const timeoutRef = useRef<number | null>(null);
-
+  const context = useContext(SignInputContext);
   if (!context) {
     throw new Error("Input must be used within an InputComponent");
   }
 
+  const timeoutRef = useRef<number | null>(null);
+
   const { name, type, placeholder, rules } = context;
   const [inputType, setInputType] = useState(type);
 
-  const validateField = async () => {
-    const isValid = await trigger(name);
-
-    if (isValid) {
-      clearErrors(name);
-    }
-  };
-
   const handleFocus = async () => {
     if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
-    clearErrors(name);
     timeoutRef.current = window.setTimeout(async () => {
-      await validateField();
+      await trigger(name);
     }, 1000);
-  };
-
-  const handleChange = async (
-    e: React.ChangeEvent<HTMLInputElement> | undefined,
-  ) => {
-    setValue(name, e?.target.value);
-    await validateField();
-  };
-
-  const handleBlur = async () => {
-    await validateField();
   };
 
   return (
@@ -90,12 +75,10 @@ const InputContainer = () => {
           placeholder={placeholder}
           id={name}
           className={!!errors[name] ? "focus:border-red-700" : ""}
-          onBlur={handleBlur}
           onFocus={handleFocus}
-          onChange={handleChange}
         />
         {type === "password" && (
-          <InputComponent.TogglePasswordButton setInputType={setInputType} />
+          <SignInput.TogglePasswordButton setInputType={setInputType} />
         )}
       </div>
       {errors[name] && (
@@ -108,7 +91,7 @@ const InputContainer = () => {
 };
 
 const Label = () => {
-  const context = useContext(InputContext);
+  const context = useContext(SignInputContext);
   if (!context) return null;
   const { name, label } = context;
 
@@ -142,8 +125,8 @@ const TogglePasswordButton = ({
   );
 };
 
-InputComponent.Input = InputContainer;
-InputComponent.Label = Label;
-InputComponent.TogglePasswordButton = TogglePasswordButton;
+SignInput.Input = InputWrapper;
+SignInput.Label = Label;
+SignInput.TogglePasswordButton = TogglePasswordButton;
 
-export default InputComponent;
+export default SignInput;
