@@ -19,7 +19,10 @@ export default function TodoUpdateForm({ todoId }: { todoId: number }) {
     enabled: !!todoId,
   });
 
-  const todoformProps = useTodoForm(true, todo);
+  const todoformProps = useTodoForm({
+    isUpdate: true,
+    todo,
+  });
 
   const updateTodoSubmit = (data: UpdateTodoBodyDto) => {
     updateTodoMutation.mutate(

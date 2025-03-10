@@ -9,7 +9,7 @@ import { TodoForm } from "../TodoForm";
 export default function TodoCreateForm({ goalId }: { goalId?: number }) {
   const { addToast } = useToast();
   const { closeModal } = useModalContext();
-  const todoformProps = useTodoForm(false, undefined, goalId);
+  const todoformProps = useTodoForm({ goalId });
   const { reset } = todoformProps.formMethods;
 
   const createTodoMutation = useCreateTodo();

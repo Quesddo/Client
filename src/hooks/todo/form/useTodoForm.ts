@@ -5,11 +5,13 @@ import { uploadFile } from "@/apis/fileApi";
 import useToast from "@/hooks/useToast";
 import { TodoResponseDto, UpdateTodoBodyDto } from "@/types/types";
 
-export function useTodoForm(
-  isUpdate: boolean = false,
-  todo?: TodoResponseDto,
-  goalId?: number,
-) {
+interface TodoFormOptions {
+  isUpdate?: boolean;
+  todo?: TodoResponseDto;
+  goalId?: number;
+}
+
+export function useTodoForm({ isUpdate, todo, goalId }: TodoFormOptions) {
   const { addToast } = useToast();
   const formMethods = useForm<UpdateTodoBodyDto>();
   const { reset, setValue } = formMethods;
