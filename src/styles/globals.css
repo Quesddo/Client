@@ -4,6 +4,7 @@
 @import "./modal.css";
 @import "./slideUp.css";
 @import "./skeleton.css";
+@import "./gauge.css";
 
 @theme {
   /* Font */
