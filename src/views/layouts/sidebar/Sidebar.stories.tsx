@@ -1,4 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
+
+import { InputModalProvider } from "@/contexts/InputModalContext";
+
 import Sidebar from "./Sidebar";
 
 const meta: Meta<typeof Sidebar> = {
@@ -38,6 +41,11 @@ const meta: Meta<typeof Sidebar> = {
       },
       defaultViewport: "desktop", // ✅ 커스텀 뷰포트 적용
     },
+  },
+  render: () => {
+    <InputModalProvider>
+      <Sidebar />
+    </InputModalProvider>;
   },
 };
 

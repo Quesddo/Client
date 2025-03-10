@@ -1,7 +1,6 @@
-import Image from "next/image";
-import Link from "next/link";
-
 import { cn } from "@/utils/cn";
+
+import CloseSidebarLink from "./CloseSidebarLink";
 
 interface SidebarHeaderProps {
   isOpen: boolean;
@@ -19,7 +18,7 @@ export default function SidebarHeader({
         !isOpen && "flex-col gap-4 px-[14px] pt-2",
       )}
     >
-      <Link href="/">
+      <CloseSidebarLink href="/">
         <img
           src="/icons/logo-horizontal.png"
           alt="로고_horizontal"
@@ -34,14 +33,17 @@ export default function SidebarHeader({
           height={32}
           className={cn("hidden", !isOpen && "block h-[32px] w-[32px]")}
         />
-      </Link>
-      <button onClick={onToggleSidebar}>
+      </CloseSidebarLink>
+      <button
+        onClick={onToggleSidebar}
+        className={cn("smd:hidden", !isOpen && "smd:block")}
+      >
         <img
           src="/icons/fold.png"
           width={24}
           height={24}
           alt={isOpen ? "사이드바 닫기" : "사이드바 열기"}
-          className={cn("cursor-pointer", !isOpen && "scale-[-1]")}
+          className={cn(!isOpen && "scale-[-1]")}
         />
       </button>
     </div>

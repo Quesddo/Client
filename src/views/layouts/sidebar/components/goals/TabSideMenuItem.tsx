@@ -1,4 +1,4 @@
-import Link from "next/link";
+import CloseSidebarLink from "../CloseSidebarLink";
 
 interface TabSideMenuItemProps {
   content: string;
@@ -11,7 +11,7 @@ export default function TabSideMenuItem({
 }: TabSideMenuItemProps) {
   return (
     <li className="group mr-1 rounded-lg bg-white text-sm font-medium hover:bg-blue-100">
-      <Link
+      <CloseSidebarLink
         href={`/goal/${goalId}`}
         className="box-border flex w-full items-center justify-between gap-2 p-2"
       >
@@ -19,7 +19,7 @@ export default function TabSideMenuItem({
           <span>•</span>
           <span className="break-all">{content}</span>
         </div>
-      </Link>
+      </CloseSidebarLink>
     </li>
   );
 }
