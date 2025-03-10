@@ -1,20 +1,10 @@
 import { useRouter } from "next/router";
-import { ReactNode, Suspense, useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 
 import { useFetchUser } from "@/hooks/user/useFetchUser";
 
-import Spinner from "./atoms/spinner/Spinner";
-
 interface AuthGuardProps {
   children: ReactNode;
-}
-
-function SpinnerFallback() {
-  return (
-    <div className="h-screen">
-      <Spinner size={100} />
-    </div>
-  );
 }
 
 const PUBLIC_PATH = ["/login", "/signup"];
@@ -42,9 +32,5 @@ function AuthGuard({ children }: AuthGuardProps) {
 }
 
 export default function AuthLayer(props: AuthGuardProps) {
-  return (
-    <Suspense fallback={<SpinnerFallback />}>
-      <AuthGuard {...props} />
-    </Suspense>
-  );
+  return <AuthGuard {...props} />;
 }
