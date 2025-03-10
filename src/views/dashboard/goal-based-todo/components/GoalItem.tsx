@@ -37,7 +37,7 @@ export default function GoalItem({
   };
 
   return (
-    <li key={goal.id} className="flex flex-col rounded-4xl bg-blue-50 p-6">
+    <li className="flex min-h-[300px] flex-col rounded-4xl bg-blue-50 p-6">
       {/* 목표제목, 할 일 추가 */}
       <div className="mb-2 flex justify-between">
         <h3 className="text-lg font-bold text-slate-800">{goal.title}</h3>
@@ -54,7 +54,7 @@ export default function GoalItem({
       <ProgressWrapper goalId={goal.id} />
 
       {/*  할 일 리스트 */}
-      <div className="my-4 flex flex-col gap-6 sm:flex-row">
+      <div className="my-4 flex grow flex-col gap-6 sm:flex-row">
         {["todo", "done"].map((doneStatus, idx) => (
           <TodoWrapper
             handleToggleTodo={handleToggleTodo}
@@ -70,7 +70,7 @@ export default function GoalItem({
       {/* 더보기 */}
       <button
         onClick={() => handleClickMore(goal.id)}
-        className="flex h-[32px] w-[120px] items-center justify-center self-center rounded-2xl bg-white transition hover:scale-105"
+        className="mt-[12px] flex h-[32px] w-[120px] items-center justify-center self-center rounded-2xl bg-white transition hover:scale-105"
       >
         <span className="ml-3 text-sm font-semibold text-slate-700">
           자세히 보기
