@@ -8,7 +8,7 @@ import Button from "@/components/atoms/button/Button";
 import { SignField } from "@/types/Sign";
 
 import { LOGIN, SIGNUP } from "./fieldSet";
-import Input from "./Input";
+import Input from "./SignInput";
 
 const story: Meta = {
   title: "views/sign/page",
@@ -42,7 +42,6 @@ const Template: StoryFn<SignProps> = (args) => {
               type={item.type}
               placeholder={item.placeholder}
               rules={item.rules}
-              disabled={methods.formState.isSubmitting}
             >
               <Input.Label />
               <Input.Input />

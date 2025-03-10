@@ -59,9 +59,10 @@ function useSignUp() {
   });
 }
 
-const useSign = {
-  login: useLogin,
-  signup: useSignUp,
-};
-
+function useSign(isLoginPage: boolean) {
+  if (isLoginPage) {
+    return useLogin;
+  }
+  return useSignUp;
+}
 export default useSign;
