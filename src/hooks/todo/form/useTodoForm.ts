@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { fileApi } from "@/apis/fileApi";
+import { uploadFile } from "@/apis/fileApi";
 import useToast from "@/hooks/useToast";
 import { TodoResponseDto, UpdateTodoBodyDto } from "@/types/types";
 
@@ -23,7 +23,7 @@ export function useTodoForm(
     if (files.length > 0) {
       const file = files[0];
       try {
-        const response = await fileApi.uploadFile(file);
+        const response = await uploadFile(file);
         setValue("fileUrl", response.url);
       } catch (error) {
         addToast({
