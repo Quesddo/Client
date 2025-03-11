@@ -6,7 +6,7 @@ import Popup from "@/components/molecules/popup/Popup";
 import BoundaryWrapper from "@/components/organisms/boundary-wrapper/BoundaryWrapper";
 
 import { useBlockNavigation } from "../../../hooks/note/useBlockNavigation";
-import NoteCreationForm from "../note-form/NoteCreationForm";
+import NoteCreationForm from "../note-form/NoteCreateForm";
 import { NoteUpdateForm } from "../note-form/NoteUpdateForm";
 
 const MODE = {
