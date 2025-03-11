@@ -6,7 +6,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Toaster from "@/components/organisms/toaster/Toaster";
 import ToastProvider from "@/components/organisms/toaster/ToastProvider";
 import { InputModalProvider } from "@/contexts/InputModalContext";
-import AuthLayer from "@/hocs/AuthLayer";
+import AuthGuard from "@/views/layouts/AuthGuard";
 import Sidebar from "@/views/layouts/sidebar/Sidebar";
 import NoteDetail from "@/views/note/note-detail/NoteDetail";
 import NoteDrawer from "@/views/note/note-drawer/NoteDrawer";
@@ -17,7 +17,7 @@ const queryClient = new QueryClient();
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthLayer>
+      <AuthGuard>
         <ToastProvider>
           <InputModalProvider>
             <div className="flex h-screen flex-col overflow-y-hidden sm:flex-row">
@@ -32,7 +32,7 @@ export default function App({ Component, pageProps }: AppProps) {
             </div>
           </InputModalProvider>
         </ToastProvider>
-      </AuthLayer>
+      </AuthGuard>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

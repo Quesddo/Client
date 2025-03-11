@@ -9,7 +9,7 @@ interface AuthGuardProps {
 
 const PUBLIC_PATH = ["/login", "/signup"];
 
-function AuthGuard({ children }: AuthGuardProps) {
+export default function AuthGuard({ children }: AuthGuardProps) {
   const router = useRouter();
   const { isAuthenticated, isLoading } = useFetchUser();
   const isPublicPage = PUBLIC_PATH.includes(router.pathname);
@@ -29,8 +29,4 @@ function AuthGuard({ children }: AuthGuardProps) {
   }
 
   return <>{children}</>;
-}
-
-export default function AuthLayer(props: AuthGuardProps) {
-  return <AuthGuard {...props} />;
 }
