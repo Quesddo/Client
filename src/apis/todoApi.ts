@@ -36,4 +36,8 @@ export const todoApi = {
     const { data } = await instance.get("/todos", { params });
     return data;
   },
+  fetchProgress: async (goalId?: number) => {
+    const res = await instance.get(`/todos/progress?goalId=${goalId ?? ""}`);
+    return res.data;
+  },
 };
