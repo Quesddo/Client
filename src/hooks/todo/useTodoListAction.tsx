@@ -4,7 +4,7 @@ import { useModalContext } from "@/contexts/InputModalContext";
 import { useDeleteTodo } from "@/hooks/todo/useDeleteTodo";
 import { useUpdateTodo } from "@/hooks/todo/useUpdateTodo";
 
-import useToast from "./useToast";
+import useToast from "../useToast";
 
 interface TodoListActions {
   selectedTodoId: number | null;
@@ -16,7 +16,7 @@ interface TodoListActions {
   onCancelDelete: () => void;
 }
 
-export function useTodoListAction(): TodoListActions {
+export const useTodoListAction = (): TodoListActions => {
   const { addToast } = useToast();
   const { closeModal } = useModalContext();
   const toggleTodoMutation = useUpdateTodo();
@@ -86,4 +86,4 @@ export function useTodoListAction(): TodoListActions {
     onConfirmDelete,
     onCancelDelete,
   };
-}
+};

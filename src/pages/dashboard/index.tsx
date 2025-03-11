@@ -2,7 +2,7 @@ import Head from "next/head";
 
 import PageTitle from "@/components/atoms/page-title/PageTitle";
 import { useModalContext } from "@/contexts/InputModalContext";
-import { useTodoListAction } from "@/hooks/useTodoListAction";
+import { useTodoListAction } from "@/hooks/todo/useTodoListAction";
 import GoalBasedTodo from "@/views/dashboard/goal-based-todo/GoalBasedTodo";
 import MyProgress from "@/views/dashboard/my-progress/MyProgress";
 import RecentTodo from "@/views/dashboard/recent-todo/RecentTodo";
