@@ -7,7 +7,7 @@ import BoundaryWrapper from "@/components/organisms/boundary-wrapper/BoundaryWra
 
 import { useBlockNavigation } from "../../../hooks/note/useBlockNavigation";
 import NoteCreationForm from "../note-form/NoteCreateForm";
-import { NoteUpdateForm } from "../note-form/NoteUpdateForm";
+import NoteUpdateForm from "../note-form/NoteUpdateForm";
 
 const MODE = {
   DETAIL: "detail",

@@ -14,7 +14,7 @@ interface NoteUpdateFormProps {
   noteId: number;
 }
 
-export const NoteUpdateForm = ({ noteId }: NoteUpdateFormProps) => {
+export default function NoteUpdateForm({ noteId }: NoteUpdateFormProps) {
   const mutation = useUpdateNote(noteId);
   const pathname = usePathname();
   const router = useRouter();
@@ -61,4 +61,4 @@ export const NoteUpdateForm = ({ noteId }: NoteUpdateFormProps) => {
       todo={data?.todo.title}
     />
   );
-};
+}
