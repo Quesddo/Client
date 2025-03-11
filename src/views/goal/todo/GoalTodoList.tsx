@@ -3,8 +3,8 @@ import { useInView } from "react-intersection-observer";
 
 import PlusIcon from "@/components/atoms/plus-icon/PlusIcon";
 import TodoList from "@/components/organisms/todo-list/TodoList";
-import { useGoalDetailContext } from "@/contexts/GoalDetailContext";
 import { useInfiniteTodo } from "@/hooks/todo/useInfiniteTodo";
+import { useGoalDetailContext } from "@/views/goal/GoalDetailContext";
 
 import Section from "../component/Section";
 

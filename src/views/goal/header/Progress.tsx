@@ -1,8 +1,8 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useEffect, useMemo } from "react";
 
-import { useGoalDetailContext } from "@/contexts/GoalDetailContext";
 import useProgressTodo from "@/hooks/todo/useProgressTodo";
+import { useGoalDetailContext } from "@/views/goal/GoalDetailContext";
 
 import ProgressBar from "../../../components/atoms/progress-bar/ProgressBar";
 

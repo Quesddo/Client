@@ -1,9 +1,9 @@
-import note from "@public/icons/note.svg";
 import Image from "next/image";
 import Link from "next/link";
 
-import { useGoalDetailContext } from "@/contexts/GoalDetailContext";
+import { useGoalDetailContext } from "@/views/goal/GoalDetailContext";
 import arrowRight from "@public/icons/arrow-right.svg";
+import note from "@public/icons/note.svg";
 
 import Section from "../component/Section";
 
