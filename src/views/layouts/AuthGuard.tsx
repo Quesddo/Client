@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 
 import { useFetchUser } from "@/hooks/user/useFetchUser";
 
@@ -14,18 +14,12 @@ export default function AuthGuard({ children }: AuthGuardProps) {
   const { isAuthenticated, isLoading } = useFetchUser();
   const isPublicPage = PUBLIC_PATH.includes(router.pathname);
 
-  useEffect(() => {
-    if (isLoading) return;
-    const redirectTo = isAuthenticated ? "/dashboard" : "/login";
-    if (router.pathname === "/" || isAuthenticated === isPublicPage) {
-      router.replace(redirectTo);
-    }
-  }, [isAuthenticated, router, isPublicPage, isLoading]);
+  if (isLoading) return null;
 
-  if (isLoading) return;
+  const redirectTo = isAuthenticated ? "/dashboard" : "/login";
 
-  if (isAuthenticated === isPublicPage) {
-    return null;
+  if (router.pathname === "/" || isAuthenticated === isPublicPage) {
+    return router.replace(redirectTo);
   }
 
   return <>{children}</>;
