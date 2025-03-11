@@ -1,13 +1,13 @@
 @layer components {
   .custom-gauge .dial {
-    stroke-width: 10px;
+    stroke-width: 18px;
   }
 
   .custom-gauge .value {
-    stroke-width: 12px;
+    stroke-width: 20px;
   }
 
   .custom-gauge text {
-    @apply fill-current font-semibold text-black;
+    @apply fill-current font-semibold text-white;
   }
 }
