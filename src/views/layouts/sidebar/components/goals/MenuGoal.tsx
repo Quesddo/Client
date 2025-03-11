@@ -1,8 +1,6 @@
-import { FormEventHandler, memo, Suspense, useRef, useState } from "react";
-import { ErrorBoundary } from "react-error-boundary";
+import { FormEventHandler, memo, useRef, useState } from "react";
 
-import Spinner from "@/components/atoms/spinner/Spinner";
-import ErrorFallback from "@/components/molecules/error-fallback/ErrorFallback";
+import BoundaryWrapper from "@/components/organisms/boundary-wrapper/BoundaryWrapper";
 import { useCreateGoal } from "@/hooks/goal/useCreateGoal";
 import useToast from "@/hooks/useToast";
 import { cn } from "@/utils/cn/cn";
@@ -85,11 +83,9 @@ export default memo(function MenuGoal() {
         </AddButton>
       </div>
       <div className="flex min-h-0 flex-1 flex-col gap-6">
-        <ErrorBoundary FallbackComponent={ErrorFallback}>
-          <Suspense fallback={<Spinner size={60} />}>
-            <TabSideMenuList ref={ulRef} />
-          </Suspense>
-        </ErrorBoundary>
+        <BoundaryWrapper>
+          <TabSideMenuList ref={ulRef} />
+        </BoundaryWrapper>
         {showForm && <GoalCreationForm onSubmit={handleSubmit} />}
         <AddButton
           outline
