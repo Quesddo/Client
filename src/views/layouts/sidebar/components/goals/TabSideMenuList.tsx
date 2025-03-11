@@ -36,7 +36,7 @@ export default memo(
                   goalId={goal.id}
                 />
               ))}
-              {data?.goals.length && <li ref={inViewRef}></li>}
+              {data?.goals.length > 0 && <li ref={inViewRef}></li>}
             </>
           )}
         </ul>
