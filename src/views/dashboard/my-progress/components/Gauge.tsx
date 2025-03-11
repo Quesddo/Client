@@ -5,7 +5,6 @@ import useProgressTodo from "@/hooks/todo/useProgressTodo";
 
 export default function Gauge() {
   const { data, isLoading } = useProgressTodo();
-  const progress = data?.progress ?? 0;
   const gaugeEl = useRef<HTMLDivElement>(null);
   const gaugeRef = useRef<GaugeInstance>(null);
 
@@ -21,8 +20,8 @@ export default function Gauge() {
       gaugeRef.current = SvgGauge(gaugeEl.current, options);
       gaugeRef.current?.setValue(0);
     }
-    gaugeRef.current?.setValueAnimated(progress, 1);
-  }, [progress]);
+    gaugeRef.current?.setValueAnimated(data.progress, 2);
+  }, [data]);
 
   if (isLoading) return null;
 
