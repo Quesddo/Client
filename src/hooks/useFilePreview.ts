@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function useFilePreview() {
+export const useFilePreview = () => {
   const [previewFile, setPreviewFile] = useState<{
     url: string;
     name: string;
@@ -42,4 +42,4 @@ export default function useFilePreview() {
   };
 
   return { previewFile, updateFilePreview };
-}
+};
