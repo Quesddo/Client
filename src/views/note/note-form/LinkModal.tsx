@@ -8,7 +8,7 @@ import { useModalContext } from "@/contexts/InputModalContext";
 const setEmptyToUndefined = (value: string) =>
   value === "" ? undefined : value;
 
-export default function LinkModal({}) {
+export default function LinkModal() {
   const { closeModal } = useModalContext();
   const methods = useFormContext();
 
