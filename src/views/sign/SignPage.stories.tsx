@@ -11,7 +11,7 @@ import { LOGIN, SIGNUP } from "./fieldSet";
 import Input from "./SignInput";
 
 const story: Meta = {
-  title: "views/sign/page",
+  title: "Pages/sign/page",
   tags: ["autodocs"],
 };
 
