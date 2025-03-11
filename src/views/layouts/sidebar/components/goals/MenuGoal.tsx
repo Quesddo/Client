@@ -33,13 +33,22 @@ export default memo(function MenuGoal() {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
     const title = formData.get("title") as string;
+    const toastStyle = "mx-0 box-border w-full px-3";
 
     if (!title) {
       setShowForm(false);
       return;
     }
 
-    const toastStyle = "mx-0 box-border w-full px-3";
+    if (title.trim() === "") {
+      addToast({
+        variant: "error",
+        content: "공백만 입력할 수 없습니다",
+        className: toastStyle,
+      });
+      return;
+    }
+
     const handleSuccess = () => {
       addToast({
         content: (
