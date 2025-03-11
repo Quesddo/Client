@@ -9,7 +9,7 @@ import TabSideMenuItem from "./TabSideMenuItem";
 
 export default memo(
   forwardRef(function TabSideMenuList(_, ref: ForwardedRef<HTMLUListElement>) {
-    const query = useInfiniteGoals({ size: 20, source: "sidebar" });
+    const query = useInfiniteGoals({ size: 3, source: "sidebar" });
 
     const {
       data,
@@ -23,7 +23,6 @@ export default memo(
 
     const { ref: inViewRef, inView } = useInView({
       root: ref && "current" in ref ? ref.current : null,
-      threshold: 0,
     });
 
     const isFetchRequired = inView && hasNextPage && !isFetchingNextPage;
