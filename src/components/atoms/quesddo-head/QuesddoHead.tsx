@@ -7,15 +7,14 @@ interface QuesddoHeadProps {
 /**
  * 페이지 타이틀 지정하는 컴포넌트
  */
+const TITLE_PREFIX = "퀘스또";
+
 export default function QuesddoHead({ title }: QuesddoHeadProps) {
-  const getTitle = (title?: string) => {
-    const prefix = "퀘스또";
-    return title ? `${prefix} | ${title}` : title;
-  };
+  const formattedTitle = title ? `${TITLE_PREFIX} | ${title}` : TITLE_PREFIX;
 
   return (
     <Head>
-      <title>{getTitle(title)}</title>
+      <title>{formattedTitle}</title>
     </Head>
   );
 }
