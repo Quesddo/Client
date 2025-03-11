@@ -26,7 +26,7 @@ export default function NoteDetailContent({ noteId }: NoteDetailContentProps) {
       {/* 링크 embed 영역 (링크가 존재할 경우만 표시) */}
       <EmbeddedContent isOpen={isEmbedOpen} linkUrl={data?.linkUrl} />
 
-      <div className="flex h-full flex-col gap-6">
+      <div className="flex h-full min-h-0 flex-col gap-6">
         <div className="flex flex-col gap-3">
           <GoalItem
             goal={data?.goal?.title}
@@ -47,7 +47,7 @@ export default function NoteDetailContent({ noteId }: NoteDetailContentProps) {
             </span>
           </div>
         </div>
-        <div className="flex h-full flex-col gap-4">
+        <div className="flex h-full min-h-0 flex-col gap-4">
           <div>
             <Divider />
             <h1 className="py-3 text-lg font-medium text-slate-800">
@@ -56,7 +56,7 @@ export default function NoteDetailContent({ noteId }: NoteDetailContentProps) {
             <Divider />
           </div>
           <LinkItem linkUrl={data?.linkUrl} setIsEmbedOpen={setIsEmbedOpen} />
-          <div className="mb-30 overflow-y-auto pr-2">
+          <div className="overflow-y-auto pr-2">
             <ReactQuillEditor
               modules={{ toolbar: false }}
               readOnly

@@ -24,7 +24,7 @@ export default function NoteDetail() {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="box-border flex h-full w-full flex-col gap-4 border-l border-slate-200 bg-white p-4 break-words whitespace-pre-wrap sm:w-[512px] md:w-[800px] md:p-6"
+        className="box-border flex h-full w-full flex-col gap-4 overflow-y-auto border-l border-slate-200 bg-white p-4 break-words whitespace-pre-wrap sm:w-[512px] md:w-[800px] md:p-6"
       >
         <ExitBtn className="self-end" onClick={handleCloseSidebar} />
 
