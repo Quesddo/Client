@@ -5,8 +5,10 @@ import {
   ToastActionProps,
 } from "@/components/organisms/toaster/ToastProvider";
 
-export default function useToast() {
+const useToast = () => {
   const addToast = useContext<ToastActionProps>(ToastActionContext);
 
   return { addToast };
-}
+};
+
+export default useToast;
