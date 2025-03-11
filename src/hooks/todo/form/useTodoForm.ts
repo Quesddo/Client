@@ -11,7 +11,7 @@ interface TodoFormOptions {
   goalId?: number;
 }
 
-export function useTodoForm({ isUpdate, todo, goalId }: TodoFormOptions) {
+export const useTodoForm = ({ isUpdate, todo, goalId }: TodoFormOptions) => {
   const { addToast } = useToast();
   const formMethods = useForm<UpdateTodoBodyDto>();
   const { reset, setValue } = formMethods;
@@ -90,4 +90,4 @@ export function useTodoForm({ isUpdate, todo, goalId }: TodoFormOptions) {
     handleFileChange,
     onSubmit,
   };
-}
+};
