@@ -3,7 +3,7 @@ import { FormProvider, type Path, type UseFormReturn } from "react-hook-form";
 
 import Button from "@/components/atoms/button/Button";
 import PageTitle from "@/components/atoms/page-title/PageTitle";
-import useAutoSaveNoteDraft from "@/hooks/note/useAutoSaveNoteDraft";
+import { useAutoSaveNoteDraft } from "@/hooks/note/useAutoSaveNoteDraft";
 import { CreateNoteBodyDto, UpdateNoteBodyDto } from "@/types/types";
 import EmbeddedContent from "@/views/note/note-detail/components/EmbeddedContent";
 import DraftNoteReminderToast from "@/views/note/note-form/DraftNoteReminderToast";

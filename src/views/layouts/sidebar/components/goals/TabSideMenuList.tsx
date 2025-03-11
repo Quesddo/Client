@@ -2,7 +2,7 @@ import { ForwardedRef, forwardRef, memo, useRef } from "react";
 
 import Spinner from "@/components/atoms/spinner/Spinner";
 import ErrorFallback from "@/components/molecules/error-fallback/ErrorFallback";
-import useSidebarInfiniteGoals from "@/hooks/goal/useSidebarInfiniteGoals";
+import { useSidebarInfiniteGoals } from "@/hooks/goal/useSidebarInfiniteGoals";
 import { cn } from "@/utils/cn/cn";
 
 import TabSideMenuItem from "./TabSideMenuItem";

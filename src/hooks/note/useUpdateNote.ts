@@ -5,7 +5,7 @@ import { UpdateNoteBodyDto } from "@/types/types";
 
 import useToast from "../useToast";
 
-export default function useUpdateNote(noteId: number) {
+export const useUpdateNote = (noteId: number) => {
   const queryClient = useQueryClient();
   const { addToast } = useToast();
 
@@ -27,4 +27,4 @@ export default function useUpdateNote(noteId: number) {
       });
     },
   });
-}
+};

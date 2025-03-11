@@ -3,10 +3,13 @@ import { useInView } from "react-intersection-observer";
 
 import { useInfiniteGoals } from "./useInfiniteGoals";
 
-export default function useSidebarInfiniteGoals<
+export const useSidebarInfiniteGoals = <
   T extends HTMLElement | null,
   U extends HTMLElement | null,
->(parentRef: Ref<T>, childRef: Ref<U>) {
+>(
+  parentRef: Ref<T>,
+  childRef: Ref<U>,
+) => {
   const query = useInfiniteGoals({ size: 20, source: "sidebar" });
 
   const { fetchNextPage, hasNextPage, isFetchingNextPage } = query;
@@ -49,4 +52,4 @@ export default function useSidebarInfiniteGoals<
     }
   }, [inView, hasNextPage]);
   return { query, inViewRef };
-}
+};

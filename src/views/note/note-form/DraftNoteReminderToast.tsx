@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form";
 import Button from "@/components/atoms/button/Button";
 import ExitBtn from "@/components/atoms/exit-btn/ExitBtn";
 import Popup from "@/components/molecules/popup/Popup";
-import useNoteStorage from "@/hooks/note/useNoteStorage";
+import { useNoteStorage } from "@/hooks/note/useNoteStorage";
 import { CreateNoteBodyDto, UpdateNoteBodyDto } from "@/types/types";
 
 interface DraftNoteReminderToastProps {

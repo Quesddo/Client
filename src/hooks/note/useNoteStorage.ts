@@ -10,7 +10,7 @@ interface UseNoteDraftProps {
   isEditMode: boolean;
 }
 
-export default function useNoteStorage({ id, isEditMode }: UseNoteDraftProps) {
+export const useNoteStorage = ({ id, isEditMode }: UseNoteDraftProps) => {
   const noteStorage = isEditMode ? UPDATE_NOTE_STORAGE : CREATE_NOTE_STORAGE;
 
   const saveDraftNote = (values: CreateNoteBodyDto | UpdateNoteBodyDto) => {
@@ -28,4 +28,4 @@ export default function useNoteStorage({ id, isEditMode }: UseNoteDraftProps) {
       noteStorage.get(id) as CreateNoteBodyDto | UpdateNoteBodyDto | null,
     removeNoteDraft: noteStorage.remove,
   };
-}
+};

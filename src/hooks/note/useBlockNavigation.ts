@@ -7,9 +7,9 @@ type StopMovePageProps = {
   isPageMoveRestricted: boolean;
 };
 
-export default function useBlockNavigation({
+export const useBlockNavigation = ({
   isPageMoveRestricted,
-}: StopMovePageProps) {
+}: StopMovePageProps) => {
   const router = useRouter();
   const { isPopupOpen, showPopup, hidePopup } = useModalContext();
   const [moveResolveFn, setMoveResolveFn] = useState<
@@ -108,4 +108,4 @@ export default function useBlockNavigation({
     handleCanclePopup,
     handleConfirmPopup,
   };
-}
+};

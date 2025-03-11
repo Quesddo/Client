@@ -4,7 +4,7 @@ import { type UseFormReturn } from "react-hook-form";
 import { CreateNoteBodyDto, UpdateNoteBodyDto } from "@/types/types";
 
 import useToast from "../useToast";
-import useNoteStorage from "./useNoteStorage";
+import { useNoteStorage } from "./useNoteStorage";
 
 interface UseAutoSaveNoteDraftProps<
   TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto,
@@ -16,9 +16,13 @@ interface UseAutoSaveNoteDraftProps<
 
 const TOAST_INTERVAL_TIME = 1000 * 60 * 5;
 
-export default function useAutoSaveNoteDraft<
+export const useAutoSaveNoteDraft = <
   TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto,
->({ id, methods, isEditMode }: UseAutoSaveNoteDraftProps<TNoteBody>) {
+>({
+  id,
+  methods,
+  isEditMode,
+}: UseAutoSaveNoteDraftProps<TNoteBody>) => {
   const {
     formState: { isDirty },
   } = methods;
@@ -68,4 +72,4 @@ export default function useAutoSaveNoteDraft<
   return {
     handleClickSaveDraft,
   };
-}
+};

@@ -4,7 +4,7 @@ import noteApi from "@/apis/noteApi";
 
 import useToast from "../useToast";
 
-export default function useCreateNote() {
+export const useCreateNote = () => {
   const queryClient = useQueryClient();
   const { addToast } = useToast();
 
@@ -25,4 +25,4 @@ export default function useCreateNote() {
       });
     },
   });
-}
+};

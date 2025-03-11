@@ -5,9 +5,9 @@ import ExitBtn from "@/components/atoms/exit-btn/ExitBtn";
 import Popup from "@/components/molecules/popup/Popup";
 import BoundaryWrapper from "@/components/organisms/boundary-wrapper/BoundaryWrapper";
 
-import useBlockNavigation from "../../../hooks/note/useBlockNavigation";
+import { useBlockNavigation } from "../../../hooks/note/useBlockNavigation";
 import NoteCreationForm from "../note-form/NoteCreationForm";
-import NoteUpdateForm from "../note-form/NoteUpdateForm";
+import { NoteUpdateForm } from "../note-form/NoteUpdateForm";
 
 const MODE = {
   DETAIL: "detail",
