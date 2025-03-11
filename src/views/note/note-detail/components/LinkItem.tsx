@@ -15,7 +15,7 @@ export default function LinkItem({ linkUrl, setIsEmbedOpen }: LinkItemProps) {
   return (
     <div
       onClick={toggleEmbed}
-      className="flex cursor-pointer gap-2 rounded-[20px] bg-slate-200 px-[6px] py-1 hover:brightness-95"
+      className="flex cursor-pointer items-center gap-2 rounded-[20px] bg-slate-200 px-[6px] py-1 hover:brightness-95"
     >
       <Image
         src={"/icons/embed.png"}
@@ -24,7 +24,9 @@ export default function LinkItem({ linkUrl, setIsEmbedOpen }: LinkItemProps) {
         height={24}
         layout="fixed"
       />
-      <span className="text-base font-normal text-slate-800">{linkUrl}</span>
+      <span className="text-base font-normal break-all text-slate-800">
+        {linkUrl}
+      </span>
     </div>
   );
 }
