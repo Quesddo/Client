@@ -1,10 +1,9 @@
-import { useArgs } from "@storybook/preview-api";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import Spinner from "./Spinner";
 
 const meta: Meta<typeof Spinner> = {
-  title: "Common/Atoms/Spinner",
+  title: "Common/atoms/Spinner",
   component: Spinner,
   tags: ["autodocs"],
 };

@@ -5,7 +5,7 @@ import TodoList from "./TodoList";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof TodoList> = {
-  title: "components/organisms/TodoList",
+  title: "common/organisms/TodoList",
   component: TodoList,
   decorators: [
     (Story) => (

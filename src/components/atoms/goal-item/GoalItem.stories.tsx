@@ -2,7 +2,7 @@ import GoalItem from "./GoalItem";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof GoalItem> = {
-  title: "Common/Atoms/GoalItem",
+  title: "Common/atoms/GoalItem",
   component: GoalItem,
   tags: ["autodocs"],
 

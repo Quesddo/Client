@@ -2,7 +2,7 @@ import PlusIcon from "./PlusIcon";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
-  title: "Common/Atoms/PlusIcon",
+  title: "Common/atoms/PlusIcon",
   component: PlusIcon,
   tags: ["autodocs"],
 

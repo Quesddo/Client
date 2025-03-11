@@ -4,7 +4,7 @@ import ProgressBar from "./ProgressBar";
 
 const story: Meta<typeof ProgressBar> = {
   component: ProgressBar,
-  title: "Common/Atoms/ProgressBar",
+  title: "Common/atoms/ProgressBar",
   tags: ["autodocs"],
 };
 

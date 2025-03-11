@@ -8,7 +8,7 @@ const ThrowError = () => {
 };
 
 const meta = {
-  title: "Common/Molecules/ErrorFallback",
+  title: "Common/molecules/ErrorFallback",
   component: ErrorFallback,
   tags: ["autodocs"],
   args: {

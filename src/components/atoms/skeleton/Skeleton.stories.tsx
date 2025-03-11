@@ -4,7 +4,7 @@ import Skeleton from "./Skeleton";
 
 const story: Meta<typeof Skeleton> = {
   component: Skeleton,
-  title: "Common/Atoms/Skeleton",
+  title: "Common/atoms/Skeleton",
   tags: ["autodocs"],
   decorators: [
     (story) => <div style={{ width: "200px", height: "100px" }}>{story()}</div>,

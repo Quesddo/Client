@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import ActionDropdown from "./ActionDropdown";
 
 const meta: Meta<typeof ActionDropdown> = {
-  title: "Common/Atoms/ActionDropdown",
+  title: "Common/atoms/ActionDropdown",
   component: ActionDropdown,
   tags: ["autodocs"],
   argTypes: {

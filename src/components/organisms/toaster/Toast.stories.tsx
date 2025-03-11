@@ -7,7 +7,7 @@ import ToastProvider, { ToastStateProps } from "./ToastProvider";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
-  title: "Common/Organisms/Toast",
+  title: "Common/organisms/Toast",
   component: Toast,
   argTypes: {
     content: {
