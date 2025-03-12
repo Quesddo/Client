@@ -1,4 +1,4 @@
-import { usePathname } from "next/navigation";
+import { useRouter } from "next/router";
 import { ReactNode } from "react";
 import {
   FormProvider,
@@ -8,11 +8,11 @@ import {
 } from "react-hook-form";
 
 import Button from "@/components/atoms/button/Button";
+import Popup from "@/components/molecules/popup/Popup";
 import useSign from "@/hooks/auth/useSign";
 import { UserCreateRequstDto } from "@/types/types";
 
 import { LOGIN, SIGNUP } from "./fieldSet";
-import Modal from "./Modal";
 import SignInput from "./SignInput";
 
 interface SignFormData extends UserCreateRequstDto {
@@ -34,8 +34,8 @@ const SignForm = ({ children }: FormProps) => {
 
 const InnerForm = () => {
   const methods = useFormContext<SignFormData>();
-  const pathname = usePathname();
-  const isLoginPage = pathname === "/login";
+  const router = useRouter();
+  const isLoginPage = router.asPath === "/login";
   const field = isLoginPage ? LOGIN : SIGNUP;
   const hooks = useSign(isLoginPage)();
 
@@ -43,6 +43,10 @@ const InnerForm = () => {
     formData: SignFormData,
   ) => {
     hooks.mutate(formData);
+  };
+
+  const onClickCloseModal = () => {
+    router.push("/login");
   };
 
   return (
@@ -75,7 +79,16 @@ const InnerForm = () => {
           {isLoginPage ? "로그인하기" : "회원가입하기"}
         </Button>
       </form>
-      {!isLoginPage && hooks.isSuccess && <Modal />}
+
+      {!isLoginPage && hooks.isSuccess && (
+        <Popup
+          onClose={onClickCloseModal}
+          onConfirm={onClickCloseModal}
+          isCancelEnabled={false}
+        >
+          <h2 className="my-4 text-base">가입이 완료되었습니다!</h2>
+        </Popup>
+      )}
     </>
   );
 };
