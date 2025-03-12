@@ -19,7 +19,7 @@ export default function ErrorFallback({ error }: ErrorFallbackProps) {
             width={24}
             height={24}
           />
-          <p>{error.message}</p>
+          <p className="text-base font-normal">{error.message}</p>
         </div>
         <Button
           onClick={resetBoundary}
