@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import instance from "@/apis/apiClient";
+import todoApi from "@/apis/todoApi";
 import { TodoResponse } from "@/types/todo";
 import { UpdateTodoBodyDto } from "@/types/types";
 
@@ -15,8 +15,7 @@ export const useUpdateTodo = () => {
       todoId: number;
       data: Partial<UpdateTodoBodyDto> & { done?: boolean };
     }) => {
-      const { data: response } = await instance.patch(`/todos/${todoId}`, data);
-      return response;
+      return todoApi.updateTodo(todoId, data);
     },
     onMutate: async ({ todoId, data }) => {
       await queryClient.cancelQueries({ queryKey: ["todos"] });

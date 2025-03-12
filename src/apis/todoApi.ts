@@ -46,6 +46,14 @@ export const todoApi = {
     const { data } = await instance.post("/todos", body);
     return data;
   },
+
+  updateTodo: async (
+    todoId: number,
+    body: UpdateTodoBodyDto,
+  ): Promise<TodoResponseDto> => {
+    const { data } = await instance.patch(`/todos/${todoId}`, body);
+    return data;
+  },
 };
 
 export default todoApi;
