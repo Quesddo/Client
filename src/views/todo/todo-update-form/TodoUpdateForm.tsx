@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { todoApi } from "@/apis/todoApi";
+import todoApi from "@/apis/todoApi";
 import { useModalContext } from "@/contexts/InputModalContext";
 import { useTodoForm } from "@/hooks/todo/form/useTodoForm";
 import { useUpdateTodo } from "@/hooks/todo/useUpdateTodo";

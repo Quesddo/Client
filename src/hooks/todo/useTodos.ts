@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-import { todoApi } from "@/apis/todoApi";
+import todoApi from "@/apis/todoApi";
 import { FilterType, TodoResponse } from "@/types/todo";
 
 export const useTodos = (

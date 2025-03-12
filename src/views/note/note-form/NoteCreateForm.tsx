@@ -3,7 +3,7 @@ import { usePathname } from "next/navigation";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
-import { todoApi } from "@/apis/todoApi";
+import todoApi from "@/apis/todoApi";
 import { useCreateNote } from "@/hooks/note/useCreateNote";
 import { useNoteStorage } from "@/hooks/note/useNoteStorage";
 import { CreateNoteBodyDto } from "@/types/types";

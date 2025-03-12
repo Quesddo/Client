@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { todoApi } from "@/apis/todoApi";
+import todoApi from "@/apis/todoApi";
 
 export default function useProgressTodo(goalId?: number) {
   return useQuery({
