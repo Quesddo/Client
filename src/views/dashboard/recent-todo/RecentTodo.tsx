@@ -19,7 +19,7 @@ export default function RecentTodo({
   setSelectedTodoId,
   onOpenDeletePopup,
 }: RecentTodoProps) {
-  const { data } = useTodos();
+  const { data } = useTodos({ size: 5 });
   const router = useRouter();
   const handleShowAll = () => {
     router.push("/todo");
