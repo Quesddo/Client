@@ -1,6 +1,5 @@
 import GoalItem from "@/components/atoms/goal-item/GoalItem";
 import TodoChip from "@/components/atoms/todo-chip/TodoChip";
-import { TodoTitle } from "@/views/todo/todo-item/todo-title/TodoTitle";
 
 interface GoalTodoDisplayProps {
   goal?: string;
@@ -18,7 +17,7 @@ export default function GoalTodoDisplay({ goal, todo }: GoalTodoDisplayProps) {
       />
       <div className="flex items-center gap-2">
         <TodoChip isDone={false} />
-        <TodoTitle title={todo || ""} done={false} />
+        <span className="text-sm font-normal text-slate-700">{todo || ""}</span>
       </div>
     </div>
   );
