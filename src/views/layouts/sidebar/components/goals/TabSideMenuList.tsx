@@ -1,4 +1,4 @@
-import { ForwardedRef, forwardRef, Fragment, memo, useEffect } from "react";
+import { ForwardedRef, forwardRef, memo, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
 import Spinner from "@/components/atoms/spinner/Spinner";
