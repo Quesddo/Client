@@ -1,9 +1,8 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
-import noteApi from "@/apis/noteApi";
+import { useFetchNote } from "@/hooks/note/useFetchNote";
 import { useNoteStorage } from "@/hooks/note/useNoteStorage";
 import { useUpdateNote } from "@/hooks/note/useUpdateNote";
 import { UpdateNoteBodyDto } from "@/types/types";
@@ -19,10 +18,7 @@ export default function NoteUpdateForm({ noteId }: NoteUpdateFormProps) {
   const pathname = usePathname();
   const router = useRouter();
 
-  const { data } = useSuspenseQuery({
-    queryKey: ["noteDetail", noteId],
-    queryFn: () => noteApi.fetchNote(noteId),
-  });
+  const { data } = useFetchNote(noteId);
 
   const methods = useForm<UpdateNoteBodyDto>({
     defaultValues: {

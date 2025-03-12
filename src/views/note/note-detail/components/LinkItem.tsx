@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 
 interface LinkItemProps {
   setIsEmbedOpen: Dispatch<SetStateAction<boolean>>;
-  linkUrl?: string;
+  linkUrl?: string | null;
 }
 
 export default function LinkItem({ linkUrl, setIsEmbedOpen }: LinkItemProps) {

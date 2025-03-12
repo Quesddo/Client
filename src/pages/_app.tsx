@@ -22,10 +22,10 @@ export default function App({ Component, pageProps }: AppProps) {
           <InputModalProvider>
             <div className="flex h-screen flex-col overflow-y-hidden sm:flex-row">
               <Sidebar />
-              <NoteDetail />
 
               <main className="flex-1 overflow-y-auto">
                 <Component {...pageProps} />
+                <NoteDetail />
                 <NoteDrawer />
                 <Toaster />
               </main>

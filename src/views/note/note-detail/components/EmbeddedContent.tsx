@@ -1,5 +1,5 @@
 interface EmbeddedContentProps {
-  linkUrl?: string;
+  linkUrl?: string | null;
   isOpen: boolean;
 }
 

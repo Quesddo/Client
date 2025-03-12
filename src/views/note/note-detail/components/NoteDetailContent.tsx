@@ -1,10 +1,9 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
-import noteApi from "@/apis/noteApi";
 import Divider from "@/components/atoms/divider/Divider";
 import GoalItem from "@/components/atoms/goal-item/GoalItem";
 import TodoChip from "@/components/atoms/todo-chip/TodoChip";
+import { useFetchNote } from "@/hooks/note/useFetchNote";
 import { formatDate } from "@/utils/formatDate/formatDate";
 import ReactQuillEditor from "@/views/note/editor/ReactQuillEditor";
 
@@ -17,10 +16,8 @@ interface NoteDetailContentProps {
 export default function NoteDetailContent({ noteId }: NoteDetailContentProps) {
   const [isEmbedOpen, setIsEmbedOpen] = useState(false);
 
-  const { data } = useSuspenseQuery({
-    queryKey: ["noteDetail", noteId],
-    queryFn: () => noteApi.fetchNoteDetail(noteId),
-  });
+  const { data } = useFetchNote(noteId);
+
   return (
     <>
       {/* 링크 embed 영역 (링크가 존재할 경우만 표시) */}

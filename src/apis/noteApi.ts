@@ -39,16 +39,7 @@ const noteApi = {
 
   fetchNote: async (noteId: number): Promise<TeamIdNotesPost201Response> => {
     const { data } = await instance.get(`/notes/${noteId}`);
-
     return data;
-  },
-
-  fetchNoteDetail: async (
-    noteId: number,
-  ): Promise<TeamIdNotesGet200ResponseNotesInner | null> => {
-    if (noteId == null) return Promise.resolve(null);
-
-    return (await instance.get(`/notes/${noteId}`)).data;
   },
 
   deleteNote: async (noteId: number) => {
