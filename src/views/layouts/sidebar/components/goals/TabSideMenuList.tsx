@@ -7,7 +7,7 @@ import { useInfiniteGoals } from "@/hooks/goal/useInfiniteGoals";
 
 import TabSideMenuItem from "./TabSideMenuItem";
 
-const FETCH_GOALS_SIZE = 3;
+const FETCH_GOALS_SIZE = 20;
 
 export default memo(
   forwardRef(function TabSideMenuList(_, ref: ForwardedRef<HTMLUListElement>) {
