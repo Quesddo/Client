@@ -7,7 +7,7 @@ import { useInfiniteGoals } from "@/hooks/goal/useInfiniteGoals";
 
 import TabSideMenuItem from "./TabSideMenuItem";
 
-const FETCH_GOALS_SIZE = 20;
+const FETCH_GOALS_SIZE = 3;
 
 export default memo(
   forwardRef(function TabSideMenuList(_, ref: ForwardedRef<HTMLUListElement>) {
@@ -30,13 +30,11 @@ export default memo(
       root: ref && "current" in ref ? ref.current : null,
     });
 
-    const isFetchRequired = inView && hasNextPage && !isFetchingNextPage;
-
     useEffect(() => {
-      if (isFetchRequired) {
+      if (inView && hasNextPage && !isFetchingNextPage) {
         fetchNextPage();
       }
-    }, [isFetchRequired]);
+    }, [inView, hasNextPage, isFetchingNextPage]);
 
     return (
       <ul className="min-h-0 overflow-y-auto" ref={ref}>
