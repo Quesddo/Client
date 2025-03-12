@@ -54,6 +54,11 @@ export const todoApi = {
     const { data } = await instance.patch(`/todos/${todoId}`, body);
     return data;
   },
+
+  deleteTodo: async (todoId: number) => {
+    const { data } = await instance.delete(`/todos/${todoId}`);
+    return data;
+  },
 };
 
 export default todoApi;

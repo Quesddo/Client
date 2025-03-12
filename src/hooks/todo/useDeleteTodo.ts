@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import instance from "@/apis/apiClient";
+import todoApi from "@/apis/todoApi";
 import { TodoResponse } from "@/types/todo";
 
 export const useDeleteTodo = () => {
@@ -8,8 +8,7 @@ export const useDeleteTodo = () => {
 
   return useMutation({
     mutationFn: async (todoId: number) => {
-      const { data } = await instance.delete(`/todos/${todoId}`);
-      return data;
+      return todoApi.deleteTodo(todoId);
     },
     onMutate: async (todoId: number) => {
       await queryClient.cancelQueries({ queryKey: ["todos"] });
