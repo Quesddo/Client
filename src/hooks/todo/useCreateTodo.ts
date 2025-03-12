@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import instance from "@/apis/apiClient";
+import todoApi from "@/apis/todoApi";
 import { UpdateTodoBodyDto } from "@/types/types";
 
 export const useCreateTodo = () => {
@@ -8,8 +8,7 @@ export const useCreateTodo = () => {
 
   return useMutation({
     mutationFn: async (newTodo: UpdateTodoBodyDto) => {
-      const { data } = await instance.post("/todos", newTodo);
-      return data;
+      return todoApi.createTodo(newTodo);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
