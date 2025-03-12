@@ -48,7 +48,7 @@ export default function NoteDrawer() {
     <>
       {mode && (
         <div className="fixed inset-0 z-20 flex justify-end bg-black/50">
-          <section className="box-border flex flex-col gap-4 overflow-y-auto bg-white p-6 sm:left-auto sm:w-[512px] sm:border-l sm:border-slate-200 md:w-[800px]">
+          <section className="box-border flex w-full flex-col gap-4 overflow-y-auto bg-white p-6 sm:left-auto sm:w-[512px] sm:border-l sm:border-slate-200 md:w-[800px]">
             <ExitBtn onClick={handleClick} />
             <BoundaryWrapper>
               {mode === MODE.CREATE && <NoteCreationForm todoId={todoId} />}
