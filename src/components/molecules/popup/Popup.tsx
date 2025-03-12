@@ -31,7 +31,7 @@ export default function Popup({
           <ExitBtn onClick={onClose} className="absolute top-6 right-6" />
         )}
         <h2 className="my-4 text-center text-base">{children}</h2>
-        <div className="flex w-full gap-2 sm:justify-center">
+        <div className="flex w-full justify-center gap-2">
           {isCancelEnabled && (
             <Button onClick={onClose} variant={"outline"} className="w-30">
               취소
