@@ -1,4 +1,4 @@
-import { ForwardedRef, forwardRef, memo, useEffect } from "react";
+import { ForwardedRef, forwardRef, Fragment, memo, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
 import Spinner from "@/components/atoms/spinner/Spinner";
@@ -49,7 +49,9 @@ export default memo(
                 goalId={goal.id}
               />
             ))}
-            {data?.goals.length > 0 && <li ref={inViewRef}></li>}
+            {hasNextPage && !isFetchingNextPage && (
+              <li className="h-[20px]" ref={inViewRef}></li>
+            )}
           </>
         )}
       </ul>
