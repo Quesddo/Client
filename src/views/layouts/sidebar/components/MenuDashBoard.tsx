@@ -4,11 +4,11 @@ import { useModalContext } from "@/contexts/InputModalContext";
 import TodoCreateForm from "@/views/todo/todo-create-form/TodoCreateForm";
 
 import AddButton from "./AddButton";
-import MenuItem from "./MenuItem";
 import CloseSidebarLink from "./CloseSidebarLink";
+import MenuItem from "./MenuItem";
 
 export default memo(function MenuDashboard() {
-  const { openModal } = useModalContext();
+  const { modalType, openModal } = useModalContext();
 
   return (
     <>
@@ -22,7 +22,7 @@ export default memo(function MenuDashboard() {
         <AddButton size="xs" onClick={() => openModal("createTodo")}>
           새 할일
         </AddButton>
-        <TodoCreateForm />
+        {modalType === "createTodo" && <TodoCreateForm />}
       </section>
     </>
   );
