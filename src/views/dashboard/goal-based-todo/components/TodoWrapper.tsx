@@ -28,7 +28,7 @@ export default function TodoWrapper({
 }: TodoWrapperProps) {
   const {
     data: { todos },
-  } = useTodos(goalId, FETCH_SIZE, doneStatus);
+  } = useTodos({ goalId, size: FETCH_SIZE, filter: doneStatus });
 
   const listLabel = doneStatus === "done" ? "Done" : "To do";
 
