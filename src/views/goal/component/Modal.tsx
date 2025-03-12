@@ -30,7 +30,7 @@ const Modal = ({ isOpen, onClose, onClick, children }: ModalProps) => {
       ></div>
       <div className="fixed inset-0 flex items-center justify-center">
         <div className="animate-fadeIn flex h-[216px] w-[300px] flex-col items-center justify-center gap-[32px] rounded-2xl bg-white p-6 shadow-lg sm:h-[200px] sm:w-[450px]">
-          <h2 className="text-center text-base font-medium text-slate-800">
+          <h2 className="w-[256px] text-base font-medium text-slate-800">
             {children}
           </h2>
           <div className="flex gap-[8px]">

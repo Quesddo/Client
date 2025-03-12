@@ -93,11 +93,17 @@ export default function GoalTitle() {
         }
       >
         {action === "update" ? (
-          <Input
-            type="text"
-            placeholder="수정 할 이름을 작성해주세요"
-            ref={inputRef}
-          />
+          <>
+            <label htmlFor="goal-name" className="mb-2 inline-block">
+              목표
+            </label>
+            <Input
+              id="goal-name"
+              type="text"
+              placeholder="수정 할 이름을 작성해주세요"
+              ref={inputRef}
+            />
+          </>
         ) : (
           <>
             <p>목표를 삭제하시겠어요?</p>
