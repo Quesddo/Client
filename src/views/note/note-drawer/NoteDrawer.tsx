@@ -48,13 +48,7 @@ export default function NoteDrawer() {
     });
 
   const handleClick = () => {
-    if (mode !== MODE.EDIT) {
-      // 이전 창으로 이동
-      router.push(pathname);
-    } else {
-      // TODO: 수정 시 동작
-      router.push(pathname);
-    }
+    router.push(pathname);
   };
 
   return (
