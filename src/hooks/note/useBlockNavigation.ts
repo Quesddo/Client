@@ -40,8 +40,8 @@ export const useBlockNavigation = ({
   };
 
   // 뒤로 가기
-  const handleBeforePopState = ({ url }: { url: string }) => {
-    if (url === router.asPath) {
+  const handleBeforePopState = ({ as }: { as: string }) => {
+    if (as === router.asPath) {
       return true;
     }
     if (isPageMoveRestricted) {
@@ -49,7 +49,7 @@ export const useBlockNavigation = ({
         if (!result) {
           history.pushState(null, "", router.asPath);
         } else {
-          originalPush(url);
+          originalPush(as);
         }
       });
       return false; // 이동 차단
@@ -87,6 +87,8 @@ export const useBlockNavigation = ({
 
   // 내부 링크 이동
   useEffect(() => {
+    const originalPush = router.push;
+
     const newPush: NextRouter["push"] = async (url, as, options) => {
       // 페이지를 벗어나지 않아야 하는 경우
       if (isPageMoveRestricted && !(await openModalAndWaitForChoice())) {

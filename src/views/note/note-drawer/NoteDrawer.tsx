@@ -42,11 +42,6 @@ export default function NoteDrawer() {
   const isEditMode = searchParams.get("mode") === MODE.EDIT;
   const mode = getMode({ isEditMode, noteId, todoId });
 
-  const { isPopupOpen, handleCanclePopup, handleConfirmPopup } =
-    useBlockNavigation({
-      isPageMoveRestricted: mode !== null,
-    });
-
   const handleClick = () => {
     router.push(pathname);
   };
@@ -63,16 +58,6 @@ export default function NoteDrawer() {
             </BoundaryWrapper>
           </section>
         </div>
-      )}
-      {isPopupOpen && (
-        <Popup
-          onClose={handleCanclePopup}
-          onConfirm={handleConfirmPopup}
-          isCancelEnabled
-        >
-          <p>정말 나가시겠어요?</p>
-          <p>작성된 내용이 모두 삭제됩니다.</p>
-        </Popup>
       )}
     </>
   );

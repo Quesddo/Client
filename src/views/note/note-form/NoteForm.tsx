@@ -3,7 +3,9 @@ import { FormProvider, type Path, type UseFormReturn } from "react-hook-form";
 
 import Button from "@/components/atoms/button/Button";
 import PageTitle from "@/components/atoms/page-title/PageTitle";
+import Popup from "@/components/molecules/popup/Popup";
 import { useAutoSaveNoteDraft } from "@/hooks/note/useAutoSaveNoteDraft";
+import { useBlockNavigation } from "@/hooks/note/useBlockNavigation";
 import { CreateNoteBodyDto, UpdateNoteBodyDto } from "@/types/types";
 import EmbeddedContent from "@/views/note/note-detail/components/EmbeddedContent";
 import DraftNoteReminderToast from "@/views/note/note-form/DraftNoteReminderToast";
@@ -36,18 +38,24 @@ export default function NoteForm<
   todo,
   children,
 }: NoteFormProps<TNoteBody>) {
+  const {
+    formState: { isValid, isSubmitSuccessful },
+  } = methods;
+
   const { handleClickSaveDraft } = useAutoSaveNoteDraft({
     id,
     methods,
     isEditMode: editMode,
   });
+
+  const { isPopupOpen, handleCanclePopup, handleConfirmPopup } =
+    useBlockNavigation({
+      isPageMoveRestricted: !isSubmitSuccessful,
+    });
+
   const [isEmbedOpen, setIsEmbedOpen] = useState(false);
 
   const linkUrl = methods.watch("linkUrl" as Path<TNoteBody>)?.toString();
-
-  const {
-    formState: { isValid },
-  } = methods;
 
   const handleToggleEmbedOpen = () => {
     setIsEmbedOpen((prev) => !prev);
@@ -100,6 +108,18 @@ export default function NoteForm<
           {children}
         </form>
       </FormProvider>
+
+      {/* 작성 중 나가기 안내 모달 */}
+      {isPopupOpen && (
+        <Popup
+          onClose={handleCanclePopup}
+          onConfirm={handleConfirmPopup}
+          isCancelEnabled
+        >
+          <p>정말 나가시겠어요?</p>
+          <p>작성된 내용이 모두 삭제됩니다.</p>
+        </Popup>
+      )}
     </>
   );
 }
