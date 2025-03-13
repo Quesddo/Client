@@ -69,7 +69,7 @@ export default function NoteForm<
     <>
       <div className="fixed inset-0 z-20 flex justify-end bg-black/50">
         <section className="box-border flex w-full flex-col gap-4 overflow-y-auto bg-white p-6 sm:left-auto sm:w-[512px] sm:border-l sm:border-slate-200 md:w-[800px]">
-          <ExitBtn onClick={router.back} />
+          <ExitBtn onClick={router.back} className="self-end" />
 
           {/* 링크 embed 영역 (링크가 존재할 경우만 표시) */}
           <EmbeddedContent isOpen={isEmbedOpen} linkUrl={linkUrl} />
