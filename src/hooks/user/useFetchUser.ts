@@ -14,6 +14,7 @@ export const useFetchUser = (throwOnError = false) => {
     retry: false,
     staleTime: 1000 * 60 * 60,
     throwOnError: throwOnError,
+    refetchOnWindowFocus: false,
   });
 
   return {
