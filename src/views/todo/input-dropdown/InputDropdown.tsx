@@ -36,6 +36,11 @@ export default function InputDropdown({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const handleSelect = (item: { id: number } | null) => {
+    onSelect(item ? item : { id: null });
+    setIsOpen(false);
+  };
+
   return (
     <div
       className="relative w-full text-sm font-normal sm:text-base"
@@ -73,21 +78,14 @@ export default function InputDropdown({
             className="dropdown-scroll absolute z-50 mt-[1px] max-h-[calc(100vh-600px)] min-h-[130px] w-full overflow-hidden overflow-y-auto rounded-xl border border-slate-200 font-semibold shadow-lg sm:max-h-[calc(50vh-270px)]"
           >
             <ul>
-              <InputDropdownItem
-                onClick={() => {
-                  onSelect({ id: null });
-                  setIsOpen(false);
-                }}
-              >
+              <InputDropdownItem onClick={() => handleSelect(null)}>
                 {buttonText}
               </InputDropdownItem>
               {dropdownItems.map((item) => (
                 <InputDropdownItem
                   key={item.id}
-                  onClick={() => {
-                    onSelect(item);
-                    setIsOpen(false);
-                  }}
+                  onClick={() => handleSelect(item)}
+                  selected={selectedItem?.id === item.id}
                 >
                   {item.title}
                 </InputDropdownItem>
