@@ -16,13 +16,11 @@ const EMPTY_MESSAGE: Record<(typeof FILTER_TYPES)[number], string> = {
 
 interface TodosProps {
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
-  setSelectedTodoId: (todoId: number | null) => void;
   onOpenDeletePopup: (todoId: number) => void;
 }
 
 export default memo(function Todos({
   handleToggleTodo,
-  setSelectedTodoId,
   onOpenDeletePopup,
 }: TodosProps) {
   const [filter, setFilter] = useState<(typeof FILTER_TYPES)[number]>("All");
@@ -64,7 +62,6 @@ export default memo(function Todos({
           <TodoList
             data={filteredTodos}
             handleToggleTodo={handleToggleTodo}
-            setSelectedTodoId={setSelectedTodoId}
             onOpenDeletePopup={onOpenDeletePopup}
             isShowGoal={true}
             isNew={true}

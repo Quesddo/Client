@@ -3,26 +3,16 @@ import { useCallback } from "react";
 import PlusIcon from "@/components/atoms/plus-icon/PlusIcon";
 import BoundaryWrapper from "@/components/organisms/boundary-wrapper/BoundaryWrapper";
 import { useModalContext } from "@/contexts/InputModalContext";
-import { useTodoListAction } from "@/hooks/todo/useTodoListAction";
+import { useTodoListActionContext } from "@/contexts/TodoListActionContext";
 import { cn } from "@/utils/cn/cn";
-import DeletePopup from "@/views/todo/popup/DeletePopup";
-import TodoCreateForm from "@/views/todo/todo-create-form/TodoCreateForm";
-import TodoUpdateForm from "@/views/todo/todo-update-form/TodoUpdateForm";
 import Todos from "@/views/todo/todoPage/Todos";
 
 import QuesddoHead from "../../components/atoms/quesddo-head/QuesddoHead";
 
 export default function TodoPage() {
-  const { modalType, openModal } = useModalContext();
-  const {
-    selectedTodoId,
-    isPopupOpen,
-    handleToggleTodo,
-    setSelectedTodoId,
-    onOpenDeletePopup,
-    onConfirmDelete,
-    onCancelDelete,
-  } = useTodoListAction();
+  const { openModal } = useModalContext();
+  const { handleToggleTodo, setSelectedTodoId, onOpenDeletePopup } =
+    useTodoListActionContext();
 
   const handleOpenCreateModal = useCallback(() => {
     setSelectedTodoId(null);
@@ -55,18 +45,9 @@ export default function TodoPage() {
         <BoundaryWrapper>
           <Todos
             handleToggleTodo={handleToggleTodo}
-            setSelectedTodoId={setSelectedTodoId}
             onOpenDeletePopup={onOpenDeletePopup}
           />
         </BoundaryWrapper>
-
-        {modalType === "createTodo" && <TodoCreateForm />}
-        {modalType === "updateTodo" && selectedTodoId && (
-          <TodoUpdateForm todoId={selectedTodoId} />
-        )}
-        {isPopupOpen && selectedTodoId && (
-          <DeletePopup onConfirm={onConfirmDelete} onCancel={onCancelDelete} />
-        )}
       </div>
     </>
   );
