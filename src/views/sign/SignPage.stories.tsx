@@ -58,7 +58,7 @@ const Template: StoryFn<SignProps> = (args) => {
       </FormProvider>
       <p className="mt-10 text-center font-normal">
         {args.page === "login"
-          ? "슬리드 투두가 처음이신가요?"
+          ? "퀘스또가 처음이신가요?"
           : "이미 회원이신가요?"}
         <Link
           className="text-blue-600 underline hover:text-blue-800"
