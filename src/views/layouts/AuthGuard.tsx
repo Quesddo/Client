@@ -2,12 +2,13 @@ import { useRouter } from "next/router";
 import { ReactNode } from "react";
 
 import { useFetchUser } from "@/hooks/user/useFetchUser";
+import routes from "@/router/routes";
 
 interface AuthGuardProps {
   children: ReactNode;
 }
 
-const PUBLIC_PATH = ["/login", "/signup"];
+const PUBLIC_PATH = [routes.login(), routes.signup()];
 
 export default function AuthGuard({ children }: AuthGuardProps) {
   const router = useRouter();
@@ -16,9 +17,9 @@ export default function AuthGuard({ children }: AuthGuardProps) {
 
   if (isLoading) return null;
 
-  const redirectTo = isAuthenticated ? "/dashboard" : "/login";
+  const redirectTo = isAuthenticated ? routes.dashboard() : routes.login();
 
-  if (router.pathname === "/" || isAuthenticated === isPublicPage) {
+  if (router.pathname === routes.root() || isAuthenticated === isPublicPage) {
     return router.replace(redirectTo);
   }
 

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useFetchNote } from "@/hooks/note/useFetchNote";
 import { useNoteStorage } from "@/hooks/note/useNoteStorage";
 import { useUpdateNote } from "@/hooks/note/useUpdateNote";
+import routes from "@/router/routes";
 import { UpdateNoteBodyDto } from "@/types/types";
 
 import NoteForm from "../note-form/NoteForm";
@@ -42,12 +43,8 @@ export default function NoteUpdateForm({ noteId }: NoteUpdateFormProps) {
   const handleSubmit = (data: UpdateNoteBodyDto) => {
     mutation.mutate(data, {
       onSuccess: (data) => {
-        const queryParams = new URLSearchParams();
-
         removeNoteDraft(noteId);
-        queryParams.set("noteId", data.id.toString());
-        queryParams.set("mode", "detail");
-        router.push(`${pathname}?${queryParams.toString()}`);
+        router.push(`${pathname}${routes.noteDetail(data.id)}`);
       },
     });
   };

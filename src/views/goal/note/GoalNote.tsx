@@ -1,9 +1,10 @@
+import note from "@public/icons/note.svg";
 import Image from "next/image";
 import Link from "next/link";
 
+import routes from "@/router/routes";
 import { useGoalDetailContext } from "@/views/goal/GoalDetailContext";
 import arrowRight from "@public/icons/arrow-right.svg";
-import note from "@public/icons/note.svg";
 
 import Section from "../component/Section";
 
@@ -12,7 +13,7 @@ export default function GoalNote() {
 
   return (
     <Section className="bg-blue-100 hover:shadow">
-      <Link href={`/goal/${goalId}/notes`}>
+      <Link href={routes.notes(goalId)}>
         <div className="flex justify-between">
           <div className="flex gap-[8px]">
             <Image

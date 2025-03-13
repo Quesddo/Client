@@ -1,6 +1,7 @@
 import { memo } from "react";
 
 import { useTodoListActionContext } from "@/contexts/TodoListActionContext";
+import routes from "@/router/routes";
 
 import AddButton from "./AddButton";
 import CloseSidebarLink from "./CloseSidebarLink";
@@ -19,7 +20,7 @@ export default memo(function MenuDashboard() {
         <AddButton onClick={handleCreateTodo}>새 할일</AddButton>
       </div>
       <section className="flex h-[36px] items-center justify-between border-t border-b border-slate-200 py-3">
-        <CloseSidebarLink href="/dashboard">
+        <CloseSidebarLink href={routes.dashboard()}>
           <MenuItem title="대시보드" iconSrc="/icons/home.png" />
         </CloseSidebarLink>
         <AddButton size="xs" onClick={handleCreateTodo}>

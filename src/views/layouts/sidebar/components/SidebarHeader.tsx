@@ -1,3 +1,4 @@
+import routes from "@/router/routes";
 import { cn } from "@/utils/cn/cn";
 
 import CloseSidebarLink from "./CloseSidebarLink";
@@ -18,7 +19,7 @@ export default function SidebarHeader({
         !isOpen && "flex-col gap-4 px-[14px] pt-2",
       )}
     >
-      <CloseSidebarLink href="/">
+      <CloseSidebarLink href={routes.root()}>
         <img
           src="/icons/logo-lg.png"
           alt="로고_horizontal"

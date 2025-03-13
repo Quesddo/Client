@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 
 import PlusIcon from "@/components/atoms/plus-icon/PlusIcon";
 import { useTodoListActionContext } from "@/contexts/TodoListActionContext";
+import routes from "@/router/routes";
 import { FilterType } from "@/types/todo";
 import { TeamIdGoalsGet200ResponseGoalsInner } from "@/types/types";
 
@@ -19,7 +20,7 @@ export default function GoalItem({ goal }: GoalItemProps) {
 
   // 자세히보기 버튼 클릭 => 목표상세로 이동
   const handleClickMore = (goalId: number) => {
-    router.push(`/goal/${goalId}`);
+    router.push(routes.goal(goalId));
   };
 
   return (
