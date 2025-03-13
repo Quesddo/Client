@@ -27,7 +27,7 @@ export default function GoalBasedTodo() {
   const goals = data ? data.goals : [];
 
   return (
-    <section className="rounded-xl bg-white p-6 transition-shadow duration-300 hover:shadow-2xl">
+    <section className="rounded-xl bg-white p-4 transition-shadow duration-300 hover:shadow-2xl sm:px-6">
       {/* 목표별 할 일 타이틀 */}
       <TitleWithIcon
         title="목표별 할 일"

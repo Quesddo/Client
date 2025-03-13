@@ -22,7 +22,7 @@ export default function RecentTodo() {
   const { handleToggleTodo, onOpenDeletePopup } = useTodoListActionContext();
 
   return (
-    <section className="mb-4 h-[218px] flex-1 rounded-xl bg-white p-4 transition-shadow duration-300 hover:shadow-2xl">
+    <section className="mb-4 h-[218px] flex-1 rounded-xl bg-white p-4 transition-shadow duration-300 hover:shadow-2xl sm:px-6">
       <div className="mb-4 flex justify-between">
         <TitleWithIcon
           imgUrl="/icons/todo-recently.png"
