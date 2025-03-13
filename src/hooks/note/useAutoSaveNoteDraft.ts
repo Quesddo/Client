@@ -36,7 +36,7 @@ export const useAutoSaveNoteDraft = ({
     if (isEmptyNote({ title, content, linkUrl })) {
       addToast({
         variant: "error",
-        content: "빈 노트는 저장할 수 없습니다.",
+        content: "빈 노트는 저장할 수 없습니다",
       });
 
       return;
