@@ -40,7 +40,7 @@ export default memo(function Todos({
   }, [inView, hasNextPage, fetchNextPage]);
 
   return (
-    <div className="mb-4 flex h-full flex-grow flex-col rounded-xl bg-white p-4 sm:mb-6 sm:max-w-[588px] sm:p-6 md:max-w-[744px]">
+    <div className="flex h-full flex-grow flex-col">
       <div>
         {FILTER_TYPES.map((type) => (
           <button
@@ -52,7 +52,10 @@ export default memo(function Todos({
             )}
           >
             {type}
-            {filter === type && ` (${filteredTodos.length})`}
+            {filter === type &&
+              (filter === "All"
+                ? ` (${data?.totalCount})`
+                : ` (${filteredTodos.length})`)}
           </button>
         ))}
       </div>
