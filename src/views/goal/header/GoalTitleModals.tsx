@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { ChangeEvent, useState } from "react";
 import { createPortal } from "react-dom";
 
 import Input from "@/components/atoms/input/Input";
@@ -11,51 +11,30 @@ interface GoalTitleModalsProps {
   goalId: number;
   actionType: "update" | "delete";
   onClose: () => void;
+  title: string | undefined;
 }
 
 export default function GoalTitleModals({
   goalId,
   actionType,
   onClose,
+  title,
 }: GoalTitleModalsProps) {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [value, setValue] = useState<string>(title ?? "");
   const { mutate: updateGoalName } = useUpdateGoal(goalId);
   const { mutate: deleteGoal } = useDeleteGoal(goalId);
 
   const onUpdateGoal = () => {
-    if (inputRef.current?.value) {
-      updateGoalName(inputRef.current.value);
-      onClose();
-    }
+    updateGoalName(value);
+    onClose();
   };
 
   const onDeleteGoal = () => {
     deleteGoal();
   };
 
-  const ModalContent = () => {
-    if (actionType === "update") {
-      return (
-        <>
-          <label htmlFor="goal-name" className="mb-1 block text-left">
-            목표이름 수정
-          </label>
-          <Input
-            id="goal-name"
-            type="text"
-            placeholder="수정 할 이름을 작성해주세요 ✏️"
-            ref={inputRef}
-          />
-        </>
-      );
-    }
-
-    return (
-      <>
-        <p>목표를 삭제하시겠어요?</p>
-        <p>삭제된 목표는 복구할 수 없습니다.</p>
-      </>
-    );
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
   };
 
   return createPortal(
@@ -64,7 +43,25 @@ export default function GoalTitleModals({
       onConfirm={actionType === "update" ? onUpdateGoal : onDeleteGoal}
       isCancelEnabled={true}
     >
-      <ModalContent />
+      {actionType === "update" ? (
+        <>
+          <label htmlFor="goal-name" className="mb-1 block text-left">
+            목표이름 수정
+          </label>
+          <Input
+            id="goal-name"
+            type="text"
+            placeholder="수정 할 이름을 작성해주세요 ✏️"
+            value={value}
+            onChange={handleChange}
+          />
+        </>
+      ) : (
+        <>
+          <p>목표를 삭제하시겠어요?</p>
+          <p>삭제된 목표는 복구할 수 없습니다.</p>
+        </>
+      )}
     </GoalPopup>,
     document.body,
   );

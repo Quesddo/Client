@@ -11,10 +11,12 @@ import GoalTitleModals from "./GoalTitleModals";
 
 export default function GoalTitle() {
   const { goalId } = useGoalDetailContext();
+  const { data, isLoading } = useFetchGoal(goalId);
   const [isOpenActionDropDown, setIsOpenActionDropDown] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const actionRef = useRef<"update" | "delete">("update");
-  const { data } = useFetchGoal(goalId);
+
+  if (isLoading) return;
 
   const handleOpenUpdateModal = () => {
     actionRef.current = "update";
@@ -62,6 +64,7 @@ export default function GoalTitle() {
           goalId={goalId}
           actionType={actionRef.current}
           onClose={handleCloseModal}
+          title={data?.title}
         />
       )}
     </>
