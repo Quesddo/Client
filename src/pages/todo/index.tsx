@@ -1,8 +1,5 @@
-import { useCallback } from "react";
-
 import PlusIcon from "@/components/atoms/plus-icon/PlusIcon";
 import BoundaryWrapper from "@/components/organisms/boundary-wrapper/BoundaryWrapper";
-import { useModalContext } from "@/contexts/InputModalContext";
 import { useTodoListActionContext } from "@/contexts/TodoListActionContext";
 import { cn } from "@/utils/cn/cn";
 import Todos from "@/views/todo/todoPage/Todos";
@@ -10,14 +7,12 @@ import Todos from "@/views/todo/todoPage/Todos";
 import QuesddoHead from "../../components/atoms/quesddo-head/QuesddoHead";
 
 export default function TodoPage() {
-  const { openModal } = useModalContext();
-  const { handleToggleTodo, setSelectedTodoId, onOpenDeletePopup } =
+  const { handleToggleTodo, onOpenDeletePopup, onOpenCreateModal } =
     useTodoListActionContext();
 
-  const handleOpenCreateModal = useCallback(() => {
-    setSelectedTodoId(null);
-    openModal("createTodo");
-  }, [setSelectedTodoId, openModal]);
+  const handleCreatTodo = () => {
+    onOpenCreateModal(undefined);
+  };
 
   return (
     <>
@@ -34,7 +29,7 @@ export default function TodoPage() {
             모든 할 일
           </h1>
           <button
-            onClick={handleOpenCreateModal}
+            onClick={handleCreatTodo}
             className="flex items-center gap-1 text-sm font-semibold text-blue-500"
           >
             <PlusIcon width={16} height={16} />
