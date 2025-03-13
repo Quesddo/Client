@@ -7,7 +7,7 @@ import Divider from "@/components/atoms/divider/Divider";
 import TodoChip from "@/components/atoms/todo-chip/TodoChip";
 import Popup from "@/components/molecules/popup/Popup";
 import { useDeleteNote } from "@/hooks/note/useDeleteNote";
-import routes from "@/router/routes";
+import pageRoutes from "@/router/pageRoutes";
 
 interface CardTitleProps extends PropsWithChildren {
   noteId: number;
@@ -30,7 +30,7 @@ function CardHeader({ noteId }: CardHeaderProps) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const router = useRouter();
   const goalId = Number(router.query.goalId);
-  const editPath = `${router.asPath}${routes.noteUpdate(noteId)}`;
+  const editPath = `${router.asPath}${pageRoutes.noteUpdate(noteId)}`;
 
   const { mutate } = useDeleteNote(goalId);
   const handleClickEdit = () => {
@@ -114,7 +114,7 @@ function CardTitle({ children, noteId }: CardTitleProps) {
       // 노트 상세 사이드바 띄우기
       onClick={() => {
         router.push(
-          `${router.asPath.split("?")[0]}${routes.noteDetail(noteId)}`,
+          `${router.asPath.split("?")[0]}${pageRoutes.noteDetail(noteId)}`,
         );
       }}
     >

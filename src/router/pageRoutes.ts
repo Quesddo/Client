@@ -1,4 +1,4 @@
-const routes = {
+const pageRoutes = {
   root: () => "/",
   signup: () => `/signup`,
   login: () => `/login`,
@@ -11,4 +11,4 @@ const routes = {
   noteUpdate: (noteId: number) => `?noteId=${noteId}&mode=edit `,
 };
 
-export default routes;
+export default pageRoutes;

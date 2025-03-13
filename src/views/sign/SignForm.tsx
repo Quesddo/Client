@@ -10,7 +10,7 @@ import {
 import Button from "@/components/atoms/button/Button";
 import Popup from "@/components/molecules/popup/Popup";
 import useSign from "@/hooks/auth/useSign";
-import routes from "@/router/routes";
+import pageRoutes from "@/router/pageRoutes";
 import { UserCreateRequstDto } from "@/types/types";
 
 import { LOGIN, SIGNUP } from "./fieldSet";
@@ -47,7 +47,7 @@ const InnerForm = () => {
   };
 
   const onClickCloseModal = () => {
-    router.push(routes.login());
+    router.push(pageRoutes.login());
   };
 
   return (

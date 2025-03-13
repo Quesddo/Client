@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useFetchNote } from "@/hooks/note/useFetchNote";
 import { useNoteStorage } from "@/hooks/note/useNoteStorage";
 import { useUpdateNote } from "@/hooks/note/useUpdateNote";
-import routes from "@/router/routes";
+import pageRoutes from "@/router/pageRoutes";
 import { UpdateNoteBodyDto } from "@/types/types";
 
 import NoteForm from "../note-form/NoteForm";
@@ -44,7 +44,7 @@ export default function NoteUpdateForm({ noteId }: NoteUpdateFormProps) {
     mutation.mutate(data, {
       onSuccess: (data) => {
         removeNoteDraft(noteId);
-        router.push(`${pathname}${routes.noteDetail(data.id)}`);
+        router.push(`${pathname}${pageRoutes.noteDetail(data.id)}`);
       },
     });
   };

@@ -7,14 +7,14 @@ import TitleWithIcon from "@/components/atoms/title-with-icon/TitleWithIcon.tsx"
 import TodoList from "@/components/organisms/todo-list/TodoList";
 import { useTodoListActionContext } from "@/contexts/TodoListActionContext";
 import { useTodos } from "@/hooks/todo/useTodos";
-import routes from "@/router/routes";
+import pageRoutes from "@/router/pageRoutes";
 import arrowRight from "@public/icons/arrow-right.svg";
 
 export default function RecentTodo() {
   const { data } = useTodos({ size: 5 });
   const router = useRouter();
   const handleShowAll = () => {
-    router.push(routes.todo());
+    router.push(pageRoutes.todo());
   };
 
   const todos = data?.todos ?? [];

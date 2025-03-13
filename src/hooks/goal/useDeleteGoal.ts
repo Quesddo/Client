@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 import instance from "@/apis/apiClient";
 import { queryKeys } from "@/query-keys";
-import routes from "@/router/routes";
+import pageRoutes from "@/router/pageRoutes";
 
 import useToast from "../useToast";
 
@@ -25,7 +25,7 @@ export const useDeleteGoal = (goalId?: number) => {
       });
 
       queryClient.invalidateQueries({ queryKey: goalInfiniteQueryKey });
-      router.push(routes.dashboard());
+      router.push(pageRoutes.dashboard());
     },
   });
 };

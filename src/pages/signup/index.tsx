@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import routes from "@/router/routes";
+import pageRoutes from "@/router/pageRoutes";
 import Main from "@/views/sign/Main";
 import SignForm from "@/views/sign/SignForm";
 import logo from "@public/icons/logo-lg.png";
@@ -28,7 +28,7 @@ export default function SignUpPage() {
           이미 회원이신가요?
           <Link
             className="ml-1 inline-block text-blue-600 underline hover:text-blue-800"
-            href={routes.login()}
+            href={pageRoutes.login()}
           >
             로그인
           </Link>

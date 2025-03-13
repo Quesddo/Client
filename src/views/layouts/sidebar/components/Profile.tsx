@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { memo } from "react";
 
 import { useFetchUser } from "@/hooks/user/useFetchUser";
-import routes from "@/router/routes";
+import pageRoutes from "@/router/pageRoutes";
 import { tokenUtils } from "@/utils/tokenUtils/tokenUtils";
 import profile from "@public/icons/profile.png";
 
@@ -16,7 +16,7 @@ export default memo(function Profile() {
   const handleLogout = async () => {
     tokenUtils.clearToken();
     await queryClient.clear();
-    router.replace(routes.root());
+    router.replace(pageRoutes.root());
   };
 
   return (

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 import ActionDropdown from "@/components/atoms/action-dropdown/ActionDropdown";
-import routes from "@/router/routes";
+import pageRoutes from "@/router/pageRoutes";
 import { TodoResponse } from "@/types/todo";
 import { cn } from "@/utils/cn/cn";
 
@@ -36,10 +36,10 @@ export function ActionIcon({
   const actionRef = useRef<HTMLUListElement>(null);
 
   const handleNoteDetail = () => {
-    router.push(`${pathname}${routes.noteDetail(todo.noteId as number)}`);
+    router.push(`${pathname}${pageRoutes.noteDetail(todo.noteId as number)}`);
   };
   const handleNoteCreation = () => {
-    router.push(`${pathname}${routes.noteCreate(todo.id)}`);
+    router.push(`${pathname}${pageRoutes.noteCreate(todo.id)}`);
   };
 
   const hoverIconStyle = `hover-icon-style opacity-0 invisible -ml-6 group-hover:opacity-100 group-hover:visible group-hover:ml-0 hover:shadow-md transition-all duration-150 ${(isOpen || isTouched) && "opacity-100 visible ml-0"}`;

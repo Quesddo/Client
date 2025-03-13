@@ -2,13 +2,13 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 
 import Button from "@/components/atoms/button/Button";
-import routes from "@/router/routes";
+import pageRoutes from "@/router/pageRoutes";
 
 export default function Custom404() {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(routes.dashboard());
+    router.push(pageRoutes.dashboard());
   };
 
   return (
