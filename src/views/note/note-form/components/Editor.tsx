@@ -6,7 +6,7 @@ import ReactQuill from "react-quill-new";
 
 import { useModalContext } from "@/contexts/InputModalContext";
 
-import ReactQuillEditor from "../editor/ReactQuillEditor";
+import ReactQuillEditor from "../../editor/ReactQuillEditor";
 
 const toolbarOptions = [
   ["bold", "italic", "underline"],

@@ -10,14 +10,14 @@ import { useAutoSaveNoteDraft } from "@/hooks/note/useAutoSaveNoteDraft";
 import { useBlockNavigation } from "@/hooks/note/useBlockNavigation";
 import { CreateNoteBodyDto, UpdateNoteBodyDto } from "@/types/types";
 import EmbeddedContent from "@/views/note/note-detail/components/EmbeddedContent";
-import DraftNoteReminderToast from "@/views/note/note-form/DraftNoteReminderToast";
-import Editor from "@/views/note/note-form/Editor";
-import TitleWithCounter from "@/views/note/note-form/TitleWithCounter";
+import DraftNoteReminderToast from "@/views/note/note-form/components/DraftNoteReminderToast";
+import Editor from "@/views/note/note-form/components/Editor";
+import TitleWithCounter from "@/views/note/note-form/components/TitleWithCounter";
 
-import EditorTextCounter from "./EditorTextCounter";
-import GoalTodoDisplay from "./GoalTodoDisplay";
-import LinkDisplay from "./LinkDisplay";
-import LinkModal from "./LinkModal";
+import EditorTextCounter from "./components/EditorTextCounter";
+import GoalTodoDisplay from "./components/GoalTodoDisplay";
+import LinkDisplay from "./components/LinkDisplay";
+import LinkModal from "./components/LinkModal";
 
 interface NoteFormProps<TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto>
   extends PropsWithChildren {
