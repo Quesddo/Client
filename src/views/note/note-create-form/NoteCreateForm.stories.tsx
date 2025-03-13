@@ -4,7 +4,7 @@ import Toaster from "@/components/organisms/toaster/Toaster";
 import ToastProvider from "@/components/organisms/toaster/ToastProvider";
 import { InputModalProvider } from "@/contexts/InputModalContext";
 
-import NoteCreationForm from "./NoteCreateForm";
+import NoteCreateForm from "./NoteCreateForm";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const queryClient = new QueryClient({
@@ -15,9 +15,9 @@ const queryClient = new QueryClient({
   },
 });
 
-const meta: Meta<typeof NoteCreationForm> = {
-  title: "views/note/NoteCreationForm",
-  component: NoteCreationForm,
+const meta: Meta<typeof NoteCreateForm> = {
+  title: "views/note/NoteCreateForm",
+  component: NoteCreateForm,
   argTypes: {
     todoId: {
       control: "number",
@@ -43,7 +43,7 @@ const meta: Meta<typeof NoteCreationForm> = {
 
 export default meta;
 
-type Story = StoryObj<typeof NoteCreationForm>;
+type Story = StoryObj<typeof NoteCreateForm>;
 
 export const Default: Story = {
   args: {
