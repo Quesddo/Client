@@ -11,6 +11,7 @@ import AuthGuard from "@/views/layouts/AuthGuard";
 import Sidebar from "@/views/layouts/sidebar/Sidebar";
 import NoteDetail from "@/views/note/note-detail/NoteDetail";
 import NoteDrawer from "@/views/note/note-drawer/NoteDrawer";
+import TodoDrawer from "@/views/todo/todo-drawer/TodoDrawer";
 import type { AppProps } from "next/app";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ export default function App({ Component, pageProps }: AppProps) {
                   <Component {...pageProps} />
                   <NoteDetail />
                   <NoteDrawer />
+                  <TodoDrawer />
                   <Toaster />
                 </div>
               </div>
