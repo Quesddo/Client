@@ -30,10 +30,10 @@ export const useAutoSaveNoteDraft = ({
 
   const saveDraftNoteAndShowToast = () => {
     const title = getValues("title");
-    const content = getValues("plainContent");
+    const plainContent = getValues("plainContent");
     const linkUrl = getValues("linkUrl");
 
-    if (isEmptyNote({ title, content, linkUrl })) {
+    if (isEmptyNote({ title, plainContent, linkUrl })) {
       addToast({
         variant: "error",
         content: "빈 노트는 저장할 수 없습니다",
