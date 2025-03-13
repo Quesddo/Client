@@ -1,3 +1,4 @@
+import { QueryErrorResetBoundary } from "@tanstack/react-query";
 import { ReactNode, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -20,10 +21,16 @@ export default function BoundaryWrapper({
   errorFallback,
 }: BoundaryWrapperProps) {
   return (
-    <ErrorBoundary FallbackComponent={errorFallback || DefaultErrorFallback}>
-      <Suspense fallback={fallback || <Spinner size={80} />}>
-        {children}
-      </Suspense>
-    </ErrorBoundary>
+    <QueryErrorResetBoundary>
+      {() => (
+        <ErrorBoundary
+          FallbackComponent={errorFallback || DefaultErrorFallback}
+        >
+          <Suspense fallback={fallback || <Spinner size={80} />}>
+            {children}
+          </Suspense>
+        </ErrorBoundary>
+      )}
+    </QueryErrorResetBoundary>
   );
 }
