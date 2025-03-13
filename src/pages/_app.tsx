@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Toaster from "@/components/organisms/toaster/Toaster";
 import ToastProvider from "@/components/organisms/toaster/ToastProvider";
 import { InputModalProvider } from "@/contexts/InputModalContext";
+import { TodoListActionProvider } from "@/contexts/TodoListActionContext";
 import AuthGuard from "@/views/layouts/AuthGuard";
 import Sidebar from "@/views/layouts/sidebar/Sidebar";
 import NoteDetail from "@/views/note/note-detail/NoteDetail";
@@ -20,16 +21,18 @@ export default function App({ Component, pageProps }: AppProps) {
       <AuthGuard>
         <ToastProvider>
           <InputModalProvider>
-            <div className="flex h-screen flex-col overflow-y-hidden sm:flex-row">
-              <Sidebar />
+            <TodoListActionProvider>
+              <div className="flex h-screen flex-col overflow-y-hidden sm:flex-row">
+                <Sidebar />
 
-              <div className="flex-1 overflow-y-auto">
-                <Component {...pageProps} />
-                <NoteDetail />
-                <NoteDrawer />
-                <Toaster />
+                <div className="flex-1 overflow-y-auto">
+                  <Component {...pageProps} />
+                  <NoteDetail />
+                  <NoteDrawer />
+                  <Toaster />
+                </div>
               </div>
-            </div>
+            </TodoListActionProvider>
           </InputModalProvider>
         </ToastProvider>
       </AuthGuard>
