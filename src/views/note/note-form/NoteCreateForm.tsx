@@ -1,12 +1,10 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
-import todoApi from "@/apis/todoApi";
 import { useCreateNote } from "@/hooks/note/useCreateNote";
 import { useNoteStorage } from "@/hooks/note/useNoteStorage";
-import { queryKeys } from "@/query-keys";
+import { useFetchTodo } from "@/hooks/todo/useFetchTodo";
 import { CreateNoteBodyDto } from "@/types/types";
 
 import NoteForm from "./NoteForm";
@@ -29,10 +27,7 @@ export default function NoteCreationForm({ todoId }: NoteCreationFormProps) {
   const pathname = usePathname();
   const router = useRouter();
 
-  const { data } = useSuspenseQuery({
-    queryKey: queryKeys.todo.editNote(todoId).queryKey,
-    queryFn: () => todoApi.fetchTodo(todoId),
-  });
+  const { data } = useFetchTodo(todoId);
 
   const { removeNoteDraft } = useNoteStorage({
     id: todoId,
