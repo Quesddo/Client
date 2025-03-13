@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 import PlusIcon from "@/components/atoms/plus-icon/PlusIcon";
-import { useModalContext } from "@/contexts/InputModalContext";
+import { useTodoListActionContext } from "@/contexts/TodoListActionContext";
 import { FilterType } from "@/types/todo";
 import { TeamIdGoalsGet200ResponseGoalsInner } from "@/types/types";
 
@@ -14,13 +14,8 @@ interface GoalItemProps {
 }
 
 export default function GoalItem({ goal }: GoalItemProps) {
-  const { openModal } = useModalContext();
   const router = useRouter();
-
-  // 할 일 추가 버튼 클릭 => 할 일 추가 폼 띄우기
-  const handleClickAddTodo = () => {
-    openModal("createTodo");
-  };
+  const { onOpenCreateModal } = useTodoListActionContext();
 
   // 자세히보기 버튼 클릭 => 목표상세로 이동
   const handleClickMore = (goalId: number) => {
@@ -34,7 +29,7 @@ export default function GoalItem({ goal }: GoalItemProps) {
         <h3 className="text-lg font-bold text-slate-800">{goal.title}</h3>
         <button
           className="flex items-center justify-center gap-1 text-blue-500 hover:brightness-90"
-          onClick={handleClickAddTodo}
+          onClick={() => onOpenCreateModal(goal.id)}
         >
           <PlusIcon width={16} height={16} />
           <span className="text-sm font-semibold">할일추가</span>
