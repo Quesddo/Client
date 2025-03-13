@@ -19,25 +19,22 @@ import GoalTodoDisplay from "./components/GoalTodoDisplay";
 import LinkDisplay from "./components/LinkDisplay";
 import LinkModal from "./components/LinkModal";
 
-interface NoteFormProps<TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto>
-  extends PropsWithChildren {
+interface NoteFormProps extends PropsWithChildren {
   id: number;
-  methods: UseFormReturn<TNoteBody>;
+  methods: UseFormReturn;
   editMode?: boolean;
-  onSubmit: (data: TNoteBody) => void;
+  onSubmit: (data: CreateNoteBodyDto | UpdateNoteBodyDto) => void;
   goal?: string;
   todo?: string;
 }
 
-export default function NoteForm<
-  TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto,
->({
+export default function NoteForm({
   id,
   methods,
   onSubmit,
   editMode = false,
   children,
-}: NoteFormProps<TNoteBody>) {
+}: NoteFormProps) {
   const router = useRouter();
 
   const {
@@ -57,7 +54,7 @@ export default function NoteForm<
 
   const [isEmbedOpen, setIsEmbedOpen] = useState(false);
 
-  const linkUrl = methods.watch("linkUrl" as Path<TNoteBody>)?.toString();
+  const linkUrl = methods.watch("linkUrl")?.toString();
 
   const handleToggleEmbedOpen = () => {
     setIsEmbedOpen((prev) => !prev);

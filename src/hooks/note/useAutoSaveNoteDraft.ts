@@ -1,29 +1,30 @@
 import { useEffect, useRef } from "react";
 import { type UseFormReturn } from "react-hook-form";
 
-import { CreateNoteBodyDto, UpdateNoteBodyDto } from "@/types/types";
-
 import useToast from "../useToast";
 import { useNoteStorage } from "./useNoteStorage";
 
-interface UseAutoSaveNoteDraftProps<
-  TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto,
-> {
+interface UseAutoSaveNoteDraftProps {
   id: number;
-  methods: UseFormReturn<TNoteBody>;
+  methods: UseFormReturn;
   isEditMode: boolean;
 }
 
 const TOAST_INTERVAL_TIME = 1000 * 60 * 5;
 
-export const useAutoSaveNoteDraft = <
-  TNoteBody extends CreateNoteBodyDto | UpdateNoteBodyDto,
->({
+const isEmptyNote = (items: { [key: string]: string | null | undefined }) => {
+  return Object.values(items).every(
+    (item) => !item || item.trim().length === 0,
+  );
+};
+
+export const useAutoSaveNoteDraft = ({
   id,
   methods,
   isEditMode,
-}: UseAutoSaveNoteDraftProps<TNoteBody>) => {
+}: UseAutoSaveNoteDraftProps) => {
   const {
+    getValues,
     formState: { isDirty },
   } = methods;
   const { addToast } = useToast();
@@ -32,7 +33,20 @@ export const useAutoSaveNoteDraft = <
   const toastIntervalRef = useRef<NodeJS.Timeout>(null);
 
   const saveDraftNoteAndShowToast = () => {
-    saveDraftNote(methods.getValues());
+    const title = getValues("title");
+    const content = getValues("content");
+    const linkUrl = getValues("linkUrl");
+
+    if (isEmptyNote({ title, content, linkUrl })) {
+      addToast({
+        variant: "error",
+        content: "빈 노트는 저장할 수 없습니다.",
+      });
+
+      return;
+    }
+
+    saveDraftNote(getValues());
     addToast({
       content: "임시 저장이 완료되었습니다",
     });
