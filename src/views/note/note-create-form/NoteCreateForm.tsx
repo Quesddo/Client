@@ -7,7 +7,7 @@ import { useNoteStorage } from "@/hooks/note/useNoteStorage";
 import { useFetchTodo } from "@/hooks/todo/useFetchTodo";
 import { CreateNoteBodyDto } from "@/types/types";
 
-import NoteForm from "./NoteForm";
+import NoteForm from "../note-form/NoteForm";
 
 interface NoteCreationFormProps {
   todoId: number;
