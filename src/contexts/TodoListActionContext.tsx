@@ -1,4 +1,10 @@
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useState,
+} from "react";
 
 import { useModalContext } from "@/contexts/InputModalContext";
 import { useDeleteTodo } from "@/hooks/todo/useDeleteTodo";
@@ -13,6 +19,7 @@ interface TodoListActions {
   onOpenDeletePopup: (todoId: number) => void;
   onConfirmDelete: () => void;
   onCancelDelete: () => void;
+  onOpenUpdateModal: (todoId: number) => void;
 }
 
 const TodoListActionContext = createContext<TodoListActions | null>(null);
@@ -23,12 +30,20 @@ export const TodoListActionProvider = ({
   children: ReactNode;
 }) => {
   const { addToast } = useToast();
-  const { closeModal } = useModalContext();
+  const { openModal, closeModal } = useModalContext();
   const toggleTodoMutation = useUpdateTodo();
   const deleteTodoMutation = useDeleteTodo();
 
   const [selectedTodoId, setSelectedTodoId] = useState<number | null>(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const onOpenUpdateModal = useCallback(
+    (todoId: number) => {
+      setSelectedTodoId(todoId);
+      openModal("updateTodo");
+    },
+    [setSelectedTodoId, openModal],
+  );
 
   const handleToggleTodo = (todoId: number, isDone: boolean) => {
     toggleTodoMutation.mutate(
@@ -92,6 +107,7 @@ export const TodoListActionProvider = ({
         onOpenDeletePopup,
         onConfirmDelete,
         onCancelDelete,
+        onOpenUpdateModal,
       }}
     >
       {children}

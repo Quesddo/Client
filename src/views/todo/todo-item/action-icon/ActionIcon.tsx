@@ -9,7 +9,7 @@ import { cn } from "@/utils/cn/cn";
 
 interface ActionIconProps {
   todo: TodoResponse["todos"][number];
-  onOpenTodoModal: () => void;
+  onOpenTodoModal: (todoId: number) => void;
   onOpenDeletePopup: (todoId: number) => void;
   isTouched: boolean;
 }
@@ -81,7 +81,7 @@ export function ActionIcon({
   ].filter(Boolean) as ActionOptions[];
 
   const dropdownItems = [
-    { label: "수정하기", onClick: onOpenTodoModal },
+    { label: "수정하기", onClick: () => onOpenTodoModal(todo.id) },
     {
       label: "삭제하기",
       onClick: () => {

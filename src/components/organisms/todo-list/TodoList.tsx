@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { useModalContext } from "@/contexts/InputModalContext";
+import { useTodoListActionContext } from "@/contexts/TodoListActionContext";
 import { TodoResponse } from "@/types/todo";
 
 import { TodoItem } from "../../../views/todo/todo-item/TodoItem";
@@ -8,7 +8,6 @@ import { TodoItem } from "../../../views/todo/todo-item/TodoItem";
 interface TodoListProps {
   data: TodoResponse["todos"];
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
-  setSelectedTodoId: (todoId: number | null) => void;
   onOpenDeletePopup: (todoId: number) => void;
   isShowGoal?: boolean;
   isNew?: boolean;
@@ -17,12 +16,11 @@ interface TodoListProps {
 export default function TodoList({
   data,
   handleToggleTodo,
-  setSelectedTodoId,
   onOpenDeletePopup,
   isShowGoal,
   isNew,
 }: TodoListProps) {
-  const { openModal } = useModalContext();
+  const { onOpenUpdateModal } = useTodoListActionContext();
   const [isTouchedId, setIsTouchedId] = useState<number | null>(null);
 
   return (
@@ -32,10 +30,7 @@ export default function TodoList({
           key={todo.id}
           todo={todo}
           handleToggleTodo={handleToggleTodo}
-          onOpenTodoModal={() => {
-            setSelectedTodoId(todo.id);
-            openModal("updateTodo");
-          }}
+          onOpenTodoModal={onOpenUpdateModal}
           onOpenDeletePopup={onOpenDeletePopup}
           isShowGoal={isShowGoal}
           isNew={isNew}

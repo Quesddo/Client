@@ -10,7 +10,7 @@ import { TodoTitle } from "./todo-title/TodoTitle";
 interface TodoItemProps {
   todo: TodoResponse["todos"][number];
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
-  onOpenTodoModal: () => void;
+  onOpenTodoModal: (todoId: number) => void;
   onOpenDeletePopup: (todoId: number) => void;
   isShowGoal?: boolean;
   isNew?: boolean;
