@@ -10,10 +10,6 @@ interface InputDropdownProps {
   dropdownItems: { title: string; id: number }[];
   selectedItem: { title: string; id: number } | null;
   onSelect: (item: { id: number | null }) => void;
-
-  fetchNextPage?: () => void;
-  hasNextPage?: boolean;
-  isFetchingNextPage?: boolean;
 }
 
 export default function InputDropdown({
@@ -21,14 +17,9 @@ export default function InputDropdown({
   dropdownItems,
   selectedItem,
   onSelect,
-  fetchNextPage,
-  hasNextPage,
-  isFetchingNextPage,
 }: InputDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const observerRef = useRef<IntersectionObserver | null>(null);
-  const loadMoreRef = useRef<HTMLDivElement>(null);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
@@ -45,31 +36,10 @@ export default function InputDropdown({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // 무한 스크롤 로직
-  useEffect(() => {
-    if (!isOpen || !loadMoreRef.current) return;
-
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        if (
-          entries[0].isIntersecting &&
-          hasNextPage &&
-          fetchNextPage &&
-          !isFetchingNextPage
-        ) {
-          fetchNextPage();
-        }
-      },
-      { threshold: 0.1 },
-    );
-    observerRef.current.observe(loadMoreRef.current);
-
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
-    };
-  }, [isOpen, hasNextPage, isFetchingNextPage, fetchNextPage]);
+  const handleSelect = (item: { id: number } | null) => {
+    onSelect(item ? item : { id: null });
+    setIsOpen(false);
+  };
 
   return (
     <div
@@ -108,31 +78,18 @@ export default function InputDropdown({
             className="dropdown-scroll absolute z-50 mt-[1px] max-h-[calc(100vh-600px)] min-h-[130px] w-full overflow-hidden overflow-y-auto rounded-xl border border-slate-200 font-semibold shadow-lg sm:max-h-[calc(50vh-270px)]"
           >
             <ul>
-              <InputDropdownItem
-                onClick={() => {
-                  onSelect({ id: null });
-                  setIsOpen(false);
-                }}
-              >
+              <InputDropdownItem onClick={() => handleSelect(null)}>
                 {buttonText}
               </InputDropdownItem>
-              {dropdownItems.map((item, index) => (
+              {dropdownItems.map((item) => (
                 <InputDropdownItem
-                  key={index}
-                  onClick={() => {
-                    onSelect(item);
-                    setIsOpen(false);
-                  }}
+                  key={item.id}
+                  onClick={() => handleSelect(item)}
+                  selected={selectedItem?.id === item.id}
                 >
                   {item.title}
                 </InputDropdownItem>
               ))}
-              {hasNextPage && (
-                <div
-                  ref={loadMoreRef}
-                  className="py-2 text-center text-slate-500"
-                />
-              )}
             </ul>
           </motion.div>
         )}

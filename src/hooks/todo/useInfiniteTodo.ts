@@ -1,6 +1,7 @@
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
 import instance from "@/apis/apiClient";
+import { queryKeys } from "@/query-keys";
 import {
   TeamIdTodosGet200Response,
   teamIdTodosGetParams,
@@ -9,7 +10,7 @@ import {
 
 type FilterType = "todo" | "done";
 
-interface UseInfiniteTodoProsp {
+export interface UseInfiniteTodoProps {
   goalId?: number;
   filter?: FilterType;
   size: number;
@@ -17,7 +18,7 @@ interface UseInfiniteTodoProsp {
 
 const createTodoParams = (
   pageParam: unknown,
-  props?: UseInfiniteTodoProsp,
+  props?: UseInfiniteTodoProps,
 ): teamIdTodosGetParams => {
   const filterMap = { todo: false, done: true };
   const done = props?.filter ? filterMap[props.filter] : undefined;
@@ -29,13 +30,18 @@ const createTodoParams = (
   };
 };
 
-export const useInfiniteTodo = (props?: UseInfiniteTodoProsp) => {
+export const useInfiniteTodo = (props?: UseInfiniteTodoProps) => {
+  const todoInfiniteQueryKey = queryKeys.todo.infinite({
+    goalId: props?.goalId,
+    filter: props?.filter,
+  }).queryKey;
+
   return useSuspenseInfiniteQuery<
     TeamIdTodosGet200Response,
     Error,
     { todos: TodoResponseDto[]; totalCount: number }
   >({
-    queryKey: ["todos", "infinite", props?.goalId, props?.filter],
+    queryKey: todoInfiniteQueryKey,
     queryFn: async ({ pageParam = 0 }) => {
       const params = createTodoParams(pageParam, props);
       const response = await instance.get("todos", { params });

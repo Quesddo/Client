@@ -3,17 +3,19 @@ import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
 import noteApi from "@/apis/noteApi";
+import { queryKeys } from "@/query-keys";
 import { TeamIdNotesGet200Response } from "@/types/types";
 
 export const useInfiniteNotes = (goalId: number) => {
   const { ref: inViewRef, inView } = useInView();
+  const noteInfiniteQueryKey = queryKeys.note.infinite(goalId).queryKey;
 
   const query = useInfiniteQuery<
     TeamIdNotesGet200Response,
     Error,
     TeamIdNotesGet200Response["notes"]
   >({
-    queryKey: ["notes", goalId],
+    queryKey: noteInfiniteQueryKey,
     queryFn: ({ pageParam }) =>
       noteApi.fetchNotes({
         pageParam: pageParam as number | undefined,

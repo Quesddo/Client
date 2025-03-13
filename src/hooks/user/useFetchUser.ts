@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 
 import instance from "@/apis/apiClient";
+import { queryKeys } from "@/query-keys";
 import { UserServiceResponseDto } from "@/types/types";
 
 export const useFetchUser = (throwOnError = false) => {
   const { data, isLoading } = useQuery<UserServiceResponseDto>({
-    queryKey: ["user"],
+    queryKey: queryKeys.user.profile.queryKey,
     queryFn: async () => {
       const { data } = await instance.get("/user");
       return data;

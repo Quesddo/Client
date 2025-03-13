@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import todoApi from "@/apis/todoApi";
 import { useCreateNote } from "@/hooks/note/useCreateNote";
 import { useNoteStorage } from "@/hooks/note/useNoteStorage";
+import { queryKeys } from "@/query-keys";
 import { CreateNoteBodyDto } from "@/types/types";
 
 import NoteForm from "./NoteForm";
@@ -29,7 +30,7 @@ export default function NoteCreationForm({ todoId }: NoteCreationFormProps) {
   const router = useRouter();
 
   const { data } = useSuspenseQuery({
-    queryKey: ["todo", todoId],
+    queryKey: queryKeys.todo.editNote(todoId).queryKey,
     queryFn: () => todoApi.fetchTodo(todoId),
   });
 
