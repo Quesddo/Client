@@ -21,10 +21,12 @@ TanStack Query의 쿼리키를 효율적으로 관리하기 위해
 
 <br />
 
-### 주의 : 쿼리 키를 지정할 때는 반드시 `_def` 또는 `queryKey`로 끝나는 값을 사용해야 합니다.
+## **⚠️ 쿼리 키 사용 시 주의사항**
 
-- `useQuery`, `getQueryData`, `setQueryData` 처럼 특정 쿼리키를 지정해야 할 때는 queryKey까지 명시합니다.
-- `invalidateQueries` 처럼 쿼리키 그룹을 무효화 할 때에는 상황에 따라 \_def 를 사용합니다.
+#### 쿼리 키를 지정할 때는 반드시 `_def` 또는 `queryKey`로 끝나는 값을 사용해야 합니다.
+
+- `useQuery`, `getQueryData`, `setQueryData` 등 **쿼리 키를 직접 지정할 때** → `queryKey`를 사용
+- `invalidateQueries` 등 **쿼리 키 그룹을 무효화할 때** → `_def`를 사용하여 적절한 단위로 끊어줌
 
 <br />
 
@@ -37,14 +39,14 @@ export const goalQueryKeys = createQueryKeys("goal", {
   }),
 });
 
-// 쿼리키 객체의 key까지만 쿼리키로 포함하는 경우 => _def 사용
-const goalDetailQueryKey = queryKeys.goal._def;
-// => ["goal"]
+// 🔹 그룹 단위 무효화 시 (_def 사용)
+const goalQueryKey = queryKeys.goal._def;
+// 결과: ["goal"]
 
 const goalDetailQueryKey = queryKeys.goal.detail._def;
-// => ["goal", "detail"]
+// 결과: ["goal", "detail"]
 
-// 쿼리키 객체의 value까지 쿼리키로 포함하는 경우 => queryKey 까지 참조해야 함
+// 🔹 특정 값까지 포함해야 할 경우 (queryKey 사용)
 const goalDetailQueryKey = queryKeys.goal.detail(goalId).queryKey;
-// => ["goal", "detail", {"goalId": goalId}]
+// 결과: ["goal", "detail", {"goalId": goalId}]
 ```
