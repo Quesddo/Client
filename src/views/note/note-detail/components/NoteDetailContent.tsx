@@ -5,7 +5,7 @@ import GoalItem from "@/components/atoms/goal-item/GoalItem";
 import TodoChip from "@/components/atoms/todo-chip/TodoChip";
 import { useFetchNote } from "@/hooks/note/useFetchNote";
 import { formatDate } from "@/utils/formatDate/formatDate";
-import ReactQuillEditor from "@/views/note/editor/ReactQuillEditor";
+import ReactQuillEditor from "@/views/note/react-quill-editor/ReactQuillEditor";
 
 import EmbeddedContent from "./EmbeddedContent";
 import LinkItem from "./LinkItem";
