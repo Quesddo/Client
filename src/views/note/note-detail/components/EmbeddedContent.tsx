@@ -30,7 +30,11 @@ export default function EmbeddedContent({
       )}
     >
       {canEmbed ? (
-        <iframe src={linkUrl} className="w-full shrink-0" allowFullScreen />
+        <iframe
+          src={linkUrl}
+          className="h-[370px] w-full shrink-0"
+          allowFullScreen
+        />
       ) : (
         <>
           {/*  임베드 안 되는 경우 링크 이동 버튼 */}
