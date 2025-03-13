@@ -11,15 +11,9 @@ import TodoWrapper from "./TodoWrapper";
 
 interface GoalItemProps {
   goal: TeamIdGoalsGet200ResponseGoalsInner;
-  handleToggleTodo: (todoId: number, isDone: boolean) => void;
-  onOpenDeletePopup: (todoId: number) => void;
 }
 
-export default function GoalItem({
-  goal,
-  handleToggleTodo,
-  onOpenDeletePopup,
-}: GoalItemProps) {
+export default function GoalItem({ goal }: GoalItemProps) {
   const { openModal } = useModalContext();
   const router = useRouter();
 
@@ -54,8 +48,6 @@ export default function GoalItem({
       <div className="my-4 flex grow flex-col gap-6 sm:flex-row">
         {["todo", "done"].map((doneStatus, idx) => (
           <TodoWrapper
-            handleToggleTodo={handleToggleTodo}
-            onOpenDeletePopup={onOpenDeletePopup}
             key={idx}
             goalId={goal.id}
             doneStatus={doneStatus as FilterType}

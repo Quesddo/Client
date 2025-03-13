@@ -24,10 +24,7 @@ export default function Dashboard() {
             />
             <MyProgress />
           </div>
-          <GoalBasedTodo
-            handleToggleTodo={handleToggleTodo}
-            onOpenDeletePopup={onOpenDeletePopup}
-          />
+          <GoalBasedTodo />
         </div>
       </main>
     </>

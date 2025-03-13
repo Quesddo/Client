@@ -7,15 +7,7 @@ import { useInfiniteGoals } from "@/hooks/goal/useInfiniteGoals";
 import EmptyData from "./components/EmptyData";
 import GoalItem from "./components/GoalItem";
 
-interface GoalBasedTodoProps {
-  handleToggleTodo: (todoId: number, isDone: boolean) => void;
-  onOpenDeletePopup: (todoId: number) => void;
-}
-
-export default function GoalBasedTodo({
-  handleToggleTodo,
-  onOpenDeletePopup,
-}: GoalBasedTodoProps) {
+export default function GoalBasedTodo() {
   const { data, hasNextPage, fetchNextPage } = useInfiniteGoals({
     size: 4,
     source: "dashboard",
@@ -49,12 +41,7 @@ export default function GoalBasedTodo({
         <>
           <ul className="mt-4 flex flex-col gap-4">
             {goals.map((goal) => (
-              <GoalItem
-                goal={goal}
-                key={goal.id}
-                handleToggleTodo={handleToggleTodo}
-                onOpenDeletePopup={onOpenDeletePopup}
-              />
+              <GoalItem goal={goal} key={goal.id} />
             ))}
           </ul>
 

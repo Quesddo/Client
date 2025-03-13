@@ -1,4 +1,5 @@
 import TodoList from "@/components/organisms/todo-list/TodoList";
+import { useTodoListActionContext } from "@/contexts/TodoListActionContext";
 import { useTodos } from "@/hooks/todo/useTodos";
 import { FilterType } from "@/types/todo";
 
@@ -10,25 +11,20 @@ const FETCH_SIZE = 5;
 interface TodoWrapperProps {
   goalId: number;
   doneStatus: FilterType;
-  handleToggleTodo: (todoId: number, isDone: boolean) => void;
-  onOpenDeletePopup: (todoId: number) => void;
 }
 
 /**
  * 완료 여부에 따라 할 일 리스트를 렌더링하는 컴포넌트
  */
 
-export default function TodoWrapper({
-  goalId,
-  doneStatus,
-  handleToggleTodo,
-  onOpenDeletePopup,
-}: TodoWrapperProps) {
+export default function TodoWrapper({ goalId, doneStatus }: TodoWrapperProps) {
   const {
     data: { todos },
   } = useTodos({ goalId, size: FETCH_SIZE, filter: doneStatus });
 
   const listLabel = doneStatus === "done" ? "Done" : "To do";
+
+  const { handleToggleTodo, onOpenDeletePopup } = useTodoListActionContext();
 
   return (
     <div className="grow basis-0">
