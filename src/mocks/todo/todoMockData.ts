@@ -126,3 +126,20 @@ export const sampleTodos: TodoResponseDto[] = [
     goal: null,
   },
 ];
+
+export const todoDetailMockData = (todoId: number): TodoResponseDto => ({
+  id: todoId,
+  teamId: "quesddo",
+  userId: 1,
+  done: true,
+  noteId: 101,
+  goal: {
+    id: 1,
+    title: "msw 작성해보기",
+  },
+  fileUrl: null,
+  linkUrl: "https://github.com/Quesddo/Client",
+  updatedAt: "2024-02-26T12:00:00Z",
+  createdAt: "2024-02-25T12:00:00Z",
+  title: "공부하기",
+});
