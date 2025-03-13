@@ -1,3 +1,5 @@
+import apiRoutes from "@/router/apiRoutes";
+
 import instance from "./apiClient";
 
 export const uploadFile = async (file: File): Promise<{ url: string }> => {
@@ -5,7 +7,7 @@ export const uploadFile = async (file: File): Promise<{ url: string }> => {
   formData.append("file", file);
 
   try {
-    const response = await instance.post("files", formData, {
+    const response = await instance.post(apiRoutes.file.upload(), formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
     return response.data;

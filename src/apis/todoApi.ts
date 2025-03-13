@@ -1,3 +1,4 @@
+import apiRoutes from "@/router/apiRoutes";
 import { FilterType } from "@/types/todo";
 import { TodoResponseDto, UpdateTodoBodyDto } from "@/types/types";
 
@@ -8,7 +9,7 @@ const todoApi = {
    * 단일 할 일 조회
    */
   fetchTodo: async (todoId: number): Promise<TodoResponseDto> => {
-    const { data } = await instance.get(`/todos/${todoId}`);
+    const { data } = await instance.get(apiRoutes.todo.detail(todoId));
     return data;
   },
 
@@ -33,17 +34,19 @@ const todoApi = {
       size,
     };
 
-    const { data } = await instance.get("/todos", { params });
+    const { data } = await instance.get(apiRoutes.todo.list(), { params });
     return data;
   },
 
   fetchProgress: async (goalId?: number) => {
-    const res = await instance.get(`/todos/progress?goalId=${goalId ?? ""}`);
+    const res = await instance.get(
+      `${apiRoutes.todo.progress()}?goalId=${goalId ?? ""}`,
+    );
     return res.data;
   },
 
   createTodo: async (body: UpdateTodoBodyDto): Promise<TodoResponseDto> => {
-    const { data } = await instance.post("/todos", body);
+    const { data } = await instance.post(apiRoutes.todo.create(), body);
     return data;
   },
 
@@ -51,12 +54,12 @@ const todoApi = {
     todoId: number,
     body: UpdateTodoBodyDto,
   ): Promise<TodoResponseDto> => {
-    const { data } = await instance.patch(`/todos/${todoId}`, body);
+    const { data } = await instance.patch(apiRoutes.todo.update(todoId), body);
     return data;
   },
 
   deleteTodo: async (todoId: number) => {
-    const { data } = await instance.delete(`/todos/${todoId}`);
+    const { data } = await instance.delete(apiRoutes.todo.delete(todoId));
     return data;
   },
 };

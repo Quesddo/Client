@@ -2,6 +2,7 @@ import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
 import instance from "@/apis/apiClient";
 import { queryKeys } from "@/query-keys";
+import apiRoutes from "@/router/apiRoutes";
 import {
   TeamIdTodosGet200Response,
   teamIdTodosGetParams,
@@ -44,7 +45,7 @@ export const useInfiniteTodo = (props?: UseInfiniteTodoProps) => {
     queryKey: todoInfiniteQueryKey,
     queryFn: async ({ pageParam = 0 }) => {
       const params = createTodoParams(pageParam, props);
-      const response = await instance.get("todos", { params });
+      const response = await instance.get(apiRoutes.todo.list(), { params });
       return response.data;
     },
     getNextPageParam: (lastPage) => lastPage.nextCursor,

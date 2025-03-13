@@ -1,3 +1,4 @@
+import apiRoutes from "@/router/apiRoutes";
 import {
   CreateNoteBodyDto,
   TeamIdNotesGet200ResponseNotesInner,
@@ -17,13 +18,13 @@ const noteApi = {
   createNote: async (
     body: CreateNoteBodyDto,
   ): Promise<TeamIdNotesPost201Response> => {
-    return (await instance.post("/notes", body)).data;
+    return (await instance.post(apiRoutes.note.create(), body)).data;
   },
   updateNote: async (
     noteId: number,
     data: UpdateNoteBodyDto,
   ): Promise<TeamIdNotesPost201Response> => {
-    return (await instance.patch(`/notes/${noteId}`, data)).data;
+    return (await instance.patch(apiRoutes.note.update(noteId), data)).data;
   },
 
   fetchNotes: async ({ pageParam, goalId }: FetchNotesParams) => {
@@ -34,16 +35,16 @@ const noteApi = {
       cursor: pageParam,
       size: PAGE_SIZE,
     };
-    return (await instance.get("notes", { params })).data;
+    return (await instance.get(apiRoutes.note.list(), { params })).data;
   },
 
   fetchNote: async (noteId: number): Promise<TeamIdNotesPost201Response> => {
-    const { data } = await instance.get(`/notes/${noteId}`);
+    const { data } = await instance.get(apiRoutes.note.detail(noteId));
     return data;
   },
 
   deleteNote: async (noteId: number) => {
-    return await instance.delete(`/notes/${noteId}`);
+    return await instance.delete(apiRoutes.note.delete(noteId));
   },
 };
 

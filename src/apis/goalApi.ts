@@ -1,3 +1,4 @@
+import apiRoutes from "@/router/apiRoutes";
 import {
   CreateGoalBodyDto,
   TeamIdGoalsGet200Response,
@@ -20,7 +21,7 @@ const goalApi = {
       cursor: pageParam,
       size,
     };
-    return (await instance.get("/goals", { params })).data;
+    return (await instance.get(apiRoutes.goal.list(), { params })).data;
   },
 
   /**
@@ -29,7 +30,7 @@ const goalApi = {
   createGoal: async (
     body: CreateGoalBodyDto,
   ): Promise<TeamIdGoalsGet200ResponseGoalsInner> => {
-    return (await instance.post("/goals", body)).data;
+    return (await instance.post(apiRoutes.goal.create(), body)).data;
   },
 };
 
