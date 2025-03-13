@@ -11,35 +11,41 @@ const MODE = {
 } as const;
 
 const getMode = ({
-  isEditMode,
+  mode,
   noteId,
   todoId,
 }: {
-  isEditMode: boolean;
+  mode: string | null;
   noteId: number;
   todoId: number;
 }) => {
   if (todoId >= 0) {
     return MODE.CREATE;
-  } else if (noteId >= 0) {
-    return isEditMode ? MODE.EDIT : null;
-  } else {
-    return null;
   }
+
+  if (
+    noteId >= 0 &&
+    mode &&
+    [MODE.DETAIL, MODE.EDIT].includes(mode as "detail" | "edit")
+  ) {
+    return mode;
+  }
+
+  return null;
 };
 
 export default function NoteDrawer() {
   const searchParams = useSearchParams();
   const todoId = +(searchParams.get("todoId") ?? NaN);
   const noteId = +(searchParams.get("noteId") ?? NaN);
-  const isEditMode = searchParams.get("mode") === MODE.EDIT;
-  const mode = getMode({ isEditMode, noteId, todoId });
+  const searchParamMode = searchParams.get("mode");
+  const mode = getMode({ mode: searchParamMode, noteId, todoId });
 
   return (
     <>
       {mode === MODE.CREATE && <NoteCreationForm todoId={todoId} />}
       {mode === MODE.EDIT && <NoteUpdateForm noteId={noteId} />}
-      <NoteDetail />
+      {mode === MODE.DETAIL && <NoteDetail />}
     </>
   );
 }
