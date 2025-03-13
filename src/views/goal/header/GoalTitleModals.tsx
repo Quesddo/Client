@@ -21,12 +21,15 @@ export default function GoalTitleModals({
   title,
 }: GoalTitleModalsProps) {
   const [value, setValue] = useState<string>(title ?? "");
+  const [error, setError] = useState<boolean>(false);
   const { mutate: updateGoalName } = useUpdateGoal(goalId);
   const { mutate: deleteGoal } = useDeleteGoal(goalId);
 
   const onUpdateGoal = () => {
-    updateGoalName(value);
-    onClose();
+    if (!error) {
+      updateGoalName(value);
+      onClose();
+    }
   };
 
   const onDeleteGoal = () => {
@@ -34,7 +37,9 @@ export default function GoalTitleModals({
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+    const newValue = e.target.value;
+    setError(/\s/g.test(newValue));
+    setValue(newValue);
   };
 
   return createPortal(
@@ -55,6 +60,11 @@ export default function GoalTitleModals({
             value={value}
             onChange={handleChange}
           />
+          {error && (
+            <p className="mt-[8px] ml-[16px] text-red-700">
+              공백 문자는 입력이 불가능합니다
+            </p>
+          )}
         </>
       ) : (
         <>
