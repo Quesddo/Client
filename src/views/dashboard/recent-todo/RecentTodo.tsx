@@ -10,13 +10,11 @@ import arrowRight from "@public/icons/arrow-right.svg";
 
 interface RecentTodoProps {
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
-  setSelectedTodoId: (id: number | null) => void;
   onOpenDeletePopup: (todoId: number) => void;
 }
 
 export default function RecentTodo({
   handleToggleTodo,
-  setSelectedTodoId,
   onOpenDeletePopup,
 }: RecentTodoProps) {
   const { data } = useTodos({ size: 5 });
@@ -55,7 +53,6 @@ export default function RecentTodo({
             <TodoList
               data={todos}
               handleToggleTodo={handleToggleTodo}
-              setSelectedTodoId={setSelectedTodoId}
               onOpenDeletePopup={onOpenDeletePopup}
             />
           </Suspense>

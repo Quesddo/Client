@@ -16,7 +16,6 @@ export default function Dashboard() {
     selectedTodoId,
     isPopupOpen,
     handleToggleTodo,
-    setSelectedTodoId,
     onOpenDeletePopup,
     onConfirmDelete,
     onCancelDelete,
@@ -33,14 +32,12 @@ export default function Dashboard() {
           <div className="sm:flex sm:h-[250px] sm:justify-between sm:gap-5">
             <RecentTodo
               handleToggleTodo={handleToggleTodo}
-              setSelectedTodoId={setSelectedTodoId}
               onOpenDeletePopup={onOpenDeletePopup}
             />
             <MyProgress />
           </div>
           <GoalBasedTodo
             handleToggleTodo={handleToggleTodo}
-            setSelectedTodoId={setSelectedTodoId}
             onOpenDeletePopup={onOpenDeletePopup}
           />
         </div>

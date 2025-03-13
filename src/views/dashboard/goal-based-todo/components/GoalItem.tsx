@@ -12,14 +12,12 @@ import TodoWrapper from "./TodoWrapper";
 interface GoalItemProps {
   goal: TeamIdGoalsGet200ResponseGoalsInner;
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
-  setSelectedTodoId: (id: number | null) => void;
   onOpenDeletePopup: (todoId: number) => void;
 }
 
 export default function GoalItem({
   goal,
   handleToggleTodo,
-  setSelectedTodoId,
   onOpenDeletePopup,
 }: GoalItemProps) {
   const { openModal } = useModalContext();
@@ -27,7 +25,6 @@ export default function GoalItem({
 
   // 할 일 추가 버튼 클릭 => 할 일 추가 폼 띄우기
   const handleClickAddTodo = () => {
-    setSelectedTodoId(null);
     openModal("createTodo");
   };
 
@@ -58,7 +55,6 @@ export default function GoalItem({
         {["todo", "done"].map((doneStatus, idx) => (
           <TodoWrapper
             handleToggleTodo={handleToggleTodo}
-            setSelectedTodoId={setSelectedTodoId}
             onOpenDeletePopup={onOpenDeletePopup}
             key={idx}
             goalId={goal.id}

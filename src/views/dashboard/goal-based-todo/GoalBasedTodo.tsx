@@ -9,13 +9,11 @@ import GoalItem from "./components/GoalItem";
 
 interface GoalBasedTodoProps {
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
-  setSelectedTodoId: (id: number | null) => void;
   onOpenDeletePopup: (todoId: number) => void;
 }
 
 export default function GoalBasedTodo({
   handleToggleTodo,
-  setSelectedTodoId,
   onOpenDeletePopup,
 }: GoalBasedTodoProps) {
   const { data, hasNextPage, fetchNextPage } = useInfiniteGoals({
@@ -55,7 +53,6 @@ export default function GoalBasedTodo({
                 goal={goal}
                 key={goal.id}
                 handleToggleTodo={handleToggleTodo}
-                setSelectedTodoId={setSelectedTodoId}
                 onOpenDeletePopup={onOpenDeletePopup}
               />
             ))}

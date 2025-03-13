@@ -11,7 +11,6 @@ interface TodoWrapperProps {
   goalId: number;
   doneStatus: FilterType;
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
-  setSelectedTodoId: (id: number | null) => void;
   onOpenDeletePopup: (todoId: number) => void;
 }
 
@@ -23,7 +22,6 @@ export default function TodoWrapper({
   goalId,
   doneStatus,
   handleToggleTodo,
-  setSelectedTodoId,
   onOpenDeletePopup,
 }: TodoWrapperProps) {
   const {
@@ -40,7 +38,6 @@ export default function TodoWrapper({
         <TodoList
           data={todos}
           handleToggleTodo={handleToggleTodo}
-          setSelectedTodoId={setSelectedTodoId}
           onOpenDeletePopup={onOpenDeletePopup}
         />
       ) : (
