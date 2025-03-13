@@ -105,10 +105,10 @@ export default function GoalTitle() {
             />
           </>
         ) : (
-          <>
+          <div className="text-center">
             <p>목표를 삭제하시겠어요?</p>
             <p>삭제된 목표는 복구할 수 없습니다.</p>
-          </>
+          </div>
         )}
       </Modal>
     </>
