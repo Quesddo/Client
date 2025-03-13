@@ -49,20 +49,28 @@ export default function NoteForm({
     isEditMode: editMode,
   });
 
+  const [title, plainContent, linkUrl] = getValues([
+    "title",
+    "plainContent",
+    "linkUrl",
+  ]);
+
+  const isNoteDirty = !isEmptyNote({
+    title,
+    plainContent,
+    linkUrl,
+  });
+
   const { isPopupOpen, handleCanclePopup, handleConfirmPopup } =
     useBlockNavigation({
       isPageMoveRestricted:
-        !isSubmitSuccessful &&
-        !isEmptyNote({
-          title: getValues("title"),
-          content: getValues("plainContent"),
-          linkUrl: getValues("linkUrl"),
-        }),
+        // (1. 제출되지 않음 상태) + [(2. 수정 모드) or (3. 빈 노트가 아닌 경우)]
+        !isSubmitSuccessful && (editMode || isNoteDirty),
     });
 
   const [isEmbedOpen, setIsEmbedOpen] = useState(false);
 
-  const linkUrl = methods.watch("linkUrl")?.toString();
+  const wacthedLinkUrl = methods.watch("linkUrl")?.toString();
 
   const handleToggleEmbedOpen = () => {
     setIsEmbedOpen((prev) => !prev);
@@ -75,7 +83,7 @@ export default function NoteForm({
           <ExitBtn onClick={router.back} className="self-end" />
 
           {/* 링크 embed 영역 (링크가 존재할 경우만 표시) */}
-          <EmbeddedContent isOpen={isEmbedOpen} linkUrl={linkUrl} />
+          <EmbeddedContent isOpen={isEmbedOpen} linkUrl={wacthedLinkUrl} />
 
           <FormProvider {...methods}>
             <form
@@ -130,7 +138,7 @@ export default function NoteForm({
           isCancelEnabled
         >
           <p>정말 나가시겠어요?</p>
-          <p>작성된 내용이 모두 삭제됩니다.</p>
+          <p>{!editMode ? "작성" : "수정"}된 내용이 모두 삭제됩니다.</p>
         </Popup>
       )}
     </>
