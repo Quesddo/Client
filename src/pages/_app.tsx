@@ -9,7 +9,6 @@ import { InputModalProvider } from "@/contexts/InputModalContext";
 import { TodoListActionProvider } from "@/contexts/TodoListActionContext";
 import AuthGuard from "@/views/layouts/AuthGuard";
 import Sidebar from "@/views/layouts/sidebar/Sidebar";
-import NoteDetail from "@/views/note/note-detail/NoteDetail";
 import NoteDrawer from "@/views/note/note-drawer/NoteDrawer";
 import TodoDrawer from "@/views/todo/todo-drawer/TodoDrawer";
 import type { AppProps } from "next/app";
@@ -28,7 +27,6 @@ export default function App({ Component, pageProps }: AppProps) {
 
                 <div className="flex-1 overflow-y-auto">
                   <Component {...pageProps} />
-                  <NoteDetail />
                   <NoteDrawer />
                   <TodoDrawer />
                   <Toaster />

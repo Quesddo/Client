@@ -1,5 +1,6 @@
 import { useSearchParams } from "next/navigation";
 
+import NoteDetail from "../note-detail/NoteDetail";
 import NoteCreationForm from "../note-form/NoteCreateForm";
 import NoteUpdateForm from "../note-form/NoteUpdateForm";
 
@@ -38,6 +39,7 @@ export default function NoteDrawer() {
     <>
       {mode === MODE.CREATE && <NoteCreationForm todoId={todoId} />}
       {mode === MODE.EDIT && <NoteUpdateForm noteId={noteId} />}
+      <NoteDetail />
     </>
   );
 }
