@@ -5,6 +5,7 @@ import { useModalContext } from "@/contexts/InputModalContext";
 import { useTodoForm } from "@/hooks/todo/form/useTodoForm";
 import { useUpdateTodo } from "@/hooks/todo/useUpdateTodo";
 import useToast from "@/hooks/useToast";
+import { queryKeys } from "@/query-keys";
 import { UpdateTodoBodyDto } from "@/types/types";
 
 import { TodoForm } from "../todo-form/TodoForm";
@@ -14,7 +15,7 @@ export default function TodoUpdateForm({ todoId }: { todoId: number }) {
   const { closeModal } = useModalContext();
   const updateTodoMutation = useUpdateTodo();
   const { data: todo } = useQuery({
-    queryKey: ["todo", todoId],
+    queryKey: queryKeys.todo.editNote(todoId).queryKey,
     queryFn: () => todoApi.fetchTodo(todoId),
     enabled: !!todoId,
   });

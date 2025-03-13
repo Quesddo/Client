@@ -13,13 +13,18 @@ export const useCreateNote = () => {
     mutationKey: ["addNote"],
     mutationFn: noteApi.createNote,
     onSuccess: (data) => {
+      const noteInfiniteQueryKey = queryKeys.note.infinite(
+        data.goal?.id as number,
+      ).queryKey;
+      const todoListQueryKey = queryKeys.todo.list._def;
+
       addToast({
         content: "노트가 작성되었습니다.",
       });
       queryClient.invalidateQueries({
-        queryKey: queryKeys.note.list(data.goal?.id as number).queryKey,
+        queryKey: noteInfiniteQueryKey,
       });
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      queryClient.invalidateQueries({ queryKey: todoListQueryKey });
     },
     onError: (error) => {
       addToast({

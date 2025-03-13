@@ -1,6 +1,7 @@
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
 import instance from "@/apis/apiClient";
+import { queryKeys } from "@/query-keys";
 import {
   TeamIdTodosGet200Response,
   teamIdTodosGetParams,
@@ -30,12 +31,17 @@ const createTodoParams = (
 };
 
 export const useInfiniteTodo = (props?: UseInfiniteTodoProps) => {
+  const todoInfiniteQueryKey = queryKeys.todo.infinite({
+    goalId: props?.goalId,
+    filter: props?.filter,
+  }).queryKey;
+
   return useSuspenseInfiniteQuery<
     TeamIdTodosGet200Response,
     Error,
     { todos: TodoResponseDto[]; totalCount: number }
   >({
-    queryKey: ["todos", "infinite", props?.goalId, props?.filter],
+    queryKey: todoInfiniteQueryKey,
     queryFn: async ({ pageParam = 0 }) => {
       const params = createTodoParams(pageParam, props);
       const response = await instance.get("todos", { params });

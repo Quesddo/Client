@@ -5,8 +5,10 @@ import { queryKeys } from "@/query-keys";
 import { TeamIdGoalsGet200ResponseGoalsInner } from "@/types/types";
 
 export const useFetchGoal = (goalId?: number) => {
+  const goalDetailQueryKey = queryKeys.goal.detail(goalId).queryKey;
+
   return useQuery<TeamIdGoalsGet200ResponseGoalsInner>({
-    queryKey: queryKeys.goal.detail(goalId).queryKey,
+    queryKey: goalDetailQueryKey,
     queryFn: async () => {
       const { data } = await instance.get(`/goals/${goalId}`);
       return data;

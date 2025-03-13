@@ -3,7 +3,7 @@ import { TodoResponseDto, UpdateTodoBodyDto } from "@/types/types";
 
 import instance from "./apiClient";
 
-export const todoApi = {
+const todoApi = {
   /**
    * 단일 할 일 조회
    */

@@ -1,5 +1,3 @@
-import Head from "next/head";
-
 import PageTitle from "@/components/atoms/page-title/PageTitle";
 import { useModalContext } from "@/contexts/InputModalContext";
 import { useTodoListAction } from "@/hooks/todo/useTodoListAction";
@@ -23,7 +21,6 @@ export default function Dashboard() {
     onConfirmDelete,
     onCancelDelete,
   } = useTodoListAction();
-
   return (
     <>
       <QuesddoHead title="대시보드" />

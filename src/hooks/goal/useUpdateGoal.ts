@@ -5,6 +5,9 @@ import { queryKeys } from "@/query-keys";
 
 export const useUpdateGoal = (goalId: number) => {
   const queryClient = useQueryClient();
+  const goalInfiniteQueryKey = queryKeys.goal.infinite._def;
+  const goalDetailQueryKey = queryKeys.goal.detail(goalId).queryKey;
+
   return useMutation({
     mutationFn: async (title: string) => {
       const { data } = await instance.patch(`/goals/${goalId}`, {
@@ -14,10 +17,10 @@ export const useUpdateGoal = (goalId: number) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: queryKeys.goal.detail(goalId).queryKey,
+        queryKey: goalDetailQueryKey,
       });
       queryClient.invalidateQueries({
-        queryKey: queryKeys.goal.list._def,
+        queryKey: goalInfiniteQueryKey,
       });
     },
   });

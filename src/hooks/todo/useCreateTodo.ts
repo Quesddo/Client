@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import todoApi from "@/apis/todoApi";
+import { queryKeys } from "@/query-keys";
 import { UpdateTodoBodyDto } from "@/types/types";
 
 export const useCreateTodo = () => {
@@ -11,8 +12,9 @@ export const useCreateTodo = () => {
       return todoApi.createTodo(newTodo);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
-      queryClient.invalidateQueries({ queryKey: ["todos", "infinite"] });
+      const todoAllQueryKey = queryKeys.todo._def;
+
+      queryClient.invalidateQueries({ queryKey: todoAllQueryKey });
     },
   });
 };

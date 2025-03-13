@@ -15,18 +15,19 @@ export const useUpdateNote = (noteId: number) => {
     mutationKey: ["updateNote"],
     mutationFn: (data: UpdateNoteBodyDto) => noteApi.updateNote(noteId, data),
     onSuccess: (data) => {
-      const noteListQueryKey = queryKeys.note.list(
+      const noteInfiniteQueryKey = queryKeys.note.infinite(
         data.goal?.id as number,
       ).queryKey;
       const noteDetailQueryKey = queryKeys.note.detail(noteId).queryKey;
+      const todoListQueryKey = queryKeys.todo.list._def;
 
       addToast({
         content: "노트가 수정되었습니다.",
       });
 
-      queryClient.invalidateQueries({ queryKey: noteListQueryKey });
+      queryClient.invalidateQueries({ queryKey: noteInfiniteQueryKey });
       queryClient.invalidateQueries({ queryKey: noteDetailQueryKey });
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      queryClient.invalidateQueries({ queryKey: todoListQueryKey });
     },
     onError: (error) => {
       addToast({

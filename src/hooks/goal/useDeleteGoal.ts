@@ -9,6 +9,8 @@ import useToast from "../useToast";
 export const useDeleteGoal = (goalId?: number) => {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const goalInfiniteQueryKey = queryKeys.goal.infinite._def;
+
   const { addToast } = useToast();
   return useMutation({
     mutationFn: async () => {
@@ -21,7 +23,7 @@ export const useDeleteGoal = (goalId?: number) => {
         content: "목표가 삭제되었습니다.",
       });
 
-      queryClient.invalidateQueries({ queryKey: queryKeys.goal.list._def });
+      queryClient.invalidateQueries({ queryKey: goalInfiniteQueryKey });
       router.push("/dashboard");
     },
   });

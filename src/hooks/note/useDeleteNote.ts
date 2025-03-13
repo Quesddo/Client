@@ -10,23 +10,23 @@ import { TeamIdNotesGet200Response } from "@/types/types";
 
 export const useDeleteNote = (goalId: number) => {
   const queryClient = useQueryClient();
-  const noteListQueryKey = queryKeys.note.list(goalId).queryKey;
+  const noteInfiniteQueryKey = queryKeys.note.infinite(goalId).queryKey;
 
   return useMutation({
     mutationFn: (noteId: number) => noteApi.deleteNote(noteId),
 
     onMutate: async (noteId: number) => {
-      await queryClient.cancelQueries({ queryKey: noteListQueryKey });
+      await queryClient.cancelQueries({ queryKey: noteInfiniteQueryKey });
 
       // 이전 상태 저장
       const previousNotes =
         queryClient.getQueryData<TeamIdNotesGet200Response["notes"]>(
-          noteListQueryKey,
+          noteInfiniteQueryKey,
         );
 
       // 낙관적 업데이트
       queryClient.setQueryData<InfiniteData<TeamIdNotesGet200Response>>(
-        noteListQueryKey,
+        noteInfiniteQueryKey,
         (oldData) => {
           if (!oldData) return oldData;
           return {
@@ -45,14 +45,14 @@ export const useDeleteNote = (goalId: number) => {
     // 에러 발생 시 롤백
     onError: (error, noteId, context) => {
       if (context?.previousNotes) {
-        queryClient.setQueryData(noteListQueryKey, context.previousNotes);
+        queryClient.setQueryData(noteInfiniteQueryKey, context.previousNotes);
       }
       alert(error.message);
     },
 
     // 최종적으로 데이터 갱신
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: noteListQueryKey });
+      queryClient.invalidateQueries({ queryKey: noteInfiniteQueryKey });
     },
   });
 };

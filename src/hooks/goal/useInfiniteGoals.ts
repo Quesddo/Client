@@ -12,6 +12,8 @@ export interface UseInfiniteGoalsParams {
 }
 
 export const useInfiniteGoals = ({ source, size }: UseInfiniteGoalsParams) => {
+  const goalInfiniteQueryKey = queryKeys.goal.infinite(source).queryKey;
+
   return useInfiniteQuery<
     TeamIdGoalsGet200Response,
     Error,
@@ -19,7 +21,7 @@ export const useInfiniteGoals = ({ source, size }: UseInfiniteGoalsParams) => {
       goals: TeamIdGoalsGet200Response["goals"];
     }
   >({
-    queryKey: queryKeys.goal.list(source).queryKey,
+    queryKey: goalInfiniteQueryKey,
     queryFn: async ({ pageParam }) =>
       await goalApi.fetchGoals(pageParam as number | undefined, size),
     initialPageParam: null,
