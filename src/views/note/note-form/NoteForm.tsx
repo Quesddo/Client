@@ -18,6 +18,7 @@ import EditorTextCounter from "./components/EditorTextCounter";
 import GoalTodoDisplay from "./components/GoalTodoDisplay";
 import LinkDisplay from "./components/LinkDisplay";
 import LinkModal from "./components/LinkModal";
+import { isEmptyNote } from "./utils/checkEmptyNote";
 
 interface NoteFormProps extends PropsWithChildren {
   id: number;
@@ -38,6 +39,7 @@ export default function NoteForm({
   const router = useRouter();
 
   const {
+    getValues,
     formState: { isValid, isSubmitSuccessful },
   } = methods;
 
@@ -49,7 +51,13 @@ export default function NoteForm({
 
   const { isPopupOpen, handleCanclePopup, handleConfirmPopup } =
     useBlockNavigation({
-      isPageMoveRestricted: !isSubmitSuccessful,
+      isPageMoveRestricted:
+        !isSubmitSuccessful &&
+        !isEmptyNote({
+          title: getValues("title"),
+          content: getValues("plainText"),
+          linkUrl: getValues("linkUrl"),
+        }),
     });
 
   const [isEmbedOpen, setIsEmbedOpen] = useState(false);

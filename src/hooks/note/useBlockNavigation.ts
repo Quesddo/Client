@@ -1,5 +1,5 @@
 import { NextRouter, useRouter } from "next/router";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { useModalContext } from "@/contexts/InputModalContext";
 
@@ -63,7 +63,7 @@ export const useBlockNavigation = ({
     return () => {
       router.beforePopState(() => true);
     };
-  }, [router]);
+  }, [router, isPageMoveRestricted]);
 
   // 외부 링크 이동
   const handleBeforeUnload = useCallback(
