@@ -24,7 +24,7 @@ export default function LoginPage() {
           <SignForm.InnerForm />
         </SignForm>
         <p className="mt-10 text-center font-normal">
-          슬리드 투두가 처음이신가요?
+          퀘스또가 처음이신가요?
           <Link
             className="ml-1 inline-block text-blue-600 underline hover:text-blue-800"
             href={"/signup"}
