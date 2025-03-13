@@ -18,7 +18,7 @@ interface CardHeaderProps {
 
 export default function Card({ children }: PropsWithChildren) {
   return (
-    <div className="relative flex flex-col gap-4 rounded-xl bg-white p-6">
+    <div className="relative flex flex-col gap-4 rounded-xl bg-white p-6 transition hover:shadow-2xl">
       {children}
     </div>
   );
