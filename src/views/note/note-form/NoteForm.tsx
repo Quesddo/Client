@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { PropsWithChildren, useState } from "react";
-import { FormProvider, type Path, type UseFormReturn } from "react-hook-form";
+import { FormProvider, type UseFormReturn } from "react-hook-form";
 
 import Button from "@/components/atoms/button/Button";
 import ExitBtn from "@/components/atoms/exit-btn/ExitBtn";
