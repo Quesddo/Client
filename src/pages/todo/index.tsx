@@ -37,7 +37,7 @@ export default function TodoPage() {
           </button>
         </div>
 
-        <div className="mb-4 h-full rounded-xl bg-white p-4 sm:mb-6 sm:max-w-[588px] sm:p-6 md:max-w-[744px]">
+        <div className="mb-4 h-full flex-grow rounded-xl bg-white p-4 sm:mb-6 sm:max-w-[588px] sm:p-6 md:max-w-[744px]">
           <BoundaryWrapper>
             <Todos
               handleToggleTodo={handleToggleTodo}
