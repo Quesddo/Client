@@ -10,7 +10,7 @@ export const todoQueryKeys = createQueryKeys("todo", {
    * @returns queryKey: ["todo", "list", {"goalId": goalId}, {"filter": filter}]
    */
   list: ({ goalId, filter }: Omit<UseTodosParams, "size">) => ({
-    queryKey: [{ goalId: goalId, filter: filter }],
+    queryKey: [{ goalId: goalId }, { filter: filter }],
   }),
 
   /**
@@ -20,7 +20,7 @@ export const todoQueryKeys = createQueryKeys("todo", {
    * @returns queryKey: ["todo", "infinite", {"goalId": goalId}, {"filter": filter}]
    */
   infinite: ({ goalId, filter }: Omit<UseTodosParams, "size">) => ({
-    queryKey: [{ goalId: goalId, filter: filter }],
+    queryKey: [{ goalId: goalId }, { filter: filter }],
   }),
 
   /**

@@ -6,7 +6,7 @@ import { UserServiceResponseDto } from "@/types/types";
 
 export const useFetchUser = (throwOnError = false) => {
   const { data, isLoading } = useQuery<UserServiceResponseDto>({
-    queryKey: queryKeys.user._def,
+    queryKey: queryKeys.user.profile.queryKey,
     queryFn: async () => {
       const { data } = await instance.get("/user");
       return data;

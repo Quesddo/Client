@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
-import { useRouter } from "next/router";
 import { useFormContext } from "react-hook-form";
 
 import { signApi } from "@/apis/signApi";
@@ -20,7 +19,9 @@ const useLogin = () => {
     mutationFn: (params: FormData) => signApi.fetchLogin(params),
     onSuccess: (data) => {
       tokenUtils.setToken(data.accessToken, data.refreshToken);
-      queryClient.invalidateQueries({ queryKey: queryKeys.user._def });
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.user.profile.queryKey,
+      });
     },
     onError: (error) => {
       if (isAxiosError(error)) {
