@@ -9,7 +9,7 @@ import {
 
 type FilterType = "todo" | "done";
 
-interface UseInfiniteTodoProsp {
+export interface UseInfiniteTodoProps {
   goalId?: number;
   filter?: FilterType;
   size: number;
@@ -17,7 +17,7 @@ interface UseInfiniteTodoProsp {
 
 const createTodoParams = (
   pageParam: unknown,
-  props?: UseInfiniteTodoProsp,
+  props?: UseInfiniteTodoProps,
 ): teamIdTodosGetParams => {
   const filterMap = { todo: false, done: true };
   const done = props?.filter ? filterMap[props.filter] : undefined;
@@ -29,7 +29,7 @@ const createTodoParams = (
   };
 };
 
-export const useInfiniteTodo = (props?: UseInfiniteTodoProsp) => {
+export const useInfiniteTodo = (props?: UseInfiniteTodoProps) => {
   return useSuspenseInfiniteQuery<
     TeamIdTodosGet200Response,
     Error,

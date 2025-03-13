@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 
 import instance from "@/apis/apiClient";
+import { queryKeys } from "@/query-keys";
 
 import useToast from "../useToast";
 
@@ -19,7 +20,8 @@ export const useDeleteGoal = (goalId?: number) => {
         variant: "error",
         content: "목표가 삭제되었습니다.",
       });
-      queryClient.invalidateQueries({ queryKey: ["goals"] });
+
+      queryClient.invalidateQueries({ queryKey: queryKeys.goal.list._def });
       router.push("/dashboard");
     },
   });
