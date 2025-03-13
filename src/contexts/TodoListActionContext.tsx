@@ -22,7 +22,7 @@ interface TodoListActions {
   onConfirmDelete: () => void;
   onCancelDelete: () => void;
   onOpenUpdateModal: (todoId: number) => void;
-  onOpenCreateModal: (goalId: number) => void;
+  onOpenCreateModal: (goalId: number | undefined) => void;
 }
 
 const TodoListActionContext = createContext<TodoListActions | null>(null);
@@ -52,7 +52,7 @@ export const TodoListActionProvider = ({
   );
 
   const onOpenCreateModal = useCallback(
-    (goalId: number) => {
+    (goalId: number | undefined) => {
       setSelectedTodoId(null);
       setCreateGoalId(goalId);
       openModal("createTodo");
