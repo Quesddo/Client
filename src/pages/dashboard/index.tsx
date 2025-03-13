@@ -1,4 +1,6 @@
 import PageTitle from "@/components/atoms/page-title/PageTitle";
+import Spinner from "@/components/atoms/spinner/Spinner";
+import BoundaryWrapper from "@/components/organisms/boundary-wrapper/BoundaryWrapper";
 import GoalBasedTodo from "@/views/dashboard/goal-based-todo/GoalBasedTodo";
 import MyProgress from "@/views/dashboard/my-progress/MyProgress";
 import RecentTodo from "@/views/dashboard/recent-todo/RecentTodo";
@@ -14,8 +16,10 @@ export default function Dashboard() {
         <PageTitle title="대시보드" className="sm:pt-6" isMobileFixed={true} />
 
         <div className="smd:max-w-[1200px] smd:gap-5 flex flex-grow flex-col gap-4 py-4 sm:pt-0">
-          <div className="sm:flex sm:h-[250px] sm:justify-between sm:gap-5">
-            <RecentTodo />
+          <div className="sm:flex sm:h-[250px] sm:justify-between sm:gap-5 [&>*]:flex-[1_1_50%]">
+            <BoundaryWrapper fallback={<Spinner size={60} />}>
+              <RecentTodo />
+            </BoundaryWrapper>
             <MyProgress />
           </div>
           <GoalBasedTodo />

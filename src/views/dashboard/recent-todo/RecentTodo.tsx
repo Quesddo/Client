@@ -1,8 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { Suspense } from "react";
 
-import Spinner from "@/components/atoms/spinner/Spinner";
 import TitleWithIcon from "@/components/atoms/title-with-icon/TitleWithIcon.tsx";
 import TodoList from "@/components/organisms/todo-list/TodoList";
 import { useTodoListActionContext } from "@/contexts/TodoListActionContext";
@@ -41,13 +39,11 @@ export default function RecentTodo() {
 
       <div className="h-full max-h-[154px] overflow-y-hidden">
         {hasTodos ? (
-          <Suspense fallback={<Spinner size={60} />}>
-            <TodoList
-              data={todos}
-              handleToggleTodo={handleToggleTodo}
-              onOpenDeletePopup={onOpenDeletePopup}
-            />
-          </Suspense>
+          <TodoList
+            data={todos}
+            handleToggleTodo={handleToggleTodo}
+            onOpenDeletePopup={onOpenDeletePopup}
+          />
         ) : (
           <div className="flex h-full items-center justify-center text-sm font-normal text-slate-500">
             최근에 등록한 할 일이 없어요
