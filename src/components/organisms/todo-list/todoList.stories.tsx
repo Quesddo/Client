@@ -1,4 +1,5 @@
 import { InputModalProvider } from "@/contexts/InputModalContext";
+import { TodoListActionProvider } from "@/contexts/TodoListActionContext";
 import { sampleTodos } from "@/mocks/todo/todoMockData";
 
 import TodoList from "./TodoList";
@@ -10,7 +11,9 @@ const meta: Meta<typeof TodoList> = {
   decorators: [
     (Story) => (
       <InputModalProvider>
-        <Story />
+        <TodoListActionProvider>
+          <Story />
+        </TodoListActionProvider>
       </InputModalProvider>
     ),
   ],
