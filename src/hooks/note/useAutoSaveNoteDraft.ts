@@ -1,24 +1,28 @@
 import { useEffect, useRef } from "react";
-import { type UseFormReturn } from "react-hook-form";
+import {
+  type FieldValues,
+  type Path,
+  type UseFormReturn,
+} from "react-hook-form";
 
 import { isEmptyNote } from "@/views/note/note-form/utils/checkEmptyNote";
 
 import useToast from "../useToast";
 import { useNoteStorage } from "./useNoteStorage";
 
-interface UseAutoSaveNoteDraftProps {
+interface UseAutoSaveNoteDraftProps<T extends FieldValues> {
   id: number;
-  methods: UseFormReturn;
+  methods: UseFormReturn<T>;
   isEditMode: boolean;
 }
 
 const TOAST_INTERVAL_TIME = 1000 * 60 * 5;
 
-export const useAutoSaveNoteDraft = ({
+export const useAutoSaveNoteDraft = <T extends FieldValues>({
   id,
   methods,
   isEditMode,
-}: UseAutoSaveNoteDraftProps) => {
+}: UseAutoSaveNoteDraftProps<T>) => {
   const {
     getValues,
     formState: { isDirty },
@@ -29,9 +33,11 @@ export const useAutoSaveNoteDraft = ({
   const toastIntervalRef = useRef<NodeJS.Timeout>(null);
 
   const saveDraftNoteAndShowToast = () => {
-    const title = getValues("title");
-    const plainContent = getValues("plainContent");
-    const linkUrl = getValues("linkUrl");
+    const [title, plainContent, linkUrl] = getValues([
+      "title",
+      "plainContent",
+      "linkUrl",
+    ] as Path<T>[]);
 
     if (isEmptyNote({ title, plainContent, linkUrl })) {
       addToast({

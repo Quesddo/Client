@@ -1,6 +1,12 @@
 import { useRouter } from "next/router";
 import { PropsWithChildren, useState } from "react";
-import { FormProvider, type UseFormReturn } from "react-hook-form";
+import {
+  type FieldValues,
+  FormProvider,
+  type Path,
+  type SubmitHandler,
+  type UseFormReturn,
+} from "react-hook-form";
 
 import Button from "@/components/atoms/button/Button";
 import ExitBtn from "@/components/atoms/exit-btn/ExitBtn";
@@ -8,7 +14,6 @@ import PageTitle from "@/components/atoms/page-title/PageTitle";
 import Popup from "@/components/molecules/popup/Popup";
 import { useAutoSaveNoteDraft } from "@/hooks/note/useAutoSaveNoteDraft";
 import { useBlockNavigation } from "@/hooks/note/useBlockNavigation";
-import { CreateNoteBodyDto, UpdateNoteBodyDto } from "@/types/types";
 import EmbeddedContent from "@/views/note/note-detail/components/EmbeddedContent";
 import DraftNoteReminderToast from "@/views/note/note-form/components/DraftNoteReminderToast";
 import Editor from "@/views/note/note-form/components/Editor";
@@ -20,22 +25,22 @@ import LinkDisplay from "./components/LinkDisplay";
 import LinkModal from "./components/LinkModal";
 import { isEmptyNote } from "./utils/checkEmptyNote";
 
-interface NoteFormProps extends PropsWithChildren {
+interface NoteFormProps<T extends FieldValues> extends PropsWithChildren {
   id: number;
-  methods: UseFormReturn;
+  methods: UseFormReturn<T>;
   editMode?: boolean;
-  onSubmit: (data: CreateNoteBodyDto | UpdateNoteBodyDto) => void;
+  onSubmit: SubmitHandler<T>;
   goal?: string;
   todo?: string;
 }
 
-export default function NoteForm({
+export default function NoteForm<T extends FieldValues>({
   id,
   methods,
   onSubmit,
   editMode = false,
   children,
-}: NoteFormProps) {
+}: NoteFormProps<T>) {
   const router = useRouter();
 
   const {
@@ -53,7 +58,7 @@ export default function NoteForm({
     "title",
     "plainContent",
     "linkUrl",
-  ]);
+  ] as Path<T>[]);
 
   const isNoteDirty = !isEmptyNote({
     title,
@@ -70,7 +75,7 @@ export default function NoteForm({
 
   const [isEmbedOpen, setIsEmbedOpen] = useState(false);
 
-  const wacthedLinkUrl = methods.watch("linkUrl")?.toString();
+  const wacthedLinkUrl = methods.watch("linkUrl" as Path<T>)?.toString();
 
   const handleToggleEmbedOpen = () => {
     setIsEmbedOpen((prev) => !prev);
