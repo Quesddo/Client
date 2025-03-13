@@ -14,12 +14,15 @@ import useToast from "@/hooks/useToast";
 interface TodoListActions {
   selectedTodoId: number | null;
   isPopupOpen: boolean;
+  createGoalId: number | undefined;
+  setCreateGoalId: (goalId: number) => void;
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
   setSelectedTodoId: (id: number | null) => void;
   onOpenDeletePopup: (todoId: number) => void;
   onConfirmDelete: () => void;
   onCancelDelete: () => void;
   onOpenUpdateModal: (todoId: number) => void;
+  onOpenCreateModal: (goalId: number) => void;
 }
 
 const TodoListActionContext = createContext<TodoListActions | null>(null);
@@ -36,6 +39,9 @@ export const TodoListActionProvider = ({
 
   const [selectedTodoId, setSelectedTodoId] = useState<number | null>(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [createGoalId, setCreateGoalId] = useState<number | undefined>(
+    undefined,
+  );
 
   const onOpenUpdateModal = useCallback(
     (todoId: number) => {
@@ -43,6 +49,15 @@ export const TodoListActionProvider = ({
       openModal("updateTodo");
     },
     [setSelectedTodoId, openModal],
+  );
+
+  const onOpenCreateModal = useCallback(
+    (goalId: number) => {
+      setSelectedTodoId(null);
+      setCreateGoalId(goalId);
+      openModal("createTodo");
+    },
+    [setSelectedTodoId, setCreateGoalId, openModal],
   );
 
   const handleToggleTodo = (todoId: number, isDone: boolean) => {
@@ -102,12 +117,15 @@ export const TodoListActionProvider = ({
       value={{
         selectedTodoId,
         isPopupOpen,
+        createGoalId,
+        setCreateGoalId,
         handleToggleTodo,
         setSelectedTodoId,
         onOpenDeletePopup,
         onConfirmDelete,
         onCancelDelete,
         onOpenUpdateModal,
+        onOpenCreateModal,
       }}
     >
       {children}

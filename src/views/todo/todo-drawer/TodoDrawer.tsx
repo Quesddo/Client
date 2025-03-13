@@ -6,14 +6,19 @@ import TodoUpdateForm from "@/views/todo/todo-update-form/TodoUpdateForm";
 
 export default function TodoDrawer() {
   const { modalType } = useModalContext();
-  const { selectedTodoId, isPopupOpen, onConfirmDelete, onCancelDelete } =
-    useTodoListActionContext();
+  const {
+    selectedTodoId,
+    isPopupOpen,
+    createGoalId,
+    onConfirmDelete,
+    onCancelDelete,
+  } = useTodoListActionContext();
 
   if (!modalType && !isPopupOpen) return null;
 
   return (
     <>
-      {modalType === "createTodo" && <TodoCreateForm />}
+      {modalType === "createTodo" && <TodoCreateForm goalId={createGoalId} />}
       {modalType === "updateTodo" && selectedTodoId !== null && (
         <TodoUpdateForm todoId={selectedTodoId} />
       )}

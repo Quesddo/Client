@@ -11,14 +11,12 @@ import Section from "../component/Section";
 interface GoalTodoListProps {
   handleClick: (goalId: number) => void;
   handleToggleTodo: (todoId: number, isDone: boolean) => void;
-  setSelectedTodoId: (todoId: number | null) => void;
-  onOpenDeletePopup: () => void;
+  onOpenDeletePopup: (todoId: number) => void;
 }
 
 export default function GoalTodoList({
   handleClick,
   handleToggleTodo,
-  setSelectedTodoId,
   onOpenDeletePopup,
 }: GoalTodoListProps) {
   const { goalId } = useGoalDetailContext();
@@ -52,7 +50,6 @@ export default function GoalTodoList({
             <TodoList
               data={todos}
               handleToggleTodo={handleToggleTodo}
-              setSelectedTodoId={setSelectedTodoId}
               onOpenDeletePopup={onOpenDeletePopup}
             />
             <div ref={ref}></div>
