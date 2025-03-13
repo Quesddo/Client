@@ -11,15 +11,6 @@ interface ModalProps {
 }
 
 const Modal = ({ isOpen, onClose, onClick, children }: ModalProps) => {
-  useEffect(() => {
-    if (isOpen) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "auto";
-
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [isOpen]);
-
   if (!isOpen) return null;
 
   return createPortal(

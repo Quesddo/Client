@@ -10,39 +10,42 @@ import { useUpdateGoal } from "@/hooks/goal/useUpdateGoal";
 import { useGoalDetailContext } from "@/views/goal/GoalDetailContext";
 import meatBalls from "@public/icons/meatballs-menu.svg";
 
-import Modal from "../component/Modal";
+import Modal from "./Modal";
 
 export default function GoalTitle() {
   const { goalId } = useGoalDetailContext();
 
   const [isOpenActionDropDown, setIsOpenActionDropDown] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [action, setAction] = useState<string>("");
+  const actionRef = useRef<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
   const { data } = useFetchGoal(goalId);
   const { mutate: updateGoalName } = useUpdateGoal(goalId);
   const { mutate: deleteGoal } = useDeleteGoal(goalId);
-
-  const handleClick = () => {
-    setIsOpenActionDropDown(true);
-  };
-
-  const onClickCloseModal = () => {
-    setIsOpenModal(false);
-  };
-
-  const onClickOpenModal = () => {
-    setIsOpenModal(true);
-  };
 
   const onClickUpdateGoalName = () => {
     updateGoalName(inputRef.current?.value as string);
     setIsOpenModal(false);
   };
 
-  const onClickDeleteGoal = () => {
-    deleteGoal();
-  };
+  const actionDropdownArr = [
+    {
+      label: "수정하기",
+      onClick: () => {
+        setIsOpenModal(true);
+        setIsOpenActionDropDown(false);
+        actionRef.current = "update";
+      },
+    },
+    {
+      label: "삭제하기",
+      onClick: () => {
+        setIsOpenModal(true);
+        setIsOpenActionDropDown(false);
+        actionRef.current = "delete";
+      },
+    },
+  ];
 
   return (
     <>
@@ -58,41 +61,24 @@ export default function GoalTitle() {
           alt="meat-balls"
           width={24}
           height={24}
-          onClick={handleClick}
+          onClick={() => setIsOpenActionDropDown(true)}
           className="cursor-pointer"
         />
         <ActionDropdown
           isOpen={isOpenActionDropDown}
-          items={[
-            {
-              label: "수정하기",
-              onClick: () => {
-                onClickOpenModal();
-                setIsOpenActionDropDown(() => false);
-                setAction("update");
-              },
-            },
-            {
-              label: "삭제하기",
-              onClick: () => {
-                onClickOpenModal();
-                setIsOpenActionDropDown(() => false);
-                setAction("delete");
-              },
-            },
-          ]}
+          items={actionDropdownArr}
           setIsOpen={setIsOpenActionDropDown}
           className="absolute top-[56px] right-6"
         />
       </div>
       <Modal
         isOpen={isOpenModal}
-        onClose={onClickCloseModal}
+        onClose={() => setIsOpenModal(false)}
         onClick={
-          action === "update" ? onClickUpdateGoalName : onClickDeleteGoal
+          actionRef.current === "update" ? onClickUpdateGoalName : deleteGoal
         }
       >
-        {action === "update" ? (
+        {actionRef.current === "update" ? (
           <>
             <label htmlFor="goal-name" className="mb-2 inline-block">
               목표
