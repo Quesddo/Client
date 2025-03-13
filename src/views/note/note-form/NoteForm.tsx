@@ -55,7 +55,7 @@ export default function NoteForm({
         !isSubmitSuccessful &&
         !isEmptyNote({
           title: getValues("title"),
-          content: getValues("plainText"),
+          content: getValues("plainContent"),
           linkUrl: getValues("linkUrl"),
         }),
     });

@@ -33,9 +33,9 @@ export default function Editor() {
     [],
   );
 
-  const handleChangePlainText = () => {
+  const handleChangePlainContent = () => {
     methods.setValue(
-      "plainText",
+      "plainContent",
       editorRef.current?.getEditor().getText().replace(/\n+$/, ""),
       {
         shouldDirty: false,
@@ -47,7 +47,7 @@ export default function Editor() {
     if (!el) return;
     editorRef.current = el;
 
-    handleChangePlainText();
+    handleChangePlainContent();
   }, []);
 
   return (
@@ -63,14 +63,13 @@ export default function Editor() {
             modules={modules}
             onChange={(value: string) => {
               onChange(value);
-              handleChangePlainText();
+              handleChangePlainContent();
             }}
             value={value}
             placeholder="내용을 입력하세요"
           ></ReactQuillEditor>
         )}
       />
-      <input type="hidden" defaultValue="" onChange={handleChangePlainText} />
     </>
   );
 }

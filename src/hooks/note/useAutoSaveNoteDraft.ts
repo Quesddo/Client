@@ -30,7 +30,7 @@ export const useAutoSaveNoteDraft = ({
 
   const saveDraftNoteAndShowToast = () => {
     const title = getValues("title");
-    const content = getValues("plainText");
+    const content = getValues("plainContent");
     const linkUrl = getValues("linkUrl");
 
     if (isEmptyNote({ title, content, linkUrl })) {

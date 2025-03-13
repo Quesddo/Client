@@ -3,7 +3,7 @@ import { useFormContext } from "react-hook-form";
 export default function EditorTextCounter() {
   const { watch } = useFormContext();
 
-  const textLength = watch("plainText");
+  const textLength = watch("plainContent");
   const textWithoutLength = textLength?.replace(/\s/gm, "").length || 0;
 
   return (
