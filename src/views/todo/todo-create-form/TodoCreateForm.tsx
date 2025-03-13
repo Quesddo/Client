@@ -1,4 +1,5 @@
 import { useModalContext } from "@/contexts/InputModalContext";
+import { useTodoListActionContext } from "@/contexts/TodoListActionContext";
 import { useTodoForm } from "@/hooks/todo/form/useTodoForm";
 import { useCreateTodo } from "@/hooks/todo/useCreateTodo";
 import useToast from "@/hooks/useToast";
@@ -13,6 +14,8 @@ export default function TodoCreateForm({ goalId }: { goalId?: number }) {
   const { reset } = todoformProps.formMethods;
 
   const createTodoMutation = useCreateTodo();
+  const { setSelectedTodoId } = useTodoListActionContext();
+
   const createTodoSubmit = (data: UpdateTodoBodyDto) => {
     createTodoMutation.mutate(data, {
       onSuccess: () => {
@@ -21,6 +24,7 @@ export default function TodoCreateForm({ goalId }: { goalId?: number }) {
           content: "할 일이 등록되었습니다",
         });
         reset();
+        setSelectedTodoId(null);
       },
     });
   };
