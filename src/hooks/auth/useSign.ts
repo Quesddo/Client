@@ -1,8 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
+import { useRouter } from "next/router";
 import { useFormContext } from "react-hook-form";
 
 import { signApi } from "@/apis/signApi";
+import { queryKeys } from "@/query-keys";
 import { UserCreateRequstDto } from "@/types/types";
 import { tokenUtils } from "@/utils/tokenUtils/tokenUtils";
 
@@ -13,11 +15,12 @@ interface FormData extends UserCreateRequstDto {
 const useLogin = () => {
   const methods = useFormContext();
   const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: (params: FormData) => signApi.fetchLogin(params),
     onSuccess: (data) => {
       tokenUtils.setToken(data.accessToken, data.refreshToken);
-      queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.user._def });
     },
     onError: (error) => {
       if (isAxiosError(error)) {
