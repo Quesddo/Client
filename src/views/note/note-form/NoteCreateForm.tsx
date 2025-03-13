@@ -13,7 +13,7 @@ interface NoteCreationFormProps {
   todoId: number;
 }
 
-export default function NoteCreationForm({ todoId }: NoteCreationFormProps) {
+export default function NoteCreateForm({ todoId }: NoteCreationFormProps) {
   const { data } = useFetchTodo(todoId);
   const methods = useForm({
     defaultValues: {

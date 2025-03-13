@@ -1,7 +1,7 @@
 import { useSearchParams } from "next/navigation";
 
 import NoteDetail from "../note-detail/NoteDetail";
-import NoteCreationForm from "../note-form/NoteCreateForm";
+import NoteCreateForm from "../note-form/NoteCreateForm";
 import NoteUpdateForm from "../note-form/NoteUpdateForm";
 
 const MODE = {
@@ -43,7 +43,7 @@ export default function NoteDrawer() {
 
   return (
     <>
-      {mode === MODE.CREATE && <NoteCreationForm todoId={todoId} />}
+      {mode === MODE.CREATE && <NoteCreateForm todoId={todoId} />}
       {mode === MODE.EDIT && <NoteUpdateForm noteId={noteId} />}
       {mode === MODE.DETAIL && <NoteDetail />}
     </>
