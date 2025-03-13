@@ -20,11 +20,16 @@ export default function NoteUpdateForm({ noteId }: NoteUpdateFormProps) {
 
   const { data } = useFetchNote(noteId);
 
-  const methods = useForm<UpdateNoteBodyDto>({
+  const methods = useForm({
     defaultValues: {
       title: data.title,
       content: data.content,
       linkUrl: data.linkUrl,
+      goal: data?.goal?.title,
+      todo: {
+        title: data?.todo.title,
+        done: data?.todo.done,
+      },
     },
     mode: "onChange",
   });
@@ -48,13 +53,6 @@ export default function NoteUpdateForm({ noteId }: NoteUpdateFormProps) {
   };
 
   return (
-    <NoteForm
-      id={noteId}
-      methods={methods}
-      onSubmit={handleSubmit}
-      editMode
-      goal={data?.goal?.title}
-      todo={data?.todo.title}
-    />
+    <NoteForm id={noteId} methods={methods} onSubmit={handleSubmit} editMode />
   );
 }

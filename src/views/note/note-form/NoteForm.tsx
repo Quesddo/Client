@@ -36,8 +36,6 @@ export default function NoteForm<
   methods,
   onSubmit,
   editMode = false,
-  goal,
-  todo,
   children,
 }: NoteFormProps<TNoteBody>) {
   const router = useRouter();
@@ -101,7 +99,7 @@ export default function NoteForm<
                 </div>
               </div>
               <div className="flex flex-col gap-4 pt-[11px] pb-[24px] sm:pt-4 md:flex-col-reverse">
-                <GoalTodoDisplay goal={goal} todo={todo} />
+                <GoalTodoDisplay />
                 <DraftNoteReminderToast id={id} isEditMode={editMode} />
               </div>
               <TitleWithCounter />

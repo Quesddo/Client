@@ -14,20 +14,25 @@ interface NoteCreationFormProps {
 }
 
 export default function NoteCreationForm({ todoId }: NoteCreationFormProps) {
-  const methods = useForm<CreateNoteBodyDto>({
+  const { data } = useFetchTodo(todoId);
+  const methods = useForm({
     defaultValues: {
       title: "",
       todoId,
       content: "",
       linkUrl: undefined,
+      goal: data?.goal?.title,
+      todo: {
+        title: data?.title,
+        done: data?.done,
+      },
     },
     mode: "onChange",
   });
+
   const mutation = useCreateNote();
   const pathname = usePathname();
   const router = useRouter();
-
-  const { data } = useFetchTodo(todoId);
 
   const { removeNoteDraft } = useNoteStorage({
     id: todoId,
@@ -48,13 +53,7 @@ export default function NoteCreationForm({ todoId }: NoteCreationFormProps) {
   };
 
   return (
-    <NoteForm
-      id={todoId}
-      methods={methods}
-      onSubmit={handleSubmit}
-      goal={data?.goal?.title}
-      todo={data?.title}
-    >
+    <NoteForm id={todoId} methods={methods} onSubmit={handleSubmit}>
       <input {...methods.register("todoId", { value: todoId })} type="hidden" />
     </NoteForm>
   );
