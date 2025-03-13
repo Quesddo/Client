@@ -1,5 +1,4 @@
 import PageTitle from "@/components/atoms/page-title/PageTitle";
-import { useTodoListActionContext } from "@/contexts/TodoListActionContext";
 import GoalBasedTodo from "@/views/dashboard/goal-based-todo/GoalBasedTodo";
 import MyProgress from "@/views/dashboard/my-progress/MyProgress";
 import RecentTodo from "@/views/dashboard/recent-todo/RecentTodo";
@@ -7,8 +6,6 @@ import RecentTodo from "@/views/dashboard/recent-todo/RecentTodo";
 import QuesddoHead from "../../components/atoms/quesddo-head/QuesddoHead";
 
 export default function Dashboard() {
-  const { handleToggleTodo, onOpenDeletePopup } = useTodoListActionContext();
-
   return (
     <>
       <QuesddoHead title="대시보드" />
@@ -18,10 +15,7 @@ export default function Dashboard() {
 
         <div className="smd:max-w-[1200px] smd:gap-5 flex flex-grow flex-col gap-4 py-4 sm:pt-0">
           <div className="sm:flex sm:h-[250px] sm:justify-between sm:gap-5">
-            <RecentTodo
-              handleToggleTodo={handleToggleTodo}
-              onOpenDeletePopup={onOpenDeletePopup}
-            />
+            <RecentTodo />
             <MyProgress />
           </div>
           <GoalBasedTodo />
