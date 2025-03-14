@@ -27,6 +27,7 @@ export default function NoteCreateForm({ todoId }: NoteCreationFormProps) {
         title: data?.title,
         done: data?.done,
       },
+      plainContent: "",
     },
     mode: "onChange",
   });

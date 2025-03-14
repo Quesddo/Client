@@ -23,7 +23,6 @@ import EditorTextCounter from "./components/EditorTextCounter";
 import GoalTodoDisplay from "./components/GoalTodoDisplay";
 import LinkDisplay from "./components/LinkDisplay";
 import LinkModal from "./components/LinkModal";
-import { isEmptyNote } from "./utils/checkEmptyNote";
 
 interface NoteFormProps<T extends FieldValues> extends PropsWithChildren {
   id: number;
@@ -44,8 +43,7 @@ export default function NoteForm<T extends FieldValues>({
   const router = useRouter();
 
   const {
-    getValues,
-    formState: { isValid, isSubmitSuccessful },
+    formState: { isValid, isSubmitSuccessful, isDirty },
   } = methods;
 
   const { handleClickSaveDraft } = useAutoSaveNoteDraft({
@@ -54,23 +52,11 @@ export default function NoteForm<T extends FieldValues>({
     isEditMode: editMode,
   });
 
-  const [title, plainContent, linkUrl] = getValues([
-    "title",
-    "plainContent",
-    "linkUrl",
-  ] as Path<T>[]);
-
-  const isNoteDirty = !isEmptyNote({
-    title,
-    plainContent,
-    linkUrl,
-  });
-
   const { isPopupOpen, handleCanclePopup, handleConfirmPopup } =
     useBlockNavigation({
       isPageMoveRestricted:
-        // (1. 제출되지 않음 상태) + [(2. 수정 모드) or (3. 빈 노트가 아닌 경우)]
-        !isSubmitSuccessful && (editMode || isNoteDirty),
+        // (1. 제출되지 않음 상태) + [(2. 수정 모드) or (3. 글 작성 시도한 경우)]
+        !isSubmitSuccessful && (editMode || isDirty),
     });
 
   const [isEmbedOpen, setIsEmbedOpen] = useState(false);
