@@ -76,7 +76,7 @@ export default function Sidebar() {
               <MenuDashboard />
               <MenuGoal />
             </div>
-            <Toaster className="bottom-[40px] w-auto px-4" />
+            <Toaster className="absolute bottom-[40px] box-border w-full px-4" />
           </SidebarContext.Provider>
         </aside>
         <div

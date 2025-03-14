@@ -15,7 +15,7 @@ export default function Toaster({ className }: ToasterProps) {
   return (
     <div
       className={cn(
-        "pointer-events-none sticky bottom-0 z-50 flex h-0 flex-col-reverse bg-red-200",
+        "pointer-events-none fixed right-0 bottom-0 z-50 flex h-0 flex-col-reverse bg-red-200",
         className,
       )}
     >
