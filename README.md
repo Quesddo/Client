@@ -132,11 +132,11 @@ npm install --global yarn  // yarn 전역 설치 (필요 시)
 
 ## 4. 협업 방식
 
-<img height="16" width="16" src="https://cdn.simpleicons.org/jira" /> Jira: 새 기능 및 스프린트 단위 이슈관리
+<img height="16" width="16" src="https://cdn.simpleicons.org/jira" /> Jira: 새 기능 및 스프린트 단위 이슈관리  
 
-<img height="16" width="16" src="https://cdn.simpleicons.org/github/000/fff" /> GitHub: 지라 티켓과 연동, 팀원 간 코드 리뷰, Github Flow 적용, 디스코드 webhooks</div>
+<img height="16" width="16" src="https://cdn.simpleicons.org/github/000/fff" /> GitHub: 지라 티켓과 연동, 팀원 간 코드 리뷰, Github Flow 적용, 디스코드 webhooks</div>  
 
-<img height="16" width="16"  src="https://cdn.simpleicons.org/notion/000/fff" /> Notion: 데일리스크럼, 팀 회의, 멘토링, 회고 기록
+<img height="16" width="16"  src="https://cdn.simpleicons.org/notion/000/fff" /> Notion: 데일리스크럼, 팀 회의, 멘토링, 회고 기록  
 
 <br />
 
@@ -195,9 +195,7 @@ npm install --global yarn  // yarn 전역 설치 (필요 시)
 <summary><h3>5.3 대시보드</h3></summary>
 
 - 최근 등록한 할 일: 가장 최근에 생성한 할 일이 나오고 (각 할 일에 대한 기능)이 제공됩니다. 모두보기 버튼 클릭으로 모든 할 일 목록으로 이동합니다.
-
 - 내 진행 상황: 전체 완료된 할 일과 미완료 할 일의 비율이 퍼센트로 조회됩니다.
-
 - 목표 별 할 일: 각 목표 아래에 속한 할 일들을 확인할 수 있으며 Progress bar로 각 할 일들의 진행 상황을 알려줍니다. 각 목표에 대한 할 일 추가 기능이 제공되며 목표 4개가 넘어가면 무한스크롤로 목록이 제공됩니다.
 
 | 대시보드                     |
@@ -220,12 +218,9 @@ npm install --global yarn  // yarn 전역 설치 (필요 시)
 <summary><h3>5.4 모든 할 일 목록</h3></summary>
 
 - 모든 할 일 목록을 조회하고 생성할 수 있으며 할 일에 등록된 목표가 있으면 함께 보입니다.
-
-- \*할 일 추가 기능: 제목을 필수로 써야하고 파일과 링크를 첨부할 수 있으며 목표를 선택할수도 안할수도 있습니다.
-
+- 할 일 추가 기능: 제목을 필수로 써야하고 파일과 링크를 첨부할 수 있으며 목표를 선택할수도 안할수도 있습니다.
 - 해야 할 일(To Do)/완료된 일(Done) 필터링이 가능하며 40개가 넘어가면 무한스크롤로 목록이 제공됩니다.
-
-- \*각 할 일에 대한 기능: 수정, 삭제 그리고 완료 여부를 체크할 수 있으며 노트를 생성하고 등록된 노트도 조회할 수 있습니다.
+- 각 할 일에 대한 기능: 수정, 삭제 그리고 완료 여부를 체크할 수 있으며 노트를 생성하고 등록된 노트도 조회할 수 있습니다.
 
 | 모든 할 일 목록 페이지       |
 | ---------------------------- |
@@ -399,7 +394,7 @@ MVP 이후에는 유지보수 위주의 작업이 많아지면서, **빠른 개�
 이번 프로젝트를 수행하면서 `Open API Generator`를 알게 되었습니다. 서버 요청에 필요한 type을 일일이 작성하지 않아도 된다는 장점이 있어 도입하게 되었습니다.
  
  #### Open API Generator를 도입기 
-- 백엔드에서 API 파싱에 필요한 OAS 파일을 공개적으로 제공하지 않아, Swagger의 네트워크 탭에서 직접 추출하여 활용하였습니다. 
+ - 백엔드에서 API 파싱에 필요한 OAS 파일을 공개적으로 제공하지 않아, Swagger의 네트워크 탭에서 직접 추출하여 활용하였습니다. 
  - 백엔드에서 Schema로 지정하지 않은 type은 Open API Generator가 지정한 타입을 가지고 있는데, 해당 타입명이 난해한 부분이 있었습니다. 실제로 백엔드와 협력한다면, 이런 부분은 논의를 통해 해결할 수 있을 것이라 생각됩니다.
  - API 요청 함수까지 작성된 결과가 나왔지만, 기존에 custom한 axios instance와 tanstack-query를 사용하면서 타입만 가져오게 되었습니다.
 
@@ -426,9 +421,7 @@ MVP 이후에는 유지보수 위주의 작업이 많아지면서, **빠른 개�
   <img src="https://github.com/user-attachments/assets/48fc65ab-9152-4782-8b2b-1ae0dc3469dd"/>
 
 - Storybook을 활용하면 **컴포넌트를 시각적으로 관리하면서, UI 조립 전에 디자인과 기능을 미리 확인**할 수 있어 개발 생산성이 크게 향상될 것으로 판단하여 사용하였습니다.
-
 - Storybook 내에서 **API 통신이 필요한 경우가 있어 MSW를 함께 도입**하여 데이터 요청을 mocking 하였습니다.
-
 - **Chromatic을 활용해 Storybook을 배포**하고, PR마다 UI 변경 사항을 시각적으로 확인할 수 있도록 설정하였습니다.
 
    <img src="https://github.com/user-attachments/assets/7b4eae14-b80e-4d45-94c0-22d780e93385" width="700px"/>
