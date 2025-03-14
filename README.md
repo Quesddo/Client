@@ -330,7 +330,7 @@ npm install --global yarn  // yarn 전역 설치 (필요 시)
 
 ## 6. 주요 도전 과제
 
-<details>
+<details open>
 <summary> <h3>6.1. 브랜치전략</h3></summary>
 
 본 프로젝트는 **GitHub Flow**를 기반으로 하지만, 초기 개발 단계에서 **코드 충돌을 최소화하고 독립적인 개발 환경을 유지하기 위해** `develop` 브랜치를 추가해 운영했습니다.
