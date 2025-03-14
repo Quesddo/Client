@@ -38,7 +38,7 @@ export default function GoalTitleModals({
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
-    setError(/\s/g.test(newValue));
+    setError(newValue.trim() === "");
     setValue(newValue);
   };
 
