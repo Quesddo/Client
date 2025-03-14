@@ -5,8 +5,6 @@ import {
   type UseFormReturn,
 } from "react-hook-form";
 
-import { isEmptyNote } from "@/views/note/note-form/utils/checkEmptyNote";
-
 import useToast from "../useToast";
 import { useNoteStorage } from "./useNoteStorage";
 
@@ -17,6 +15,12 @@ interface UseAutoSaveNoteDraftProps<T extends FieldValues> {
 }
 
 const TOAST_INTERVAL_TIME = 1000 * 60 * 5;
+
+const isEmptyNote = (items: { [key: string]: string | null | undefined }) => {
+  return Object.values(items).every(
+    (item) => !item || item.trim().length === 0,
+  );
+};
 
 export const useAutoSaveNoteDraft = <T extends FieldValues>({
   id,
