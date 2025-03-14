@@ -1,8 +1,11 @@
 # <img width="26" alt="logo" src="https://github.com/user-attachments/assets/e04e21b0-42a2-4167-ba82-7799b27e0599" /> 퀘스또
 
-<img src = "https://github.com/user-attachments/assets/938d3bba-ff75-4735-8b02-ddc45fd94cfd" />
+<img src = "https://github.com/user-attachments/assets/fd7f1f45-f09d-41b8-8131-e4c2311db407" />
+
 
 <br/>
+<br/>
+
 
 🌐 [배포 주소](https://quesddo.vercel.app)  
 🎨 [스토리북 바로가기](https://www.chromatic.com/library?appId=67acd5f79f2abb10c31d0c10&branch=main)
