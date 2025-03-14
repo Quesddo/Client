@@ -4,7 +4,7 @@
 
 <br/>
 
-🌐 [배포 주소](https://www.chromatic.com/library?appId=67acd5f79f2abb10c31d0c10&branch=main)  
+🌐 [배포 주소](https://quesddo.vercel.app)  
 🎨 [스토리북 바로가기](https://www.chromatic.com/library?appId=67acd5f79f2abb10c31d0c10&branch=main)
 
 <br />
@@ -68,7 +68,7 @@
 
 #### **TanStack Query**
 
-- **한 화면에서 동일한 데이터를 여러 곳에서 사용해야 하는 경우**가 많아, 데이터가 CRUD 작업에 따라 변경될 때, **관련된 모든 UI에서 즉시 동기화가 필요**하였습니다..
+- **한 화면에서 동일한 데이터를 여러 곳에서 사용해야 하는 경우**가 많아, 데이터가 CRUD 작업에 따라 변경될 때, **관련된 모든 UI에서 즉시 동기화가 필요**하였습니다.
 - TanStack Query를 활용하면 **자동 캐싱, 동기화, 낙관적 업데이트**를 통해 효율적인 상태 관리가 가능하여 채택하였습니다.
 
 #### **Tailwind CSS (v4)**
