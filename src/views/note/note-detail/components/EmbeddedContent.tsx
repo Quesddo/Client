@@ -38,9 +38,9 @@ export default function EmbeddedContent({
       ) : (
         <>
           {/*  임베드 안 되는 경우 링크 이동 버튼 */}
-          <h1 className="mb-4 text-xl font-semibold text-slate-900">
+          <span className="mb-4 text-xl font-semibold text-slate-900">
             미리보기가 거부된 사이트입니다
-          </h1>
+          </span>
           <Button onClick={handleOpenLink} rounded className="w-60">
             링크로 이동하기
           </Button>
