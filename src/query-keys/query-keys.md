@@ -7,17 +7,18 @@ TanStack Query의 쿼리키를 효율적으로 관리하기 위해
 
 ## 📍 쿼리키 구조
 
-| **쿼리키 그룹** | **설명**         | **쿼리키**                                                   | **사용 예시**                                                   |
-| --------------- | ---------------- | ------------------------------------------------------------ | --------------------------------------------------------------- |
-| **note**        | 노트 무한스크롤  | ["note", "infinite", {"goalId": goalId}]                     | queryKeys.note.infinite(goalId: 123).queryKey                   |
-|                 | 단일 노트        | ["note", "detail", {"noteId": noteId}]                       | queryKeys.note.detail(noteId: 123).queryKey                     |
-| **todo**        | 할 일 리스트     | ["todo", "list", {"goalId": goalId}, {"filter": filter}]     | queryKeys.todo.list({goalId: 123, filter: "done"}).queryKey     |
-|                 | 할 일 무한스크롤 | ["todo", "infinite", {"goalId": goalId}, {"filter": filter}] | queryKeys.todo.infinite({goalId: 123, filter: "done"}).queryKey |
-|                 | 노트 작성/수정   | ["todo", "editNote", {"todoId": todoId}]                     | queryKeys.todo.editNote(todoId: 123).queryKey                   |
-|                 | 할 일 진행률     | ["todo", "progress", {"goalId": goalId}]                     | queryKeys.todo.progress(goalId: 123).queryKey                   |
-| **goal**        | 목표 무한스크롤  | ["goal", "infinite", {"source": source}]                     | queryKeys.goal.infinite(source: "dashboard").queryKey           |
-|                 | 단일 목표        | ["goal", "detail", {"goalId": goalId}]                       | queryKeys.goal.detail(goalId: 123).queryKey                     |
-| **user**        | 유저 프로필 조회 | ["user", "profile"]                                          | queryKeys.user.profile.queryKey                                 |
+| **쿼리키 그룹** | **설명**              | **쿼리키**                                                   | **사용 예시**                                                   |
+| --------------- | --------------------- | ------------------------------------------------------------ | --------------------------------------------------------------- |
+| **note**        | 노트 무한스크롤       | ["note", "infinite", {"goalId": goalId}]                     | queryKeys.note.infinite(goalId: 123).queryKey                   |
+|                 | 단일 노트             | ["note", "detail", {"noteId": noteId}]                       | queryKeys.note.detail(noteId: 123).queryKey                     |
+| **todo**        | 할 일 리스트          | ["todo", "list", {"goalId": goalId}, {"filter": filter}]     | queryKeys.todo.list({goalId: 123, filter: "done"}).queryKey     |
+|                 | 할 일 무한스크롤      | ["todo", "infinite", {"goalId": goalId}, {"filter": filter}] | queryKeys.todo.infinite({goalId: 123, filter: "done"}).queryKey |
+|                 | 노트 작성/수정        | ["todo", "editNote", {"todoId": todoId}]                     | queryKeys.todo.editNote(todoId: 123).queryKey                   |
+|                 | 할 일 진행률          | ["todo", "progress", {"goalId": goalId}]                     | queryKeys.todo.progress(goalId: 123).queryKey                   |
+| **goal**        | 목표 무한스크롤       | ["goal", "infinite", {"source": source}]                     | queryKeys.goal.infinite(source: "dashboard").queryKey           |
+|                 | 단일 목표             | ["goal", "detail", {"goalId": goalId}]                       | queryKeys.goal.detail(goalId: 123).queryKey                     |
+| **user**        | 유저 프로필 조회      | ["user", "profile"]                                          | queryKeys.user.profile.queryKey                                 |
+| **embed**       | 링크 임베드 가능 여부 | ["embed", "canEmbed", {"linkUrl" : linkUrl}]                 | queryKeys.embed.canEmbed(linkUrl).queryKey                      |
 
 <br />
 

@@ -1,5 +1,6 @@
 import { mergeQueryKeys } from "@lukemorales/query-key-factory";
 
+import { embedQueryKeys } from "./embedQueryKeys";
 import { goalQueryKeys } from "./goalQueryKeys";
 import { noteQueryKeys } from "./noteQueryKeys";
 import { todoQueryKeys } from "./todoQueryKeys";
@@ -10,4 +11,5 @@ export const queryKeys = mergeQueryKeys(
   noteQueryKeys,
   todoQueryKeys,
   userQueryKeys,
+  embedQueryKeys,
 );
