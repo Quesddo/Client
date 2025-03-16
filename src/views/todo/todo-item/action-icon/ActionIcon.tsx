@@ -1,15 +1,15 @@
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
+import { useRef, useState } from "react";
 
-import ActionDropdown from "@/components/atoms/action-dropdown/ActionDropdown";
 import pageRoutes from "@/router/pageRoutes";
-import { TodoResponse } from "@/types/todo";
+import { TeamIdTodosGet200Response } from "@/types/types";
 import { cn } from "@/utils/cn/cn";
 
+import { TodoActionDropdown } from "../action-dropdown/TodoActionDropdown";
+
 interface ActionIconProps {
-  todo: TodoResponse["todos"][number];
+  todo: TeamIdTodosGet200Response["todos"][number];
   onOpenTodoModal: (todoId: number) => void;
   onOpenDeletePopup: (todoId: number) => void;
   isTouched: boolean;
@@ -32,7 +32,6 @@ export function ActionIcon({
   const pathname = usePathname();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
   const actionRef = useRef<HTMLUListElement>(null);
 
   const handleNoteDetail = () => {
@@ -42,41 +41,39 @@ export function ActionIcon({
     router.push(`${pathname}${pageRoutes.noteCreate(todo.id)}`);
   };
 
+  const handleOpenUrl = (url: string | null) => {
+    if (url) window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  const handleToggleDropdown = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsOpen((prev) => !prev);
+  };
+
   const hoverIconStyle = `hover-icon-style opacity-0 invisible -ml-6 group-hover:opacity-100 group-hover:visible group-hover:ml-0 hover:shadow-md transition-all duration-150 ${(isOpen || isTouched) && "opacity-100 visible ml-0"}`;
   const actions = [
     todo.fileUrl && {
       src: "/icons/file.png",
       alt: "첨부파일",
-      onClick: () => {
-        if (todo.fileUrl)
-          window.open(todo.fileUrl, "_blank", "noopener,noreferrer");
-      },
+      onClick: () => handleOpenUrl(todo.fileUrl),
     },
     todo.linkUrl && {
       src: "/icons/link.png",
       alt: "첨부링크",
-      onClick: () => {
-        if (todo.linkUrl)
-          window.open(todo.linkUrl, "_blank", "noopener,noreferrer");
-      },
+      onClick: () => handleOpenUrl(todo.linkUrl),
     },
     {
       src: todo.noteId ? "/icons/note-view.png" : "/icons/note-write.png",
       alt: todo.noteId ? "노트보기" : "노트작성",
       className: todo.noteId ? "" : hoverIconStyle,
-      onClick: todo.noteId
-        ? () => handleNoteDetail()
-        : () => handleNoteCreation(),
+      onClick: todo.noteId ? handleNoteDetail : handleNoteCreation,
       role: "button",
     },
     {
       src: "/icons/kebab.png",
       alt: "수정,삭제",
       className: hoverIconStyle,
-      onClick: (e: React.MouseEvent) => {
-        e.stopPropagation();
-        setIsOpen((prev) => !prev);
-      },
+      onClick: handleToggleDropdown,
       role: "button",
     },
   ].filter(Boolean) as ActionOptions[];
@@ -90,17 +87,6 @@ export function ActionIcon({
       },
     },
   ];
-
-  // 드롭다운 위치 계산
-  useEffect(() => {
-    if (isOpen && actionRef.current) {
-      const rect = actionRef.current.getBoundingClientRect();
-      setDropdownPosition({
-        top: rect.bottom + window.scrollY + 2,
-        left: rect.right + window.scrollX - 81,
-      });
-    }
-  }, [isOpen]);
 
   return (
     <ul ref={actionRef} className="relative flex flex-shrink-0 transition">
@@ -125,20 +111,12 @@ export function ActionIcon({
         );
       })}
 
-      {createPortal(
-        <ActionDropdown
-          items={dropdownItems}
-          className="z-50 min-w-[81px]"
-          style={{
-            top: `${dropdownPosition.top}px`,
-            left: `${dropdownPosition.left}px`,
-            position: "absolute",
-          }}
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-        />,
-        document.body,
-      )}
+      <TodoActionDropdown
+        isOpen={isOpen}
+        items={dropdownItems}
+        onClose={setIsOpen}
+        anchorRef={actionRef}
+      />
     </ul>
   );
 }
