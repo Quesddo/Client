@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useMemo } from "react";
+import { Dispatch, RefObject, SetStateAction, useMemo } from "react";
 import { createPortal } from "react-dom";
 
 import ActionDropdown from "@/components/atoms/action-dropdown/ActionDropdown";
@@ -7,7 +7,7 @@ interface TodoActionDropdownProps {
   isOpen: boolean;
   items: { label: string; onClick: () => void }[];
   onClose: Dispatch<SetStateAction<boolean>>;
-  anchorRef: React.RefObject<HTMLUListElement | null>;
+  anchorRef: RefObject<HTMLUListElement | null>;
 }
 
 export function TodoActionDropdown({
