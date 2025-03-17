@@ -7,14 +7,14 @@ type GoalCreationFormProps = {
 export default (function GoalCreationForm({ onSubmit }: GoalCreationFormProps) {
   return (
     <form
-      className="box-border flex w-full flex-col gap-2 rounded-lg bg-white text-sm font-medium"
+      className="box-border flex w-full flex-col gap-2 rounded-lg bg-white"
       onSubmit={onSubmit}
     >
       <Input
         placeholder="목표를 입력하세요"
         autoFocus
         name="title"
-        className="rounded-[12px]"
+        className="rounded-[12px] text-base font-medium"
       />
     </form>
   );
