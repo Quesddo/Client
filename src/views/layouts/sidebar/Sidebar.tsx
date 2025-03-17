@@ -8,7 +8,7 @@ import { cn } from "@/utils/cn/cn";
 import MenuDashboard from "@/views/layouts/sidebar/components/MenuDashBoard";
 import Profile from "@/views/layouts/sidebar/components/Profile";
 
-import MenuGoal from "./components/goals/MenuGoal";
+import MenuGoal from "./components/goals/menu-goal/MenuGoal";
 import SidebarHeader from "./components/SidebarHeader";
 
 const TABLET_BREAKPOINT = 964;

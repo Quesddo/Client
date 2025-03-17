@@ -5,11 +5,11 @@ import { useCreateGoal } from "@/hooks/goal/useCreateGoal";
 import useToast from "@/hooks/useToast";
 import { cn } from "@/utils/cn/cn";
 
-import AddButton from "../AddButton";
-import MenuItem from "../MenuItem";
-import GoalCreationForm from "./GoalCreationForm";
-import GoalToast from "./GoalToast";
-import TabSideMenuList from "./TabSideMenuList";
+import AddButton from "../../AddButton";
+import MenuItem from "../../MenuItem";
+import GoalCreationForm from "../GoalCreationForm";
+import GoalToast from "../GoalToast";
+import TabSideMenuList from "../TabSideMenuList";
 
 export default memo(function MenuGoal() {
   const ulRef = useRef<HTMLUListElement>(null);

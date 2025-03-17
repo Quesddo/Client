@@ -4,10 +4,11 @@ type GoalCreationFormProps = {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 };
 
-export default (function GoalCreationForm({ onSubmit }: GoalCreationFormProps) {
+export default function GoalCreationForm({ onSubmit }: GoalCreationFormProps) {
   return (
     <form
       className="box-border flex w-full flex-col gap-2 rounded-lg bg-white"
+      aria-label="form"
       onSubmit={onSubmit}
     >
       <Input
@@ -18,4 +19,4 @@ export default (function GoalCreationForm({ onSubmit }: GoalCreationFormProps) {
       />
     </form>
   );
-});
+}
