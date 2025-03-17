@@ -1,10 +1,11 @@
 import { useRouter } from "next/router";
 import { Suspense } from "react";
 
+import Button from "@/components/atoms/button/Button";
 import ExitBtn from "@/components/atoms/exit-btn/ExitBtn";
 import Spinner from "@/components/atoms/spinner/Spinner";
 
-import EditDeleteBtns from "./components/EditDeleteBtns";
+import ActionBtns from "./components/ActionBtns";
 import NoteDetailContent from "./components/NoteDetailContent";
 
 export default function NoteDetail() {
@@ -27,8 +28,8 @@ export default function NoteDetail() {
         onClick={(e) => e.stopPropagation()}
         className="box-border flex h-full w-full flex-col gap-4 overflow-y-auto border-l border-slate-200 bg-white p-4 break-words whitespace-pre-wrap sm:w-[512px] md:w-[800px] md:p-6"
       >
-        <div className="relative flex justify-between">
-          <EditDeleteBtns noteId={Number(noteId)} />
+        <div className="relative flex items-center justify-between">
+          <ActionBtns noteId={Number(noteId)} />
           <ExitBtn onClick={handleCloseSidebar} />
         </div>
 
