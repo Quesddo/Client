@@ -37,21 +37,6 @@ export const useAutoSaveNoteDraft = <T extends FieldValues>({
   const toastIntervalRef = useRef<NodeJS.Timeout>(null);
 
   const saveDraftNoteAndShowToast = () => {
-    const [title, plainContent, linkUrl] = getValues([
-      "title",
-      "plainContent",
-      "linkUrl",
-    ] as Path<T>[]);
-
-    if (isEmptyNote({ title, plainContent, linkUrl })) {
-      addToast({
-        variant: "error",
-        content: "빈 노트는 저장할 수 없습니다",
-      });
-
-      return;
-    }
-
     saveDraftNote(getValues());
     addToast({
       content: "임시 저장이 완료되었습니다",
@@ -69,17 +54,44 @@ export const useAutoSaveNoteDraft = <T extends FieldValues>({
     removeInterval();
 
     toastIntervalRef.current = setInterval(() => {
+      const [title, plainContent, linkUrl] = getValues([
+        "title",
+        "plainContent",
+        "linkUrl",
+      ] as Path<T>[]);
+
+      console.log(isEmptyNote({ title, plainContent, linkUrl }));
+      if (isEmptyNote({ title, plainContent, linkUrl })) {
+        return;
+      }
+
       saveDraftNoteAndShowToast();
     }, TOAST_INTERVAL_TIME);
   };
 
   const handleClickSaveDraft = () => {
+    const [title, plainContent, linkUrl] = getValues([
+      "title",
+      "plainContent",
+      "linkUrl",
+    ] as Path<T>[]);
+
+    if (isEmptyNote({ title, plainContent, linkUrl })) {
+      addToast({
+        variant: "error",
+        content: "빈 노트는 저장할 수 없습니다",
+      });
+
+      return;
+    }
+
     saveDraftNoteAndShowToast();
     addInterval();
   };
 
   // 첫 데이터 입력 시 임시저장 토스트 시작
   useEffect(() => {
+    console.log({ isDirty });
     if (isDirty) {
       addInterval();
     }
