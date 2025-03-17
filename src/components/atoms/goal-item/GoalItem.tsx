@@ -33,7 +33,6 @@ export default function GoalItem({
     width: iconSize === "lg" ? 40 : 24,
     height: iconSize === "lg" ? 40 : 24,
     alt: "flag-goal",
-    layout: "fixed",
   };
 
   return (
