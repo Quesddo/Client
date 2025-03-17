@@ -91,7 +91,6 @@ export const useAutoSaveNoteDraft = <T extends FieldValues>({
 
   // 첫 데이터 입력 시 임시저장 토스트 시작
   useEffect(() => {
-    console.log({ isDirty });
     if (isDirty) {
       addInterval();
     }
