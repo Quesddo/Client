@@ -162,9 +162,12 @@ npm install --global yarn  // yarn 전역 설치 (필요 시)
 - 로그인: 이메일 형식 및 비밀번호 유효성 검사를 수행합니다.
 - 회원가입: 이름 입력 여부, 이메일 형식 및 계정 유무 및 비밀번호 글자 수, 비밀번호 확인란에 대한 유효성 검사를 수행합니다.
 
-  | 로그인                       |
+  | 로그인 / 회원가입                      |
   | ---------------------------- |
-  | <img src="" width = "700" /> |
+  | <img src="https://github.com/user-attachments/assets/b6e6cf78-7a95-49bf-8c79-8f449fcb3c8c" width = "700" /> |
+
+
+
 
   <br />
 
@@ -188,7 +191,7 @@ npm install --global yarn  // yarn 전역 설치 (필요 시)
 
 | 네비게이션 사이드바          |
 | ---------------------------- |
-| <img src="" width = "700" /> |
+| <img src="https://github.com/user-attachments/assets/2368c94d-d892-4e6b-a6f4-f2281dfd602a" width = "700" /> |
 
 </detail>
 
@@ -203,7 +206,8 @@ npm install --global yarn  // yarn 전역 설치 (필요 시)
 
 | 대시보드                     |
 | ---------------------------- |
-| <img src="" width = "700" /> |
+| <img src="https://github.com/user-attachments/assets/53a7ea61-2292-4c04-adcf-d3144489085e" width = "700" /> |
+
 
 <br />
 
@@ -225,9 +229,9 @@ npm install --global yarn  // yarn 전역 설치 (필요 시)
 - 해야 할 일(To Do)/완료된 일(Done) 필터링이 가능하며 40개가 넘어가면 무한스크롤로 목록이 제공됩니다.
 - 각 할 일에 대한 기능: 수정, 삭제 그리고 완료 여부를 체크할 수 있으며 노트를 생성하고 등록된 노트도 조회할 수 있습니다.
 
-| 모든 할 일 목록 페이지       |
+| 모든 할 일 목록       |
 | ---------------------------- |
-| <img src="" width = "700" /> |
+| <img src="https://github.com/user-attachments/assets/86b31350-0641-4e89-8a96-65b8c7135283" width = "700" /> |
 
 <br />
 
@@ -239,6 +243,10 @@ npm install --global yarn  // yarn 전역 설치 (필요 시)
 
 </detail>
 
+
+
+
+
 <br />
 
 <detail  open>
@@ -249,9 +257,9 @@ npm install --global yarn  // yarn 전역 설치 (필요 시)
 - 노트 모아보기 클릭 시, 목표에 속한 할 일들에 대한 노트를 모아보는 페이지로 이동합니다.
 - 목표에 대한 할 일 추가 기능이 제공되며 각 할 일(Todo, Done)은 20개를 넘으면 무한 스크롤로 목록이 제공됩니다.
 
-| 목표 별 할일 노트 모아보기   |
+| 목표 상세   |
 | ---------------------------- |
-| <img src="" width = "700" /> |
+| <img src="https://github.com/user-attachments/assets/1bd950c4-0637-4ab3-968d-f7e1248cbec0" width = "700" /> |
 
 <br />
 
@@ -270,10 +278,13 @@ npm install --global yarn  // yarn 전역 설치 (필요 시)
 
 - 목표에 속한 할 일들에 대한 모든 노트 목록을 조회할 수 있으며 작성된 노트의 제목, 노트에 해당하는 할일 제목을 볼 수 있습니다.
 - 각 노트를 수정, 삭제할 수 있고 노트 클릭 시 노트 상세가 사이드 보기로 열립니다.
+- 노트 상세에서는 노트의 목표 및 할일 제목, 노트 제목, 노트 마지막 저장일, 상세 내용을 볼 수 있습니다.
+- 첨부된 링크 클릭 시 PC 버전 기준 왼쪽에는 노트에 첨부된 링크 콘텐츠 임베드가, 오른쪽에는 에디터가 배치됩니다.
 
-| 목표 별 할일 노트 모아보기   |
+| 노트 모아보기 및 노트 상세   |
 | ---------------------------- |
-| <img src="" width = "700" /> |
+| <img src="https://github.com/user-attachments/assets/305ada18-b192-4e1b-89a0-8ed638782ad0" width = "700" /> |
+
 
 <br />
 
@@ -295,23 +306,10 @@ npm install --global yarn  // yarn 전역 설치 (필요 시)
 - 노트 작성/수정 중 페이지 이동 시 작성 중단 안내 모달을 제공합니다.
 - 첨부된 링크 클릭 시 PC 버전 기준 왼쪽에는 노트에 첨부된 링크 콘텐츠 임베드가, 오른쪽에는 에디터가 배치됩니다.
 
-| 할 일 별 노트 작성 페이지    |
+| 할 일 별 노트 작성    |
 | ---------------------------- |
-| <img src="" width = "700" /> |
+| <img src="https://github.com/user-attachments/assets/917428a1-4671-46ec-9b3d-44fadcb5f5f7" width = "700" /> |
 
-</detail>
-
-<br />
-
-<detail  open>
-<summary><h3>5.8 노트 상세</h3></summary>
-
-- 노트의 목표 및 할일 제목, 노트 제목, 노트 마지막 저장일, 상세 내용을 볼 수 있습니다.
-- 첨부된 링크 클릭 시 PC 버전 기준 왼쪽에는 노트에 첨부된 링크 콘텐츠 임베드가, 오른쪽에는 에디터가 배치됩니다.
-
-| 할일에 대한 노트 상세 조회 페이지 |
-| --------------------------------- |
-| <img src="" width = "700" />      |
 
 </detail>
 
