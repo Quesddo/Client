@@ -12,7 +12,6 @@ export default function Spinner({ size }: SpinnerProps) {
         alt="spinner"
         width={size}
         height={size}
-        layout="fixed"
       />
     </div>
   );
