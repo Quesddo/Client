@@ -32,6 +32,7 @@ jest.mock("@/apis/goalApi", () => ({
 }));
 
 describe("목표 생성 테스트", () => {
+  let queryClient: QueryClient;
   let form: HTMLElement;
   let input: HTMLElement | null;
 
@@ -39,7 +40,7 @@ describe("목표 생성 테스트", () => {
 
   // MenuGoal render 후 새 목표 버튼 클릭
   beforeEach(async () => {
-    const queryClient = new QueryClient();
+    queryClient = new QueryClient();
     queryClient.invalidateQueries = jest.fn();
 
     wrapper = ({ children }: PropsWithChildren) => (
@@ -87,7 +88,7 @@ describe("목표 생성 테스트", () => {
     });
   });
 
-  test("input에 값이 있고, 제출 성공 시 성공 토스트 호출", async () => {
+  test("input에 값이 있고, 제출 성공 시 성공 토스트 호출 및 쿼리 데이터 무효화", async () => {
     (goalApi.createGoal as jest.Mock).mockResolvedValue({
       id: 1,
       title: "New Goal",
@@ -113,6 +114,9 @@ describe("목표 생성 테스트", () => {
           }),
         }),
       );
+
+      // 무효화
+      expect(queryClient.invalidateQueries).toHaveBeenCalledTimes(1);
     });
   });
 
