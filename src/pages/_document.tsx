@@ -6,7 +6,7 @@ export default function Document() {
       <Head>
         <title>퀘스또</title>
       </Head>
-      <body className="antialiased">
+      <body className="overflow-hidden antialiased">
         <Main />
         <NextScript />
       </body>

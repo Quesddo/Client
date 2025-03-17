@@ -22,16 +22,16 @@ export default function App({ Component, pageProps }: AppProps) {
         <ToastProvider>
           <InputModalProvider>
             <TodoListActionProvider>
-              <div className="flex h-screen flex-col overflow-y-hidden sm:flex-row">
+              <div className="flex h-dvh flex-col overflow-y-hidden sm:flex-row">
                 <Sidebar />
 
                 <div className="flex-1 overflow-y-auto">
                   <Component {...pageProps} />
-                  <NoteDrawer />
-                  <TodoDrawer />
-                  <Toaster />
                 </div>
               </div>
+              <NoteDrawer />
+              <TodoDrawer />
+              <Toaster />
             </TodoListActionProvider>
           </InputModalProvider>
         </ToastProvider>
