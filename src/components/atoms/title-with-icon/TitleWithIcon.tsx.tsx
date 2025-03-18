@@ -22,7 +22,6 @@ export default function TitleWithIcon({
     width: iconSize === "lg" ? 40 : 24,
     height: iconSize === "lg" ? 40 : 24,
     alt: `${imgUrl}`,
-    layout: "fixed",
   };
 
   return (

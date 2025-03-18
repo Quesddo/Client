@@ -64,7 +64,6 @@ export default function GoalItem({ goal }: GoalItemProps) {
           alt={"arrow_right"}
           width={20}
           height={20}
-          layout="fixed"
         />
       </button>
     </li>
