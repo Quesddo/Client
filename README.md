@@ -26,9 +26,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[5.3](#53-대시보드). 대시보드  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[5.4](#54-모든-할-일-목록). 모든 할 일 목록  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[5.5](#55-목표-상세). 목표 상세  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[5.6](#56-노트-모아보기). 노트 모아보기  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[5.6](#56-노트-모아보기-및-노트-상세). 노트 모아보기 및 노트 상세  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[5.7](#57-노트-작성). 노트 작성  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[5.8](#58-노트-상세). 노트 상세  
 [6](#6-주요-도전-과제). 주요 도전 과제  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1](#61-브랜치전략). 브랜치전략  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2](#62-디자인패턴). 디자인패턴  
@@ -154,17 +153,18 @@ npm install --global yarn  // yarn 전역 설치 (필요 시)
 
 ## 5. 페이지별 기능
 
-<detail  open>
+<details  open>
 <summary>
 <h3>5.1 로그인 / 회원가입</h3>
 </summary>
 
+
 - 로그인: 이메일 형식 및 비밀번호 유효성 검사를 수행합니다.
 - 회원가입: 이름 입력 여부, 이메일 형식 및 계정 유무 및 비밀번호 글자 수, 비밀번호 확인란에 대한 유효성 검사를 수행합니다.
-
-  | 로그인 / 회원가입                      |
-  | ---------------------------- |
-  | <img src="https://github.com/user-attachments/assets/b6e6cf78-7a95-49bf-8c79-8f449fcb3c8c" width = "700" /> |
+  
+ | 로그인 / 회원가입                      |
+ | ---------------------------- |
+ | <img src="https://github.com/user-attachments/assets/b6e6cf78-7a95-49bf-8c79-8f449fcb3c8c" width = "700" /> |
 
 
 
@@ -177,11 +177,11 @@ npm install --global yarn  // yarn 전역 설치 (필요 시)
   
   </div>
 
-</detail>
+</details>
 
 <br />
 
-<detail  open>
+<details  open>
 <summary><h3>5.2 네비게이션 사이드바</h3></summary>
 
 - 로그인한 계정 정보를 확인할 수 있고 로그아웃 버튼으로 유저 로그아웃할 수 있습니다.
@@ -193,11 +193,11 @@ npm install --global yarn  // yarn 전역 설치 (필요 시)
 | ---------------------------- |
 | <img src="https://github.com/user-attachments/assets/2368c94d-d892-4e6b-a6f4-f2281dfd602a" width = "700" /> |
 
-</detail>
+</details>
 
 <br />
 
-<detail  open>
+<details  open>
 <summary><h3>5.3 대시보드</h3></summary>
 
 - 최근 등록한 할 일: 가장 최근에 생성한 할 일이 나오고 (각 할 일에 대한 기능)이 제공됩니다. 모두보기 버튼 클릭으로 모든 할 일 목록으로 이동합니다.
@@ -217,11 +217,11 @@ npm install --global yarn  // yarn 전역 설치 (필요 시)
   
   </div>
 
-</detail>
+</details>
 
 <br />
 
-<detail  open>
+<details  open>
 <summary><h3>5.4 모든 할 일 목록</h3></summary>
 
 - 모든 할 일 목록을 조회하고 생성할 수 있으며 할 일에 등록된 목표가 있으면 함께 보입니다.
@@ -241,7 +241,7 @@ npm install --global yarn  // yarn 전역 설치 (필요 시)
   
   </div>
 
-</detail>
+</details>
 
 
 
@@ -249,7 +249,7 @@ npm install --global yarn  // yarn 전역 설치 (필요 시)
 
 <br />
 
-<detail  open>
+<details  open>
 <summary><h3>5.5 목표 상세</h3></summary>
 
 - 특정 목표의 상세 정보를 조회할 수 있고 목표를 삭제하거나 이름을 변경할 수 있습니다.
@@ -269,12 +269,12 @@ npm install --global yarn  // yarn 전역 설치 (필요 시)
   
   </div>
 
-</detail>
+</details>
 
 <br />
 
-<detail  open>
-<summary><h3>5.6 노트 모아보기</h3></summary>
+<details  open>
+<summary><h3>5.6 노트 모아보기 및 노트 상세</h3></summary>
 
 - 목표에 속한 할 일들에 대한 모든 노트 목록을 조회할 수 있으며 작성된 노트의 제목, 노트에 해당하는 할일 제목을 볼 수 있습니다.
 - 각 노트를 수정, 삭제할 수 있고 노트 클릭 시 노트 상세가 사이드 보기로 열립니다.
@@ -294,11 +294,11 @@ npm install --global yarn  // yarn 전역 설치 (필요 시)
   
   </div>
 
-</detail>
+</details>
 
 <br />
 
-<detail  open>
+<details  open>
 <summary><h3>5.7 노트 작성</h3></summary>
 
 - 링크를 첨부할 수 있는 에디터를 제공합니다.
@@ -311,7 +311,7 @@ npm install --global yarn  // yarn 전역 설치 (필요 시)
 | <img src="https://github.com/user-attachments/assets/917428a1-4671-46ec-9b3d-44fadcb5f5f7" width = "700" /> |
 
 
-</detail>
+</details>
 
 <br />
 
