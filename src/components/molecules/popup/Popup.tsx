@@ -20,6 +20,7 @@ export default function Popup({
       <div
         onClick={onClose}
         className="fixed inset-0 z-50 w-full bg-black/50"
+        data-testid="popup-overlay"
       ></div>
       <div
         className={cn(
