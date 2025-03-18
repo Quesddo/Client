@@ -32,18 +32,15 @@ type InputElementProps = Omit<
 
 const RefInput = forwardRef<HTMLInputElement, InputElementProps>(
   ({ className, size, ...props }, ref) => {
-    const sizeProps = typeof size === "number" ? { size } : {};
-
     return (
       <input
         ref={ref}
         className={cn(
           inputVariants({
-            size: typeof size !== "number" ? size : undefined,
+            size,
             className,
           }),
         )}
-        {...sizeProps}
         {...props}
       />
     );
