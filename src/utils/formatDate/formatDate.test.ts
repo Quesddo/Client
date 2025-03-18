@@ -35,6 +35,19 @@ describe("formatDate 함수 테스트", () => {
     );
   });
 
+  test("빈 값 입력 시 빈 문자열 반환", () => {
+    expect(formatDate(undefined)).toBe("");
+  });
+
+  test("지원되지 않는 타입 입력 시 예외 발생", () => {
+    const invalidInputs = [{}, [], true];
+    invalidInputs.forEach((input) => {
+      expect(() => formatDate(input as never)).toThrow(
+        "유효하지 않은 날짜 형식입니다.",
+      );
+    });
+  });
+
   test("숫자 범위를 초과하는 타임스탬프를 입력하면 예외를 발생", () => {
     expect(() => formatDate(9999999999999999)).toThrow(
       "유효하지 않은 날짜 형식입니다.",
