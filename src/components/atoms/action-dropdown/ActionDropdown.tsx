@@ -88,6 +88,7 @@ export default function ActionDropdown({
 
           {/* dropdown 외부를 덮고있는 레이어 (드롭다운 외부 클릭 시 닫혀야 함) */}
           <div
+            data-testid="dropdown-overlay"
             className="fixed inset-0 z-1 bg-transparent"
             onClick={closeDropdown}
           />
