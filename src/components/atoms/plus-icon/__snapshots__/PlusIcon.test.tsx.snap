@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageTitle Component 스냅샷 테스트 1`] = `
+<div>
+  <h1
+    class="text-base font-semibold text-slate-900 sm:text-lg"
+  >
+    스냅샷 테스트
+  </h1>
+</div>
+`;

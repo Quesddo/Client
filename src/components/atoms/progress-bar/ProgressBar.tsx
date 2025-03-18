@@ -12,6 +12,7 @@ export default function ProgressBar({ progress }: ProgressBarProps) {
         initial={{ width: 0 }}
         animate={{ width: `${progress}%` }}
         transition={{ duration: 1, ease: "easeOut" }}
+        data-testid="progress-fill"
       />
     </div>
   );
